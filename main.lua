@@ -1,3 +1,5 @@
+require("T54")
+
 function love.load()
     love.window.setTitle("На запад!")
     
@@ -11,10 +13,10 @@ function love.load()
     
     gamefont = love.graphics.newFont("Russian.ttf", 50)
     
-    
-    
     alpha = 0
     x = 500
+
+    T54:load()
 end
  
 function love.update(dt)
@@ -22,8 +24,12 @@ function love.update(dt)
    
     if alpha <= 0.7 then
         alpha = alpha + 0.05 * dt
-    end
-end    
+    end 
+
+    T54:update(dt)
+end
+
+
 
 function love.draw()
     love.graphics.setColor(1, 1, 1)
@@ -31,9 +37,10 @@ function love.draw()
     
     love.graphics.setColor(1, 0, 0, alpha)
     love.graphics.draw(logo,love.graphics.getWidth()/ 2 - width/ 10, love.graphics.getHeight()/ 2 - height/ 10, 0, 0.2, 0.2)
-
     
     love.graphics.setColor(1, 0, 0)
     love.graphics.setFont(gamefont, 50)
     love.graphics.print("На запад!", x)
+
+    T54:draw()
 end
