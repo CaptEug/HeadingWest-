@@ -96,10 +96,12 @@ function T54:update(dt)
 end    
 
 function T54:draw()
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.setFont(love.graphics.newFont(15))
     love.graphics.print('angle: '..angle1,10,10)
     love.graphics.print('angle: '..arrow.angle,10,25)
     love.graphics.print('speed: '..arrow.speed,10,40)
     love.graphics.print('turnspeed: '..arrow.turnspeed,10,55)
-    love.graphics.setColor(1, 1, 1)
+    
     love.graphics.draw(a,arrow.x,arrow.y,arrow.angle + 1.57,0.2,0.2,aw/2,ah/2)
 end
