@@ -40,17 +40,13 @@ function love.draw()
     --love.graphics.setColor(1, 1, 1)
     --love.graphics.draw(video,love.graphics.getWidth()/ 2 - widthVideo/ 2, love.graphics.getHeight()/ 2 - heightVideo/ 2)
     
-<<<<<<< HEAD
+
     if time > 5 then
         love.graphics.setColor(1, 0, 0, alpha)
         love.graphics.draw(logo,love.graphics.getWidth()/ 2 - width/ 10, love.graphics.getHeight()/ 2 - height/ 10, 0, 0.2, 0.2)
     end
-=======
-    if time > 25 then
-        love.graphics.setColor(1, 0, 0, alpha)
-        love.graphics.draw(logo,love.graphics.getWidth()/ 2 - width/ 10, love.graphics.getHeight()/ 2 - height/ 10, 0, 0.2, 0.2)
-    end
->>>>>>> 6a1579f24f3901f9758219daa2bd26dc99f299ee
+
+
 
     T54:draw()
 end
