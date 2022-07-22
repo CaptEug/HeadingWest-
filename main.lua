@@ -11,18 +11,26 @@ function love.load()
     gamefont = love.graphics.newFont("Russian.ttf", 50)
     
     alpha = 0
-    x = 500
-
+   
     --T54:load()
 end
  
 function love.update(dt)
-    x = x - 100 * dt
    
-    if alpha <= 0.7 then
+    time = love.timer.getTime()
+   
+    if time > 5 then
+        if alpha <= 0.7 then
         alpha = alpha + 0.05 * dt
+        end
     end 
-
+    
+    if time > 50 then
+        if alpha > 0 then
+        alpha = alpha - 0.15 * dt
+        end
+    end 
+    
     --T54:update(dt)
 end
 
@@ -32,26 +40,13 @@ function love.draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.draw(video,love.graphics.getWidth()/ 2 - widthVideo/ 2, love.graphics.getHeight()/ 2 - heightVideo/ 2)
     
-    
-    love.graphics.setColor(1, 0, 0, alpha)
-    love.graphics.draw(logo,love.graphics.getWidth()/ 2 - width/ 10, love.graphics.getHeight()/ 2 - height/ 10, 0, 0.2, 0.2)
-    
+    if time > 5 then
+        love.graphics.setColor(1, 0, 0, alpha)
+        love.graphics.draw(logo,love.graphics.getWidth()/ 2 - width/ 10, love.graphics.getHeight()/ 2 - height/ 10, 0, 0.2, 0.2)
+    end
+
     --T54:draw()
-    
-    love.graphics.setColor(1, 0, 0)
-    love.graphics.setFont(gamefont, 50)
-    love.graphics.print("На запад!", x)
 end
 
-function delay(timeDelay)
-    timePassed = 0
-    
-    function love.update(dt)
-        timePassed = timePassed + 1 * dt
-        if timePassed > timeDelay then
-            return true
-        else
-            return false    
-        end
-    end
-end
+
+
