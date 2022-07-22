@@ -12,7 +12,7 @@ function love.load()
     
     alpha = 0
    
-    --T54:load()
+    T54:load()
 end
  
 function love.update(dt)
@@ -31,7 +31,7 @@ function love.update(dt)
         end
     end 
     
-    --T54:update(dt)
+    T54:update(dt)
 end
 
 
@@ -45,7 +45,9 @@ function love.draw()
         love.graphics.draw(logo,love.graphics.getWidth()/ 2 - width/ 10, love.graphics.getHeight()/ 2 - height/ 10, 0, 0.2, 0.2)
     end
 
-    --T54:draw()
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.print('time: '..time, 10, 0)
+    T54:draw()
 end
 
 
