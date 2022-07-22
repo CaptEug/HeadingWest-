@@ -5,8 +5,8 @@ function love.load()
     video:play()
     widthVideo, heightVideo = video:getDimensions()
     
-    logo = love.graphics.newImage("planetware.png")
-    width, height = logo:getDimensions()
+    logo = love.graphics.newImage("StudioLogo.png")
+    widthlogo, heightlogo = logo:getDimensions()
     
     gamefont = love.graphics.newFont("Russian.ttf", 50)
     
@@ -20,7 +20,7 @@ function love.update(dt)
     time = love.timer.getTime()
    
     if time > 25 then
-        if alpha <= 0.7 then
+        if alpha <= 1 then
         alpha = alpha + 0.05 * dt
         end
     end 
@@ -37,20 +37,49 @@ end
 
 
 function love.draw()
+    
     love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(video,love.graphics.getWidth()/ 2 - widthVideo/ 2, love.graphics.getHeight()/ 2 - heightVideo/ 2)
+    
+    if love.graphics.getWidth() / love.graphics.getHeight() < 720 / 480 then
+        love.graphics.draw(
+            video,
+            0,
+            love.graphics.getHeight() / 2 - (heightVideo * love.graphics.getWidth())/ (2 * widthVideo),
+            0,
+            love.graphics.getWidth() / widthVideo
+        )   
+
+    else
+        love.graphics.draw(
+            video,
+            love.graphics.getWidth() / 2 - (widthVideo * love.graphics.getHeight())/ (2 * heightVideo),
+            0,
+            0,
+            love.graphics.getHeight() / heightVideo
+        )
+    end
     
     love.graphics.setColor(1, 1, 1)
     love.graphics.print('time: '..time, 10, 0)
 
-    if time > 25 then
-        love.graphics.setColor(1, 0, 0, alpha)
-        love.graphics.draw(logo,love.graphics.getWidth()/ 2 - width/ 10, love.graphics.getHeight()/ 2 - height/ 10, 0, 0.2, 0.2)
-    end
+    
+    love.graphics.setColor(1, 1, 1, alpha)
+    love.graphics.draw(
+        logo,
+        love.graphics.getWidth() / 2 - (widthlogo * love.graphics.getWidth()) / (2 * widthlogo),
+        love.graphics.getHeight() / 2 - (heightlogo * love.graphics.getWidth()) / (2 * widthlogo),
+        0,
+        love.graphics.getWidth() / widthlogo
+    )
+    
     
     love.graphics.setColor(1, 1, 1)
     T54:draw()
 end
+
+
+
+
 
 
 
