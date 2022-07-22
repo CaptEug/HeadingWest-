@@ -13,15 +13,18 @@ function T54:load()
         y = 100,
         speed = 0,
         maxspeed = 200,
-        ac = 30,
+        back_maxspeed = -80,
+        backac = 10,
+        ac = 40,
         stopac = 60,
 
         angle = 0,
         b_angle = 0,
         turnspeed = 0,
         b_turnspeed = 0,
-        maxturnsp = 1.3,
+        maxturnsp = 1,
         turnac = 0.6,
+        stopturnac = 0.6,
         b_turnac = 1,
         b_maxturnsp = 2,
     }
@@ -33,18 +36,20 @@ function T54:update(dt)
     angle1 = math.atan2(my - arrow.y,mx - arrow.x)
     distance = math.sqrt((my - arrow.y)^2+(mx - arrow.x)^2)
     stopdis = arrow.speed ^ 2 / (arrow.stopac * 2)
-    stopturndis = arrow.turnspeed ^ 2 / (arrow.turnac * 2)
+    stopturndis = arrow.turnspeed ^ 2 / (arrow.stopturnac * 2)
     b_stopturndis = arrow.b_turnspeed ^ 2 / (arrow.b_turnac * 2)
 
 
-    if arrow.maxturnsp*(-1)*0.7 > arrow.turnspeed or arrow.maxturnsp*0.7 < arrow.turnspeed then
-        if distance <= arrow.maxspeed * 0.5 then
+    if arrow.maxturnsp*(-1)*0.6 > arrow.turnspeed or arrow.maxturnsp*0.6 < arrow.turnspeed then
+        if distance <= arrow.maxspeed * 0.5 and distance >=2 then
             if arrow.speed >= 0 then
-                arrow.speed = arrow.speed - 2*arrow.stopac*dt
+                arrow.speed = arrow.speed - ( arrow.stopac + arrow.ac ) * dt
+            elseif arrow.speed >= arrow.back_maxspeed then
+                arrow.speed = arrow.speed - ( arrow.backac + arrow.stopac ) * dt
             end
         else
             if arrow.speed >= arrow.maxspeed * 0.5 then 
-                arrow.speed = arrow.speed - 2*arrow.stopac*dt
+                arrow.speed = arrow.speed - ( arrow.stopac + arrow.ac ) * dt
             end
         end
     end
@@ -82,7 +87,11 @@ function T54:update(dt)
 
 
     if arrow.speed < arrow.maxspeed and distance > stopdis + 10 then
-        arrow.speed = arrow.speed + arrow.ac * dt
+        if arrow.speed >= 0 then
+            arrow.speed = arrow.speed + arrow.ac * dt
+        else
+            arrow.speed = arrow.speed + arrow.stopac * dt
+        end
     end
 
     if  distance < stopdis and arrow.speed >= 0 then
@@ -94,15 +103,29 @@ function T54:update(dt)
         arrow.turnspeed = 0   
     end
     
-
-
-
     if  turndis < stopturndis and arrow.turnspeed >= 0 then
-        arrow.turnspeed = arrow.turnspeed - arrow.turnac * dt
+        arrow.turnspeed = arrow.turnspeed - arrow.stopturnac * dt
     end
     if  turndis < stopturndis and arrow.turnspeed <= 0 then
-        arrow.turnspeed = arrow.turnspeed + arrow.turnac * dt
+        arrow.turnspeed = arrow.turnspeed + arrow.stopturnac * dt
     end
+
+    -- if distance <= arrow.maxspeed * 0.5 and distance >=2 then
+    --     if  turndis < stopturndis and arrow.turnspeed >= 0 then
+    --         arrow.turnspeed = arrow.turnspeed - arrow.stopturnac * dt
+    --     end
+    --     if  turndis < stopturndis and arrow.turnspeed <= 0 then
+    --         arrow.turnspeed = arrow.turnspeed + arrow.stopturnac * dt
+    --     end
+    -- else
+    --     if  turndis < stopturndis and arrow.turnspeed >= 0 then
+    --         arrow.turnspeed = arrow.turnspeed - arrow.stopturnac * dt
+    --     end
+    --     if  turndis < stopturndis and arrow.turnspeed <= 0 then
+    --         arrow.turnspeed = arrow.turnspeed + arrow.stopturnac * dt
+    --     end
+    -- end
+    
 
 
     if arrow.b_turnspeed < arrow.b_maxturnsp and b_turndis > b_stopturndis then
@@ -124,7 +147,11 @@ function T54:update(dt)
             arrow.angle = arrow.angle + arrow.turnspeed * dt
         else 
             if arrow.turnspeed < arrow.maxturnsp and turndis > stopturndis then
-                arrow.turnspeed = arrow.turnspeed - arrow.turnac * dt
+                if arrow.turnspeed >= 0 then
+                    arrow.turnspeed = arrow.turnspeed - arrow.stopturnac * dt
+                else
+                    arrow.turnspeed = arrow.turnspeed - arrow.turnac * dt
+                end
             end
             arrow.angle = arrow.angle + arrow.turnspeed * dt
         end
@@ -136,7 +163,11 @@ function T54:update(dt)
             arrow.angle = arrow.angle + arrow.turnspeed * dt
         else 
             if arrow.turnspeed < arrow.maxturnsp and turndis > stopturndis then
-                arrow.turnspeed = arrow.turnspeed + arrow.turnac * dt
+                if arrow.turnspeed <= 0 then
+                    arrow.turnspeed = arrow.turnspeed + arrow.stopturnac * dt
+                else
+                    arrow.turnspeed = arrow.turnspeed + arrow.turnac * dt
+                end
             end
             arrow.angle = arrow.angle + arrow.turnspeed * dt
         end
