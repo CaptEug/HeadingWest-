@@ -12,7 +12,7 @@ function T54:load()
         x = 100,
         y = 100,
         speed = 0,
-        maxspeed = 100,
+        maxspeed = 200,
         ac = 30,
         stopac = 150,
 
@@ -29,7 +29,7 @@ end
 
 function T54:update(dt)
     if arrow.maxturnsp*(-1)*0.7 > arrow.turnspeed or arrow.maxturnsp*0.7 < arrow.turnspeed then
-        if arrow.speed >= arrow.maxspeed * 0.7 then 
+        if arrow.speed >= arrow.maxspeed * 0.5 then 
             arrow.speed = arrow.speed - 2*arrow.ac*dt
         end
     end
