@@ -12,7 +12,7 @@ function T54:load()
         x = 100,
         y = 100,
         speed = 0,
-        maxspeed = 200,
+        maxspeed = 100,
         ac = 30,
         stopac = 150,
 
@@ -20,14 +20,19 @@ function T54:load()
         b_angle = 0,
         turnspeed = 0,
         b_turnspeed = 0,
-        maxturnsp = 0.8,
-        turnac = 0.3,
-        b_turnac = 0.8,
-        b_maxturnsp = 1.2,
+        maxturnsp = 1.3,
+        turnac = 0.6,
+        b_turnac = 1,
+        b_maxturnsp = 2,
     }
 end
 
 function T54:update(dt)
+    if arrow.maxturnsp*(-1)*0.7 > arrow.turnspeed or arrow.maxturnsp*0.7 < arrow.turnspeed then
+        if arrow.speed >= arrow.maxspeed * 0.7 then 
+            arrow.speed = arrow.speed - 2*arrow.ac*dt
+        end
+    end
     mx,my = love.mouse.getPosition()
     angle1 = math.atan2(my - arrow.y,mx - arrow.x)
     distance = math.sqrt((my - arrow.y)^2+(mx - arrow.x)^2)
@@ -78,14 +83,11 @@ function T54:update(dt)
 
     if distance < 2 then
         arrow.speed = 0
-        arrow.turnspeed = 0
-        
+        arrow.turnspeed = 0   
     end
     
 
-    if arrow.turnspeed < arrow.maxturnsp and turndis > stopturndis + 0.1 then
-        arrow.turnspeed = arrow.turnspeed + arrow.turnac * dt
-    end
+
 
     if  turndis < stopturndis and arrow.turnspeed >= 0 then
         arrow.turnspeed = arrow.turnspeed - arrow.turnac * dt
@@ -95,7 +97,7 @@ function T54:update(dt)
     end
 
 
-    if arrow.b_turnspeed < arrow.b_maxturnsp and b_turndis > b_stopturndis + 0.1 then
+    if arrow.b_turnspeed < arrow.b_maxturnsp and b_turndis > b_stopturndis then
         arrow.b_turnspeed = arrow.b_turnspeed + arrow.b_turnac * dt
     end
 
@@ -103,17 +105,31 @@ function T54:update(dt)
         arrow.b_turnspeed = arrow.b_turnspeed - arrow.b_turnac * dt
     end
 
-   
+    
+    m = turndis - stopturndis
+
     if arrow.angle < angle1 then 
         if 3.14*2 - angle1 + arrow.angle > angle1 - arrow.angle then
+            if arrow.turnspeed < arrow.maxturnsp and turndis > stopturndis then
+                arrow.turnspeed = arrow.turnspeed + arrow.turnac * dt
+            end
             arrow.angle = arrow.angle + arrow.turnspeed * dt
         else 
-            arrow.angle = arrow.angle - arrow.turnspeed * dt
+            if arrow.turnspeed < arrow.maxturnsp and turndis > stopturndis then
+                arrow.turnspeed = arrow.turnspeed - arrow.turnac * dt
+            end
+            arrow.angle = arrow.angle + arrow.turnspeed * dt
         end
     else
         if 3.14*2 - arrow.angle + angle1 > arrow.angle - angle1 then
-            arrow.angle = arrow.angle - arrow.turnspeed * dt
+            if arrow.turnspeed < arrow.maxturnsp and turndis > stopturndis then
+                arrow.turnspeed = arrow.turnspeed - arrow.turnac * dt
+            end
+            arrow.angle = arrow.angle + arrow.turnspeed * dt
         else 
+            if arrow.turnspeed < arrow.maxturnsp and turndis > stopturndis then
+                arrow.turnspeed = arrow.turnspeed - arrow.turnac * dt
+            end
             arrow.angle = arrow.angle + arrow.turnspeed * dt
         end
     end
@@ -165,6 +181,7 @@ function T54:draw()
     love.graphics.print('angle: '..angle1,10,10)
     love.graphics.print('angle: '..arrow.angle,10,25)
     love.graphics.print('speed: '..arrow.speed,10,40)
+    love.graphics.print('turndistance: '..m,10,70)
     love.graphics.print('turnspeed: '..arrow.turnspeed,10,55)
 
     

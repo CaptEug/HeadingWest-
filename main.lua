@@ -2,7 +2,7 @@ require("T54")
 
 function love.load()
     video = love.graphics.newVideo("OP.ogv")
-    video:play()
+    --video:play()
     widthVideo, heightVideo = video:getDimensions()
     
     logo = love.graphics.newImage("planetware.png")
@@ -12,7 +12,7 @@ function love.load()
     
     alpha = 0
    
-    --T54:load()
+    T54:load()
 end
  
 function love.update(dt)
@@ -31,21 +31,21 @@ function love.update(dt)
         end
     end 
     
-    --T54:update(dt)
+    T54:update(dt)
 end
 
 
 
 function love.draw()
-    love.graphics.setColor(1, 1, 1)
-    love.graphics.draw(video,love.graphics.getWidth()/ 2 - widthVideo/ 2, love.graphics.getHeight()/ 2 - heightVideo/ 2)
+    --love.graphics.setColor(1, 1, 1)
+    --love.graphics.draw(video,love.graphics.getWidth()/ 2 - widthVideo/ 2, love.graphics.getHeight()/ 2 - heightVideo/ 2)
     
-    if time > 5 then
-        love.graphics.setColor(1, 0, 0, alpha)
-        love.graphics.draw(logo,love.graphics.getWidth()/ 2 - width/ 10, love.graphics.getHeight()/ 2 - height/ 10, 0, 0.2, 0.2)
-    end
+    --if time > 5 then
+        --love.graphics.setColor(1, 0, 0, alpha)
+        --love.graphics.draw(logo,love.graphics.getWidth()/ 2 - width/ 10, love.graphics.getHeight()/ 2 - height/ 10, 0, 0.2, 0.2)
+    --end
 
-    --T54:draw()
+    T54:draw()
 end
 
 
