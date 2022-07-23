@@ -228,6 +228,6 @@ function T54:draw()
     love.graphics.print('turnspeed: '..b_turnspeed,10,55)
 
     
-    love.graphics.draw(a,arrow.x,arrow.y,arrow.angle + 1.57 ,0.2,0.2,aw/2,ah/2)
+    love.graphics.draw(a,arrow.x,arrow.y,arrow.angle + 1.57 + 3.14,0.2,0.2,aw/2,ah/2)
     love.graphics.draw(b,arrow.x,arrow.y,arrow.b_angle + 1.57 + 3.14,0.2,0.2,bw/2,bh/2)
 end
