@@ -1,8 +1,8 @@
 T54 = {}
 
 function T54:load()
-    a = love.graphics.newImage('T-5455hullbody.png')
-    b = love.graphics.newImage('T-54 turret .png')
+    a = love.graphics.newImage('MAUS hull.png')
+    b = love.graphics.newImage('MAUS turret.png')
     aw , ah = a:getDimensions()
     bw , bh = b:getDimensions()
     
@@ -12,22 +12,22 @@ function T54:load()
         x = 500,
         y = 500,
         speed = 0,
-        maxspeed = 200,
-        back_maxspeed = -80,
+        maxspeed = 80,
+        back_maxspeed = -20,
         backac = 10,
-        ac = 40,
-        stopac = 60,
+        ac = 20,
+        stopac = 50,
 
         angle = 0,
         b_angle = 0,
         turnspeed = 0,
         b_selfturnspeed = 0,
-        maxturnsp = 1,
-        turnac = 0.4,
-        stopturnac = 0.8,
-        b_turnac = 0.8,
-        b_stopturnac = 0.8,
-        b_maxturnsp = 0.8,
+        maxturnsp = 0.5,
+        turnac = 0.1,
+        stopturnac = 0.3,
+        b_turnac = 0.2,
+        b_stopturnac = 0.6,
+        b_maxturnsp = 0.3,
     }
 end
 
@@ -228,6 +228,6 @@ function T54:draw()
     love.graphics.print('turnspeed: '..b_turnspeed,10,55)
 
     
-    love.graphics.draw(a,arrow.x,arrow.y,arrow.angle + 1.57,0.2,0.2,aw/2,ah/2)
-    love.graphics.draw(b,arrow.x,arrow.y,arrow.b_angle + 1.57,0.2,0.2,bw/2,bh/2)
+    love.graphics.draw(a,arrow.x,arrow.y,arrow.angle + 1.57 + 3.14,0.2,0.2,aw/2,ah/2)
+    love.graphics.draw(b,arrow.x,arrow.y,arrow.b_angle + 1.57 + 3.14,0.2,0.2,bw/2,bh/2)
 end
