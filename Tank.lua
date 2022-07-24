@@ -1,8 +1,8 @@
-T54 = {}
+Tank = {}
 
-function T54:load()
-    a = love.graphics.newImage('MAUS hull.png')
-    b = love.graphics.newImage('MAUS turret.png')
+function Tank:load()
+    a = love.graphics.newImage('tanks/other/MAUS/MAUS hull.png')
+    b = love.graphics.newImage('tanks/other/MAUS/MAUS turret.png')
     aw , ah = a:getDimensions()
     bw , bh = b:getDimensions()
     
@@ -31,7 +31,7 @@ function T54:load()
     }
 end
 
-function T54:update(dt)
+function Tank:update(dt)
     b_turnspeed = arrow.b_selfturnspeed + arrow.turnspeed
     mx,my = love.mouse.getPosition()
     angle1 = math.atan2(my - arrow.y,mx - arrow.x)
@@ -219,7 +219,7 @@ function T54:update(dt)
     arrow.x = arrow.x + arrow.speed * cos * dt
 end    
 
-function T54:draw()
+function Tank:draw()
     
     love.graphics.print('angle: '..angle1,10,10)
     love.graphics.print('angle: '..arrow.angle,10,25)
@@ -228,6 +228,6 @@ function T54:draw()
     love.graphics.print('turnspeed: '..b_turnspeed,10,55)
 
     
-    love.graphics.draw(a,arrow.x,arrow.y,arrow.angle + 1.57 + 3.14,0.2,0.2,aw/2,ah/2)
-    love.graphics.draw(b,arrow.x,arrow.y,arrow.b_angle + 1.57 + 3.14,0.2,0.2,bw/2,bh/2)
+    love.graphics.draw(a,arrow.x,arrow.y,arrow.angle + 1.57,0.2,0.2,aw/2,ah/2)
+    love.graphics.draw(b,arrow.x,arrow.y,arrow.b_angle + 1.57,0.2,0.2,bw/2,bh/2)
 end

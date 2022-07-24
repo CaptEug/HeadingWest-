@@ -1,4 +1,4 @@
-require("T54")
+require("Tank")
 
 function love.load()
     camera = require 'libraries/camera'
@@ -17,7 +17,7 @@ function love.load()
     
     alpha = 0
    
-    T54:load()
+    Tank:load()
 
     Center = {
         x = love.graphics.getWidth() / 2, 
@@ -43,7 +43,7 @@ function love.update(dt)
         end
     end 
     
-    T54:update(dt)
+    Tank:update(dt)
 
     if love.keyboard.isDown("w") then
         Center.y = Center.y - 5
@@ -115,7 +115,7 @@ function love.draw()
     cam:attach()
         
         gamemap:drawLayer(gamemap.layers["Ground"])
-        T54:draw()
+        Tank:draw()
     cam:detach()    
 end
 
