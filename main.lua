@@ -28,7 +28,6 @@ end
 
 
 function love.update(dt)
-   
     time = love.timer.getTime()
    
     if time > 25 then
@@ -67,6 +66,24 @@ function love.update(dt)
     end
 
     cam:lookAt(Center.x, Center.y)
+
+    local w, h = love.graphics.getWidth(), love.graphics.getHeight()
+    if cam.x < w / 2 then
+        cam.x = w / 2
+    end
+    if cam.y < h / 2 then
+        cam.y = h / 2
+    end
+    
+    local mapw, maph = gamemap.width * gamemap.tilewidth, gamemap.height * gamemap.tileheight
+    if cam.x > mapw / 2 then
+        cam.x = mapw / 2
+    end
+    if cam.y > maph / 2 then
+        cam.y = maph / 2
+    end
+    
+    
 end
 
 
@@ -117,7 +134,6 @@ function love.draw()
 --    end
     
     love.graphics.setColor(1, 1, 1)
-    
     
     cam:attach()
         gamemap:drawLayer(gamemap.layers["Ground"])
