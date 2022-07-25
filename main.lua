@@ -58,6 +58,13 @@ function love.update(dt)
         Center.x = Center.x + 5
     end
     
+    function love.wheelmoved(x, y)
+        if y > 0 then
+            cam:zoom(1.1)
+        elseif y < 0 then
+            cam:zoom(0.9)
+        end
+    end
 
     cam:lookAt(Center.x, Center.y)
 end
@@ -113,7 +120,6 @@ function love.draw()
     
     
     cam:attach()
-        
         gamemap:drawLayer(gamemap.layers["Ground"])
         Tank:draw()
     cam:detach()    
