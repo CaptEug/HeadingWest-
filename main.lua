@@ -35,7 +35,6 @@ function love.update(dt)
         alpha = alpha + 0.05 * dt
         end
     end 
-    
     if time > 50 then
         if alpha > 0 then
         alpha = alpha - 0.15 * dt
@@ -56,6 +55,23 @@ function love.update(dt)
     if love.keyboard.isDown("d") then
         Center.x = Center.x + 5
     end
+        
+    cam:lookAt(Center.x, Center.y)
+    
+    local w, h = love.graphics.getWidth(), love.graphics.getHeight()
+    if Center.x < w / 2 then
+        Center.x = w / 2
+    end
+    if Center.y < h / 2 then
+        Center.y = h / 2
+    end
+    local mapw, maph = gamemap.width * gamemap.tilewidth, gamemap.height * gamemap.tileheight
+    if Center.x > (mapw - w / 2) then
+        Center.x =(mapw - w / 2) 
+    end
+    if Center.y > (maph - h / 2) then
+        Center.y =(maph - h / 2)
+    end 
     
     function love.wheelmoved(x, y)
         if y > 0 then
@@ -64,26 +80,11 @@ function love.update(dt)
             cam:zoom(0.9)
         end
     end
+    
+    if love.graphics.getWidth() > mapw then
+            cam:zoomto(mapw)
+    end
 
-    cam:lookAt(Center.x, Center.y)
-
-    local w, h = love.graphics.getWidth(), love.graphics.getHeight()
-    if cam.x < w / 2 then
-        cam.x = w / 2
-    end
-    if cam.y < h / 2 then
-        cam.y = h / 2
-    end
-    
-    local mapw, maph = gamemap.width * gamemap.tilewidth, gamemap.height * gamemap.tileheight
-    if cam.x > mapw / 2 then
-        cam.x = mapw / 2
-    end
-    if cam.y > maph / 2 then
-        cam.y = maph / 2
-    end
-    
-    
 end
 
 
