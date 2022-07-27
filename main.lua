@@ -1,4 +1,5 @@
 require("Tank")
+wf = require 'windfield'
 
 function love.load()
     camera = require 'libraries/camera'
@@ -23,12 +24,25 @@ function love.load()
         x = love.graphics.getWidth() / 2, 
         y = love.graphics.getWidth() / 2
     }
+    world = wf.newWorld(0, 0, true)
+    world:setGravity(0, 512)
+    box = world:newRectangleCollider(400 - 50/2, 0, 50, 50)
+    box:setRestitution(0.8)
+    box:applyAngularImpulse(5000)
+
+    ground = world:newRectangleCollider(0, 550, 800, 50)
+    wall_left = world:newRectangleCollider(0, 0, 50, 600)
+    wall_right = world:newRectangleCollider(750, 0, 50, 600)
+    ground:setType('static') -- Types can be 'static', 'dynamic' or 'kinematic'. Defaults to 'dynamic'
+    wall_left:setType('static')
+    wall_right:setType('static')
 end
  
 
 
 function love.update(dt)
     time = love.timer.getTime()
+    world:update(dt)
    
     if time > 25 then
         if alpha <= 1 then
@@ -90,6 +104,7 @@ end
 
 
 function love.draw()
+    world:draw() -- The world can be drawn for debugging purposes
     
 --    love.graphics.setColor(1, 1, 1)
     
@@ -140,6 +155,8 @@ function love.draw()
         gamemap:drawLayer(gamemap.layers["Ground"])
         Tank:draw()
     cam:detach()    
+    world:draw() -- The world can be drawn for debugging purposes
+    
 end
 
 
