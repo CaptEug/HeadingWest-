@@ -1,11 +1,9 @@
-require("Tank")
-wf = require 'windfield'
+require 'chapters/Berlin'
+
+
 
 function love.load()
-    camera = require 'libraries/camera'
-    cam = camera()
-    sti = require 'libraries/sti'
-    gamemap = sti('maps/Berlin1.lua')
+    Berlin:load()
     
     video = love.graphics.newVideo("OP.ogv")
     --video:play()
@@ -18,7 +16,6 @@ function love.load()
     
     alpha = 0
    
-    Tank:load()
 
     Center = {
         x = love.graphics.getWidth() / 2, 
@@ -43,6 +40,8 @@ end
 function love.update(dt)
     time = love.timer.getTime()
     world:update(dt)
+
+    Berlin:update(dt)
    
     if time > 25 then
         if alpha <= 1 then
@@ -55,7 +54,6 @@ function love.update(dt)
         end
     end 
     
-    Tank:update(dt)
 
     if love.keyboard.isDown("w") then
         Center.y = Center.y - 5
@@ -104,6 +102,7 @@ end
 
 
 function love.draw()
+    Berlin:draw()
     world:draw() -- The world can be drawn for debugging purposes
     
 --    love.graphics.setColor(1, 1, 1)
@@ -150,11 +149,7 @@ function love.draw()
 --    end
     
     love.graphics.setColor(1, 1, 1)
-    
-    cam:attach()
-        gamemap:drawLayer(gamemap.layers["Ground"])
-        Tank:draw()
-    cam:detach()    
+     
     world:draw() -- The world can be drawn for debugging purposes
     
 end
