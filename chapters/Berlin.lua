@@ -35,10 +35,10 @@ end
 
 function Berlin:draw()
     cam:attach()
-        gamemap:drawLayer(gamemap.layers["ground"])
+        --gamemap:drawLayer(gamemap.layers["ground"])
         Tank:draw()
-        gamemap:drawLayer(gamemap.layers["veg"])
-        gamemap:drawLayer(gamemap.layers["top"])
+        --gamemap:drawLayer(gamemap.layers["veg"])
+        --gamemap:drawLayer(gamemap.layers["top"])
         world:draw()
     cam:detach()
 end
