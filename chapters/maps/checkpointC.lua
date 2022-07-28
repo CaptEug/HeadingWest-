@@ -395,65 +395,6 @@ return {
           properties = {}
         },
         {
-          id = 17,
-          name = "",
-          class = "",
-          shape = "polygon",
-          x = 640,
-          y = 1152,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = 1024, y = 0 },
-            { x = 1024, y = 1152 },
-            { x = 512, y = 1152 },
-            { x = 0, y = 640 }
-          },
-          properties = {}
-        },
-        {
-          id = 18,
-          name = "",
-          class = "",
-          shape = "polygon",
-          x = 0,
-          y = 2176,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = 640, y = 640 },
-            { x = 640, y = 1152 },
-            { x = 0, y = 1152 }
-          },
-          properties = {}
-        },
-        {
-          id = 19,
-          name = "",
-          class = "",
-          shape = "polygon",
-          x = 896,
-          y = 2944,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = 0, y = 128 },
-            { x = 640, y = 768 },
-            { x = 768, y = 768 },
-            { x = 768, y = 0 }
-          },
-          properties = {}
-        },
-        {
           id = 21,
           name = "",
           class = "",
