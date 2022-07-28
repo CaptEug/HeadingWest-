@@ -5,6 +5,8 @@ function Tank:load()
     b = love.graphics.newImage('tanks/other/MAUS/MAUS turret.png')
     aw , ah = a:getDimensions()
     bw , bh = b:getDimensions()
+    wf = require 'libraries/windfield'
+    world = wf.newWorld(0,0)
     
     alpha = 0
     x = 500
@@ -29,6 +31,8 @@ function Tank:load()
         b_stopturnac = 0.6,
         b_maxturnsp = 0.3,
     }
+    arrow.tankbox = world:newRectangleCollider(arrow.x, arrow.y, aw*0.1, ah*0.1)
+    
 end
 
 function Tank:update(dt)
@@ -221,8 +225,8 @@ end
 
 function Tank:draw()
     
-    love.graphics.print('angle: '..angle1,10,10)
-    love.graphics.print('angle: '..arrow.angle,10,25)
+    love.graphics.print('aw: '..aw,10,10)
+    love.graphics.print('ah: '..ah,10,25)
     love.graphics.print('speed: '..arrow.speed,10,40)
     love.graphics.print('turndistance: '..m,10,70)
     love.graphics.print('turnspeed: '..b_turnspeed,10,55)
