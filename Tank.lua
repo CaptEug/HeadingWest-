@@ -10,7 +10,7 @@ function Tank:load(tank)
     arrow = {
         x = 500,
         y = 500,
-        speed = 200,
+        speed = 10000,
         maxspeed = 0,
         back_maxspeed = 0,
         backac = 10,
