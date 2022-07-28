@@ -148,15 +148,6 @@
   <object id="14" x="3072" y="2944" width="768" height="1152"/>
   <object id="15" x="2304" y="3456" width="640" height="640"/>
   <object id="16" x="2944" y="3584" width="128" height="512"/>
-  <object id="17" x="640" y="1152">
-   <polygon points="0,0 1024,0 1024,1152 512,1152 0,640"/>
-  </object>
-  <object id="18" x="0" y="2176">
-   <polygon points="0,0 640,640 640,1152 0,1152"/>
-  </object>
-  <object id="19" x="896" y="2944">
-   <polygon points="0,0 0,128 640,768 768,768 768,0"/>
-  </object>
   <object id="21" x="4480" y="2048" width="256" height="256"/>
   <object id="22" x="4992" y="1152" width="128" height="1152"/>
   <object id="23" x="2304" y="1152" width="384" height="1152"/>
