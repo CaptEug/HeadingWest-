@@ -1,5 +1,5 @@
 require 'chapters/Berlin'
-
+require 'playCG'
 
 
 function love.load()
@@ -14,6 +14,8 @@ end
 
 
 function love.update(dt)
+    CG1:playCG(dt)
+
     Berlin:update(dt)
     
     if love.keyboard.isDown("w") then
