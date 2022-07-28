@@ -83,9 +83,7 @@ function love.update(dt)
         end
     end
     
-    if love.graphics.getWidth() > mapw then
-            cam:zoomto(mapw)
-    end
+    
 
 end
 
