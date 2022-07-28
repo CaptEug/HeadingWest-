@@ -1,9 +1,11 @@
 require 'chapters/Berlin'
-require 'playCG'
+require 'CGplayer'
 
 
 function love.load()
     Berlin:load()
+
+    cg1 = CG.new('CGs/OP.ogv')
 
     Center = {
         x = love.graphics.getWidth() / 2, 
@@ -14,8 +16,6 @@ end
 
 
 function love.update(dt)
-    CG1:playCG(dt)
-
     Berlin:update(dt)
     
     if love.keyboard.isDown("w") then
@@ -61,4 +61,5 @@ end
 
 function love.draw()
     Berlin:draw()
+    cg1:playCG()
 end

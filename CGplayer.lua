@@ -1,17 +1,17 @@
 CG = {}
 CG.__index = CG
 
+function CG.new(filename)
+    local instance = setmetatable({}, CG)
+    instance.video = love.graphics.newVideo(filename)
+    return instance
+end
 
-
-CG1 = love.graphics.newVideo('OP.ogv')
-
-
-
-function CG:playCG(dt)
-    self:play()
+function CG:playCG()
+    self.video:play()
     if love.graphics.getWidth() / love.graphics.getHeight() < 720 / 480 then
         love.graphics.draw(
-            self,
+            self.video,
             0,
             love.graphics.getHeight() / 2 - (480 * love.graphics.getWidth())/ (2 * 720),
             0,
@@ -19,7 +19,7 @@ function CG:playCG(dt)
         )   
     else
         love.graphics.draw(
-            self,
+            self.video,
             love.graphics.getWidth() / 2 - (720 * love.graphics.getHeight())/ (2 * 480),
             0,
             0,
