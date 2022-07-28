@@ -10,18 +10,18 @@ function Tank:load(tank)
     arrow = {
         x = 500,
         y = 500,
-        speed = 10000,
-        maxspeed = 0,
+        speed = 0,
+        maxspeed = 200,
         back_maxspeed = 0,
         backac = 10,
-        ac = 0,
+        ac = 20,
         stopac = 50,
 
         angle = 0,
         b_angle = 0,
         turnspeed = 0,
         b_selfturnspeed = 0,
-        maxturnsp = 0,
+        maxturnsp = 0.5,
         turnac = 0.1,
         stopturnac = 0.3,
         b_turnac = 0.2,
@@ -30,6 +30,9 @@ function Tank:load(tank)
     }
     arrow.tankbox = world:newRectangleCollider(400, 300, aw*0.1*1.05, ah*0.1*0.45)
     arrow.tankbox:setFixedRotation(true)
+    va = 0 
+    vb = 0
+    vc = 0
 end
 
 function Tank:update(dt)
@@ -41,23 +44,7 @@ function Tank:update(dt)
     stopdis = arrow.speed ^ 2 / (arrow.stopac * 2)
     stopturndis = arrow.turnspeed ^ 2 / (arrow.stopturnac * 2)
     b_stopturndis = arrow.b_selfturnspeed ^ 2 / (arrow.b_stopturnac * 2) + stopturndis
-    local va = 0 
-    local vb = 0
-    if love.keyboard.isDown("up") then
-        va = arrow.speed*-1
-    end
-    if love.keyboard.isDown("down") then
-        va = arrow.speed
-    end
-    if love.keyboard.isDown("left") then
-        vb = arrow.speed*-1
-    end
-    if love.keyboard.isDown("right") then
-        vb = arrow.speed
-    end
-
-    arrow.tankbox:setLinearVelocity(vb , va)
-
+    
     if arrow.maxturnsp*(-1)*0.6 > arrow.turnspeed or arrow.maxturnsp*0.6 < arrow.turnspeed then
         if distance <= arrow.maxspeed * 0.5 and distance >=2 then
             if arrow.speed >= 0 then
@@ -235,18 +222,29 @@ function Tank:update(dt)
     arrow.y = arrow.y + arrow.speed * sin * dt
     arrow.x = arrow.x + arrow.speed * cos * dt
 
+    vb =  arrow.speed * sin 
+    va =  arrow.speed * cos 
+
     arrow.x = arrow.tankbox:getX() - aw*0.1*0.14
     arrow.y = arrow.tankbox:getY() 
+
+    arrow.angle = arrow.tankbox:getAngle()
+
+    vc = arrow.turnspeed
+    
+
+    arrow.tankbox:setLinearVelocity(va , vb)
+    arrow.tankbox:setAngularVelocity(vc)
 
 end    
 
 function Tank:draw()
     
     love.graphics.print('aw: '..aw,10,10)
-    love.graphics.print('ah: '..ah,10,25)
-    love.graphics.print('speed: '..arrow.speed,10,40)
-    love.graphics.print('turndistance: '..m,10,70)
-    love.graphics.print('turnspeed: '..b_turnspeed,10,55)
+    love.graphics.print('ah: '..arrow.speed,10,25)
+    love.graphics.print('va: '..va,10,40)
+    love.graphics.print('vb: '..vb,10,70)
+    love.graphics.print('turnspeed: '..arrow.turnspeed,10,55)
 
     
     love.graphics.draw(a,arrow.x,arrow.y,arrow.angle + 1.57,0.2,0.2,aw/2,ah/2)
