@@ -1,8 +1,8 @@
 Tank = {}
 
 function Tank:load(tank)
-    a = love.graphics.newImage('tanks/other/MAUS/MAUS hull.png')
-    b = love.graphics.newImage('tanks/other/MAUS/MAUS turret.png')
+    a = love.graphics.newImage('tanks/german/MAUS/MAUS hull.png')
+    b = love.graphics.newImage('tanks/german/MAUS/MAUS turret.png')
     aw , ah = a:getDimensions()
     bw , bh = b:getDimensions()
     

@@ -3,6 +3,9 @@ require 'CGplayer'
 
 
 function love.load()
+    camera = require 'libraries/camera'
+    cam = camera()
+    
     Berlin:load()
 
     cg1 = CG.new('CGs/OP.ogv')
