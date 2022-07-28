@@ -6,7 +6,7 @@ function Tank:load()
     aw , ah = a:getDimensions()
     bw , bh = b:getDimensions()
     wf = require 'libraries/windfield'
-    world = wf.newWorld(0,0)
+    
     
     alpha = 0
     x = 500
@@ -14,8 +14,8 @@ function Tank:load()
         x = 500,
         y = 500,
         speed = 0,
-        maxspeed = 80,
-        back_maxspeed = -20,
+        maxspeed = 0,
+        back_maxspeed = 0,
         backac = 10,
         ac = 20,
         stopac = 50,
@@ -24,18 +24,19 @@ function Tank:load()
         b_angle = 0,
         turnspeed = 0,
         b_selfturnspeed = 0,
-        maxturnsp = 0.5,
+        maxturnsp = 0,
         turnac = 0.1,
         stopturnac = 0.3,
         b_turnac = 0.2,
         b_stopturnac = 0.6,
         b_maxturnsp = 0.3,
     }
-    arrow.tankbox = world:newRectangleCollider(arrow.x, arrow.y, aw*0.1, ah*0.1)
-    
+    arrow.tankbox = world:newRectangleCollider(400, 300, aw*0.1*1.05, ah*0.1*0.45)
+    arrow.tankbox:setFixedRotation(true)
 end
 
 function Tank:update(dt)
+    
     b_turnspeed = arrow.b_selfturnspeed + arrow.turnspeed
     mx,my = love.mouse.getPosition()
     angle1 = math.atan2(my - arrow.y,mx - arrow.x)
@@ -221,6 +222,10 @@ function Tank:update(dt)
 
     arrow.y = arrow.y + arrow.speed * sin * dt
     arrow.x = arrow.x + arrow.speed * cos * dt
+
+    arrow.x = arrow.tankbox:getX() - aw*0.1*0.14
+    arrow.y = arrow.tankbox:getY() 
+
 end    
 
 function Tank:draw()

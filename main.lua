@@ -22,7 +22,7 @@ function love.load()
         y = love.graphics.getWidth() / 2
     }
 
-    wf = require 'libraries/windfield'
+    
     
 end
  
