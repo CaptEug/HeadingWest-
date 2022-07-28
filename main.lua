@@ -30,8 +30,7 @@ end
 
 function love.update(dt)
     time = love.timer.getTime()
-    world:update(dt)
-
+    
     Berlin:update(dt)
    
     if time > 25 then
@@ -84,9 +83,7 @@ function love.update(dt)
         end
     end
     
-    if love.graphics.getWidth() > mapw then
-            cam:zoomto(mapw)
-    end
+    
 
 end
 
@@ -94,7 +91,7 @@ end
 
 function love.draw()
     Berlin:draw()
-    world:draw() -- The world can be drawn for debugging purposes
+
     
 --    love.graphics.setColor(1, 1, 1)
     
@@ -138,10 +135,6 @@ function love.draw()
 --            love.graphics.getHeight() / heightlogo
 --        )
 --    end
-    
-    love.graphics.setColor(1, 1, 1)
-     
-    world:draw() -- The world can be drawn for debugging purposes
     
 end
 
