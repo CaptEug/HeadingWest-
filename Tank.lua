@@ -1,23 +1,20 @@
 Tank = {}
 
-function Tank:load()
+function Tank:load(tank)
     a = love.graphics.newImage('tanks/other/MAUS/MAUS hull.png')
     b = love.graphics.newImage('tanks/other/MAUS/MAUS turret.png')
     aw , ah = a:getDimensions()
     bw , bh = b:getDimensions()
-    wf = require 'libraries/windfield'
     
     
-    alpha = 0
-    x = 500
     arrow = {
         x = 500,
         y = 500,
-        speed = 0,
+        speed = 200,
         maxspeed = 0,
         back_maxspeed = 0,
         backac = 10,
-        ac = 20,
+        ac = 0,
         stopac = 50,
 
         angle = 0,
@@ -44,7 +41,22 @@ function Tank:update(dt)
     stopdis = arrow.speed ^ 2 / (arrow.stopac * 2)
     stopturndis = arrow.turnspeed ^ 2 / (arrow.stopturnac * 2)
     b_stopturndis = arrow.b_selfturnspeed ^ 2 / (arrow.b_stopturnac * 2) + stopturndis
+    local va = 0 
+    local vb = 0
+    if love.keyboard.isDown("up") then
+        va = arrow.speed*-1
+    end
+    if love.keyboard.isDown("down") then
+        va = arrow.speed
+    end
+    if love.keyboard.isDown("left") then
+        vb = arrow.speed*-1
+    end
+    if love.keyboard.isDown("right") then
+        vb = arrow.speed
+    end
 
+    arrow.tankbox:setLinearVelocity(vb , va)
 
     if arrow.maxturnsp*(-1)*0.6 > arrow.turnspeed or arrow.maxturnsp*0.6 < arrow.turnspeed then
         if distance <= arrow.maxspeed * 0.5 and distance >=2 then
