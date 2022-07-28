@@ -30,8 +30,7 @@ end
 
 function love.update(dt)
     time = love.timer.getTime()
-    world:update(dt)
-
+    
     Berlin:update(dt)
    
     if time > 25 then
