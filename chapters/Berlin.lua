@@ -20,7 +20,7 @@ function Berlin:load()
             table.insert(walls, wall)
         end
     end
-
+    
     Tank:load()
 end
 
