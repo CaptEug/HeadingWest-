@@ -6,7 +6,7 @@ function Tank:load()
     aw , ah = a:getDimensions()
     bw , bh = b:getDimensions()
     wf = require 'libraries/windfield'
-    world = wf.newWorld(0,0)
+    
     
     alpha = 0
     x = 500
@@ -31,7 +31,7 @@ function Tank:load()
         b_stopturnac = 0.6,
         b_maxturnsp = 0.3,
     }
-    arrow.tankbox = world:newRectangleCollider(arrow.x - aw*0.1*0.7*1.1 / 2, arrow.y - ah*0.1*0.45 / 2, aw*0.1*1.05, ah*0.1*0.45)
+    arrow.tankbox = world:newRectangleCollider(400, 300, aw*0.1*1.05, ah*0.1*0.45)
     arrow.tankbox:setFixedRotation(true)
 end
 
@@ -223,8 +223,8 @@ function Tank:update(dt)
     arrow.y = arrow.y + arrow.speed * sin * dt
     arrow.x = arrow.x + arrow.speed * cos * dt
 
-    arrow.x = arrow.tankbox:getX()
-    arrow.y = arrow.tankbox:getY()
+    arrow.x = arrow.tankbox:getX() - aw*0.1*0.14
+    arrow.y = arrow.tankbox:getY() 
 
 end    
 
