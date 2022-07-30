@@ -11,24 +11,24 @@ function Tank:load(tank)
         x = 500,
         y = 500,
         speed = 0,
-        maxspeed = 200,
-        back_maxspeed = 0,
+        maxspeed = 100,
+        back_maxspeed = 40,
         backac = 10,
         ac = 20,
         stopac = 50,
 
-        angle = 0,
+        angle = 1.57,
         b_angle = 0,
         turnspeed = 0,
         b_selfturnspeed = 0,
         maxturnsp = 0.5,
         turnac = 0.1,
-        stopturnac = 0.3,
+        stopturnac = 0.5,
         b_turnac = 0.2,
         b_stopturnac = 0.6,
         b_maxturnsp = 0.3,
     }
-    arrow.tankbox = world:newRectangleCollider(400, 300, ah*0.2, aw*0.2)
+    arrow.tankbox = world:newRectangleCollider(400, 600, aw*0.2, ah*0.2)
     arrow.tankbox:setFixedRotation(true)
     va = 0 
     vb = 0
@@ -36,8 +36,58 @@ function Tank:load(tank)
 end
 
 function Tank:update(dt)
+    if love.keyboard.isDown('up') then
+        if arrow.speed<arrow.maxspeed then
+            arrow.speed=arrow.speed+arrow.ac*dt
+        end
+    else
+        if arrow.speed>0 then
+            if arrow.speed>-0.1 and arrow.speed<0.1 then
+                arrow.speed = 0
+            end
+            arrow.speed=arrow.speed-arrow.stopac*dt
+        end
+    end
+
+    if love.keyboard.isDown('down') then
+        if arrow.speed>-arrow.back_maxspeed then
+            arrow.speed=arrow.speed-arrow.backac*dt
+        end
+    else
+        if arrow.speed<0 then
+            if arrow.speed>-0.1 and arrow.speed<0.1 then
+                arrow.speed = 0
+            end
+            arrow.speed=arrow.speed+arrow.stopac*dt
+        end
+    end
     
-    b_turnspeed = arrow.b_selfturnspeed + arrow.turnspeed
+    if love.keyboard.isDown('left') then
+        if arrow.turnspeed>-arrow.maxturnsp then
+            arrow.turnspeed=arrow.turnspeed-arrow.turnac*dt
+        end
+    else
+        if arrow.turnspeed<0 then
+            if arrow.turnspeed>-0.1 and arrow.turnspeed<0.1 then
+                arrow.turnspeed = 0
+            end
+            arrow.turnspeed=arrow.turnspeed+arrow.stopturnac*dt
+        end
+    end
+
+    if love.keyboard.isDown('right') then
+        if arrow.turnspeed<arrow.maxturnsp then
+            arrow.turnspeed=arrow.turnspeed+arrow.turnac*dt
+        end
+    else
+        if arrow.turnspeed>0 then
+            if arrow.turnspeed>-0.1 and arrow.turnspeed<0.1 then
+                arrow.turnspeed = 0
+            end
+            arrow.turnspeed=arrow.turnspeed-arrow.stopturnac*dt
+        end
+    end
+    --[[b_turnspeed = arrow.b_selfturnspeed + arrow.turnspeed
     mx,my = love.mouse.getPosition()
     angle1 = math.atan2(my - arrow.y,mx - arrow.x)
     distance = math.sqrt((my - arrow.y)^2+(mx - arrow.x)^2)
@@ -213,17 +263,19 @@ function Tank:update(dt)
 
     if arrow.b_angle >= 3.14 then 
         arrow.b_angle = arrow.b_angle - 3.14*2
-    end
+    end]]--
 
     
     cos = math.cos(arrow.angle)
     sin = math.sin(arrow.angle)
 
-    arrow.y = arrow.y + arrow.speed * sin * dt
-    arrow.x = arrow.x + arrow.speed * cos * dt
 
-    vb =  arrow.speed * sin 
-    va =  arrow.speed * cos 
+
+    --arrow.y = arrow.y + arrow.speed * sin * dt
+    --arrow.x = arrow.x + arrow.speed * cos * dt
+
+    va =  arrow.speed * sin
+    vb =  arrow.speed * cos * -1
 
     arrow.x = arrow.tankbox:getX() 
     arrow.y = arrow.tankbox:getY() 
@@ -240,12 +292,12 @@ end
 function Tank:draw()
     
     love.graphics.print('aw: '..aw,10,10)
-    love.graphics.print('ah: '..arrow.speed,10,25)
+    love.graphics.print('ah: '..arrow.angle,10,25)
     love.graphics.print('va: '..va,10,40)
     love.graphics.print('vb: '..vb,10,70)
     love.graphics.print('turnspeed: '..arrow.turnspeed,10,55)
 
     
-    love.graphics.draw(a,arrow.x,arrow.y,arrow.angle + 1.57,0.2,0.2,aw/2,ah/2)
-    love.graphics.draw(b,arrow.x,arrow.y,arrow.b_angle + 1.57,0.2,0.2,bw/2,bh/2)
+    love.graphics.draw(a,arrow.x,arrow.y,arrow.angle  ,0.2,0.2,aw/2,ah/2)
+    love.graphics.draw(b,arrow.x,arrow.y,arrow.b_angle ,0.2,0.2,bw/2,bh/2)
 end
