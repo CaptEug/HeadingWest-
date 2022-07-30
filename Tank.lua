@@ -1,7 +1,7 @@
 Tank = {}
 
 function Tank:load(tank)
-    a = love.graphics.newImage('tanks/german/MAUS/MAUS hull.png')
+    a = love.graphics.newImage('tanks/german/MAUS/MAUS hull_1.png')
     b = love.graphics.newImage('tanks/german/MAUS/MAUS turret.png')
     aw , ah = a:getDimensions()
     bw , bh = b:getDimensions()
@@ -28,7 +28,7 @@ function Tank:load(tank)
         b_stopturnac = 0.6,
         b_maxturnsp = 0.3,
     }
-    arrow.tankbox = world:newRectangleCollider(400, 300, aw*0.1*1.05, ah*0.1*0.45)
+    arrow.tankbox = world:newRectangleCollider(400, 300, ah*0.2, aw*0.2)
     arrow.tankbox:setFixedRotation(true)
     va = 0 
     vb = 0
@@ -225,7 +225,7 @@ function Tank:update(dt)
     vb =  arrow.speed * sin 
     va =  arrow.speed * cos 
 
-    arrow.x = arrow.tankbox:getX() - aw*0.1*0.14
+    arrow.x = arrow.tankbox:getX() 
     arrow.y = arrow.tankbox:getY() 
 
     arrow.angle = arrow.tankbox:getAngle()
@@ -235,7 +235,6 @@ function Tank:update(dt)
 
     arrow.tankbox:setLinearVelocity(va , vb)
     arrow.tankbox:setAngularVelocity(vc)
-
 end    
 
 function Tank:draw()
