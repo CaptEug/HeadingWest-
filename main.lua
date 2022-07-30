@@ -9,7 +9,7 @@ function love.load()
     Berlin:load()
 
     cg1 = CG.new('CGs/OP.ogv')
-
+    
     Center = {
         x = love.graphics.getWidth() / 2, 
         y = love.graphics.getWidth() / 2
@@ -49,5 +49,5 @@ end
 
 function love.draw()
     Berlin:draw()
-    cg1:playCG()
+    --cg1:playCG()
 end

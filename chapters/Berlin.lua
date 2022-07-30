@@ -17,7 +17,13 @@ function Berlin:load()
             table.insert(walls, wall)
         end
     end
-    
+    Spikes={}
+    if gamemap.layers["Spike"] then
+        for i, obj in pairs(gamemap.layers["Spike"].objects) do
+            local Spike = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
+            table.insert(Spikes, Spike)
+        end
+    end
     Tank:load()
 end
 
