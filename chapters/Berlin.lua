@@ -6,7 +6,7 @@ require 'Tank'
 function Berlin:load()
     sti = require 'libraries/sti'
     gamemap = sti('chapters/maps/checkpointC.lua')
-
+    local spike_image=love.graphics.newImage('objects/Spike1.png')
     wf = require 'libraries/windfield'
     world = wf.newWorld(0, 0)
     walls = {}
@@ -20,7 +20,8 @@ function Berlin:load()
     Spikes={}
     if gamemap.layers["Spike"] then
         for i, obj in pairs(gamemap.layers["Spike"].objects) do
-            local Spike = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
+            local Spike = {world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height),
+                            spike_image}
             table.insert(Spikes, Spike)
         end
     end
