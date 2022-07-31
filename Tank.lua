@@ -10,6 +10,7 @@ function Tank:load(tank)
     arrow = {
         x = 500,
         y = 500,
+        z = 27,
         speed = 0,
         maxspeed = 100,
         back_maxspeed = 40,
@@ -274,6 +275,9 @@ function Tank:update(dt)
     --arrow.y = arrow.y + arrow.speed * sin * dt
     --arrow.x = arrow.x + arrow.speed * cos * dt
 
+    xb = arrow.tankbox:getX() - arrow.z * sin
+    yb = arrow.tankbox:getY() + arrow.z * cos
+
     va =  arrow.speed * sin
     vb =  arrow.speed * cos * -1
 
@@ -299,5 +303,5 @@ function Tank:draw()
 
     
     love.graphics.draw(a,arrow.x,arrow.y,arrow.angle  ,0.2,0.2,aw/2,ah/2)
-    love.graphics.draw(b,arrow.x,arrow.y,arrow.b_angle ,0.2,0.2,bw/2,bh/2)
+    love.graphics.draw(b,xb,yb,arrow.b_angle ,0.2,0.2,bw/2,bh/2)
 end
