@@ -25,7 +25,8 @@ function mainmenu:load()
     Start = newButton(
         "Путь!",
         function()
-            Berlin:draw()   
+            Berlin:draw()
+            
         end
     )
     
@@ -72,8 +73,7 @@ function mainmenu:draw()
             ButtonColor ={1, 0.2, 0.2, 1}
         end
         
-        button.now = love.mouse.isDown(1)
-        if button.now and not button.last and Hot then
+        if love.mouse.isDown(1) and Hot then
             button.fn()
         end
         
