@@ -8,7 +8,7 @@ function love.load()
     cam = camera()
     
     mainmenu:load()
-    Berlin:load()
+    
 
     cg1 = CG.new('CGs/OP.ogv')
     
@@ -21,20 +21,20 @@ end
 
 
 function love.update(dt)
-    mainmenu:update()
-    Berlin:update(dt)
+    mainmenu:update(dt)
+    
     
     if love.keyboard.isDown("w") then
-        cam:move(0,-10)
+        cam:move(0,-5)
     end
     if love.keyboard.isDown("s") then
-        cam:move(0,10)
+        cam:move(0,5)
     end
     if love.keyboard.isDown("a") then
-        cam:move(-10,0)
+        cam:move(-5,0)
     end
     if love.keyboard.isDown("d") then
-        cam:move(10,0)
+        cam:move(5,0)
     end
         
 
@@ -52,6 +52,6 @@ end
 
 function love.draw()
     mainmenu:draw()
-    Berlin:draw()
+    
     --cg1:playCG()
 end
