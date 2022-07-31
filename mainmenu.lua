@@ -19,6 +19,7 @@ end
 
 function mainmenu:load()
     Europe = love.graphics.newImage('Europe.png')
+    EUw, EUh = Europe:getDimensions()
     Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
     Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
     
@@ -44,7 +45,20 @@ end
 
 function mainmenu:update(dt)
     ww, wh = love.graphics.getDimensions()
-    
+
+    local cx, cy = cam:position()
+    if cx < ww - EUw / 2 then
+        cam:lockX(ww - EUw / 2)
+    end
+    if cx > EUw / 2 then
+        cam:lockX(EUw / 2)
+    end
+    if cy < wh - EUh / 2 then
+        cam:lockY(wh - EUh / 2)
+    end
+    if cy > EUh / 2 then
+        cam:lockY(EUh / 2)
+    end
 end
 
 
@@ -52,7 +66,8 @@ end
 function mainmenu:draw()
     
     cam:attach()
-        love.graphics.draw(Europe, 0, 0)
+        love.graphics.setColor(1, 1, 1, 0.7)
+        love.graphics.draw(Europe, ww / 2 - EUw / 2, wh / 2 - EUh / 2)
     cam:detach()
     
     love.graphics.setFont(Rtitlefont)

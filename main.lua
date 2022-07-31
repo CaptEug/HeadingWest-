@@ -21,7 +21,7 @@ end
 
 
 function love.update(dt)
-    mainmenu:update(dt)
+    
     Berlin:update(dt)
     
     if love.keyboard.isDown("w") then
@@ -36,8 +36,6 @@ function love.update(dt)
     if love.keyboard.isDown("d") then
         cam:move(5,0)
     end
-        
-
     
     function love.wheelmoved(x, y)
         if y > 0 then
@@ -46,6 +44,7 @@ function love.update(dt)
             cam:zoom(0.9)
         end
     end
+    mainmenu:update(dt)
 end
 
 
