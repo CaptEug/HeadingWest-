@@ -27,21 +27,42 @@ function Berlin:load()
             table.insert(Spikes, Spike)
         end
     end
-    Tank:load()
+    MAUS1 = tanks.new(
+    'mause',
+    400,
+    500,
+    0,
+    0,
+    'tanks/german/MAUS/MAUS turret.png',
+    'tanks/german/MAUS/MAUS hull_1.png',
+    27,
+    200,
+    40,
+    30,
+    20,
+    150,
+    0.8,
+    0.3,
+    0.7,
+    0.5,
+    0.4,
+    0.8
+    )
+    MAUS1:creat()
 end
 
 
 
 function Berlin:update(dt)
     world:update(dt)
-    Tank:update(dt)
+    MAUS1:move(dt)
 end
 
 
 function Berlin:draw()
     cam:attach()
         --gamemap:drawLayer(gamemap.layers["ground"])
-        Tank:draw()
+        MAUS1:use()
         --gamemap:drawLayer(gamemap.layers["veg"])
         --gamemap:drawLayer(gamemap.layers["top"])
         world:draw()
