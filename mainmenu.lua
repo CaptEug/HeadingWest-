@@ -1,4 +1,4 @@
-mainmenu = {}
+MainMenu = {}
 
 require 'chapters/Berlin'
 
@@ -19,7 +19,7 @@ end
 
 
 
-function mainmenu:load()
+function MainMenu:load()
     StartState = false
     
     Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
@@ -47,7 +47,7 @@ end
 
 
 
-function mainmenu:update(dt)
+function MainMenu:update(dt)
     if StartState then
         Berlin:update(dt)
     end
@@ -55,7 +55,7 @@ end
 
 
 
-function mainmenu:draw()
+function MainMenu:draw()
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("НА ЗАПАД!", ww / 2 - Rtitlefont:getWidth("НА ЗАПАД!") / 2, wh / 5)
     
