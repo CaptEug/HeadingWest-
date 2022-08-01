@@ -46,6 +46,11 @@ function mainmenu:update(dt)
     ww, wh = love.graphics.getDimensions()
 
     local cx, cy = cam:position()
+    
+    if not love.keyboard.isDown() then
+        cam:move(-math.sin(love.timer.getTime() / 2), 0)
+    end
+    
     if cx < ww - EUw / 2 then
         cam:lockX(ww - EUw / 2)
     end
@@ -63,6 +68,7 @@ end
 
 
 function mainmenu:draw()
+    
     
     cam:attach()
         love.graphics.setColor(1, 1, 1, 0.7)
