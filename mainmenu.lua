@@ -80,8 +80,6 @@ end
 
 function mainmenu:draw()
     cam:attach()
-
-        love.graphics.draw(Europe, 0, 0)
         love.graphics.setShader(shader)
         love.graphics.setColor(1, 1, 1, 0.7)
         love.graphics.draw(Europe, ww / 2 - EUw / 2, wh / 2 - EUh / 2)
