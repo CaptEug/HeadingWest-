@@ -19,14 +19,17 @@ function Berlin:load()
     end
     Spikes={}
     Spike_data={}
-    Spike_data.x=0
-    Spike_data.y=0
-    if gamemap.layers["Spike"] then
+    Spike_data.collision=world:newRectangleCollider(1664, 384, 128, 128)
+    Spike_data.width=128
+    Spike_data.height=128
+
+    --[[if gamemap.layers["Spike"] then
         for i, obj in pairs(gamemap.layers["Spike"].objects) do
             local Spike = {world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)}
             table.insert(Spikes, Spike)
         end
     end
+    --]]
     MAUS1 = tanks.new(
     'mause',
     400,
@@ -66,8 +69,11 @@ function Berlin:draw()
         --gamemap:drawLayer(gamemap.layers["veg"])
         --gamemap:drawLayer(gamemap.layers["top"])
         world:draw()
-        for i, obj in ipairs(gamemap.layers["Spike"].objects) do
+        --[[for i, obj in pairs(Spike_data.location) do
             love.graphics.draw(spike_image,obj.x,obj.y,0,0.5,0.5)
-        end
+        end--]]
+        local spike_x,spike_y=Spike_data.collision:getPosition()
+        local spike_angle=Spike_data.collision:getAngle()
+        love.graphics.draw(spike_image,spike_x,spike_y,spike_angle,0.5,0.5,128,128)
     cam:detach()
 end
