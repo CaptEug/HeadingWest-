@@ -1,5 +1,11 @@
 mainmenu = {}
+<<<<<<< HEAD
 require 'shader'
+=======
+
+require 'chapters/Berlin'
+
+>>>>>>> 573629801753eba13b122d6214ef5a39c114b861
 local buttons = {}
 
 function newButton(text, fn)
@@ -18,7 +24,9 @@ end
 
 
 function mainmenu:load()
+    StartState = false
     Europe = love.graphics.newImage('Europe.png')
+    EUw, EUh = Europe:getDimensions()
     Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
     Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
     shader = love.graphics.newShader(shader_code)
@@ -26,11 +34,10 @@ function mainmenu:load()
     Start = newButton(
         "Путь!",
         function()
-            Berlin:draw()   
+            StartState = true
         end
     )
     
-
     Quit = newButton(
         "Покидать",
         function()
@@ -38,22 +45,51 @@ function mainmenu:load()
         end
     )
     
+    if StartState then
+        Berlin:load()
+    end
 end
 
 
 
 function mainmenu:update(dt)
     ww, wh = love.graphics.getDimensions()
+
+    local cx, cy = cam:position()
     
+    if not love.keyboard.isDown() then
+        cam:move(-math.sin(love.timer.getTime() / 2), 0)
+    end
+    
+    if cx < ww - EUw / 2 then
+        cam:lockX(ww - EUw / 2)
+    end
+    if cx > EUw / 2 then
+        cam:lockX(EUw / 2)
+    end
+    if cy < wh - EUh / 2 then
+        cam:lockY(wh - EUh / 2)
+    end
+    if cy > EUh / 2 then
+        cam:lockY(EUh / 2)
+    end
+
+    if StartState then
+        Berlin:update(dt)
+    end
 end
 
 
 
 function mainmenu:draw()
-    
     cam:attach()
+<<<<<<< HEAD
         love.graphics.draw(Europe, 0, 0)
         love.graphics.setShader(shader)
+=======
+        love.graphics.setColor(1, 1, 1, 0.7)
+        love.graphics.draw(Europe, ww / 2 - EUw / 2, wh / 2 - EUh / 2)
+>>>>>>> 573629801753eba13b122d6214ef5a39c114b861
     cam:detach()
     
     love.graphics.setFont(Rtitlefont)
@@ -74,18 +110,20 @@ function mainmenu:draw()
             ButtonColor ={1, 0.2, 0.2, 1}
         end
         
-        button.now = love.mouse.isDown(1)
-        if button.now and not button.last and Hot then
+        if love.mouse.isDown(1) and Hot then
             button.fn()
         end
         
         love.graphics.setColor(unpack(ButtonColor))
         love.graphics.print(button.text, bx, by)
-    end
 
+        if StartState then
+            Berlin:draw()
+        end
+    end
+    
     love.graphics.setColor(1, 1, 1)
 
 
     
 end
-
