@@ -1,11 +1,13 @@
 require 'mainmenu'
 require 'CGplayer'
-
+require 'shader'
 
 function love.load()
     camera = require 'libraries/camera'
     cam = camera()
-    
+    Europe = love.graphics.newImage('Europe.png')
+    EUw, EUh = Europe:getDimensions()
+    shader = love.graphics.newShader(shader_code)
     mainmenu:load()
     
 
@@ -20,8 +22,8 @@ end
 
 
 function love.update(dt)
-    
-    
+    ww, wh = love.graphics.getDimensions()
+    local cx, cy = cam:position()
     
     if love.keyboard.isDown("w") then
         cam:move(0,-5)
@@ -35,7 +37,6 @@ function love.update(dt)
     if love.keyboard.isDown("d") then
         cam:move(5,0)
     end
-    
     function love.wheelmoved(x, y)
         if y > 0 then
             cam:zoom(1.1)
@@ -43,12 +44,32 @@ function love.update(dt)
             cam:zoom(0.9)
         end
     end
+    if not love.keyboard.isDown() then
+        cam:move(-math.sin(love.timer.getTime() / 2), 0)
+    end
+    if cx < ww - EUw / 2 then
+        cam:lockX(ww - EUw / 2)
+    end
+    if cx > EUw / 2 then
+        cam:lockX(EUw / 2)
+    end
+    if cy < wh - EUh / 2 then
+        cam:lockY(wh - EUh / 2)
+    end
+    if cy > EUh / 2 then
+        cam:lockY(EUh / 2)
+    end
+    
     mainmenu:update(dt)
 end
 
 
 
 function love.draw()
+    cam:attach()
+        love.graphics.setShader(shader)
+        love.graphics.draw(Europe, ww / 2 - EUw / 2, wh / 2 - EUh / 2)
+    cam:detach()
     mainmenu:draw()
     
     --cg1:playCG()

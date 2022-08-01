@@ -1,6 +1,5 @@
 mainmenu = {}
 
-require 'shader'
 require 'chapters/Berlin'
 
 local buttons = {}
@@ -22,11 +21,10 @@ end
 
 function mainmenu:load()
     StartState = false
-    Europe = love.graphics.newImage('Europe.png')
-    EUw, EUh = Europe:getDimensions()
+    
     Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
     Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
-    shader = love.graphics.newShader(shader_code)
+    
 
     Start = newButton(
         "Путь!",
@@ -50,27 +48,6 @@ end
 
 
 function mainmenu:update(dt)
-    ww, wh = love.graphics.getDimensions()
-
-    local cx, cy = cam:position()
-    
-    if not love.keyboard.isDown() then
-        cam:move(-math.sin(love.timer.getTime() / 2), 0)
-    end
-    
-    if cx < ww - EUw / 2 then
-        cam:lockX(ww - EUw / 2)
-    end
-    if cx > EUw / 2 then
-        cam:lockX(EUw / 2)
-    end
-    if cy < wh - EUh / 2 then
-        cam:lockY(wh - EUh / 2)
-    end
-    if cy > EUh / 2 then
-        cam:lockY(EUh / 2)
-    end
-
     if StartState then
         Berlin:update(dt)
     end
@@ -79,13 +56,6 @@ end
 
 
 function mainmenu:draw()
-    cam:attach()
-        love.graphics.setShader(shader)
-        love.graphics.setColor(1, 1, 1, 0.7)
-        love.graphics.draw(Europe, ww / 2 - EUw / 2, wh / 2 - EUh / 2)
-
-    cam:detach()
-    
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("НА ЗАПАД!", ww / 2 - Rtitlefont:getWidth("НА ЗАПАД!") / 2, wh / 5)
     
@@ -116,8 +86,5 @@ function mainmenu:draw()
         end
     end
     
-    love.graphics.setColor(1, 1, 1)
-
-
-    
+    --love.graphics.setColor(1, 1, 1)
 end
