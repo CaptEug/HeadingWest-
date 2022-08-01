@@ -1,34 +1,50 @@
 Tank = {}
+tanks = {}
+tank = {}
+tank.__index = tanks
 
-function Tank:load(tank)
+
+arrow = {
+    x = 500,
+    y = 500,
+    z = 27,
+    speed = 0,
+    maxspeed = 100,
+    back_maxspeed = 40,
+    backac = 10,
+    ac = 20,
+    stopac = 50,
+    angle = 1.57,
+    b_angle = 0,
+    turnspeed = 0,
+    b_selfturnspeed = 0,
+    maxturnsp = 0.5,
+    turnac = 0.1,
+    stopturnac = 0.5,
+    b_turnac = 0.2,
+    b_stopturnac = 0.6,
+    b_maxturnsp = 0.3,
+}
+
+function tanks.new(tank_name)
+    local instance = setmetatable({}, tank)
+    instance.tank_name = tank_name
+    return instance
+end
+
+function tanks:print()
+    love.graphics.print('name: '..self.tank_name,10,10)
+end
+
+
+function Tank:load()
     a = love.graphics.newImage('tanks/german/MAUS/MAUS hull_1.png')
     b = love.graphics.newImage('tanks/german/MAUS/MAUS turret.png')
     aw , ah = a:getDimensions()
     bw , bh = b:getDimensions()
     
     
-    arrow = {
-        x = 500,
-        y = 500,
-        z = 27,
-        speed = 0,
-        maxspeed = 100,
-        back_maxspeed = 40,
-        backac = 10,
-        ac = 20,
-        stopac = 50,
-
-        angle = 1.57,
-        b_angle = 0,
-        turnspeed = 0,
-        b_selfturnspeed = 0,
-        maxturnsp = 0.5,
-        turnac = 0.1,
-        stopturnac = 0.5,
-        b_turnac = 0.2,
-        b_stopturnac = 0.6,
-        b_maxturnsp = 0.3,
-    }
+    
     arrow.tankbox = world:newRectangleCollider(400, 600, aw*0.2, ah*0.2)
     arrow.tankbox:setFixedRotation(true)
     va = 0 
@@ -295,11 +311,7 @@ end
 
 function Tank:draw()
     
-    love.graphics.print('aw: '..aw,10,10)
-    love.graphics.print('ah: '..arrow.angle,10,25)
-    love.graphics.print('va: '..va,10,40)
-    love.graphics.print('vb: '..vb,10,70)
-    love.graphics.print('turnspeed: '..arrow.turnspeed,10,55)
+    
 
     
     love.graphics.draw(a,arrow.x,arrow.y,arrow.angle  ,0.2,0.2,aw/2,ah/2)
