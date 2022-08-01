@@ -18,6 +18,7 @@ end
 
 
 function mainmenu:load()
+    begin = false
     Europe = love.graphics.newImage('Europe.png')
     EUw, EUh = Europe:getDimensions()
     Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
@@ -26,7 +27,7 @@ function mainmenu:load()
     Start = newButton(
         "Путь!",
         function()
-            Berlin:draw()
+            begin = true
             
         end
     )
@@ -63,6 +64,7 @@ function mainmenu:update(dt)
     if cy > EUh / 2 then
         cam:lockY(EUh / 2)
     end
+
 end
 
 
@@ -93,12 +95,18 @@ function mainmenu:draw()
             ButtonColor ={1, 0.2, 0.2, 1}
         end
         
+        
+
         if love.mouse.isDown(1) and Hot then
             button.fn()
         end
         
         love.graphics.setColor(unpack(ButtonColor))
         love.graphics.print(button.text, bx, by)
+
+        if begin then
+            Berlin:draw()
+        end
     end
 
     love.graphics.setColor(1, 1, 1)
