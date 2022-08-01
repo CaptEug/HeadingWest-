@@ -11,8 +11,7 @@ function love.load()
     Gamestate.switch(MainMenu)
     Europe = love.graphics.newImage('Europe.png')
     EUw, EUh = Europe:getDimensions()
-    shader = love.graphics.newShader(shader_code)
-    
+    BandWshader = love.graphics.newShader(BandWshader_code)
     cg1 = CG.new('CGs/OP.ogv')
     
     Center = {
@@ -64,8 +63,9 @@ end
 
 function love.draw()
     cam:attach()
-        love.graphics.setShader(shader)
+        love.graphics.setShader(BandWshader)
         love.graphics.draw(Europe, ww / 2 - EUw / 2, wh / 2 - EUh / 2)
+        love.graphics.setShader(nil)
     cam:detach()
     
     --cg1:playCG()
