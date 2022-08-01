@@ -31,7 +31,6 @@ function mainmenu:load()
         end
     )
     
-
     Quit = newButton(
         "Покидать",
         function()
@@ -102,4 +101,3 @@ function mainmenu:draw()
 
     
 end
-
