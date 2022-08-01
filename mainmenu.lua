@@ -1,5 +1,5 @@
 mainmenu = {}
-
+require 'shader'
 local buttons = {}
 
 function newButton(text, fn)
@@ -21,7 +21,8 @@ function mainmenu:load()
     Europe = love.graphics.newImage('Europe.png')
     Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
     Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
-    
+    shader = love.graphics.newShader(shader_code)
+
     Start = newButton(
         "Путь!",
         function()
@@ -52,6 +53,7 @@ function mainmenu:draw()
     
     cam:attach()
         love.graphics.draw(Europe, 0, 0)
+        love.graphics.setShader(shader)
     cam:detach()
     
     love.graphics.setFont(Rtitlefont)
@@ -82,7 +84,6 @@ function mainmenu:draw()
     end
 
     love.graphics.setColor(1, 1, 1)
-    
 
 
     
