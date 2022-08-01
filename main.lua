@@ -1,5 +1,4 @@
 require 'mainmenu'
-require 'chapters/Berlin'
 require 'CGplayer'
 
 
@@ -8,7 +7,7 @@ function love.load()
     cam = camera()
     
     mainmenu:load()
-    Berlin:load()
+    
 
     cg1 = CG.new('CGs/OP.ogv')
     
@@ -22,7 +21,7 @@ end
 
 function love.update(dt)
     
-    Berlin:update(dt)
+    
     
     if love.keyboard.isDown("w") then
         cam:move(0,-5)
