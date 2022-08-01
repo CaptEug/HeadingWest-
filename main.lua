@@ -48,9 +48,6 @@ function love.update(dt)
             cam:zoom(0.9)
         end
     end
-    if not love.keyboard.isDown() then
-        cam:move(-math.sin(love.timer.getTime() / 2), 0)
-    end
     if cx < ww - EUw / 2 then
         cam:lockX(ww - EUw / 2)
     end
