@@ -19,12 +19,12 @@ function Berlin:load()
     end
     Spikes={}
     Spike_data={}
+    Spike_data.x=0
+    Spike_data.y=0
     if gamemap.layers["Spike"] then
         for i, obj in pairs(gamemap.layers["Spike"].objects) do
             local Spike = {world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)}
             table.insert(Spikes, Spike)
-            local X ={obj.x, obj.y, obj.width, obj.height}
-            table.insert(Spike_data,X)
         end
     end
     Tank:load()
@@ -35,9 +35,6 @@ end
 function Berlin:update(dt)
     world:update(dt)
     Tank:update(dt)
-    for i, obj in ipairs(gamemap.layers["Spike"].objects) do
-        love.graphics.draw(spike_image,obj.x,obj.y,0,0.5,0.5)
-    end
 end
 
 
