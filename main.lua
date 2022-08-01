@@ -1,16 +1,18 @@
-require 'MainMenu'
-require 'CGplayer'
-require 'shader'
 camera = require 'libraries/camera'
 cam = camera()
 Gamestate = require "libraries/gamestate"
-    
+require 'MainMenu'
+require 'CGplayer'
+require 'shader'
+require 'testmap'
+
 function love.load()
-    
+    Gamestate.registerEvents()
+    Gamestate.switch(MainMenu)
     Europe = love.graphics.newImage('Europe.png')
     EUw, EUh = Europe:getDimensions()
     shader = love.graphics.newShader(shader_code)
-    MainMenu:load()
+    
     
 
     cg1 = CG.new('CGs/OP.ogv')
@@ -61,8 +63,6 @@ function love.update(dt)
     if cy > EUh / 2 then
         cam:lockY(EUh / 2)
     end
-    
-    MainMenu:update(dt)
 end
 
 
@@ -72,7 +72,6 @@ function love.draw()
         love.graphics.setShader(shader)
         love.graphics.draw(Europe, ww / 2 - EUw / 2, wh / 2 - EUh / 2)
     cam:detach()
-    MainMenu:draw()
     
     --cg1:playCG()
 end

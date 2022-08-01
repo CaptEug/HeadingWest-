@@ -1,5 +1,5 @@
 MainMenu = {}
-
+MainMenu = Gamestate.new()
 require 'chapters/Berlin'
 
 local buttons = {}
@@ -19,7 +19,7 @@ end
 
 
 
-function MainMenu:load()
+function MainMenu:init()
     StartState = false
     
     Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
@@ -29,7 +29,7 @@ function MainMenu:load()
     Start = newButton(
         "Путь!",
         function()
-            StartState = true
+            Gamestate.switch(testmap)
         end
     )
     
@@ -39,18 +39,12 @@ function MainMenu:load()
             love.event.quit(0)   
         end
     )
-    
-    if StartState then
-        Berlin:load()
-    end
 end
 
 
 
 function MainMenu:update(dt)
-    if StartState then
-        Berlin:update(dt)
-    end
+    
 end
 
 
@@ -80,11 +74,5 @@ function MainMenu:draw()
         
         love.graphics.setColor(unpack(ButtonColor))
         love.graphics.print(button.text, bx, by)
-
-        if StartState then
-            Berlin:draw()
-        end
     end
-    
-    --love.graphics.setColor(1, 1, 1)
 end
