@@ -13,8 +13,6 @@ function love.load()
     EUw, EUh = Europe:getDimensions()
     shader = love.graphics.newShader(shader_code)
     
-    
-
     cg1 = CG.new('CGs/OP.ogv')
     
     Center = {
@@ -22,7 +20,7 @@ function love.load()
         y = love.graphics.getWidth() / 2
     }
 end
- 
+
 
 
 function love.update(dt)
