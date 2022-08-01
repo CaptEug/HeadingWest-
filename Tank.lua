@@ -33,7 +33,7 @@ function tanks.new(tank_name)
 end
 
 function tanks:print()
-    print(self.tank_name)
+    love.graphics.print('name: '..self.tank_name,10,10)
 end
 
 
@@ -311,11 +311,7 @@ end
 
 function Tank:draw()
     
-    love.graphics.print('aw: '..aw,10,10)
-    love.graphics.print('ah: '..arrow.angle,10,25)
-    love.graphics.print('va: '..va,10,40)
-    love.graphics.print('vb: '..vb,10,70)
-    love.graphics.print('turnspeed: '..arrow.turnspeed,10,55)
+    
 
     
     love.graphics.draw(a,arrow.x,arrow.y,arrow.angle  ,0.2,0.2,aw/2,ah/2)
