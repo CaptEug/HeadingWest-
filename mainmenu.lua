@@ -1,11 +1,8 @@
 mainmenu = {}
-<<<<<<< HEAD
-require 'shader'
-=======
 
+require 'shader'
 require 'chapters/Berlin'
 
->>>>>>> 573629801753eba13b122d6214ef5a39c114b861
 local buttons = {}
 
 function newButton(text, fn)
@@ -83,13 +80,12 @@ end
 
 function mainmenu:draw()
     cam:attach()
-<<<<<<< HEAD
+
         love.graphics.draw(Europe, 0, 0)
         love.graphics.setShader(shader)
-=======
         love.graphics.setColor(1, 1, 1, 0.7)
         love.graphics.draw(Europe, ww / 2 - EUw / 2, wh / 2 - EUh / 2)
->>>>>>> 573629801753eba13b122d6214ef5a39c114b861
+
     cam:detach()
     
     love.graphics.setFont(Rtitlefont)
