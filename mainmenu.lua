@@ -40,8 +40,8 @@ function MainMenu:update(dt)
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
     end
-    if cam.scale < 0.5 then
-        cam:zoomTo(0.5)
+    if cam.scale < 0.52 then
+        cam:zoomTo(0.52)
     end
 
     local camx_max, camy_max = love.graphics.getDimensions()
