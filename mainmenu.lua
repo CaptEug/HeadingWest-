@@ -75,4 +75,6 @@ function MainMenu:draw()
         love.graphics.setColor(unpack(ButtonColor))
         love.graphics.print(button.text, bx, by)
     end
+    
+    love.graphics.setColor(1, 1, 1)
 end
