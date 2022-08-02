@@ -14,22 +14,6 @@ require 'testmap'
 
 
 function cammovement()
-    local ww, wh = love.graphics.getDimensions()
-    local cx, cy = cam:position()
-    
-    if cx < ww - EUw / 2 then
-        cam:lockX(ww - EUw / 2)
-    end
-    if cx > EUw / 2 then
-        cam:lockX(EUw / 2)
-    end
-    if cy < wh - EUh / 2 then
-        cam:lockY(wh - EUh / 2)
-    end
-    if cy > EUh / 2 then
-        cam:lockY(EUh / 2)
-    end
-    
     if love.keyboard.isDown("w") then
         cam:move(0,-5)
     end
