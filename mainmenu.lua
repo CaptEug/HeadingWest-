@@ -43,8 +43,7 @@ function MainMenu:update(dt)
     if cam.scale < 0.5 then
         cam:zoomTo(0.5)
     end
-    
-    --local camx_min, camy_min = cam:worldCoords(0,0)
+
     local camx_max, camy_max = love.graphics.getDimensions()
     local x1,y1 = Europe:getDimensions()
     cam:lockcamera(0, 0, x1, y1, 0, camx_max, 0, camy_max)
