@@ -1,28 +1,15 @@
-camera = require 'libraries/camera'
-cam = camera()
+Camera = require 'libraries/camera'
+cam = Camera()
 Gamestate = require "libraries/gamestate"
-require 'MainMenu'
+
 require 'CGplayer'
 require 'shader'
+
+--Gamestates required
+require 'MainMenu'
 require 'testmap'
 
-function love.load()
-    Gamestate.registerEvents()
-    Gamestate.switch(MainMenu)
-    Europe = love.graphics.newImage('Europe.png')
-    EUw, EUh = Europe:getDimensions()
-    BandWshader = love.graphics.newShader(BandWshader_code)
-    cg1 = CG.new('CGs/OP.ogv')
-    
-    Center = {
-        x = love.graphics.getWidth() / 2, 
-        y = love.graphics.getWidth() / 2
-    }
-end
-
-
-
-function love.update(dt)
+function cammovement()
     ww, wh = love.graphics.getDimensions()
     local cx, cy = cam:position()
     
@@ -59,14 +46,23 @@ function love.update(dt)
     end
 end
 
+function love.load()
+    Gamestate.registerEvents()
+    Gamestate.switch(MainMenu)
+    
+    BandWshader = love.graphics.newShader(BandWshader_code)
+    cg1 = CG.new('CGs/OP.ogv')
+    
+end
+
+
+
+function love.update(dt)
+    cammovement()
+end
+
 
 
 function love.draw()
-    cam:attach()
-        love.graphics.setShader(BandWshader)
-        love.graphics.draw(Europe, ww / 2 - EUw / 2, wh / 2 - EUh / 2)
-        love.graphics.setShader(nil)
-    cam:detach()
-    
-    --cg1:playCG()
+     --cg1:playCG()
 end

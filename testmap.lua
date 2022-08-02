@@ -2,7 +2,44 @@ testmap = {}
 testmap = Gamestate.new()
 require 'Tank'
 
+local buttons = {}
 
+function buttons.newButton(text, fn)
+    local instance = {
+            text = text,
+            fn = fn,
+            w = Rbuttonfont:getWidth(text),
+            h = Rbuttonfont:getHeight(text),
+            now = false,
+            last = false
+    }
+    table.insert(buttons, instance)
+    return instance
+end
+
+function buttons:use()
+    for k, button in ipairs(buttons) do
+        local ButtonColor = {1, 1, 1, 0.5}
+        local bx = 0
+        local by = 0
+        local mx, my = love.mouse.getPosition()
+        local Hot = mx>=bx and mx<=bx+button.w and my>=by and my<=by+button.h
+        
+        love.graphics.setFont(Rbuttonfont)
+        
+        if Hot then
+            ButtonColor ={1, 0.2, 0.2, 1}
+        end
+        
+        if love.mouse.isDown(1) and Hot then
+            button.fn()
+        end
+        
+        love.graphics.setColor(unpack(ButtonColor))
+        love.graphics.print(button.text, bx, by)
+    end
+    love.graphics.setColor(1, 1, 1)
+end
 
 function testmap:init()
     sti = require 'libraries/sti'
@@ -10,6 +47,14 @@ function testmap:init()
     spike_image=love.graphics.newImage('objects/Spike1.png')
     wf = require 'libraries/windfield'
     world = wf.newWorld(0, 0)
+    
+    Back = buttons.newButton(
+        "Back",
+        function()
+            Gamestate.switch(MainMenu)
+        end
+    )
+
     walls = {}
     if gamemap.layers["wall"] then
         for i, obj in pairs(gamemap.layers["wall"].objects) do
@@ -18,6 +63,7 @@ function testmap:init()
             table.insert(walls, wall)
         end
     end
+    
     Spikes={}
     Spike_data={}
     Spike_data.collision=world:newRectangleCollider(1664, 384, 128, 128)
@@ -31,6 +77,7 @@ function testmap:init()
         end
     end
     --]]
+
     MAUS1 = tanks.new(
     'mause',
     400,
@@ -64,6 +111,8 @@ end
 
 
 function testmap:draw()
+    buttons:use()
+    
     cam:attach()
         --gamemap:drawLayer(gamemap.layers["ground"])
         MAUS1:use()
