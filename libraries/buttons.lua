@@ -29,7 +29,7 @@ function buttons:use()
         love.graphics.setFont(Rbuttonfont)
         
         if Hot then
-            ButtonColor ={1, 0.2, 0.2, 1}
+            ButtonColor ={1, 0.1, 0.1, 1}
         end
         
         if love.mouse.isDown(1) and Hot then
