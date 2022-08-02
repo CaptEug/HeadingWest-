@@ -9,9 +9,24 @@ require 'shader'
 require 'MainMenu'
 require 'testmap'
 
+
+
 function cammovement()
-    ww, wh = love.graphics.getDimensions()
+    local ww, wh = love.graphics.getDimensions()
     local cx, cy = cam:position()
+    
+    if cx < ww - EUw / 2 then
+        cam:lockX(ww - EUw / 2)
+    end
+    if cx > EUw / 2 then
+        cam:lockX(EUw / 2)
+    end
+    if cy < wh - EUh / 2 then
+        cam:lockY(wh - EUh / 2)
+    end
+    if cy > EUh / 2 then
+        cam:lockY(EUh / 2)
+    end
     
     if love.keyboard.isDown("w") then
         cam:move(0,-5)
@@ -25,24 +40,13 @@ function cammovement()
     if love.keyboard.isDown("d") then
         cam:move(5,0)
     end
+    
     function love.wheelmoved(x, y)
         if y > 0 then
             cam:zoom(1.1)
         elseif y < 0 then
             cam:zoom(0.9)
         end
-    end
-    if cx < ww - EUw / 2 then
-        cam:lockX(ww - EUw / 2)
-    end
-    if cx > EUw / 2 then
-        cam:lockX(EUw / 2)
-    end
-    if cy < wh - EUh / 2 then
-        cam:lockY(wh - EUh / 2)
-    end
-    if cy > EUh / 2 then
-        cam:lockY(EUh / 2)
     end
 end
 

@@ -2,44 +2,7 @@ testmap = {}
 testmap = Gamestate.new()
 require 'Tank'
 
-local buttons = {}
 
-function buttons.newButton(text, fn)
-    local instance = {
-            text = text,
-            fn = fn,
-            w = Rbuttonfont:getWidth(text),
-            h = Rbuttonfont:getHeight(text),
-            now = false,
-            last = false
-    }
-    table.insert(buttons, instance)
-    return instance
-end
-
-function buttons:use()
-    for k, button in ipairs(buttons) do
-        local ButtonColor = {1, 1, 1, 0.5}
-        local bx = 0
-        local by = 0
-        local mx, my = love.mouse.getPosition()
-        local Hot = mx>=bx and mx<=bx+button.w and my>=by and my<=by+button.h
-        
-        love.graphics.setFont(Rbuttonfont)
-        
-        if Hot then
-            ButtonColor ={1, 0.2, 0.2, 1}
-        end
-        
-        if love.mouse.isDown(1) and Hot then
-            button.fn()
-        end
-        
-        love.graphics.setColor(unpack(ButtonColor))
-        love.graphics.print(button.text, bx, by)
-    end
-    love.graphics.setColor(1, 1, 1)
-end
 
 function testmap:init()
     sti = require 'libraries/sti'
@@ -48,11 +11,13 @@ function testmap:init()
     wf = require 'libraries/windfield'
     world = wf.newWorld(0, 0)
     
+    Gbuttons = buttons.new()
     Back = buttons.newButton(
         "Back",
         function()
             Gamestate.switch(MainMenu)
-        end
+        end,
+        Gbuttons
     )
 
     walls = {}
@@ -111,7 +76,7 @@ end
 
 
 function testmap:draw()
-    buttons:use()
+    Gbuttons:use()
     
     cam:attach()
         --gamemap:drawLayer(gamemap.layers["ground"])
