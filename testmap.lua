@@ -7,7 +7,6 @@ require 'SetSpikes'
 function testmap:init()
     sti = require 'libraries/sti'
     gamemap = sti('chapters/maps/checkpointC.lua')
-    spike_image=love.graphics.newImage('objects/Spike1.png')
     wf = require 'libraries/windfield'
     world = wf.newWorld(0, 0)
     
@@ -20,7 +19,7 @@ function testmap:init()
         Gbuttons
     )
 
-    walls = {}
+    --[[walls = {}
     if gamemap.layers["wall"] then
         for i, obj in pairs(gamemap.layers["wall"].objects) do
             local wall = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
@@ -28,7 +27,8 @@ function testmap:init()
             table.insert(walls, wall)
         end
     end
-    
+    --]]
+    SetSpikes:get("wall","static")
     SetSpikes:get("Spike")
 
     MAUS1 = tanks.new(

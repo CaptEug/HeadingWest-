@@ -11,6 +11,9 @@ function SetSpikes:get(layersname,type)
     if gamemap.layers[layersname] then
         for i, j in pairs(gamemap.layers[layersname].objects) do
             Spike_data.collision[i] = world:newRectangleCollider(j.x, j.y, j.width, j.height)
+            if  type then
+                Spike_data.collision[i]:setType(type)
+            end
         end
     end
 
