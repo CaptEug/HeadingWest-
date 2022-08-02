@@ -39,19 +39,7 @@ function MainMenu:update(dt)
     Quit.bx = ww / 2
     Quit.by = wh * 3 / 5
     
-    local cx, cy = cam:position()
-    if cx < ww - EUw / 2 then
-        cam:lockX(ww - EUw / 2)
-    end
-    if cx > EUw / 2 then
-        cam:lockX(EUw / 2)
-    end
-    if cy < wh - EUh / 2 then
-        cam:lockY(wh - EUh / 2)
-    end
-    if cy > EUh / 2 then
-        cam:lockY(EUh / 2)
-    end
+    cam:lockWindow(0, 0, (ww - EUw) / 2,  (- ww + EUw) / 2, (wh - EUh) / 2, (- wh + EUh) / 2)
 end
 
 
