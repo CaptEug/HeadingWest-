@@ -1,7 +1,7 @@
 testmap = {}
 testmap = Gamestate.new()
 require 'Tank'
-require 'SetSpikes'
+require 'SetColliders'
 
 
 function testmap:init()
@@ -28,8 +28,8 @@ function testmap:init()
         end
     end
     --]]
-    SetSpikes:get("wall","static")
-    SetSpikes:get("Spike")
+    SetColliders:get("wall","static")
+    SetColliders:get("Spike")
 
     MAUS1 = tanks.new(
     'mause',
@@ -71,7 +71,7 @@ function testmap:draw()
         MAUS1:use()
         --gamemap:drawLayer(gamemap.layers["veg"])
         --gamemap:drawLayer(gamemap.layers["top"])
-        SetSpikes:draw("objects/Spike1.png")
+        SetColliders:draw("objects/Spike1.png")
         world:draw()
     cam:detach()
 end
