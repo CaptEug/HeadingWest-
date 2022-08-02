@@ -211,6 +211,30 @@ function camera:lockWindow(x, y, x_min, x_max, y_min, y_max, smoother, ...)
 	self:move((smoother or self.smoother)(dx,dy,...))
 end
 
+function camera:lockcamera(x, y, x2, y2, x_min, x_max, y_min, y_max, smoother, ...)
+	-- figure out displacement in camera coordinates
+	local x,y = self:cameraCoords(x,y)
+	local x2,y2 = self:cameraCoords(x2,y2)
+	local dx, dy = 0,0
+	if x > x_min then
+		dx = x - x_min
+	elseif x2 < x_max then
+		dx = x2 - x_max
+	end
+	if y > y_min then
+		dy = y - y_min
+	elseif y2 < y_max then
+		dy = y2 - y_max
+	end
+
+	-- transform displacement to movement in world coordinates
+	local c,s = cos(-self.rot), sin(-self.rot)
+	dx,dy = (c*dx - s*dy) / self.scale, (s*dx + c*dy) / self.scale
+
+	-- move
+	self:move((smoother or self.smoother)(dx,dy,...))
+end
+
 -- the module
 return setmetatable({new = new, smooth = camera.smooth},
 	{__call = function(_, ...) return new(...) end})
