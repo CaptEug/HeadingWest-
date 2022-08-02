@@ -1,11 +1,15 @@
 Camera = require 'libraries/camera'
 cam = Camera()
 Gamestate = require "libraries/gamestate"
+sti = require 'libraries/sti'
+wf = require 'libraries/windfield'
 
 --files required
 require 'libraries/CGplayer'
 require 'libraries/shader'
 require 'libraries/buttons'
+require 'Tank'
+require 'libraries/SetColliders'
 
 --Gamestates required
 require 'MainMenu'

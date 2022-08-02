@@ -1,13 +1,11 @@
 testmap = {}
 testmap = Gamestate.new()
-require 'Tank'
-require 'SetColliders'
+
 
 
 function testmap:init()
-    sti = require 'libraries/sti'
     gamemap = sti('chapters/maps/checkpointC.lua')
-    wf = require 'libraries/windfield'
+    
     world = wf.newWorld(0, 0)
     
     Gbuttons = buttons.new()
@@ -43,7 +41,7 @@ function testmap:init()
     0.4,
     0.8
     )
-    MAUS1:creat()
+    MAUS1:create()
 end
 
 

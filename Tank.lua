@@ -51,7 +51,7 @@ end
 
 
 
-function tanks:creat()
+function tanks:create()
     self.a = love.graphics.newImage(self.bodywork_path)
     self.b = love.graphics.newImage(self.turret_path)
     self.aw , self.ah = self.a:getDimensions()
