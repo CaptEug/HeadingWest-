@@ -1,4 +1,5 @@
 SetSpikes={}
+local spike_image=love.graphics.newImage('objects/Spike1.png')
 
 function SetSpikes:get(layersname,type)
     Spike_data={}
