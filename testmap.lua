@@ -29,9 +29,7 @@ function testmap:init()
         end
     end
     
-    Spikes={}
     Spike_data={}
-    --Spike_data.collision=world:newRectangleCollider(1664, 384, 128, 128)
     Spike_data.collision={}
     Spike_data.width=128
     Spike_data.height=128
