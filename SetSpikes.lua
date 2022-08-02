@@ -1,9 +1,7 @@
 SetSpikes={}
-local spike_image=love.graphics.newImage('objects/Spike1.png')
 
 function SetSpikes:get(layersname,type)
     Spike_data={}
-    
     Spike_data.collision={}
     Spike_data.width=128
     Spike_data.height=128
@@ -19,7 +17,9 @@ function SetSpikes:get(layersname,type)
 
 end
     
-function SetSpikes:draw()
+function SetSpikes:draw(Filelocation)
+    local spike_image=love.graphics.newImage(Filelocation)
+    
     for i in pairs(Spike_data.collision)do
         local spike_x,spike_y=Spike_data.collision[i]:getPosition()
         local spike_angle=Spike_data.collision[i]:getAngle()

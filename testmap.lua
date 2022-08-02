@@ -71,7 +71,7 @@ function testmap:draw()
         MAUS1:use()
         --gamemap:drawLayer(gamemap.layers["veg"])
         --gamemap:drawLayer(gamemap.layers["top"])
-        SetSpikes:draw()
+        SetSpikes:draw("objects/Spike1.png")
         world:draw()
     cam:detach()
 end
