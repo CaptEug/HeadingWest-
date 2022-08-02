@@ -12,33 +12,32 @@ function MainMenu:init()
     EUw, EUh = Europe:getDimensions()
     BandWshader = love.graphics.newShader(BandWshader_code)
     
-    ww, wh = love.graphics.getDimensions()
-    
     MMbuttons = buttons.new()
+    local ww, wh = love.graphics.getDimensions()
     Start = buttons.newButton(
         "Путь!",
         function()
             Gamestate.switch(testmap)
         end,
-        MMbuttons,
-        ww / 2,
-        wh / 2
+        MMbuttons
     )
     Quit = buttons.newButton(
         "Покидать",
         function()
             love.event.quit(0)   
         end,
-        MMbuttons,
-        ww / 2,
-        wh * 3 / 5
+        MMbuttons
     )
 end
 
 
 
 function MainMenu:update(dt)
-    
+    ww, wh = love.graphics.getDimensions()
+    Start.bx = ww / 2
+    Start.by = wh / 2
+    Quit.bx = ww / 2
+    Quit.by = wh * 3 / 5
 end
 
 

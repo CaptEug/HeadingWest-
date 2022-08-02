@@ -23,8 +23,8 @@ function buttons:use()
     for i, button in ipairs(self) do
         local ButtonColor = {1, 1, 1, 0.5}
         local mx, my = love.mouse.getPosition()
-        local cx, cy = button.bx - button.w / 2, button.by - button.h / 2
-        local Hot = mx>=cx and mx<=cx+button.w and my>=cy and my<=cy+button.h
+        local x, y = button.bx - button.w / 2, button.by - button.h / 2
+        local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
         
         love.graphics.setFont(Rbuttonfont)
         
@@ -37,7 +37,7 @@ function buttons:use()
         end
         
         love.graphics.setColor(unpack(ButtonColor))
-        love.graphics.print(button.text, cx, cy)
+        love.graphics.print(button.text, x, y)
     end
     love.graphics.setColor(1, 1, 1)
 end
