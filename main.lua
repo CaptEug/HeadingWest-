@@ -50,9 +50,7 @@ function love.load()
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
     
-    BandWshader = love.graphics.newShader(BandWshader_code)
     cg1 = CG.new('CGs/OP.ogv')
-    
 end
 
 

@@ -51,6 +51,8 @@ function MainMenu:init()
     
     Europe = love.graphics.newImage('Europe.png')
     EUw, EUh = Europe:getDimensions()
+
+    BandWshader = love.graphics.newShader(BandWshader_code)
     
     Start = buttons.newButton(
         "Путь!",
