@@ -9,6 +9,8 @@ function MainMenu:init()
     Europe = love.graphics.newImage('Europe.png')
     EUw, EUh = Europe:getDimensions()
     BandWshader = love.graphics.newShader(BandWshader_code)
+
+    cam:lookAt(EUw / 2, EUh * 2 / 3)
     
     MMbuttons = buttons.new()
     local ww, wh = love.graphics.getDimensions()
@@ -36,17 +38,16 @@ function MainMenu:update(dt)
     Start.by = wh / 2
     Quit.bx = ww / 2
     Quit.by = wh * 3 / 5
+
+    local map
     
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
     end
-    if cam.scale < 0.52 then
-        cam:zoomTo(0.52)
+    if cam.scale < wh / EUh then
+        cam:zoomTo(wh / EUh)
     end
-
-    local camx_max, camy_max = love.graphics.getDimensions()
-    local x1,y1 = Europe:getDimensions()
-    cam:lockcamera(0, 0, x1, y1, 0, camx_max, 0, camy_max)
+    cam:lockcamera(0, 0, EUw, EUh, 0, ww, 0, wh)
 end
 
 
