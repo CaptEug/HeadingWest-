@@ -38,6 +38,8 @@ function MainMenu:update(dt)
     Start.by = wh / 2
     Quit.bx = ww / 2
     Quit.by = wh * 3 / 5
+    
+    cam:lockWindow(0, 0, (ww - EUw) / 2,  (- ww + EUw) / 2, (wh - EUh) / 2, (- wh + EUh) / 2)
 end
 
 
