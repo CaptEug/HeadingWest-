@@ -1,7 +1,7 @@
 SetColliders={}
 
 function SetColliders:get(layersname,type)
-    Collider_data={}
+    local Collider_data={}
     Collider_data.collision={}
     Collider_data.width=128
     Collider_data.height=128

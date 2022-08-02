@@ -19,15 +19,6 @@ function testmap:init()
         Gbuttons
     )
 
-    --[[walls = {}
-    if gamemap.layers["wall"] then
-        for i, obj in pairs(gamemap.layers["wall"].objects) do
-            local wall = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
-            wall:setType('static')
-            table.insert(walls, wall)
-        end
-    end
-    --]]
     SetColliders:get("wall","static")
     SetColliders:get("Spike")
 
