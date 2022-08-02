@@ -2,8 +2,10 @@ Camera = require 'libraries/camera'
 cam = Camera()
 Gamestate = require "libraries/gamestate"
 
-require 'CGplayer'
-require 'shader'
+--files required
+require 'libraries/CGplayer'
+require 'libraries/shader'
+require 'libraries/buttons'
 
 --Gamestates required
 require 'MainMenu'
