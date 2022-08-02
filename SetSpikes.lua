@@ -1,14 +1,14 @@
 SetSpikes={}
 
-function SetSpikes:get()
+function SetSpikes:get(layersname,type)
     Spike_data={}
     
     Spike_data.collision={}
     Spike_data.width=128
     Spike_data.height=128
 
-    if gamemap.layers["Spike"] then
-        for i, j in pairs(gamemap.layers["Spike"].objects) do
+    if gamemap.layers[layersname] then
+        for i, j in pairs(gamemap.layers[layersname].objects) do
             Spike_data.collision[i] = world:newRectangleCollider(j.x, j.y, j.width, j.height)
         end
     end
