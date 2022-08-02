@@ -1,13 +1,12 @@
 testmap = {}
 testmap = Gamestate.new()
 require 'Tank'
-require 'SetSpikes'
+require 'SetColliders'
 
 
 function testmap:init()
     sti = require 'libraries/sti'
     gamemap = sti('chapters/maps/checkpointC.lua')
-    spike_image=love.graphics.newImage('objects/Spike1.png')
     wf = require 'libraries/windfield'
     world = wf.newWorld(0, 0)
     
@@ -20,16 +19,8 @@ function testmap:init()
         Gbuttons
     )
 
-    walls = {}
-    if gamemap.layers["wall"] then
-        for i, obj in pairs(gamemap.layers["wall"].objects) do
-            local wall = world:newRectangleCollider(obj.x, obj.y, obj.width, obj.height)
-            wall:setType('static')
-            table.insert(walls, wall)
-        end
-    end
-    
-    SetSpikes:get("Spike")
+    SetColliders:get("wall","static")
+    SetColliders:get("Spike")
 
     MAUS1 = tanks.new(
     'mause',
@@ -71,7 +62,7 @@ function testmap:draw()
         MAUS1:use()
         --gamemap:drawLayer(gamemap.layers["veg"])
         --gamemap:drawLayer(gamemap.layers["top"])
-        SetSpikes:draw()
+        SetColliders:draw("objects/Spike1.png")
         world:draw()
     cam:detach()
 end
