@@ -3,8 +3,6 @@ MainMenu = Gamestate.new()
 
 
 
-
-
 function MainMenu:init()
     Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
     Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
@@ -39,7 +37,16 @@ function MainMenu:update(dt)
     Quit.bx = ww / 2
     Quit.by = wh * 3 / 5
     
-    cam:lockWindow(0, 0, (ww - EUw) / 2,  (- ww + EUw) / 2, (wh - EUh) / 2, (- wh + EUh) / 2)
+    if cam.scale > 1.5 then
+        cam:zoomTo(1.5)
+    end
+    if cam.scale < 0.5 then
+        cam:zoomTo(0.5)
+    end
+    
+    local camx_min, camy_min = cam:worldCoords(0,0)
+    local camx_max, camy_max = cam:worldCoords(Europe:getDimensions())
+    cam:lockWindow(0, 0, camx_min, camx_max, camy_min, camy_max)
 end
 
 
@@ -47,9 +54,10 @@ end
 function MainMenu:draw()
     cam:attach()
         love.graphics.setShader(BandWshader)
-        love.graphics.draw(Europe, ww / 2 - EUw / 2, wh / 2 - EUh / 2)
+        love.graphics.draw(Europe, 0, 0)
         love.graphics.setShader(nil)
     cam:detach()
+    
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("НА ЗАПАД!", ww / 2 - Rtitlefont:getWidth("НА ЗАПАД!") / 2, wh / 5)
     
