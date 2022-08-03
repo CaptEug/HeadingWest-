@@ -62,5 +62,6 @@ function testmap:draw()
         --gamemap:drawLayer(gamemap.layers["top"])
         SetColliders:draw("objects/Spike1.png")
         world:draw()
+        
     cam:detach()
 end
