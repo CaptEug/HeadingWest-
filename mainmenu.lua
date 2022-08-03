@@ -19,6 +19,9 @@ function MainMenu:init()
     EUw, EUh = Europe_194X:getDimensions()
     BandWshader = love.graphics.newShader(BandWshader_code)
 
+    Letsgo = love.audio.newSource('music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
+    love.audio.play(Letsgo)
+
     cam:lookAt(EUw * 2 / 5, EUh * 3/5)
     cam:zoomTo(0.7)
     MMbuttons = buttons.new()
