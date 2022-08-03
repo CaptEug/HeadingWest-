@@ -7,16 +7,16 @@ function SetColliders:get(layersname,type,zoom)
     Collider_data.width={}
     Collider_data.height={}
 
-if zoom then
-    Size=zoom
-end
+    if zoom then
+        Size=zoom
+    end
 
     if gamemap.layers[layersname] then
         for i, j in pairs(gamemap.layers[layersname].objects) do
             Collider_data.collision[i] = world:newRectangleCollider(j.x, j.y, j.width*Size, j.height*Size)
             Collider_data.width[i]=j.width
             Collider_data.height[i]=j.height
-            
+
             if  type then
                 Collider_data.collision[i]:setType(type)
             end
