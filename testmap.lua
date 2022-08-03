@@ -27,7 +27,7 @@ function testmap:init()
     0,
     0,
     'tanks/german/MAUS/MAUS turret.png',
-    'tanks/german/MAUS/MAUS hull_1.png',
+    'tanks/german/MAUS/MAUS hull.png',
     27,
     200,
     40,
