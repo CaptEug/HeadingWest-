@@ -51,8 +51,6 @@ function MainMenu:update(dt)
     Start.by = wh / 2
     Quit.bx = ww / 2
     Quit.by = wh * 3 / 5
-
-    local map
     
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
