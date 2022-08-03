@@ -27,7 +27,7 @@ function MainMenu:init()
     MMbuttons = buttons.new()
     local ww, wh = love.graphics.getDimensions()
     Start = buttons.newButton(
-        "В Путь!",
+        "В путь!",
         function()
             Gamestate.switch(testmap)
         end,
