@@ -8,7 +8,7 @@ function MainMenu:init()
     Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
     
     Red_Europe = love.graphics.newImage('Europe/Red_Europe.png')
---[[USSR = love.graphics.newImage('Europe/USSR.png')
+    --[[USSR = love.graphics.newImage('Europe/USSR.png')
     Poland = love.graphics.newImage('Europe/Poland.png')
     Czechoslovakia = love.graphics.newImage('Europe/Czechoslovakia.png')
     Hungary = love.graphics.newImage('Europe/Hungary.png')
