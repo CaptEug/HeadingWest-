@@ -43,9 +43,10 @@ function Loadmenu:update()
     FILE1.bx = ww / 3
     FILE2.bx = ww / 2
     FILE3.bx = ww *(2 / 3)
-    FILE1.by = ww / 2
-    FILE2.by = ww / 2
-    FILE3.by = ww / 2
+    FILE1.by = wh *(2 / 3)
+    FILE2.by = wh *(2 / 3)
+    FILE3.by = wh *(2 / 3)
+    JUMP.by=wh / 2
 end
 
 function Loadmenu:draw()
