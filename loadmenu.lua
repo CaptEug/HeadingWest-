@@ -2,31 +2,56 @@ Loadmenu = {}
 Loadmenu = Gamestate.new()
 
 function Loadmenu:init()
-    Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
-    Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
-    
-    --Red_Europe = love.graphics.newImage('Europe/Red_Europe.png')
 
-    EUw, EUh = Red_Europe:getDimensions()
-    BandWshader = love.graphics.newShader(BandWshader_code)MainMenu = {}
-    MainMenu = Gamestate.new()    
+
+    Lbuttons = buttons.new()
+    FILE1 = buttons.newButton(
+        "FILE1",
+        function()
+            Gamestate.switch(MainMenu)
+        end,
+        Lbuttons
+    )
+
+    FILE2 = buttons.newButton(
+        "FILE2",
+        function()
+            Gamestate.switch(MainMenu)
+        end,
+        Lbuttons
+    )
+
+    FILE3 = buttons.newButton(
+        "FILE3",
+        function()
+            Gamestate.switch(MainMenu)
+        end,
+        Lbuttons
+    )
+
+    JUMP = buttons.newButton(
+        "JUMP",
+        function()
+            Gamestate.switch(testmap)
+        end,
+        Lbuttons
+    )
 end
 
 function Loadmenu:update(dt)
-    world:update(dt)
-    MAUS1:move(dt)
+    ww, wh = love.graphics.getDimensions()
+    FILE1.bx = ww / 3
+    FILE2.bx = ww / 2
+    FILE3.bx = ww *(2 / 3)
+    FILE1.by = ww / 2
+    FILE2.by = ww / 2
+    FILE3.by = ww / 2
 end
 
 function Loadmenu:draw()
-    Gbuttons:use()
+    Lbuttons:use()
     
     cam:attach()
-        --gamemap:drawLayer(gamemap.layers["ground"])
-        MAUS1:use()
-        --gamemap:drawLayer(gamemap.layers["veg"])
-        --gamemap:drawLayer(gamemap.layers["top"])
-        SetColliders:draw("objects/Spike1.png")
-        world:draw()
         
     cam:detach()
 end

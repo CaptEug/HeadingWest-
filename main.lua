@@ -14,6 +14,7 @@ require 'libraries/SetColliders'
 --Gamestates required
 require 'MainMenu'
 require 'testmap'
+require 'Loadmenu'
 
 
 
