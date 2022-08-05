@@ -87,9 +87,12 @@ function fileload (filenum)
 
     if number ==1 then
         love.filesystem.load("file1.lua")
+        getdata()
     elseif number ==2 then 
         love.filesystem.load("file2.lua")
+        getdata()
     elseif number ==3 then
         love.filesystem.load("file3.lua")
+        getdata()
     end
 end
