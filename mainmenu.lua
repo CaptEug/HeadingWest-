@@ -30,7 +30,7 @@ function MainMenu:init()
     Start = buttons.newButton(
         "В путь!",
         function()
-            Gamestate.switch(testmap)
+            Gamestate.switch(Loadmenu)
         end,
         MMbuttons
     )
