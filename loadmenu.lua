@@ -38,7 +38,7 @@ function Loadmenu:init()
     )
 end
 
-function Loadmenu:update(dt)
+function Loadmenu:update()
     ww, wh = love.graphics.getDimensions()
     FILE1.bx = ww / 3
     FILE2.bx = ww / 2
