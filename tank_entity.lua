@@ -4,7 +4,7 @@ return{
             components = {},
             tag = {},
             remove = true,
-
+            loaded = false,
         }
         return entity
 
