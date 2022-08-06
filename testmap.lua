@@ -1,6 +1,6 @@
 testmap = {}
 testmap = Gamestate.new()
-
+require 'Loadmenu'
 
 
 function testmap:init()
@@ -49,6 +49,10 @@ end
 function testmap:update(dt)
     world:update(dt)
     MAUS1:move(dt)
+    if love.keyboard.isDown("e")
+    then
+        Saving:filesave(1)
+    end
 end
 
 
