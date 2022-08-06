@@ -1,27 +1,27 @@
 Saving={}
+Data={}
 
 function Saving:createsave(filenum)
-    data={}
-    data.stage=0
-    data.tankx=0
-    data.tanky=0
-    data.tankangle=0
-    data.filenumber=filenum
+    Data.stage=0
+    Data.tankx=0
+    Data.tanky=0
+    Data.tankangle=0
+    Data.filenumber=filenum
 end
 
 function Saving:filesave (filenum)
     local number=filenum
-    data.stage="testmap"
-    data.tankx=tanks.x
-    data.tanky=tanks.y
-    data.tankangle=tanks.angle
+    Data.stage="testmap"
+    Data.tankx=tanks.x
+    Data.tanky=tanks.y
+    Data.tankangle=tanks.angle
 
     if number ==1 then
-        love.filesystem.write("file1.lua", table.show(data,"data"))
+        love.filesystem.write("file1.lua", table.show(Data,"data"))
     elseif number ==2 then 
-        love.filesystem.write("file2.lua", table.show(data,"data"))
+        love.filesystem.write("file2.lua", table.show(Data,"data"))
     elseif number ==3 then
-        love.filesystem.write("file3.lua", table.show(data,"data"))
+        love.filesystem.write("file3.lua", table.show(Data,"data"))
     end
 end
 

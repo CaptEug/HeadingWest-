@@ -1,6 +1,6 @@
 testmap = {}
 testmap = Gamestate.new()
-require 'Loadmenu'
+require 'Saving'
 
 
 function testmap:init()

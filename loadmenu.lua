@@ -4,8 +4,7 @@ require 'tank'
 require'Saving'
 
 function Loadmenu:init()
-
-
+    
     Lbuttons = buttons.new()
     FILE1 = buttons.newButton(
         "FILE1",
