@@ -28,6 +28,7 @@ function MainMenu:init()
     MMbuttons = buttons.new()
     local ww, wh = love.graphics.getDimensions()
     Start = buttons.newButton(
+        1,
         "В путь!",
         function()
             Gamestate.switch(Loadmenu)
@@ -35,6 +36,7 @@ function MainMenu:init()
         MMbuttons
     )
     Quit = buttons.newButton(
+        1,
         "Покидать",
         function()
             love.event.quit(0)   

@@ -10,6 +10,7 @@ function testmap:init()
     
     Gbuttons = buttons.new()
     Back = buttons.newButton(
+        1,
         "Back",
         function()
             Gamestate.switch(MainMenu)

@@ -2,12 +2,14 @@ Loadmenu = {}
 Loadmenu = Gamestate.new()
 require 'tank'
 require'Saving'
+Stalin = love.graphics.newImage('pictures/Joseph_Stalin.png')
 
 function Loadmenu:init()
     
     Lbuttons = buttons.new()
-    FILE1 = buttons.newButton(
-        "FILE1",
+    FILE1 = buttons.newPicButton(
+        0,
+        Stalin,
         function()
             Saving:fileload(1)
         end,
@@ -15,6 +17,7 @@ function Loadmenu:init()
     )
 
     FILE2 = buttons.newButton(
+        1,
         "FILE2",
         function()
             Saving:fileload(2)
@@ -23,6 +26,7 @@ function Loadmenu:init()
     )
 
     FILE3 = buttons.newButton(
+        1,
         "FILE3",
         function()
             Saving:fileload(3)
@@ -31,6 +35,7 @@ function Loadmenu:init()
     )
 
     JUMP = buttons.newButton(
+        1,
         "JUMP",
         function()
             Gamestate.switch(testmap)

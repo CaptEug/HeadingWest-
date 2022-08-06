@@ -6,8 +6,9 @@ function buttons.new()
     return instance
 end
 
-function buttons.newButton(text, fn, buttons, bx, by)
+function buttons.newButton(type,text, fn, buttons, bx, by)
     local instance = {
+            type = type,
             text = text,
             fn = fn,
             w = Rbuttonfont:getWidth(text),
@@ -19,8 +20,9 @@ function buttons.newButton(text, fn, buttons, bx, by)
     return instance
 end
 
-function buttons.newPicButton(picture, fn, buttons, bx, by)
+function buttons.newPicButton(type,picture, fn, buttons, bx, by)
     local instance = {
+        type = type,
             picture = picture,
             fn = fn,
             w = picture:getWidth(),
@@ -50,7 +52,13 @@ function buttons:use()
         end
         
         love.graphics.setColor(unpack(ButtonColor))
-        love.graphics.print(button.text, x, y)
+
+        if button.type == 1 then
+            love.graphics.print(button.text, x, y)
+            else if button.type == 0 then
+                love.graphics.draw(button.picture, x, y)
+            end
+        end
     end
     love.graphics.setColor(1, 1, 1)
 end
