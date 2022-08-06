@@ -19,6 +19,19 @@ function buttons.newButton(text, fn, buttons, bx, by)
     return instance
 end
 
+function buttons.newPicButton(picture, fn, buttons, bx, by)
+    local instance = {
+            picture = picture,
+            fn = fn,
+            w = picture:getWidth(),
+            h = picture:getHeight(),
+            bx = bx or picture:getWidth() / 2,
+            by = by or picture:getHeight() / 2
+    }
+    table.insert(buttons, instance)
+    return instance
+end
+
 function buttons:use()
     for i, button in ipairs(self) do
         local ButtonColor = {1, 1, 1, 0.5}
