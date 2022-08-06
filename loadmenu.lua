@@ -3,6 +3,8 @@ Loadmenu = Gamestate.new()
 require 'tank'
 require'Saving'
 Stalin = love.graphics.newImage('pictures/Joseph_Stalin.png')
+Khrushchev = love.graphics.newImage('pictures/Khrushchev.png')
+Brezhnev = love.graphics.newImage('pictures/Brezhnev.png')
 
 function Loadmenu:init()
     
@@ -16,18 +18,18 @@ function Loadmenu:init()
         Lbuttons
     )
 
-    FILE2 = buttons.newButton(
-        1,
-        "FILE2",
+    FILE2 = buttons.newPicButton(
+        0,
+        Khrushchev,
         function()
             Saving:fileload(2)
         end,
         Lbuttons
     )
 
-    FILE3 = buttons.newButton(
-        1,
-        "FILE3",
+    FILE3 = buttons.newPicButton(
+        0,
+        Brezhnev,
         function()
             Saving:fileload(3)
         end,
@@ -46,9 +48,9 @@ end
 
 function Loadmenu:update()
     ww, wh = love.graphics.getDimensions()
-    FILE1.bx = ww / 3
+    FILE1.bx = ww / 4
     FILE2.bx = ww / 2
-    FILE3.bx = ww *(2 / 3)
+    FILE3.bx = ww *(3 / 4)
     FILE1.by = wh *(2 / 3)
     FILE2.by = wh *(2 / 3)
     FILE3.by = wh *(2 / 3)
