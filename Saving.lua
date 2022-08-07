@@ -1,9 +1,8 @@
 Saving={}
-Data={}
 require 'libraries/show'
 
 function Saving:createsave(filenum)
-    Data.filenumber=filenum
+    Data.filenumber=1
     Data.stage=0
     Data.tankdata={}
     
@@ -12,12 +11,13 @@ end
 function Saving:filesave (filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
+    Data={}
+    Data.filenumber=1
     Data.stage="testmap"
-    Data.tankx=tanks.x
-    Data.tanky=tanks.y
-    Data.tankangle=tanks.angle
+    Data.tankx,Data.tanky=MAUS1:location()
+    Data.tankangle=MAUS1
 
-    love.filesystem.write(file[number], Data)
+    love.filesystem.write(file[number], table.show(Data,'Data'))
 end
 
 function Saving:fileload (filenum)
