@@ -59,9 +59,11 @@ function Loadmenu:update()
 end
 
 function Loadmenu:draw()
-    Lbuttons:use()
-    
     cam:attach()
         
+        DrawEurope()
+        
     cam:detach()
+    
+    Lbuttons:use()
 end

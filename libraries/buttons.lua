@@ -40,7 +40,7 @@ function buttons:use()
     
     for i, button in ipairs(self) do
         love.graphics.setFont(Rbuttonfont)
-        local ButtonColor = {1, 1, 1, 0.5}
+        local ButtonColor = {1, 1, 1, 0.7}
         if button.type == 1 then
             local x, y = button.bx - button.w / 2, button.by - button.h / 2
             local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
