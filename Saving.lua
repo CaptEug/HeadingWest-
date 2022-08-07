@@ -14,8 +14,25 @@ function Saving:filesave (filenum)
     Data={}
     Data.filenumber=1
     Data.stage="testmap"
-    Data.tankx,Data.tanky=MAUS1:location()
-    Data.tankangle=MAUS1
+    Data.tank_name,
+    Data.x,
+    Data.y,
+    Data.angle,
+    Data.turret_angle,
+    Data.turret_path,
+    Data.bodywork_path,
+    Data.turret_offset,
+    Data.maxspeed,
+    Data.back_maxspeed,
+    Data.acceleration,
+    Data.back_acceleration,
+    Data.stop_acceleration,
+    Data.max_Rotation_speed,
+    Data.Rotational_acceleration,
+    Data.stop_rotation_ac,
+    Data.turret_max_Rotation_speed,
+    Data.turret_Rotational_acceleration,
+    Data.turret_stop_rotation_ac=MAUS1:location()
 
     love.filesystem.write(file[number], table.show(Data,'Data'))
 end
