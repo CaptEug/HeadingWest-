@@ -50,8 +50,27 @@ function tanks.new(
 end
 
 
-function tanks:location()
-    return self.x, self.y
+function tanks:getdata()
+    return 
+    self.tank_name,
+    self.x,
+    self.y,
+    self.angle,
+    self.turret_angle,
+    self.turret_path,
+    self.bodywork_path,
+    self.turret_offset,
+    self.maxspeed,
+    self.back_maxspeed,
+    self.acceleration,
+    self.back_acceleration,
+    self.stop_acceleration,
+    self.max_Rotation_speed,
+    self.Rotational_acceleration,
+    self.stop_rotation_ac,
+    self.turret_max_Rotation_speed,
+    self.turret_Rotational_acceleration,
+    self.turret_stop_rotation_ac
 end
 
 
