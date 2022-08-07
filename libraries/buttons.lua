@@ -35,30 +35,36 @@ function buttons.newPicButton(type,picture, fn, buttons, bx, by)
 end
 
 function buttons:use()
+    local ratio = love.graphics.getWidth() / 1536
+    local mx, my = love.mouse.getPosition()
+    
     for i, button in ipairs(self) do
-        local ButtonColor = {1, 1, 1, 0.5}
-        local mx, my = love.mouse.getPosition()
-        local x, y = button.bx - button.w / 2, button.by - button.h / 2
-        local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
-        
         love.graphics.setFont(Rbuttonfont)
-        
-        if Hot then
-            ButtonColor ={1, 0.1, 0.1, 1}
-        end
-        
-        if love.mouse.isDown(1) and Hot then
-            button.fn()
-        end
-        
-        love.graphics.setColor(unpack(ButtonColor))
-
+        local ButtonColor = {1, 1, 1, 0.5}
         if button.type == 1 then
-            love.graphics.print(button.text, x, y)
-            else if button.type == 0 then
-                love.graphics.draw(button.picture, x, y)
+            local x, y = button.bx - button.w / 2, button.by - button.h / 2
+            local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
+            if Hot then
+                ButtonColor ={1, 0.1, 0.1, 1}
             end
+            if love.mouse.isDown(1) and Hot then
+                button.fn()
+            end
+            love.graphics.setColor(unpack(ButtonColor))
+            love.graphics.print(button.text, x, y)
+        else if button.type == 0 then
+            local x, y = button.bx - button.w * ratio / 2, button.by - button.h * ratio / 2
+            local Hot = mx>=x and mx<=x+button.w * ratio and my>=y and my<=y+button.h * ratio
+            if Hot then
+                ButtonColor ={1, 0.1, 0.1, 1}
+            end
+            if love.mouse.isDown(1) and Hot then
+                button.fn()
+            end
+            love.graphics.setColor(unpack(ButtonColor))
+            love.graphics.draw(button.picture, x, y, 0, ratio)
         end
+    end
     end
     love.graphics.setColor(1, 1, 1)
 end
