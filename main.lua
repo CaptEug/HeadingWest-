@@ -12,9 +12,9 @@ require 'Tank'
 require 'libraries/SetColliders'
 
 --Gamestates required
-require 'MainMenu'
-require 'testmap'
-require 'Loadmenu'
+require 'gamestates/MainMenu'
+require 'gamestates/testmap'
+require 'gamestates/Loadmenu'
 
 Red_Europe = love.graphics.newImage('Europe/Red_Europe.png')
 EUw, EUh = Red_Europe:getDimensions()
