@@ -50,6 +50,11 @@ function tanks.new(
 end
 
 
+function tanks:location()
+    return self.x, self.y
+end
+
+
 
 function tanks:create()
     self.a = love.graphics.newImage(self.bodywork_path)
