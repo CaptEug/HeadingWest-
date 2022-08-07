@@ -39,9 +39,9 @@ function buttons:use()
     local mx, my = love.mouse.getPosition()
     
     for i, button in ipairs(self) do
-        love.graphics.setFont(Rbuttonfont)
         local ButtonColor = {1, 1, 1, 0.7}
         if button.type == 1 then
+            love.graphics.setFont(Rbuttonfont)
             local x, y = button.bx - button.w / 2, button.by - button.h / 2
             local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
             if Hot then
