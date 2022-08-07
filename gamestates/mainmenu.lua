@@ -14,6 +14,7 @@ function MainMenu:init()
     cam:zoomTo(0.7)
     MMbuttons = buttons.new()
     local ww, wh = love.graphics.getDimensions()
+    
     Start = buttons.newButton(
         1,
         "В путь!",
@@ -22,6 +23,7 @@ function MainMenu:init()
         end,
         MMbuttons
     )
+    
     Quit = buttons.newButton(
         1,
         "Покидать",
