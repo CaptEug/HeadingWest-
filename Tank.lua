@@ -50,7 +50,7 @@ function tanks.new(
 end
 
 
-function tanks:location()
+function tanks:getdata()
     return 
     self.tank_name,
     self.x,

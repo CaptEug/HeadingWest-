@@ -32,7 +32,7 @@ function Saving:filesave (filenum)
     Data.stop_rotation_ac,
     Data.turret_max_Rotation_speed,
     Data.turret_Rotational_acceleration,
-    Data.turret_stop_rotation_ac=MAUS1:location()
+    Data.turret_stop_rotation_ac=MAUS1:getdata()
 
     love.filesystem.write(file[number], table.show(Data,'Data'))
 end
