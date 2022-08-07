@@ -1,5 +1,6 @@
 Saving={}
 Data={}
+require 'libraries/show'
 
 function Saving:createsave(filenum)
     Data.filenumber=filenum
@@ -16,13 +17,13 @@ function Saving:filesave (filenum)
     Data.tanky=tanks.y
     Data.tankangle=tanks.angle
 
-    love.filesystem.write(file[number], table.show(Data,"data"))
+    love.filesystem.write(file[number], Data)
 end
 
 function Saving:fileload (filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
-
+    --love.filesystem.getInfo()
     love.filesystem.load(file[number])
     Saving:getdata()
 end
