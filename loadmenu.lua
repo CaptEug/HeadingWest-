@@ -48,9 +48,9 @@ end
 
 function Loadmenu:update()
     ww, wh = love.graphics.getDimensions()
-    FILE1.bx = ww / 4
+    FILE1.bx = ww / 5
     FILE2.bx = ww / 2
-    FILE3.bx = ww *(3 / 4)
+    FILE3.bx = ww *(4 / 5)
     FILE1.by = wh *(1 / 2)
     FILE2.by = wh *(1 / 2)
     FILE3.by = wh *(1 / 2)
