@@ -56,6 +56,7 @@ end
 
 function MainMenu:draw()
     cam:attach()
+        love.graphics.setShader(BandWshader)
         DrawEurope()
     cam:detach()
     love.graphics.setFont(Rtitlefont)
