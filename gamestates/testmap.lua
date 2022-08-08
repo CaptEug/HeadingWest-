@@ -4,6 +4,8 @@ require 'Saving'
 require 'gamestates/loadmenu'
 Saving:getdata(1)
 Data()
+
+
 function testmap:init()
     gamemap = sti('chapters/maps/checkpointC.lua')
     
@@ -23,25 +25,25 @@ function testmap:init()
     SetColliders:get("Spike")
 
     MAUS1 = tanks.new(
-    'mause',
-    Data.x,
-    Data.y,
-    0,
-    0,
-    'tanks/german/MAUS/MAUS turret.png',
-    'tanks/german/MAUS/MAUS hull.png',
-    27,
-    200,
-    40,
-    30,
-    20,
-    150,
-    0.8,
-    0.3,
-    0.7,
-    0.5,
-    0.4,
-    0.8
+        Data.tank_name,
+        Data.x,
+        Data.y,
+        Data.angle,
+        Data.turret_angle,
+        Data.turret_path,
+        Data.bodywork_path,
+        Data.turret_offset,
+        Data.maxspeed,
+        Data.back_maxspeed,
+        Data.acceleration,
+        Data.back_acceleration,
+        Data.stop_acceleration,
+        Data.max_Rotation_speed,
+        Data.Rotational_acceleration,
+        Data.stop_rotation_ac,
+        Data.turret_max_Rotation_speed,
+        Data.turret_Rotational_acceleration,
+        Data.turret_stop_rotation_ac
     )
     MAUS1:create()
 end
