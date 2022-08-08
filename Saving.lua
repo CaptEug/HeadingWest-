@@ -35,12 +35,11 @@ function Saving:filesave (filenum)
 end
 
 function Saving:fileload (filenum)
+    Gamestate.switch(testmap)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
     love.filesystem.getInfo(file[number])
     local Data=love.filesystem.load("file1.lua")
-    
-    Gamestate.switch(testmap)
     return Data
 end
 

@@ -14,7 +14,7 @@ function Loadmenu:init()
         0,
         Stalin,
         function()
-            Tankdata=Saving:fileload(1)
+            Saving:fileload(1)
         end,
         Lbuttons
     )
@@ -23,7 +23,7 @@ function Loadmenu:init()
         0,
         Khrushchev,
         function()
-            Tankdata=Saving:fileload(2)
+            Saving:fileload(2)
         end,
         Lbuttons
     )
@@ -32,7 +32,7 @@ function Loadmenu:init()
         0,
         Brezhnev,
         function()
-            Tankdata=Saving:fileload(3)
+            Saving:fileload(3)
         end,
         Lbuttons
     )
