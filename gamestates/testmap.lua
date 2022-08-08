@@ -54,6 +54,12 @@ function testmap:update(dt)
     then
         Saving:filesave(1)
     end
+    if cam.scale > 1.5 then
+        cam:zoomTo(1.5)
+    end
+    if cam.scale < 0.2 then
+        cam:zoomTo(0.2)
+    end
 end
 
 

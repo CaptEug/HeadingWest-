@@ -56,6 +56,13 @@ function Loadmenu:update()
     FILE3.by = wh *(1 / 2)
     JUMP.by=wh / 2
 
+    if cam.scale > 1.5 then
+        cam:zoomTo(1.5)
+    end
+    if cam.scale < wh / EUh then
+        cam:zoomTo(wh / EUh)
+    end
+    cam:lockcamera(0, 0, EUw, EUh, 0, ww, 0, wh)
 end
 
 function Loadmenu:draw()
