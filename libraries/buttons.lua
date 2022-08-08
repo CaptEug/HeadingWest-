@@ -44,6 +44,7 @@ function buttons:use()
     
     for i, button in ipairs(self) do
         local ButtonColor = {1, 1, 1, 0.7}
+        
         if button.type == 1 then
             love.graphics.setFont(Rbuttonfont)
             local x, y = button.bx - button.w / 2, button.by - button.h / 2
@@ -53,13 +54,13 @@ function buttons:use()
             if Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
             end
-             
             button.now = love.mouse.isDown(1)
             if button.now and not button.last and Hot then
                 button.fn()
             end
             love.graphics.setColor(unpack(ButtonColor))
             love.graphics.print(button.text, x, y)
+        
         else if button.type == 0 then
             local x, y = button.bx - button.w * ratio / 2, button.by - button.h * ratio / 2
             local Hot = mx>=x and mx<=x+button.w * ratio and my>=y and my<=y+button.h * ratio
@@ -68,7 +69,6 @@ function buttons:use()
             if Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
             end
-            
             button.now = love.mouse.isDown(1)
             if button.now and not button.last and Hot then
                 button.fn()
