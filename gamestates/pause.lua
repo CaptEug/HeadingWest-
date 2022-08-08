@@ -1,5 +1,6 @@
--- pause gamestate
+Pause = {}
 Pause = Gamestate.new()
+
 function Pause:enter(from)
     self.from = from -- record previous state
 end
@@ -15,3 +16,14 @@ function Pause:draw()
     love.graphics.printf('PAUSE', 0, H/2, W, 'center')
 end
 
+function love.keypressed(key)
+    if Gamestate.current() == testmap and key == 'p' then
+        return Gamestate.push(Pause)
+    end
+end
+
+function Pause:keypressed(key)
+    if key == 'p' then
+        return Gamestate.pop() -- return to previous state
+    end
+end

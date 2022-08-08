@@ -70,7 +70,6 @@ function DrawCountries()
 end
 
 function love.load()
-    
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
     
@@ -81,13 +80,10 @@ end
 
 function love.update(dt)
     cammovement()
-    if Gamestate.current() ~= MainMenu and key == 'p' then
-        return Gamestate.push(Pause)
-    end
 end
 
 
 
 function love.draw()
-     --cg1:playCG()
+    --cg1:playCG()
 end
