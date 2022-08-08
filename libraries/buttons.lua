@@ -61,7 +61,7 @@ function buttons:use()
             love.graphics.setColor(unpack(ButtonColor))
             love.graphics.print(button.text, x, y)
         
-        else if button.type == 0 then
+            else if button.type == 0 then
             local x, y = button.bx - button.w * ratio / 2, button.by - button.h * ratio / 2
             local Hot = mx>=x and mx<=x+button.w * ratio and my>=y and my<=y+button.h * ratio
             
@@ -75,8 +75,8 @@ function buttons:use()
             end
             love.graphics.setColor(unpack(ButtonColor))
             love.graphics.draw(button.picture, x, y, 0, ratio)
+            end
         end
-    end
     end
     love.graphics.setColor(1, 1, 1)
 end
