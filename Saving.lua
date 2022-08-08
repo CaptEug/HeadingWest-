@@ -2,9 +2,6 @@ Saving={}
 require 'libraries/show'
 
 function Saving:createsave(filenum)
-    Data.filenumber=1
-    Data.stage=0
-    Data.tankdata={}
     
 end
 
@@ -14,7 +11,7 @@ function Saving:filesave (filenum)
     Data={}
     Data.filenumber=1
     Data.stage="testmap"
-    
+
     Data.tank_name,
     Data.x,
     Data.y,
