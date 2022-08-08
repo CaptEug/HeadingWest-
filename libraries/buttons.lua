@@ -49,7 +49,6 @@ function buttons:use()
             love.graphics.setFont(Rbuttonfont)
             local x, y = button.bx - button.w / 2, button.by - button.h / 2
             local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
-            
             button.last = button.now
             if Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
@@ -64,7 +63,6 @@ function buttons:use()
             else if button.type == 0 then
             local x, y = button.bx - button.w * ratio / 2, button.by - button.h * ratio / 2
             local Hot = mx>=x and mx<=x+button.w * ratio and my>=y and my<=y+button.h * ratio
-            
             button.last = button.now
             if Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
