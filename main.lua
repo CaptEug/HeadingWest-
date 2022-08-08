@@ -48,15 +48,6 @@ local function cammovement()
             cam:zoom(0.9)
         end
     end
-
-    if cam.scale > 1.5 then
-        cam:zoomTo(1.5)
-    end
-    if cam.scale < wh / EUh then
-        cam:zoomTo(wh / EUh)
-    end
-    
-    cam:lockcamera(0, 0, EUw, EUh, 0, ww, 0, wh)
 end
 
 function DrawEurope()
