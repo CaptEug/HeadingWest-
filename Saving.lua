@@ -61,12 +61,6 @@ end
 
 function Saving:fileload (filenum)
     Gamestate.switch(testmap)
-    local number=filenum
-    local file={"file1.lua","file2.lua","file3.lua"}
-    if love.filesystem.getInfo(file[number])==nil then
-        Saving:createsave(filenum)
-    end
-    Data=love.filesystem.load("file1.lua")
 end
 
 function Saving:getdata(filenum)
