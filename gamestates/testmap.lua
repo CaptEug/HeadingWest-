@@ -20,8 +20,8 @@ function testmap:init()
         Gbuttons
     )
 
-    SetColliders:get("wall","static")
-    SetColliders:get("Spike")
+    SetColliders:set("wall","static")
+    SetColliders:set("Spike")
 
     MAUS1 = tanks.new(
         Data.tank_name,
