@@ -15,8 +15,8 @@ function buttons.newButton(type,text, fn, buttons, bx, by)
             h = Rbuttonfont:getHeight(text),
             bx = bx or Rbuttonfont:getWidth(text) / 2,
             by = by or Rbuttonfont:getHeight(text) / 2,
-            now = false,
-            last = false
+            now = true,
+            last = true
     }
     table.insert(buttons, instance)
     return instance
