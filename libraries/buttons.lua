@@ -14,7 +14,9 @@ function buttons.newButton(type,text, fn, buttons, bx, by)
             w = Rbuttonfont:getWidth(text),
             h = Rbuttonfont:getHeight(text),
             bx = bx or Rbuttonfont:getWidth(text) / 2,
-            by = by or Rbuttonfont:getHeight(text) / 2
+            by = by or Rbuttonfont:getHeight(text) / 2,
+            now = false,
+            last = false
     }
     table.insert(buttons, instance)
     return instance
@@ -28,7 +30,9 @@ function buttons.newPicButton(type,picture, fn, buttons, bx, by)
             w = picture:getWidth(),
             h = picture:getHeight(),
             bx = bx or picture:getWidth() / 2,
-            by = by or picture:getHeight() / 2
+            by = by or picture:getHeight() / 2,
+            now = false,
+            last = false
     }
     table.insert(buttons, instance)
     return instance
@@ -44,10 +48,14 @@ function buttons:use()
             love.graphics.setFont(Rbuttonfont)
             local x, y = button.bx - button.w / 2, button.by - button.h / 2
             local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
+            
+            button.last = button.now
             if Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
             end
-            if love.mouse.isDown(1) and Hot then
+             
+            button.now = love.mouse.isDown(1)
+            if button.now and not button.last and Hot then
                 button.fn()
             end
             love.graphics.setColor(unpack(ButtonColor))
@@ -55,10 +63,14 @@ function buttons:use()
         else if button.type == 0 then
             local x, y = button.bx - button.w * ratio / 2, button.by - button.h * ratio / 2
             local Hot = mx>=x and mx<=x+button.w * ratio and my>=y and my<=y+button.h * ratio
+            
+            button.last = button.now
             if Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
             end
-            if love.mouse.isDown(1) and Hot then
+            
+            button.now = love.mouse.isDown(1)
+            if button.now and not button.last and Hot then
                 button.fn()
             end
             love.graphics.setColor(unpack(ButtonColor))
