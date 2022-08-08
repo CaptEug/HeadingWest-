@@ -28,7 +28,7 @@ Bulgaria = love.graphics.newImage('Europe/Bulgaria.png')
 East_Germany = love.graphics.newImage('Europe/East_Germany.png')
 
 BandWshader = love.graphics.newShader(BandWshader_code)
-deeper_backgroundShader = love.graphics.setShader(deeper_backgroundShader)
+deeper_backgroundShader = love.graphics.newShader(deeper_backgroundShader_code)
 
 
 local function cammovement()
