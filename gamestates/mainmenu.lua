@@ -57,6 +57,7 @@ end
 function MainMenu:draw()
     cam:attach()
         DrawEurope()
+        DrawCountries()
     cam:detach()
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("НА ЗАПАД!", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("НА ЗАПАД!") / 2, love.graphics.getHeight() / 5)
