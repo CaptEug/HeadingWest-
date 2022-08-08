@@ -68,9 +68,10 @@ end
 
 function Loadmenu:draw()
     cam:attach()
-        love.graphics.setShader(deeper_backgroundShader)
+        love.graphics.setColor(0.3, 0.3, 0.3, 1)
         DrawEurope()
         DrawCountries()
+        love.graphics.setColor(1, 1, 1)
     cam:detach()
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("SAVED FILES", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("SAVED FILES") / 2, love.graphics.getHeight() / 13)
