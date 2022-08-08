@@ -14,6 +14,7 @@ function Saving:filesave (filenum)
     Data={}
     Data.filenumber=1
     Data.stage="testmap"
+    
     Data.tank_name,
     Data.x,
     Data.y,
