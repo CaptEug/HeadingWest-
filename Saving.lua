@@ -38,11 +38,11 @@ end
 function Saving:fileload (filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
-    --love.filesystem.getInfo()
-    love.filesystem.load(file[number])
-    Saving:getdata()
+    love.filesystem.getInfo(file[number])
+    local Data=love.filesystem.load(file[number])
+    return Data
 end
 
 function Saving:getdata()
-    
+
 end
