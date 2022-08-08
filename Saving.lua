@@ -1,6 +1,6 @@
 Saving={}
 require 'libraries/show'
-
+Data={}
 function Saving:createsave(filenum)
     
 end
@@ -8,7 +8,7 @@ end
 function Saving:filesave (filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
-    Data={}
+
     Data.filenumber=1
     Data.stage="testmap"
     Data.tank_name,
@@ -39,7 +39,7 @@ function Saving:fileload (filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
     love.filesystem.getInfo(file[number])
-    local Data=love.filesystem.load("file1.lua")
+    Data=love.filesystem.load("file1.lua")
     return Data
 end
 
