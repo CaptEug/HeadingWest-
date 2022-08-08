@@ -61,6 +61,7 @@ end
 
 function Saving:fileload (filenum)
     Gamestate.switch(testmap)
+    Filenumber=filenum
 end
 
 function Saving:getdata(filenum)

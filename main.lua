@@ -3,7 +3,7 @@ cam = Camera()
 Gamestate = require "libraries/gamestate"
 sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
-Filenumber=0
+Filenumber=1
 
 --files required
 require 'libraries/CGplayer'

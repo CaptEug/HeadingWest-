@@ -2,7 +2,7 @@ testmap = {}
 testmap = Gamestate.new()
 require 'Saving'
 require 'gamestates/loadmenu'
-Saving:getdata(1)
+Saving:getdata(Filenumber)
 Data()
 
 
@@ -55,7 +55,7 @@ function testmap:update(dt)
     MAUS1:move(dt)
     if love.keyboard.isDown("e")
     then
-        Saving:filesave(1)
+        Saving:filesave(Filenumber)
     end
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
