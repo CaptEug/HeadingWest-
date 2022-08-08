@@ -31,8 +31,8 @@ function buttons.newPicButton(type,picture, fn, buttons, bx, by)
             h = picture:getHeight(),
             bx = bx or picture:getWidth() / 2,
             by = by or picture:getHeight() / 2,
-            now = false,
-            last = false
+            now = true,
+            last = true
     }
     table.insert(buttons, instance)
     return instance
