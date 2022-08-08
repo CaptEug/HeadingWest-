@@ -2,11 +2,10 @@ testmap = {}
 testmap = Gamestate.new()
 require 'Saving'
 require 'gamestates/loadmenu'
-Saving:getdata(Filenumber)
-Data()
-
 
 function testmap:init()
+    Saving:getdata(Filenumber)
+    Data()
     gamemap = sti('chapters/maps/checkpointC.lua')
     
     world = wf.newWorld(0, 0)

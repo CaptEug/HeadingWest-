@@ -60,8 +60,8 @@ function Saving:filesave (filenum)
 end
 
 function Saving:fileload (filenum)
-    Gamestate.switch(testmap)
     Filenumber=filenum
+    Gamestate.switch(testmap)
 end
 
 function Saving:getdata(filenum)
@@ -70,5 +70,5 @@ function Saving:getdata(filenum)
     if love.filesystem.getInfo(file[number])==nil then
         Saving:createsave(filenum)
     end
-    Data=love.filesystem.load("file1.lua")
+    Data=love.filesystem.load(file[number])
 end
