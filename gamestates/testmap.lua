@@ -2,7 +2,8 @@ testmap = {}
 testmap = Gamestate.new()
 require 'Saving'
 require 'gamestates/loadmenu'
-local tankedata=Data
+Saving:getdata(1)
+Data()
 function testmap:init()
     gamemap = sti('chapters/maps/checkpointC.lua')
     
@@ -23,8 +24,8 @@ function testmap:init()
 
     MAUS1 = tanks.new(
     'mause',
-    tankedata.x,
-    tankedata.y,
+    Data.x,
+    Data.y,
     0,
     0,
     'tanks/german/MAUS/MAUS turret.png',
