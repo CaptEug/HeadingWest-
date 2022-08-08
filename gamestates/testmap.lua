@@ -2,7 +2,7 @@ testmap = {}
 testmap = Gamestate.new()
 require 'Saving'
 require 'gamestates/loadmenu'
-
+tankedata=Tankdata
 function testmap:init()
     gamemap = sti('chapters/maps/checkpointC.lua')
     
