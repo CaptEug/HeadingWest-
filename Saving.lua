@@ -8,7 +8,7 @@ end
 function Saving:filesave (filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
-    Data={}
+    local Data={}
     Data.filenumber=1
     Data.stage="testmap"
 
@@ -39,7 +39,32 @@ function Saving:fileload (filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
     love.filesystem.getInfo(file[number])
-    local Data=love.filesystem.load(file[number])
+    local Data=love.filesystem.load("file1.lua")
+    Data = {
+        ["y"] = 1511.861328125;
+        ["x"] = 518.98992919922;
+        ["tank_name"] = "mause";
+        ["turret_angle"] = 0;
+        ["turret_path"] = "tanks/german/MAUS/MAUS turret.png";
+        ["bodywork_path"] = "tanks/german/MAUS/MAUS hull.png";
+        ["turret_offset"] = 27;
+        ["maxspeed"] = 200;
+        ["back_maxspeed"] = 40;
+        ["acceleration"] = 30;
+        ["back_acceleration"] = 20;
+        ["stop_acceleration"] = 150;
+        ["max_Rotation_speed"] = 0.8;
+        ["filenumber"] = 1;
+        ["stage"] = "testmap";
+        ["turret_max_Rotation_speed"] = 0.5;
+        ["turret_Rotational_acceleration"] = 0.4;
+        ["turret_stop_rotation_ac"] = 0.8;
+        ["angle"] = 2.8486363887787;
+        ["Rotational_acceleration"] = 0.3;
+        ["stop_rotation_ac"] = 0.7;
+     };
+    d=Data.stage
+    Gamestate.switch(testmap)
     return Data
 end
 
