@@ -1,7 +1,8 @@
 Loadmenu = {}
 Loadmenu = Gamestate.new()
 require 'tank'
-require'Saving'
+require 'Saving'
+require 'libraries/shader'
 Stalin = love.graphics.newImage('pictures/Joseph_Stalin.png')
 Khrushchev = love.graphics.newImage('pictures/Khrushchev.png')
 Brezhnev = love.graphics.newImage('pictures/Brezhnev.png')
@@ -68,9 +69,8 @@ end
 
 function Loadmenu:draw()
     cam:attach()
-        
+        love.graphics.setShader(deeper_backgroundShader)
         DrawEurope()
-        
     cam:detach()
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("SAVED FILES", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("SAVED FILES") / 2, love.graphics.getHeight() / 13)
