@@ -10,16 +10,6 @@ function testmap:init()
     
     world = wf.newWorld(0, 0)
     
-    Gbuttons = buttons.new()
-    Back = buttons.newButton(
-        1,
-        "Back",
-        function()
-            Gamestate.switch(MainMenu)
-        end,
-        Gbuttons
-    )
-
     SetColliders:set("wall","static")
     SetColliders:set("Spike")
 
@@ -66,7 +56,6 @@ end
 
 
 function testmap:draw()
-    Gbuttons:use()
     
     cam:attach()
         --gamemap:drawLayer(gamemap.layers["ground"])
