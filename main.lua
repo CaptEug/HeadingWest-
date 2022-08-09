@@ -8,6 +8,7 @@ Filenumber=1
 testmap = {}
 testmap = Gamestate.new()
 Maps={testmap,Loadmenu,MainMenu}
+MapNumber=1
 --files required
 require 'libraries/CGplayer'
 require 'libraries/shader'

@@ -6,6 +6,7 @@ MainMenu = Gamestate.new()
 function MainMenu:init()
     Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
     Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
+
     
     Letsgo = love.audio.newSource('music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
     love.audio.play(Letsgo)

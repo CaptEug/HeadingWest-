@@ -4,9 +4,9 @@ require 'gamestates/loadmenu'
 require 'libraries/battle_fog'
 
 function testmap:init()
+    MapNumber=1
     Saving:getdata(Filenumber)
     Data()
-    MapNumber=1
     gamemap = sti('chapters/maps/checkpointC.lua')
     
     world = wf.newWorld(0, 0)
@@ -47,7 +47,7 @@ end
 function testmap:update(dt)
     world:update(dt)
     MAUS1:move(dt)
-    
+
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
     end
