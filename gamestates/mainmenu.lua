@@ -12,9 +12,8 @@ function MainMenu:init()
 
     cam:lookAt(EUw * 2 / 5, EUh * 3/5)
     cam:zoomTo(0.7)
-    MMbuttons = buttons.new()
-    local ww, wh = love.graphics.getDimensions()
     
+    MMbuttons = buttons.new()
     Start = buttons.newButton(
         1,
         "В путь!",
@@ -32,6 +31,15 @@ function MainMenu:init()
         end,
         MMbuttons
     )
+
+    Settings = buttons.newToolButton(
+        2,
+        Gear,
+        function()
+            
+        end,
+        MMbuttons
+    )
 end
 
 
@@ -42,6 +50,8 @@ function MainMenu:update(dt)
     Start.by = wh / 2
     Quit.bx = ww / 2
     Quit.by = wh * 3 / 5
+    Settings.bx = 32
+    Settings.by = wh - 32
 
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)

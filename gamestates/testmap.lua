@@ -3,6 +3,16 @@ require 'Saving'
 require 'gamestates/loadmenu'
 
 function testmap:init()
+    Gbuttons = buttons.new()
+    Settings = buttons.newToolButton(
+        2,
+        Gear,
+        function()
+            Gamestate.push(Pause)
+        end,
+        Gbuttons
+    )
+    
     Saving:getdata(Filenumber)
     Data()
     MapNumber=1
@@ -40,6 +50,9 @@ end
 
 
 function testmap:update(dt)
+    local ww, wh = love.graphics.getDimensions()
+    Settings.bx = 32
+    Settings.by = wh - 32
     world:update(dt)
     MAUS1:move(dt)
     if love.keyboard.isDown("e")
@@ -56,6 +69,7 @@ end
 
 
 function testmap:draw()
+    Gbuttons:use()
     
     cam:attach()
         --gamemap:drawLayer(gamemap.layers["ground"])

@@ -32,7 +32,7 @@ Bulgaria = love.graphics.newImage('Europe/Bulgaria.png')
 East_Germany = love.graphics.newImage('Europe/East_Germany.png')
 
 BandWshader = love.graphics.newShader(BandWshader_code)
-
+Gear = love.graphics.newImage('pictures/Gear.png')
 
 
 local function cammovement()

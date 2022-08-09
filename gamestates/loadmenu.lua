@@ -36,26 +36,16 @@ function Loadmenu:init()
         end,
         Lbuttons
     )
-
-    JUMP = buttons.newButton(
-        1,
-        "JUMP",
-        function()
-            Gamestate.switch(testmap)
-        end,
-        Lbuttons
-    )
 end
 
 function Loadmenu:update()
-    ww, wh = love.graphics.getDimensions()
+    local ww, wh = love.graphics.getDimensions()
     FILE1.bx = ww / 5
     FILE2.bx = ww / 2
     FILE3.bx = ww *(4 / 5)
     FILE1.by = wh *(1 / 2)
     FILE2.by = wh *(1 / 2)
     FILE3.by = wh *(1 / 2)
-    JUMP.by=wh / 2
 
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)

@@ -54,13 +54,13 @@ function Pause:draw()
 end
 
 function love.keypressed(key)
-    if Gamestate.current() == testmap and key == 'p' then
+    if Gamestate.current() == testmap and key == 'escape' then
         return Gamestate.push(Pause)
     end
 end
 
 function Pause:keypressed(key)
-    if key == 'p' then
+    if key == 'escape' then
         return Gamestate.pop() -- return to previous state
     end
 end
