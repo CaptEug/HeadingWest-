@@ -94,6 +94,6 @@ function testmap:draw()
         --gamemap:drawLayer(gamemap.layers["top"])
         SetColliders:draw("objects/Spike1.png")
         world:draw()
-        
+        love.graphics.setShader(nil)
     cam:detach()
 end
