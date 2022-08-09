@@ -43,11 +43,13 @@ function Pause:update(dt)
     BacktoMMenu.bx = ww / 2
     BacktoMMenu.by = wh * 3 / 5
     Save.bx=ww/2
-    Save.by=wh*7/10
+    Save.by=wh* 7 / 10
 end
 
 function Pause:draw()
+    love.graphics.setColor(0.3, 0.3, 0.3, 1)
     self.from:draw()
+    love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("PAUSE", love.graphics.getWidth() /2 - Rtitlefont:getWidth("PAUSE") / 2, love.graphics.getHeight() / 13)
     Pbuttons:use()
