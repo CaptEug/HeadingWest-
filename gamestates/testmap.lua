@@ -1,5 +1,4 @@
-testmap = {}
-testmap = Gamestate.new()
+
 require 'Saving'
 require 'gamestates/loadmenu'
 require 'libraries/battle_fog'
@@ -7,6 +6,7 @@ require 'libraries/battle_fog'
 function testmap:init()
     Saving:getdata(Filenumber)
     Data()
+    MapNumber=1
     gamemap = sti('chapters/maps/checkpointC.lua')
     
     world = wf.newWorld(0, 0)
