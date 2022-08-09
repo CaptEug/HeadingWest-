@@ -3,7 +3,6 @@ cam = Camera()
 Gamestate = require "libraries/gamestate"
 sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
-Filenumber=1
 
 --files required
 require 'libraries/CGplayer'
@@ -17,6 +16,11 @@ require 'gamestates/MainMenu'
 require 'gamestates/testmap'
 require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
+require 'libraries/battle_fog'
+
+Maps={testmap,Loadmenu,MainMenu}
+MapNumber=1
+Filenumber=1
 
 Europe_BandW = love.graphics.newImage('Europe/Europe_BandW.png')
 EUw, EUh = Europe_BandW:getDimensions()
@@ -29,7 +33,7 @@ Bulgaria = love.graphics.newImage('Europe/Bulgaria.png')
 East_Germany = love.graphics.newImage('Europe/East_Germany.png')
 
 BandWshader = love.graphics.newShader(BandWshader_code)
-
+battle_fog_shader = love.graphics.newShader(battle_fog_shader_code)
 
 
 local function cammovement()

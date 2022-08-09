@@ -2,24 +2,16 @@ testmap = {}
 testmap = Gamestate.new()
 require 'Saving'
 require 'gamestates/loadmenu'
+require 'libraries/battle_fog'
 
 function testmap:init()
+    MapNumber=1
     Saving:getdata(Filenumber)
     Data()
     gamemap = sti('chapters/maps/checkpointC.lua')
     
     world = wf.newWorld(0, 0)
     
-    Gbuttons = buttons.new()
-    Back = buttons.newButton(
-        1,
-        "Back",
-        function()
-            Gamestate.switch(MainMenu)
-        end,
-        Gbuttons
-    )
-
     SetColliders:set("wall","static")
     SetColliders:set("Spike")
 
@@ -47,15 +39,16 @@ function testmap:init()
     MAUS1:create()
 end
 
+battle_fog_shader = nil
 
+function love.load()
+    battle_fog_shader = love.graphics.newShader(battle_fog_shader_code)
+end
 
 function testmap:update(dt)
     world:update(dt)
     MAUS1:move(dt)
-    if love.keyboard.isDown("e")
-    then
-        Saving:filesave(Filenumber)
-    end
+
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
     end
@@ -64,9 +57,26 @@ function testmap:update(dt)
     end
 end
 
+function love.draw()
+    love.graphics.setShader(battle_fog_shader)
+
+    shader:send("screen", {
+        love.graphics.getWidth(),
+        love.graphics.getHeight()
+    })
+
+    shader:send("num_lights", 1)
+
+    do
+       local name = "lights[" .. 0 .."]"
+       shader:send(name .. ".position", {love.graphics.getWidth() / 2, love.graphics.getHeight() / 2})
+       shader:send(name .. ".diffuse", {1.0, 1.0, 1.0})
+       shader:send(name .. ".power", 64)
+    end
+    love.graphics.setShader()
+end
 
 function testmap:draw()
-    Gbuttons:use()
     
     cam:attach()
         --gamemap:drawLayer(gamemap.layers["ground"])

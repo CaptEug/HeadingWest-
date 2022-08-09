@@ -1,12 +1,13 @@
 Saving={}
 require 'libraries/show'
 Data={}
+
 function Saving:createsave(filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
     local filedata={}
     filedata.filenumber=filenum
-    filedata.stage="testmap"
+    filedata.stage=1
     filedata.tank_name="mause"
     filedata.x=0
     filedata.y=0
@@ -34,8 +35,8 @@ function Saving:filesave (filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
     local filedata={}
-    filedata.filenumber=1
-    filedata.stage="testmap"
+    filedata.filenumber=Filenumber
+    filedata.stage=MapNumber
     filedata.tank_name,
     filedata.x,
     filedata.y,
@@ -61,14 +62,17 @@ end
 
 function Saving:fileload (filenum)
     Filenumber=filenum
-    Gamestate.switch(testmap)
+    local file={"file1.lua","file2.lua","file3.lua"}
+    if love.filesystem.getInfo(file[filenum])==nil then
+        Saving:createsave(filenum)
+    end
+    Gamestate.switch(Maps[MapNumber])
 end
 
 function Saving:getdata(filenum)
-    local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
-    if love.filesystem.getInfo(file[number])==nil then
+    if love.filesystem.getInfo(file[filenum])==nil then
         Saving:createsave(filenum)
     end
-    Data=love.filesystem.load(file[number])
+    Data=love.filesystem.load(file[filenum])
 end
