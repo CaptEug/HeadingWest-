@@ -5,6 +5,9 @@ sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
 Filenumber=1
 
+testmap = {}
+testmap = Gamestate.new()
+Maps={testmap,Loadmenu,MainMenu}
 --files required
 require 'libraries/CGplayer'
 require 'libraries/shader'
