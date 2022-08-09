@@ -47,10 +47,7 @@ end
 function testmap:update(dt)
     world:update(dt)
     MAUS1:move(dt)
-    if love.keyboard.isDown("e")
-    then
-        Saving:filesave(Filenumber)
-    end
+    
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
     end
