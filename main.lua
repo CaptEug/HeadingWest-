@@ -3,6 +3,7 @@ cam = Camera()
 Gamestate = require "libraries/gamestate"
 sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
+Filenumber=1
 
 --files required
 require 'libraries/CGplayer'
@@ -70,7 +71,6 @@ function DrawCountries()
 end
 
 function love.load()
-    
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
     
@@ -81,13 +81,10 @@ end
 
 function love.update(dt)
     cammovement()
-    if Gamestate.current() ~= MainMenu and key == 'p' then
-        return Gamestate.push(Pause)
-    end
 end
 
 
 
 function love.draw()
-     --cg1:playCG()
+    --cg1:playCG()
 end
