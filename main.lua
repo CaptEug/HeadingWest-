@@ -5,8 +5,6 @@ sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
 Filenumber=1
 
-testmap = {}
-testmap = Gamestate.new()
 Maps={testmap,Loadmenu,MainMenu}
 MapNumber=1
 --files required
@@ -22,6 +20,9 @@ require 'gamestates/testmap'
 require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
 require 'libraries/battle_fog'
+
+Maps={testmap,Loadmenu,MainMenu}
+MapNumber=1
 
 Europe_BandW = love.graphics.newImage('Europe/Europe_BandW.png')
 EUw, EUh = Europe_BandW:getDimensions()
