@@ -35,7 +35,7 @@ function Saving:filesave (filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
     local filedata={}
-    filedata.filenumber=1
+    filedata.filenumber=Filenumber
     filedata.stage=MapNumber
     filedata.tank_name,
     filedata.x,
