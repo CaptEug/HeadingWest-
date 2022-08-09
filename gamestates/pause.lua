@@ -30,7 +30,7 @@ function Pause:init()
         1,
         "Save",
         function()
-            
+            Saving:filesave(Filenumber)
         end,
         Pbuttons
     )
@@ -42,6 +42,8 @@ function Pause:update(dt)
     Continue.by = wh / 2
     BacktoMMenu.bx = ww / 2
     BacktoMMenu.by = wh * 3 / 5
+    Save.bx=ww/2
+    Save.by=wh*7/10
 end
 
 function Pause:draw()
