@@ -1,7 +1,7 @@
 SetColliders={}
 Size=1
 
-function SetColliders:get(layersname,type,zoom)
+function SetColliders:set(layersname,type,zoom)
     Collider_data={}
     Collider_data.collision={}
     Collider_data.width={}

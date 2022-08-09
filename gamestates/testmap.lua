@@ -1,12 +1,11 @@
-testmap = {}
-testmap = Gamestate.new()
+
 require 'Saving'
 require 'gamestates/loadmenu'
-Saving:getdata(1)
-Data()
-
 
 function testmap:init()
+    Saving:getdata(Filenumber)
+    Data()
+    MapNumber=1
     gamemap = sti('chapters/maps/checkpointC.lua')
     
     world = wf.newWorld(0, 0)
@@ -21,8 +20,8 @@ function testmap:init()
         Gbuttons
     )
 
-    SetColliders:get("wall","static")
-    SetColliders:get("Spike")
+    SetColliders:set("wall","static")
+    SetColliders:set("Spike")
 
     MAUS1 = tanks.new(
         Data.tank_name,
@@ -55,7 +54,7 @@ function testmap:update(dt)
     MAUS1:move(dt)
     if love.keyboard.isDown("e")
     then
-        Saving:filesave(1)
+        Saving:filesave(Filenumber)
     end
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
