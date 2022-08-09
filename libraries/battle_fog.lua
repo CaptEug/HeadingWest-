@@ -27,36 +27,3 @@ vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords){
     return pixel * vec4(diffuse, 1.0);
 }
 ]]
-
-shader = nil
-image  = nil
-
-function love.load()
-    shader = love.graphics.newShader(battle_fog_shader_code)
-    image = love.graphics.newImage("Spike1.png")
-end
-
-function love.update(dt)
-
-end
-
-function love.draw()
-    love.graphics.setShader(shader)
-
-    shader:send("screen", {
-        love.graphics.getWidth(),
-        love.graphics.getHeight()
-    })
-
-    shader:send("num_lights", 1)
-
-    do
-       local name = "lights[" .. 0 .."]"
-       shader:send(name .. ".position", {love.graphics.getWidth() / 2, love.graphics.getHeight() / 2})
-       shader:send(name .. ".diffuse", {1.0, 1.0, 1.0})
-       shader:send(name .. ".power", 64)
-    end
-
-    love.graphics.draw(image, 0, 0)
-    love.graphics.setShader()
-end
