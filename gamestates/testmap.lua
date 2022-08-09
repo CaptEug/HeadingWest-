@@ -84,7 +84,7 @@ function testmap:draw()
             local name = "lights[" .. 0 .."]"
             battle_fog_shader:send(name .. ".position", {love.graphics.getWidth() / 2, love.graphics.getHeight() / 2})
             battle_fog_shader:send(name .. ".diffuse", {1.0, 1.0, 1.0})
-            battle_fog_shader:send(name .. ".power", 64)
+            battle_fog_shader:send(name .. ".power", 16)
         end
         
 
