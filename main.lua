@@ -6,7 +6,7 @@ wf = require 'libraries/windfield'
 
 --files required
 require 'libraries/CGplayer'
-require 'libraries/shader'
+require 'libraries/shaders'
 require 'libraries/buttons'
 require 'Tank'
 require 'libraries/SetColliders'
