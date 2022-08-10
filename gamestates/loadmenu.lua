@@ -36,6 +36,15 @@ function Loadmenu:init()
         end,
         Lbuttons
     )
+
+    Back = buttons.newButton(
+        1,
+        "Back",
+        function()
+            Gamestate.switch(MainMenu)   
+        end,
+        Lbuttons
+    )
 end
 
 function Loadmenu:update()
@@ -46,6 +55,8 @@ function Loadmenu:update()
     FILE1.by = wh *(1 / 2)
     FILE2.by = wh *(1 / 2)
     FILE3.by = wh *(1 / 2)
+    Back.bx = ww / 2
+    Back.by = wh *(12 / 13)
 
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
