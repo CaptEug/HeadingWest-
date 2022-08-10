@@ -14,6 +14,7 @@ function tworld:creat_tank()
     table.insert(self.entitis, entity)
     return entity
 end
+player = {}
 
 function tworld:update(dt)
     for i = #self.entitis, 1, -1 do
