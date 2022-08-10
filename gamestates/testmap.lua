@@ -3,6 +3,7 @@ testmap = Gamestate.new()
 require 'Saving'
 require 'gamestates/loadmenu'
 require 'libraries/battle_fog'
+require 'Shell'
 
 function testmap:init()
     MapNumber=1
@@ -62,6 +63,9 @@ function testmap:update(dt)
     world:update(dt)
     MAUS1:move(dt)
 
+    if love.mouse.isDown(1) then
+        createshell()
+    end
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
     end
