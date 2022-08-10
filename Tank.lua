@@ -3,7 +3,6 @@ tanks = {}
 tank = {}
 tank.__index = tanks
 
-
 function tanks.new(
     tank_name,
     x,
