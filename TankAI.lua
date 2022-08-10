@@ -26,10 +26,15 @@ function TankAI:spawn()
 end
 
 function TankAI:find()
-    
+    local playerx=MAUS1.x
+    local playery=MAUS1.y
+    if playerx^2+playery^2>20 then
+        self.move(player)
+    end
+
 end
 
-function TankAI:move()
+function TankAI:move(player)
     
 end
 
