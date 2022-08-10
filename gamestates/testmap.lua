@@ -2,7 +2,7 @@ testmap = {}
 testmap = Gamestate.new()
 require 'Saving'
 require 'gamestates/loadmenu'
-require 'libraries/battle_fog'
+require 'libraries/shader'
 require 'Shell'
 
 function testmap:init()

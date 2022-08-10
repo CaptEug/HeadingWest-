@@ -16,7 +16,6 @@ require 'gamestates/MainMenu'
 require 'gamestates/testmap'
 require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
-require 'libraries/battle_fog'
 
 Maps={testmap,Loadmenu,MainMenu}
 MapNumber=1
