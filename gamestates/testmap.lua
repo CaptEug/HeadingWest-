@@ -28,7 +28,7 @@ function testmap:init()
     
     
     SetColliders:set("wall","static",'wall')
-    SetColliders:set("Spike",'spike')
+    SetColliders:set("Spike",nil,'spike')
 
     MAUS1 = tanks.new(
         Data.tank_name,
