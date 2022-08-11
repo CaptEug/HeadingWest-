@@ -1,25 +1,25 @@
-shells = {}
-shells.__index = shells
+Ammo = {}
+Ammo.__index = Ammo
 
-function shells.new()
-    local instance = setmetatable({}, shells)
+function Ammo.new()
+    local instance = setmetatable({}, Ammo)
     return instance
 end
 
-function shells.newShell(speed,damege)
+function Ammo.newShell(speed,damege,ammo)
     local instance = {
         speed = speed,
         damege = damege
     }
-    table.insert(shells, instance)
+    table.insert(ammo, instance)
     return instance
 end
 
-function shells:shoot()
+function Ammo:shoot(shell_type)
     local mx, my = cam:mousePosition(ox,oy,w,h)
     local angle = math.atan2(my - MAUS1.y, mx - MAUS1.x)
-    local vx, vy = math.cos(angle) * self.speed,
-                   math.sin(angle) * self.speed
+    local vx, vy = math.cos(angle) * shell_type.speed,
+                   math.sin(angle) * shell_type.speed
     
     local shell = world:newRectangleCollider(MAUS1.x, MAUS1.y - 100, 10, 10)
     shell:setLinearVelocity(vx, vy)

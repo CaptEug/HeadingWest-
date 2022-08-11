@@ -5,7 +5,7 @@ require 'Saving'
 
 function testmap:init()
     MapNumber=1
-    
+
     Gbuttons = buttons.new()
     Settings = buttons.newToolButton(
         Gear,
@@ -21,9 +21,9 @@ function testmap:init()
     Saving:getdata(Filenumber)
     Data()
     gamemap = sti('chapters/maps/checkpointC.lua')
-    
+
     world = wf.newWorld(0, 0)
-    
+
     SetColliders:set("wall","static")
     SetColliders:set("Spike")
 
@@ -70,7 +70,7 @@ end
 
 function testmap:draw()
     Gbuttons:use()
-    
+
     cam:attach()
         love.graphics.setShader(battle_fog_shader)
         battle_fog_shader:send("screen", {
@@ -84,7 +84,7 @@ function testmap:draw()
             battle_fog_shader:send(name .. ".diffuse", {1.0, 1.0, 1.0})
             battle_fog_shader:send(name .. ".power", 32)
         end
-        
+
 
         gamemap:drawLayer(gamemap.layers["ground"])
         MAUS1:use()
