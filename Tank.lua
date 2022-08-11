@@ -80,9 +80,6 @@ function tanks:create()
     self.aw , self.ah = self.a:getDimensions()
     self.bw , self.bh = self.b:getDimensions()
     self.tankbox = world:newRectangleCollider(self.x, self.y, self.aw*0.2, self.ah*0.2)
-    world:addCollisionClass('MAUS1')
-    world:addCollisionClass('MAUS1shell',{ignores = {'MAUS1'}})
-    self.tankbox:setCollisionClass('MAUS1')
     self.tankbox:setFixedRotation(true)
     self.speed = 0
     self.Rotational_speed = 0

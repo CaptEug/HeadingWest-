@@ -27,8 +27,8 @@ function testmap:init()
     world = wf.newWorld(0, 0)
     
     
-    SetColliders:set("wall","static",'wall')
-    SetColliders:set("Spike",nil,'spike')
+    SetColliders:set("wall","static")
+    SetColliders:set("Spike")
 
     MAUS1 = tanks.new(
         Data.tank_name,
