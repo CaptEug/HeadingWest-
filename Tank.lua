@@ -161,6 +161,10 @@ function tanks:move(dt)
 
     self.tankbox:setLinearVelocity(self.vx , self.vy)
     self.tankbox:setAngularVelocity(self.vt)
+
+    if love.mouse.isDown(1) then
+        createshell()
+    end
 end
 
 

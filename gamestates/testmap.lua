@@ -26,6 +26,7 @@ function testmap:init()
     
     world = wf.newWorld(0, 0)
     
+    
     SetColliders:set("wall","static")
     SetColliders:set("Spike")
 
@@ -62,9 +63,6 @@ function testmap:update(dt)
     world:update(dt)
     MAUS1:move(dt)
 
-    if love.mouse.isDown(1) then
-        createshell()
-    end
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
     end

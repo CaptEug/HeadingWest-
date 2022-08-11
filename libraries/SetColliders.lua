@@ -14,6 +14,7 @@ function SetColliders:set(layersname,type,zoom)
     if gamemap.layers[layersname] then
         for i, j in pairs(gamemap.layers[layersname].objects) do
             Collider_data.collision[i] = world:newRectangleCollider(j.x, j.y, j.width*Size, j.height*Size)
+
             Collider_data.width[i]=j.width
             Collider_data.height[i]=j.height
 
@@ -22,7 +23,6 @@ function SetColliders:set(layersname,type,zoom)
             end
         end
     end
-
 end
     
 function SetColliders:draw(Filelocation)
