@@ -12,7 +12,6 @@ function Loadmenu:init()
     
     Lbuttons = buttons.new()
     FILE1 = buttons.newPicButton(
-        0,
         Stalin,
         function()
             Saving:fileload(1)
@@ -21,7 +20,6 @@ function Loadmenu:init()
     )
 
     FILE2 = buttons.newPicButton(
-        0,
         Khrushchev,
         function()
             Saving:fileload(2)
@@ -30,7 +28,6 @@ function Loadmenu:init()
     )
 
     FILE3 = buttons.newPicButton(
-        0,
         Brezhnev,
         function()
             Saving:fileload(3)
@@ -39,7 +36,6 @@ function Loadmenu:init()
     )
 
     Back = buttons.newButton(
-        1,
         "Back",
         function()
             Gamestate.switch(MainMenu)   

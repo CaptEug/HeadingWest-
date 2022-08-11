@@ -2,14 +2,12 @@ testmap = {}
 testmap = Gamestate.new()
 
 require 'Saving'
-require 'Shell'
 
 function testmap:init()
     MapNumber=1
     
     Gbuttons = buttons.new()
     Settings = buttons.newToolButton(
-        2,
         Gear,
         function()
             local state = false
@@ -25,7 +23,6 @@ function testmap:init()
     gamemap = sti('chapters/maps/checkpointC.lua')
     
     world = wf.newWorld(0, 0)
-    
     
     SetColliders:set("wall","static")
     SetColliders:set("Spike")
@@ -89,10 +86,10 @@ function testmap:draw()
         end
         
 
-        --gamemap:drawLayer(gamemap.layers["ground"])
+        gamemap:drawLayer(gamemap.layers["ground"])
         MAUS1:use()
-        --gamemap:drawLayer(gamemap.layers["veg"])
-        --gamemap:drawLayer(gamemap.layers["top"])
+        gamemap:drawLayer(gamemap.layers["veg"])
+        gamemap:drawLayer(gamemap.layers["top"])
         SetColliders:draw("objects/Spike1.png")
         world:draw()
         love.graphics.setShader(nil)
