@@ -1,8 +1,7 @@
 testmap = {}
 testmap = Gamestate.new()
+
 require 'Saving'
-require 'gamestates/loadmenu'
-require 'libraries/battle_fog'
 require 'Shell'
 
 function testmap:init()
@@ -86,9 +85,9 @@ function testmap:draw()
         battle_fog_shader:send("num_lights", 1)
         do
             local name = "lights[" .. 0 .."]"
-            battle_fog_shader:send(name .. ".position", {love.graphics.getWidth() / 2, love.graphics.getHeight() / 2})
+            battle_fog_shader:send(name .. ".position", {cam:cameraCoords(MAUS1.x,MAUS1.y, ox,oy,w,h)})
             battle_fog_shader:send(name .. ".diffuse", {1.0, 1.0, 1.0})
-            battle_fog_shader:send(name .. ".power", 16)
+            battle_fog_shader:send(name .. ".power", 32)
         end
         
 

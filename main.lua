@@ -6,7 +6,7 @@ wf = require 'libraries/windfield'
 
 --files required
 require 'libraries/CGplayer'
-require 'libraries/shader'
+require 'libraries/shaders'
 require 'libraries/buttons'
 require 'Tank'
 require 'libraries/SetColliders'
@@ -16,7 +16,6 @@ require 'gamestates/MainMenu'
 require 'gamestates/testmap'
 require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
-require 'libraries/battle_fog'
 
 Maps={testmap,Loadmenu,MainMenu}
 MapNumber=1
