@@ -1,9 +1,10 @@
 testmap = {}
 testmap = Gamestate.new()
 
-require 'Saving'
+
 
 function testmap:init()
+    
     MapNumber=1
 
     Gbuttons = buttons.new()
@@ -20,12 +21,10 @@ function testmap:init()
 
     Saving:getdata(Filenumber)
     Data()
-    gamemap = sti('chapters/maps/checkpointC.lua')
-
-    world = wf.newWorld(0, 0)
-
-    SetColliders:set("wall","static")
-    SetColliders:set("Spike")
+    
+    loadMap('checkpointC')
+    
+    
 
     MAUS1 = tanks.new(
         Data.tank_name,
@@ -85,12 +84,11 @@ function testmap:draw()
             battle_fog_shader:send(name .. ".power", 32)
         end
 
-
-        gamemap:drawLayer(gamemap.layers["ground"])
+        drawMap()
+        
         MAUS1:use()
-        gamemap:drawLayer(gamemap.layers["veg"])
-        gamemap:drawLayer(gamemap.layers["top"])
-        SetColliders:draw("objects/Spike1.png")
+        
+        
         world:draw()
         love.graphics.setShader(nil)
     cam:detach()

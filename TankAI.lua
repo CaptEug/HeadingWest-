@@ -1,6 +1,6 @@
 TankAI={}
 
-function TankAI:spawn()
+function TankAI:spawn(x,y,type,args)
     MAUS1 = tanks.new(
         Data.tank_name,
         Data.x,
@@ -23,6 +23,14 @@ function TankAI:spawn()
         Data.turret_stop_rotation_ac
     )
     MAUS1:create()
+
+    local AIdata={}
+
+    AIdata.type=type
+    AIdata.hp=10
+    AIdata.acceleration=30
+    
+    
 end
 
 function TankAI:find()
@@ -35,9 +43,24 @@ function TankAI:find()
 end
 
 function TankAI:move(player)
-    
+    local playerx=MAUS1.x
+    local playery=MAUS1.y
+
 end
 
-function TankAI:update()
+function TankAI:update(dt)
     MAUS1:use()
+end
+
+function TankAI:destroyDead()
+    local i = #enemies
+    while i > 0 do
+        if enemies[i].dead then
+            if enemies[i].physics then
+                enemies[i].physics:destroy()
+            end
+            table.remove(enemies, i)
+        end
+        i = i - 1
+    end
 end
