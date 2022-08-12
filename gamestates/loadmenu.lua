@@ -4,9 +4,9 @@ Loadmenu = Gamestate.new()
 require 'tank'
 require 'Saving'
 
-Stalin = love.graphics.newImage('pictures/Joseph_Stalin.png')
-Khrushchev = love.graphics.newImage('pictures/Khrushchev.png')
-Brezhnev = love.graphics.newImage('pictures/Brezhnev.png')
+Stalin = love.graphics.newImage('Assets/pictures/Joseph_Stalin.png')
+Khrushchev = love.graphics.newImage('Assets/pictures/Khrushchev.png')
+Brezhnev = love.graphics.newImage('Assets/pictures/Brezhnev.png')
 
 function Loadmenu:init()
     
