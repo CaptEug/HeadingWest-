@@ -1,7 +1,7 @@
 testmap = {}
 testmap = Gamestate.new()
 
-require 'Saving'
+
 
 function testmap:init()
     MapNumber=1
@@ -20,12 +20,10 @@ function testmap:init()
 
     Saving:getdata(Filenumber)
     Data()
-    gamemap = sti('chapters/maps/checkpointC.lua')
+    
+    --loadMap('checkpointC')
 
-    world = wf.newWorld(0, 0)
-
-    SetColliders:set("wall","static")
-    SetColliders:set("Spike")
+    
 
     MAUS1 = tanks.new(
         Data.tank_name,
@@ -86,11 +84,10 @@ function testmap:draw()
         end
 
 
-        gamemap:drawLayer(gamemap.layers["ground"])
+        
         MAUS1:use()
-        gamemap:drawLayer(gamemap.layers["veg"])
-        gamemap:drawLayer(gamemap.layers["top"])
-        SetColliders:draw("Assets/objects/Spike1.png")
+        
+        
         world:draw()
         love.graphics.setShader(nil)
     cam:detach()

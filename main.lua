@@ -11,6 +11,8 @@ require 'libraries/buttons'
 require 'Tank'
 require 'libraries/SetColliders'
 require 'Ammo'
+require 'Saving'
+require 'libraries/Mapdrawer'
 
 --Gamestates required
 require 'gamestates/MainMenu'
@@ -80,7 +82,7 @@ end
 function love.load()
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
-    
+    world = wf.newWorld(0, 0)
     cg1 = CG.new('Assets/CGs/OP.ogv')
 end
 
