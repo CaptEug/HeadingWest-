@@ -1,15 +1,12 @@
 Loadmenu = {}
 Loadmenu = Gamestate.new()
 
-require 'tank'
-require 'Saving'
-
+--Assets registered
 Stalin = love.graphics.newImage('Assets/pictures/Joseph_Stalin.png')
 Khrushchev = love.graphics.newImage('Assets/pictures/Khrushchev.png')
 Brezhnev = love.graphics.newImage('Assets/pictures/Brezhnev.png')
 
 function Loadmenu:init()
-    
     Lbuttons = buttons.new()
     FILE1 = buttons.newPicButton(
         Stalin,

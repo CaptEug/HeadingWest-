@@ -1,15 +1,13 @@
+--files required
 Camera = require 'libraries/camera'
 cam = Camera()
 Gamestate = require "libraries/gamestate"
 sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
-
---files required
 require 'libraries/CGplayer'
 require 'libraries/shaders'
 require 'libraries/buttons'
 require 'Tank'
-require 'libraries/SetColliders'
 require 'Ammo'
 require 'Saving'
 require 'libraries/Mapdrawer'
@@ -22,10 +20,7 @@ require 'gamestates/testmap'
 require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
 
-Maps={testmap,Loadmenu,MainMenu}
-MapNumber=1
-Filenumber=1
-
+--Assets registered
 Europe_BandW = love.graphics.newImage('Assets/Europe/Europe_BandW.png')
 EUw, EUh = Europe_BandW:getDimensions()
 USSR = love.graphics.newImage('Assets/Europe/USSR.png')
@@ -35,12 +30,15 @@ Hungary = love.graphics.newImage('Assets/Europe/Hungary.png')
 Romania = love.graphics.newImage('Assets/Europe/Romania.png')
 Bulgaria = love.graphics.newImage('Assets/Europe/Bulgaria.png')
 East_Germany = love.graphics.newImage('Assets/Europe/East_Germany.png')
+Gear = love.graphics.newImage('Assets/pictures/Gear.png')
+cg1 = CG.new('Assets/CGs/OP.ogv')
 
 BandWshader = love.graphics.newShader(BandWshader_code)
 battle_fog_shader = love.graphics.newShader(battle_fog_shader_code)
 
-Gear = love.graphics.newImage('Assets/pictures/Gear.png')
-
+Maps={testmap,Loadmenu,MainMenu}
+MapNumber=1
+Filenumber=1
 
 
 local function cammovement()
@@ -85,7 +83,6 @@ function love.load()
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
     world = wf.newWorld(0, 0)
-    cg1 = CG.new('Assets/CGs/OP.ogv')
 end
 
 
