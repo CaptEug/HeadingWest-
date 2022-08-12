@@ -23,6 +23,16 @@ function TankAI:spawn()
         Data.turret_stop_rotation_ac
     )
     MAUS1:create()
+    local AIdata={
+    alive,
+    agent,
+    ammo,
+    controller,
+    enemy,
+    health,
+    maxHealth
+    }
+    
 end
 
 function TankAI:find()
@@ -40,4 +50,17 @@ end
 
 function TankAI:update()
     MAUS1:use()
+end
+
+function TankAI:destroyDead()
+    local i = #enemies
+    while i > 0 do
+        if enemies[i].dead then
+            if enemies[i].physics then
+                enemies[i].physics:destroy()
+            end
+            table.remove(enemies, i)
+        end
+        i = i - 1
+    end
 end
