@@ -4,15 +4,14 @@ Loadmenu = Gamestate.new()
 require 'tank'
 require 'Saving'
 
-Stalin = love.graphics.newImage('pictures/Joseph_Stalin.png')
-Khrushchev = love.graphics.newImage('pictures/Khrushchev.png')
-Brezhnev = love.graphics.newImage('pictures/Brezhnev.png')
+Stalin = love.graphics.newImage('Assets/pictures/Joseph_Stalin.png')
+Khrushchev = love.graphics.newImage('Assets/pictures/Khrushchev.png')
+Brezhnev = love.graphics.newImage('Assets/pictures/Brezhnev.png')
 
 function Loadmenu:init()
     
     Lbuttons = buttons.new()
     FILE1 = buttons.newPicButton(
-        0,
         Stalin,
         function()
             Saving:fileload(1)
@@ -21,7 +20,6 @@ function Loadmenu:init()
     )
 
     FILE2 = buttons.newPicButton(
-        0,
         Khrushchev,
         function()
             Saving:fileload(2)
@@ -30,7 +28,6 @@ function Loadmenu:init()
     )
 
     FILE3 = buttons.newPicButton(
-        0,
         Brezhnev,
         function()
             Saving:fileload(3)
@@ -39,7 +36,6 @@ function Loadmenu:init()
     )
 
     Back = buttons.newButton(
-        1,
         "Back",
         function()
             Gamestate.switch(MainMenu)   

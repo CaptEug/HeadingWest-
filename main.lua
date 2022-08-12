@@ -10,6 +10,7 @@ require 'libraries/shaders'
 require 'libraries/buttons'
 require 'Tank'
 require 'libraries/SetColliders'
+require 'Ammo'
 
 --Gamestates required
 require 'gamestates/MainMenu'
@@ -21,20 +22,20 @@ Maps={testmap,Loadmenu,MainMenu}
 MapNumber=1
 Filenumber=1
 
-Europe_BandW = love.graphics.newImage('Europe/Europe_BandW.png')
+Europe_BandW = love.graphics.newImage('Assets/Europe/Europe_BandW.png')
 EUw, EUh = Europe_BandW:getDimensions()
-USSR = love.graphics.newImage('Europe/USSR.png')
-Poland = love.graphics.newImage('Europe/Poland.png')
-Czechoslovakia = love.graphics.newImage('Europe/Czechoslovakia.png')
-Hungary = love.graphics.newImage('Europe/Hungary.png')
-Romania = love.graphics.newImage('Europe/Romania.png')
-Bulgaria = love.graphics.newImage('Europe/Bulgaria.png')
-East_Germany = love.graphics.newImage('Europe/East_Germany.png')
+USSR = love.graphics.newImage('Assets/Europe/USSR.png')
+Poland = love.graphics.newImage('Assets/Europe/Poland.png')
+Czechoslovakia = love.graphics.newImage('Assets/Europe/Czechoslovakia.png')
+Hungary = love.graphics.newImage('Assets/Europe/Hungary.png')
+Romania = love.graphics.newImage('Assets/Europe/Romania.png')
+Bulgaria = love.graphics.newImage('Assets/Europe/Bulgaria.png')
+East_Germany = love.graphics.newImage('Assets/Europe/East_Germany.png')
 
 BandWshader = love.graphics.newShader(BandWshader_code)
 battle_fog_shader = love.graphics.newShader(battle_fog_shader_code)
 
-Gear = love.graphics.newImage('pictures/Gear.png')
+Gear = love.graphics.newImage('Assets/pictures/Gear.png')
 
 
 
@@ -80,7 +81,7 @@ function love.load()
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
     
-    cg1 = CG.new('CGs/OP.ogv')
+    cg1 = CG.new('Assets/CGs/OP.ogv')
 end
 
 

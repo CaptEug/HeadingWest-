@@ -13,8 +13,8 @@ function Saving:createsave(filenum)
     filedata.y=0
     filedata.angle=0
     filedata.turret_angle=0
-    filedata.turret_path="tanks/german/MAUS/MAUS turret.png"
-    filedata.bodywork_path="tanks/german/MAUS/MAUS hull.png"
+    filedata.turret_path="Assets/tanks/german/MAUS/MAUS turret.png"
+    filedata.bodywork_path="Assets/tanks/german/MAUS/MAUS hull.png"
     filedata.turret_offset=27
     filedata.maxspeed=200
     filedata.back_maxspeed=40
