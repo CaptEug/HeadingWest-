@@ -13,6 +13,8 @@ require 'libraries/SetColliders'
 require 'Ammo'
 require 'Saving'
 require 'libraries/Mapdrawer'
+require 'libraries/destroyAll'
+require 'libraries/show'
 
 --Gamestates required
 require 'gamestates/MainMenu'

@@ -4,6 +4,7 @@ testmap = Gamestate.new()
 
 
 function testmap:init()
+    
     MapNumber=1
 
     Gbuttons = buttons.new()
@@ -21,8 +22,8 @@ function testmap:init()
     Saving:getdata(Filenumber)
     Data()
     
-    --loadMap('checkpointC')
-
+    loadMap('checkpointC')
+    
     
 
     MAUS1 = tanks.new(
@@ -83,7 +84,7 @@ function testmap:draw()
             battle_fog_shader:send(name .. ".power", 32)
         end
 
-
+        drawMap()
         
         MAUS1:use()
         

@@ -1,5 +1,4 @@
 Saving={}
-require 'libraries/show'
 Data={}
 
 function Saving:createsave(filenum)
