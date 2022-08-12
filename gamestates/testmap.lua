@@ -2,14 +2,12 @@ testmap = {}
 testmap = Gamestate.new()
 
 require 'Saving'
-require 'Shell'
 
 function testmap:init()
     MapNumber=1
-    
+
     Gbuttons = buttons.new()
     Settings = buttons.newToolButton(
-        2,
         Gear,
         function()
             local state = false
@@ -23,10 +21,9 @@ function testmap:init()
     Saving:getdata(Filenumber)
     Data()
     gamemap = sti('chapters/maps/checkpointC.lua')
-    
+
     world = wf.newWorld(0, 0)
-    
-    
+
     SetColliders:set("wall","static")
     SetColliders:set("Spike")
 
@@ -73,7 +70,7 @@ end
 
 function testmap:draw()
     Gbuttons:use()
-    
+
     cam:attach()
         love.graphics.setShader(battle_fog_shader)
         battle_fog_shader:send("screen", {
@@ -87,12 +84,12 @@ function testmap:draw()
             battle_fog_shader:send(name .. ".diffuse", {1.0, 1.0, 1.0})
             battle_fog_shader:send(name .. ".power", 32)
         end
-        
 
-        --gamemap:drawLayer(gamemap.layers["ground"])
+
+        gamemap:drawLayer(gamemap.layers["ground"])
         MAUS1:use()
-        --gamemap:drawLayer(gamemap.layers["veg"])
-        --gamemap:drawLayer(gamemap.layers["top"])
+        gamemap:drawLayer(gamemap.layers["veg"])
+        gamemap:drawLayer(gamemap.layers["top"])
         SetColliders:draw("objects/Spike1.png")
         world:draw()
         love.graphics.setShader(nil)

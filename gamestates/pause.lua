@@ -9,7 +9,6 @@ function Pause:init()
     Pbuttons = buttons.new()
     
     Continue = buttons.newButton(
-        1,
         "Continue",
         function()
             Gamestate.pop()
@@ -18,7 +17,6 @@ function Pause:init()
     )
 
     BacktoMMenu = buttons.newButton(
-        1,
         "MainMenu",
         function()
             Gamestate.switch(MainMenu)
@@ -27,7 +25,6 @@ function Pause:init()
     )
 
     Save = buttons.newButton(
-        1,
         "Save",
         function()
             Saving:filesave(Filenumber)

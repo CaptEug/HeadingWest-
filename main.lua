@@ -10,6 +10,7 @@ require 'libraries/shaders'
 require 'libraries/buttons'
 require 'Tank'
 require 'libraries/SetColliders'
+require 'Ammo'
 
 --Gamestates required
 require 'gamestates/MainMenu'

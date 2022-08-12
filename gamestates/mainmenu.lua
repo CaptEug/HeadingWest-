@@ -16,7 +16,6 @@ function MainMenu:init()
     
     MMbuttons = buttons.new()
     Start = buttons.newButton(
-        1,
         "В путь!",
         function()
             Gamestate.switch(Loadmenu)
@@ -25,7 +24,6 @@ function MainMenu:init()
     )
     
     Quit = buttons.newButton(
-        1,
         "Покидать",
         function()
             love.event.quit(0)   
@@ -34,7 +32,6 @@ function MainMenu:init()
     )
 
     Settings = buttons.newToolButton(
-        2,
         Gear,
         function()
             

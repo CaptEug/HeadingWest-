@@ -6,9 +6,9 @@ function buttons.new()
     return instance
 end
 
-function buttons.newButton(type,text, fn, buttons, bx, by)
+function buttons.newButton(text, fn, buttons, bx, by)
     local instance = {
-        type = type,
+        type = 0,
         text = text,
         fn = fn,
         w = Rbuttonfont:getWidth(text),
@@ -22,9 +22,9 @@ function buttons.newButton(type,text, fn, buttons, bx, by)
     return instance
 end
 
-function buttons.newPicButton(type,picture, fn, buttons, bx, by)
+function buttons.newPicButton(picture, fn, buttons, bx, by)
     local instance = {
-        type = type,
+        type = 1,
         picture = picture,
         fn = fn,
         w = picture:getWidth(),
@@ -38,9 +38,9 @@ function buttons.newPicButton(type,picture, fn, buttons, bx, by)
     return instance
 end
 
-function buttons.newToolButton(type,picture, fn, buttons, bx, by)
+function buttons.newToolButton(picture, fn, buttons, bx, by)
     local instance = {
-        type = type,
+        type = 2,
         picture = picture,
         fn = fn,
         w = picture:getWidth(),
@@ -61,7 +61,7 @@ function buttons:use()
     for i, button in ipairs(self) do
         local ButtonColor = {1, 1, 1, 0.7}
         
-        if button.type == 1 then
+        if button.type == 0 then
             love.graphics.setFont(Rbuttonfont)
             local x, y = button.bx - button.w / 2, button.by - button.h / 2
             local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
@@ -77,7 +77,7 @@ function buttons:use()
             love.graphics.print(button.text, x, y)
         end
         
-        if button.type == 0 then
+        if button.type == 1 then
             local x, y = button.bx - button.w * ratio / 2, button.by - button.h * ratio / 2
             local Hot = mx>=x and mx<=x+button.w * ratio and my>=y and my<=y+button.h * ratio
             button.last = button.now
