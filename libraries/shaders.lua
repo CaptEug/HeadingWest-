@@ -44,7 +44,7 @@ vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords){
 shaders.Hole_punch_shader = love.graphics.newShader[[
     extern number X = 0;
     extern number Y = 0;
-    number radius = 400;
+    number radius = 100;
     vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
         number distance = pow(pow(screen_coords.x - X, 2) + pow(screen_coords.y - Y, 2), 0.5);
         if (distance < radius) {
@@ -53,5 +53,17 @@ shaders.Hole_punch_shader = love.graphics.newShader[[
         else {
             return vec4(0, 0, 0, 1);
         } 
+    }
+]]
+
+shaders.trueLight = love.graphics.newShader[[
+    extern number X = 0;
+    extern number Y = 0;
+
+    number radius = 900;
+    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
+        number distance = pow(pow(screen_coords.x - X, 2) + pow(screen_coords.y - Y, 2), 0.5);
+        number alpha = distance / radius;
+        return vec4(0, 0, 0, alpha);
     }
 ]]

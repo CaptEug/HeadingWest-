@@ -68,18 +68,22 @@ function testmap:update(dt)
 end
 
 function testmap:draw()
-    Gbuttons:use()
 
     cam:attach()
-        love.graphics.setShader(shaders.Hole_punch_shader)
-        shaders.Hole_punch_shader:send("X", MAUS1.x)
-        shaders.Hole_punch_shader:send("Y", MAUS1.y)
-
         drawMap()
         
         MAUS1:use()
         
         world:draw()
-        love.graphics.setShader(nil)
+        love.graphics.setShader(shaders.Hole_punch_shader)
+        local sx,sy = cam:cameraCoords(MAUS1.x,MAUS1.y)
+        shaders.Hole_punch_shader:send("X",sx)
+        shaders.Hole_punch_shader:send("Y",sy)
+        --love.graphics.setShader(shaders.trueLight)
+        --shaders.trueLight:send("X", love.graphics.getWidth() / 2)
+        --shaders.trueLight:send("Y", love.graphics.getHeight() / 2)
+        love.graphics.rectangle("fill", -5000, -5000, 10000, 10000)
+        love.graphics.setShader()
     cam:detach()
+    Gbuttons:use()
 end
