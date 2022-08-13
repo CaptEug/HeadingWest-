@@ -88,7 +88,6 @@ function testmap:draw()
         
         MAUS1:use()
         
-        
         world:draw()
         love.graphics.setShader(nil)
     cam:detach()

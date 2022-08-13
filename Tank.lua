@@ -76,7 +76,7 @@ end
 
 function tanks:create()
     MAUS_Ammo = Ammo.new()
-    APCBC = Ammo.newShell(2560,0,MAUS_Ammo)
+    APCBC_128mm = Ammo.newShell(2560,0,MAUS_Ammo)
     Reload_time = 3
     Reload_timer = 0
 
@@ -86,6 +86,7 @@ function tanks:create()
     self.bw , self.bh = self.b:getDimensions()
     self.tankbox = world:newRectangleCollider(self.x, self.y, self.aw*0.2, self.ah*0.2)
     self.tankbox:setFixedRotation(true)
+    self.tankbox:setRestitution(1)
     self.speed = 0
     self.Rotational_speed = 0
     self.vx = 0
@@ -96,7 +97,7 @@ end
 function tanks:move(dt)
     Reload_timer = Reload_timer - dt
     if love.mouse.isDown(1) and Reload_timer <= 0 then
-        MAUS_Ammo:shoot(APCBC)
+        MAUS_Ammo:shoot(APCBC_128mm, APCBC)
         Reload_timer = Reload_time
     end
 
