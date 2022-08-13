@@ -10,6 +10,22 @@ function tworld:register(system)
     return system
 end
 
+
+function tworld:getallwith(requires)
+    local entitis = {}
+    for i = 1, #self.entitis do
+        local ent = self.entitis[i]
+        local matches = true
+        for j = 1, #requires do
+            if ent:get(j) == nil then
+                matches = false
+            end
+        end 
+        if matches then table.insert(matched, ent) end
+    end
+    return matches
+end
+
 function tworld:assemble(components)
     local ent = self:create_tank()
     for i, v in ipairs(components) do 
