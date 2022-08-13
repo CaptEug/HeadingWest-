@@ -77,6 +77,7 @@ end
 function tanks:create()
     MAUS_Ammo = Ammo.new()
     APCBC = Ammo.newShell(2560,0,MAUS_Ammo)
+    Reload_time = 3
     Reload_timer = 0
 
     self.a = love.graphics.newImage(self.bodywork_path)
@@ -96,7 +97,7 @@ function tanks:move(dt)
     Reload_timer = Reload_timer - dt
     if love.mouse.isDown(1) and Reload_timer <= 0 then
         MAUS_Ammo:shoot(APCBC)
-        Reload_timer = 3
+        Reload_timer = Reload_time
     end
 
     if love.keyboard.isDown('up') then
@@ -124,7 +125,7 @@ function tanks:move(dt)
             self.speed=self.speed+self.stop_acceleration*dt
         end
     end
-    
+
     if love.keyboard.isDown('left') then
         if self.Rotational_speed>-self.max_Rotation_speed then
             self.Rotational_speed=self.Rotational_speed-self.Rotational_acceleration*dt
@@ -167,7 +168,7 @@ function tanks:move(dt)
     self.angle = self.tankbox:getAngle()
 
     self.vt = self.Rotational_speed
-    
+
 
     self.tankbox:setLinearVelocity(self.vx , self.vy)
     self.tankbox:setAngularVelocity(self.vt)

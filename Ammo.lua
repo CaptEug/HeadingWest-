@@ -22,5 +22,6 @@ function Ammo:shoot(shell_type)
                    math.sin(angle) * shell_type.speed
     
     local shell = world:newRectangleCollider(MAUS1.x, MAUS1.y - 100, 10, 10)
+    shell:setRestitution(0.8)
     shell:setLinearVelocity(vx, vy)
 end
