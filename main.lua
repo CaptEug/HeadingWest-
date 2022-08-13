@@ -33,8 +33,6 @@ East_Germany = love.graphics.newImage('Assets/Europe/East_Germany.png')
 Gear = love.graphics.newImage('Assets/pictures/Gear.png')
 cg1 = CG.new('Assets/CGs/OP.ogv')
 
-BandWshader = love.graphics.newShader(BandWshader_code)
-battle_fog_shader = love.graphics.newShader(battle_fog_shader_code)
 
 Maps={testmap,Loadmenu,MainMenu}
 MapNumber=1
