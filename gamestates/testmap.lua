@@ -1,8 +1,6 @@
 testmap = {}
 testmap = Gamestate.new()
 
-
-
 function testmap:init()
     
     MapNumber=1
