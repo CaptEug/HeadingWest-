@@ -27,6 +27,15 @@ return{
         return r
     end,
 
+    turret_rdata = function(Rotation_speed, max_Rotation_speed, Rotational_acceleration, stop_rotation_ac)
+        local r = Component.new "turret_rdata"
+        r.Rotational_speed = Rotation_speed
+        r.max_Rotational_speed = max_Rotation_speed
+        r.Rotational_acceleration = Rotational_acceleration
+        r.stop_rotation_ac = stop_rotation_ac
+        return r
+    end,
+
     move_data = function(maxspeed, back_maxspeed, acceleration, back_acceleration, stop_acceleration)
         local m = Component.new "move_data"
         m.maxspeed = maxspeed
@@ -45,6 +54,17 @@ return{
         return bodywork
     end,
 
+    new_turret = function(turret_path, offset)
+        local turret = Component.new "turret"
+        turret.picture = love.graphics.newImage(turret_path)
+        turret.weight, turret.height = turret.picture:getDimensions()
+        turret.offset = offset
+        turret.x = 0
+        turret.y = 0
+        return turret
+    end,
+
+
     functional = function(fn)
         local functional = Component.new "functional"
         functional.fn = fn
@@ -59,6 +79,7 @@ return{
 
     movetype = function(self, dt)
         local bodywork = self:get "bodywork"
+        local turret = self:get "turret"
         local move = self:get "move"
         local r = self:get "rotation_data"
         local m = self:get "move_data"
@@ -66,6 +87,9 @@ return{
         local sin = math.sin(move.angle)
         local vx =  move.speed * sin
         local vy =  move.speed * cos * -1
+
+        turret.x = bodywork.hitbox:getX() - turret.offset * sin
+        turret.y = bodywork.hitbox:getY() + turret.offset * cos
         
         if love.keyboard.isDown('up') then
             if move.speed<m.maxspeed then
@@ -118,6 +142,9 @@ return{
                 r.Rotational_speed=r.Rotational_speed-r.stop_rotation_ac*dt
             end
         end
+
+        --local 
+        angle1 = math.atan2( - turret.y, - turret.x)
 
         bodywork.hitbox:setLinearVelocity(vx, vy)
         bodywork.hitbox:setAngularVelocity(r.Rotational_speed)
