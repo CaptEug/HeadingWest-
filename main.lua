@@ -33,6 +33,9 @@ East_Germany = love.graphics.newImage('Assets/Europe/East_Germany.png')
 Gear = love.graphics.newImage('Assets/pictures/Gear.png')
 cg1 = CG.new('Assets/CGs/OP.ogv')
 
+--Fonts registered
+Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
+Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
 
 Maps={testmap,Loadmenu,MainMenu}
 MapNumber=1
@@ -76,6 +79,8 @@ function DrawCountries()
     love.graphics.draw(Bulgaria, 0, 0)
     love.graphics.draw(East_Germany, 0, 0)
 end
+
+
 
 function love.load()
     Gamestate.registerEvents()

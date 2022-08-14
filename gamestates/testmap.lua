@@ -2,7 +2,6 @@ testmap = {}
 testmap = Gamestate.new()
 
 function testmap:init()
-    
     MapNumber=1
 
     Gbuttons = buttons.new()
@@ -22,8 +21,6 @@ function testmap:init()
     
     loadMap('checkpointC')
     
-    
-
     MAUS1 = tanks.new(
         Data.tank_name,
         Data.x,
@@ -48,12 +45,11 @@ function testmap:init()
     MAUS1:create()
 end
 
-
-
 function testmap:update(dt)
     local ww, wh = love.graphics.getDimensions()
     Settings.bx = 32
     Settings.by = wh - 32
+    
     world:update(dt)
     MAUS1:move(dt)
 
@@ -66,10 +62,16 @@ function testmap:update(dt)
 end
 
 function testmap:draw()
-
     cam:attach()
         drawMap()
         --world:draw()
     cam:detach()
     Gbuttons:use()
+end
+
+function testmap:drawwithoutButton()
+    cam:attach()
+        drawMap()
+        --world:draw()
+    cam:detach()
 end
