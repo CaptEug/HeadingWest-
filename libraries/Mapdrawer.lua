@@ -29,7 +29,9 @@ function drawMap()
     if gameMap.layers["Ground"] then
         gameMap:drawLayer(gameMap.layers["Ground"])
     end
-
+    
+    MAUS1:use()
+    
     if gameMap.layers["Objects"] then
         gameMap:drawLayer(gameMap.layers["Objects"])
     end
@@ -41,6 +43,8 @@ function drawMap()
     Ammo.draw()
     
     DrawCollider("Assets/objects/Spike1.png")
+
+    shaders.dark()
 end
 
 function DrawCollider(Filelocation)

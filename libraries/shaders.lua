@@ -68,3 +68,13 @@ shaders.trueLight = love.graphics.newShader[[
         return vec4(0, 0, 0, alpha);
     }
 ]]
+
+function shaders.dark()
+    love.graphics.setShader(shaders.trueLight)
+    local sx,sy = cam:cameraCoords(MAUS1.x,MAUS1.y)
+    shaders.trueLight:send("X", sx)
+    shaders.trueLight:send("Y", sy)
+    shaders.trueLight:send("Size",cam.scale)
+    love.graphics.rectangle("fill", -1000, -1000, 10000, 10000)
+    love.graphics.setShader()
+end
