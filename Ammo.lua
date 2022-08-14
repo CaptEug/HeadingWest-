@@ -28,7 +28,6 @@ function Ammo:shoot(shell_name,shell_type)
     local shell = world:newRectangleCollider(MAUS1.x, MAUS1.y - 100, 10, 10)
     shell:setRestitution(0.8)
     shell:setLinearVelocity(vx, vy)
-    shell.x, shell.y = shell:getPosition()
     table.insert(shell_type, shell)
 end  
 
