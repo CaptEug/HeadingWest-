@@ -3,10 +3,14 @@ local Component = require "tank_component"
 local coms = require  "common_componet"
 local syfn = require  "tank_sy_fn"
 wf = require 'windfield'
+require "json"
 
 world = wf.newWorld(0, 0)
 
-
+function stringToTable(str)
+    local ret = loadstring("return "..str)()
+    return ret
+ end
 
 
 function love.load()
@@ -19,10 +23,13 @@ function love.load()
         :madd(coms.new_bodywork('MAUS hull.png'))
         :madd(coms.new_location(500, 300))
 
-    local test = t_world:assemble{
-        {coms.new_location, 100, 300},
-        {coms.new_bodywork, 'MAUS hull.png'}
-    } 
+    
+    
+    local a,b = love.filesystem.read( 'maus.lua', all )
+
+    local h = stringToTable(a)
+
+    local test = t_world:assemble(h)
     test:add(coms.functional(function(self, dt)
         local bodywork = self:get "bodywork"
         bodywork.hitbox:setLinearVelocity(100, 0)
