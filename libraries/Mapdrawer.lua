@@ -39,7 +39,8 @@ function drawMap()
     end
 
     Ammo.draw()
-
+    
+    DrawCollider("Assets/objects/Spike1.png")
 end
 
 function DrawCollider(Filelocation)
@@ -51,6 +52,6 @@ function DrawCollider(Filelocation)
         local collider_width=Obstacles[i].width
         local collider_height=Obstacles[i].height
 
-        love.graphics.draw(Collider_image,collider_x,collider_y,collider_angle,128/2,128/2,collider_width,collider_height)
+        love.graphics.draw(Collider_image,collider_x,collider_y,collider_angle,0.5,0.5,collider_width,collider_height)
     end
 end
