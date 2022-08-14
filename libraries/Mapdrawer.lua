@@ -38,6 +38,8 @@ function drawMap()
         gameMap:drawLayer(gameMap.layers["Sky"])
     end
 
+    Ammo.draw()
+
 end
 
 --[[function SetColliders:draw(Filelocation)

@@ -68,28 +68,22 @@ function testmap:update(dt)
 end
 
 function testmap:draw()
-    Gbuttons:use()
 
     cam:attach()
-        love.graphics.setShader(battle_fog_shader)
-        battle_fog_shader:send("screen", {
-            love.graphics.getWidth(),
-            love.graphics.getHeight()
-        })
-        battle_fog_shader:send("num_lights", 1)
-        do
-            local name = "lights[" .. 0 .."]"
-            battle_fog_shader:send(name .. ".position", {cam:cameraCoords(MAUS1.x,MAUS1.y, ox,oy,w,h)})
-            battle_fog_shader:send(name .. ".diffuse", {1.0, 1.0, 1.0})
-            battle_fog_shader:send(name .. ".power", 32)
-        end
-
         drawMap()
         
         MAUS1:use()
         
-        
         world:draw()
-        love.graphics.setShader(nil)
+        love.graphics.setShader(shaders.Hole_punch_shader)
+        local sx,sy = cam:cameraCoords(MAUS1.x,MAUS1.y)
+        shaders.Hole_punch_shader:send("X",sx)
+        shaders.Hole_punch_shader:send("Y",sy)
+        love.graphics.setShader(shaders.trueLight)
+        shaders.trueLight:send("X", sx)
+        shaders.trueLight:send("Y", sy)
+        love.graphics.rectangle("fill", -5000, -5000, 10000, 10000)
+        love.graphics.setShader()
     cam:detach()
+    Gbuttons:use()
 end

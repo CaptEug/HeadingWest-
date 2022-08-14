@@ -1,4 +1,6 @@
-BandWshader_code = [[
+shaders = {}
+
+shaders.BandWshader = love.graphics.newShader[[
 vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords) {
     vec4 pixel = Texel(image, uvs);
 
@@ -8,7 +10,7 @@ vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords) {
 }
 ]]
 
-battle_fog_shader_code = [[
+shaders.battle_fog_shader = love.graphics.newShader[[
 #define NUM_LIGHTS 32
 struct Light {
     vec2 position;
@@ -35,5 +37,33 @@ vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords){
     }
     diffuse = clamp(diffuse, 0.0, 1.0);
     return pixel * vec4(diffuse, 1.0);
+    
 }
+]]
+
+shaders.Hole_punch_shader = love.graphics.newShader[[
+    extern number X = 0;
+    extern number Y = 0;
+    number radius = 100;
+    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
+        number distance = pow(pow(screen_coords.x - X, 2) + pow(screen_coords.y - Y, 2), 0.5);
+        if (distance < radius) {
+            return vec4(0, 0, 0, 0);
+        }
+        else {
+            return vec4(0, 0, 0, 1);
+        } 
+    }
+]]
+
+shaders.trueLight = love.graphics.newShader[[
+    extern number X = 0;
+    extern number Y = 0;
+
+    number radius = 100;
+    vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
+        number distance = pow(pow(screen_coords.x - X, 2) + pow(screen_coords.y - Y, 2), 0.5);
+        number alpha = distance / radius;
+        return vec4(0, 0, 0, alpha);
+    }
 ]]
