@@ -44,14 +44,11 @@ function drawMap()
 end
 
 function DrawCollider(Filelocation)
-    local Collider_image=love.graphics.newImage(Filelocation)
+    local Collider_image = love.graphics.newImage(Filelocation)
 
-    for i in pairs(Obstacles)do
-        local collider_x,collider_y=Obstacles[i]:getPosition()
-        local collider_angle=Obstacles[i]:getAngle()
-        local collider_width=Obstacles[i].width
-        local collider_height=Obstacles[i].height
-
-        love.graphics.draw(Collider_image,collider_x,collider_y,collider_angle,0.5,0.5,collider_width,collider_height)
+    for i, j in pairs(Obstacles) do
+        local collider_x,collider_y = j:getPosition()
+        local collider_angle = j:getAngle()
+        love.graphics.draw(Collider_image, collider_x,collider_y, collider_angle, 0.5, 0.5, j.width, j.height)
     end
 end
