@@ -61,7 +61,7 @@ shaders.trueLight = love.graphics.newShader[[
     extern number X = 0;
     extern number Y = 0;
 
-    number radius = 900;
+    number radius = 200;
     vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {
         number distance = pow(pow(screen_coords.x - X, 2) + pow(screen_coords.y - Y, 2), 0.5);
         number alpha = distance / radius;
