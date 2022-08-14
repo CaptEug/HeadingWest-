@@ -35,5 +35,6 @@ function Ammo.draw()
     for i, shell in ipairs(APCBC) do
         local sx, sy = shell:getPosition()
         love.graphics.rectangle("fill", sx, sy, 100, 100)
+        
     end
 end

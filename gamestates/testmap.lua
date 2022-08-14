@@ -1,8 +1,6 @@
 testmap = {}
 testmap = Gamestate.new()
 
-
-
 function testmap:init()
     
     MapNumber=1
@@ -71,19 +69,7 @@ function testmap:draw()
 
     cam:attach()
         drawMap()
-        
-        MAUS1:use()
-        
-        world:draw()
-        love.graphics.setShader(shaders.Hole_punch_shader)
-        local sx,sy = cam:cameraCoords(MAUS1.x,MAUS1.y)
-        shaders.Hole_punch_shader:send("X",sx)
-        shaders.Hole_punch_shader:send("Y",sy)
-        love.graphics.setShader(shaders.trueLight)
-        shaders.trueLight:send("X", sx)
-        shaders.trueLight:send("Y", sy)
-        love.graphics.rectangle("fill", -5000, -5000, 10000, 10000)
-        love.graphics.setShader()
+        --world:draw()
     cam:detach()
     Gbuttons:use()
 end
