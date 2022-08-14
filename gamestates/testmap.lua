@@ -71,7 +71,7 @@ function testmap:draw()
         drawMap()
         
         MAUS1:use()
-        
+        DrawCollider("Assets/objects/Spike1.png")
         world:draw()
         love.graphics.setShader(shaders.Hole_punch_shader)
         local sx,sy = cam:cameraCoords(MAUS1.x,MAUS1.y)
