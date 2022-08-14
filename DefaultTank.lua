@@ -22,7 +22,7 @@ DefaultTank={
     },
     M48A1={
     tank_name="M48A1",
-    x=0,
+    x=50,
     y=0,
     angle=0,
     turret_angle=0,
