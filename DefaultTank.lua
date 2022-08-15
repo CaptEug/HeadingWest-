@@ -41,7 +41,7 @@ DefaultTank={
         turret_Rotational_acceleration=0.4,
         turret_stop_rotation_ac=0.8
     },
-    T_MAU5455={
+    T_5455={
         tank_name="T-5455",
         x=50,
         y=0,
