@@ -13,6 +13,7 @@ require 'Saving'
 require 'libraries/Mapdrawer'
 require 'libraries/destroyAll'
 require 'libraries/show'
+require 'TankAI'
 
 --Gamestates required
 require 'gamestates/MainMenu'
