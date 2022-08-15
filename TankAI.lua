@@ -3,7 +3,7 @@ function TankAI:create(name)
     local tankdata=love.filesystem.load('DefaultTank.lua')
     tankdata()
     local CreatedTanks={}
-    local getank=DefaultTank['M48A1']
+    local getank=DefaultTank['T_5455']
     local tank=tanks.new(
         getank.tank_name,
         getank.x,
