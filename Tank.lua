@@ -161,11 +161,11 @@ function tanks:move(dt)
     end
 
     if ismove then
-        love.audio.play(MAUS_tracksound)
-        cam:move(math.random(-1,1),math.random(-1,1))
+        --love.audio.play(MAUS_tracksound)
+        --cam:move(math.random(-1,1),math.random(-1,1))
     end
     if not ismove then
-        love.audio.pause(MAUS_tracksound)
+        --love.audio.pause(MAUS_tracksound)
     end
 
     cos = math.cos(self.angle)
