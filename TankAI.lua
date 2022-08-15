@@ -2,11 +2,11 @@ TankAI={}
 function TankAI:create(name)
     local tankdata=love.filesystem.load('DefaultTank.lua')
     tankdata()
-    CreatedTanks={}
-    local getank=DefaultTank[name]
+    local CreatedTanks={}
+    local getank=DefaultTank['MAUS']
     local tank=tanks.new(getank)
     table.insert(CreatedTanks,tank)
-    CreatedTanks:create()
+    
 end
 function TankAI:spawn(x,y,type,args)
     MAUS1 = tanks.new(
