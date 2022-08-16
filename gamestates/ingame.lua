@@ -2,6 +2,11 @@ ingame = {}
 ingame = Gamestate.new()
 require "entity_test.tanks_new"
 
+function ingame:getdata()
+    Saving:getdata(Filenumber)
+    Data()
+end
+
 function ingame:init()
     MapNumber=1
 
@@ -17,9 +22,6 @@ function ingame:init()
         Gbuttons
     )
 
-    Saving:getdata(Filenumber)
-    Data()
-    
     loadMap('checkpointC')
     
     --[[MAUS1 = tanks.new(

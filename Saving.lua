@@ -65,7 +65,7 @@ function Saving:fileload (filenum)
     if love.filesystem.getInfo(file[filenum])==nil then
         Saving:createsave(filenum)
     end
-    --Maps[MapNumber]:init()
+    ingame:getdata()
     Gamestate.switch(Maps[MapNumber])
 end
 
