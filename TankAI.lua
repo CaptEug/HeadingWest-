@@ -2,11 +2,31 @@ TankAI={}
 function TankAI:create(name)
     local tankdata=love.filesystem.load('DefaultTank.lua')
     tankdata()
-    CreatedTanks={}
-    local getank=DefaultTank[name]
-    local tank=tanks.new(getank)
+    local CreatedTanks={}
+    local getank=DefaultTank['T_5455']
+    local tank=tanks.new(
+        getank.tank_name,
+        getank.x,
+        getank.y,
+        getank.angle,
+        getank.turret_angle,
+        getank.turret_path,
+        getank.bodywork_path,
+        getank.turret_offset,
+        getank.maxspeed,
+        getank.back_maxspeed,
+        getank.acceleration,
+        getank.back_acceleration,
+        getank.stop_acceleration,
+        getank.max_Rotation_speed,
+        getank.Rotational_acceleration,
+        getank.stop_rotation_ac,
+        getank.turret_max_Rotation_speed,
+        getank.turret_Rotational_acceleration,
+        getank.turret_stop_rotation_ac
+    )
     table.insert(CreatedTanks,tank)
-    CreatedTanks:create()
+    tank:create()
 end
 function TankAI:spawn(x,y,type,args)
     MAUS1 = tanks.new(
