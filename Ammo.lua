@@ -25,6 +25,7 @@ function Ammo:shoot(shell_name,shell_type)
     local vx, vy = math.cos(angle) * shell_name.speed,
                    math.sin(angle) * shell_name.speed
     local shell = world:newRectangleCollider(MAUS1.x, MAUS1.y - 100, 10, 10)
+    shell:setCollisionClass('' .. shell_type .. '')
     shell:setRestitution(0.8)
     shell:setLinearVelocity(vx, vy)
     table.insert(shell_type, shell)
@@ -36,5 +37,32 @@ function Ammo.draw()
         love.graphics.rectangle("fill", sx, sy, 100, 100)
         
     end
+    for i, shell in ipairs(HEAT) do
+        local sx, sy = shell:getPosition()
+        love.graphics.rectangle("fill", sx, sy, 100, 100)
+        
+    end
+    for i, shell in ipairs(APDS) do
+        local sx, sy = shell:getPosition()
+        love.graphics.rectangle("fill", sx, sy, 100, 100)
+        
+    end
 end
 
+function Ammo.update(dt)
+    for i, shell in ipairs(APCBC) do
+        if shell:enter() then
+            
+        end
+    end
+    for i, shell in ipairs(HEAT) do
+        if shell:enter() then
+            
+        end
+    end
+    for i, shell in ipairs(APDS) do
+        if shell:enter() then
+            
+        end
+    end
+end

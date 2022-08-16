@@ -42,7 +42,6 @@ Maps={testmap,Loadmenu,MainMenu}
 MapNumber=1
 Filenumber=1
 
-
 local function cammovement()
     local ww, wh = love.graphics.getDimensions()
     if love.keyboard.isDown("w") then
@@ -81,12 +80,21 @@ function DrawCountries()
     love.graphics.draw(East_Germany, 0, 0)
 end
 
+function addCollisionClass()
+    world:addCollisionClass('APCBC', {ingores = {'Wall'}})
+    world:addCollisionClass('HEAT')
+    world:addCollisionClass('APDS')
+    world:addCollisionClass('Amour')
+    world:addCollisionClass('Wall')
+end
+
 
 
 function love.load()
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
     world = wf.newWorld(0, 0)
+    addCollisionClass()
 end
 
 
