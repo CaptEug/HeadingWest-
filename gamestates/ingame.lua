@@ -76,7 +76,7 @@ function ingame:draw()
     Gbuttons:use()
 end
 
-function ingame:drawwithoutButton()
+function ingame:drawWithoutButton()
     cam:attach()
         drawMap()
         --world:draw()

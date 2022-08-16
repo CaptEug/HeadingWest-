@@ -44,7 +44,7 @@ end
 
 function Pause:draw()
     love.graphics.setColor(0.3, 0.3, 0.3, 1)
-    self.from:drawwithoutButton()
+    self.from:drawWithoutButton()
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("PAUSE", love.graphics.getWidth() /2 - Rtitlefont:getWidth("PAUSE") / 2, love.graphics.getHeight() / 13)
