@@ -88,6 +88,8 @@ function addCollisionClass()
     world:addCollisionClass('Wall')
 end
 
+
+
 function love.load()
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
