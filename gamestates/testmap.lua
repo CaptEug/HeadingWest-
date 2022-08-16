@@ -43,7 +43,7 @@ function testmap:init()
         Data.turret_stop_rotation_ac
     )
     MAUS1:create()
-    TankAI:create('T_5455')
+
 end
 
 function testmap:update(dt)
