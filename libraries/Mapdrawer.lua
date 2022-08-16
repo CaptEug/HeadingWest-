@@ -11,6 +11,7 @@ function loadMap(mapName)
             Collider.width = j.width
             Collider.height = j.height
             Collider:setType('static')
+            Collider:setCollisionClass('Wall')
             table.insert(Buildings, Collider)
         end
     end
