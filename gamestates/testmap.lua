@@ -1,5 +1,6 @@
 testmap = {}
 testmap = Gamestate.new()
+require "entity_test.tanks_new"
 
 function testmap:init()
     MapNumber=1
@@ -21,7 +22,7 @@ function testmap:init()
     
     loadMap('checkpointC')
     
-    MAUS1 = tanks.new(
+    --[[MAUS1 = tanks.new(
         Data.tank_name,
         Data.x,
         Data.y,
@@ -43,7 +44,10 @@ function testmap:init()
         Data.turret_stop_rotation_ac
     )
     MAUS1:create()
-    TankAI:create('M48A1')
+    TankAI:create('M48A1')]]--
+    m = Tanks.new()
+    tank1 = m:newtank("entity_test/shushu.txt", 200, 200)
+    m:addai(tank1, keybroadcontrol)
 end
 
 function testmap:update(dt)
@@ -52,7 +56,7 @@ function testmap:update(dt)
     Settings.by = wh - 32
     
     world:update(dt)
-    MAUS1:move(dt)
+    m:update(dt)
 
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)

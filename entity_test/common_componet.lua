@@ -1,4 +1,4 @@
-local Component = require "tank_component"
+local Component = require "entity_test.tank_component"
 
 
 return{

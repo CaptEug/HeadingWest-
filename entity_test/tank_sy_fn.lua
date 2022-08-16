@@ -1,5 +1,5 @@
-require  "common_componet"
-local System = require "tank_system"
+require  "entity_test.common_componet"
+local System = require "entity_test.tank_system"
 
 return{
     new_renderer_system = function()

@@ -30,7 +30,7 @@ function drawMap()
         gameMap:drawLayer(gameMap.layers["Ground"])
     end
     
-    MAUS1:use()
+    m:draw()
     Ammo.draw()
     DrawCollider("Assets/objects/Spike1.png")
 

@@ -1,8 +1,8 @@
-local t_world = require 'world'
-local Component = require "tank_component"
-local coms = require  "common_componet"
-local syfn = require  "tank_sy_fn"
-wf = require 'windfield'
+local t_world = require 'entity_test.world'
+local Component = require "entity_test.tank_component"
+local coms = require  "entity_test.common_componet"
+local syfn = require  "entity_test.tank_sy_fn"
+wf = require 'entity_test.windfield'
 location_t = coms.new_location
 bodywork_t = coms.new_bodywork
 move_t = coms.move
@@ -58,6 +58,11 @@ end
 function Tanks:addai(entity, ai)
     local test = isInArray(qun, entity)
     test:add(coms.functional(ai))
+end
+
+function Tanks:gettank(entity)
+    local test = isInArray(qun, entity)
+    return test
 end
      
 function Tanks:update(dt)
