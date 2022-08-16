@@ -1,8 +1,8 @@
-testmap = {}
-testmap = Gamestate.new()
+ingame = {}
+ingame = Gamestate.new()
 require "entity_test.tanks_new"
 
-function testmap:init()
+function ingame:init()
     MapNumber=1
 
     Gbuttons = buttons.new()
@@ -50,7 +50,7 @@ function testmap:init()
     m:addai(tank1, keybroadcontrol)
 end
 
-function testmap:update(dt)
+function ingame:update(dt)
     local ww, wh = love.graphics.getDimensions()
     Settings.bx = 32
     Settings.by = wh - 32
@@ -66,7 +66,7 @@ function testmap:update(dt)
     end
 end
 
-function testmap:draw()
+function ingame:draw()
     cam:attach()
         drawMap()
         --world:draw()
@@ -74,7 +74,7 @@ function testmap:draw()
     Gbuttons:use()
 end
 
-function testmap:drawwithoutButton()
+function ingame:drawwithoutButton()
     cam:attach()
         drawMap()
         --world:draw()

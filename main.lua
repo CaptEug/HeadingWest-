@@ -17,7 +17,7 @@ require 'TankAI'
 
 --Gamestates required
 require 'gamestates/MainMenu'
-require 'gamestates/testmap'
+require 'gamestates/ingame'
 require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
 
@@ -38,7 +38,7 @@ cg1 = CG.new('Assets/CGs/OP.ogv')
 Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
 Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
 
-Maps={testmap,Loadmenu,MainMenu}
+Maps={ingame,Loadmenu,MainMenu}
 MapNumber=1
 Filenumber=1
 
