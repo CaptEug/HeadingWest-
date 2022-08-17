@@ -61,8 +61,20 @@ function Tanks:addai(entity, ai)
 end
 
 function Tanks:gettank(entity)
-    local test = isInArray(qun, entity)
-    return test
+    for _, v in ipairs(qun) do
+        if v == entity then
+            return true
+        end
+    end
+    return false
+end
+
+function Tanks:destroytank(entity)
+    for _, v in ipairs(qun) do
+        if v == entity then
+            table.remove(qun, 1)
+        end
+    end
 end
      
 function Tanks:update(dt)
