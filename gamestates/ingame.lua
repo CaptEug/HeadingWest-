@@ -48,7 +48,7 @@ function ingame:init()
     MAUS1:create()
     TankAI:create('M48A1')]]--
     m = Tanks.new()
-    tank1 = m:newtank("entity_test/shushu.txt", 200, 200)
+    tank1 = m:newtank("entity_test/shushu.txt", Data.ax , Data.ay)
     m:addai(tank1, keybroadcontrol)
 end
 

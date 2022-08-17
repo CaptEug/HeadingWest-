@@ -72,9 +72,8 @@ shaders.trueLight = love.graphics.newShader[[
 
 function shaders.dark()
     love.graphics.setShader(shaders.trueLight)
-    local entity = m:gettank(tank1)
-    local location = entity:get "location"
-    local sx,sy = cam:cameraCoords(location.x,location.y)
+    local ax, ay, anlge = m:getdata(tank1)
+    local sx,sy = cam:cameraCoords(ax,ay)
     shaders.trueLight:send("X", sx)
     shaders.trueLight:send("Y", sy)
     shaders.trueLight:send("Size",cam.scale)
