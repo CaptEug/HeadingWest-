@@ -80,7 +80,7 @@ function DrawCountries()
     love.graphics.draw(East_Germany, 0, 0)
 end
 
-function addCollisionClass()
+local function addCollisionClass()
     world:addCollisionClass('APCBC', {ingores = {'Wall'}})
     world:addCollisionClass('HEAT')
     world:addCollisionClass('APDS')
