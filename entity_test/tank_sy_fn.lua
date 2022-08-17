@@ -9,7 +9,6 @@ return{
             local bodywork = entity:get "bodywork"
             local location = entity:get "location"
             local move = entity:get "move"
-            bodywork.hitbox:setAngle(move.angle)
         end
     
         function render:update(dt, entity)
