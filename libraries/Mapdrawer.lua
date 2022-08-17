@@ -24,6 +24,10 @@ function loadMap(mapName)
             table.insert(Obstacles, Collider)
         end
     end
+
+    m = Tanks.new()
+    tank1 = m:newtank("entity_test/shushu.txt", Data.ax , Data.ay)
+    m:addai(tank1, keybroadcontrol)
 end
 
 function drawMap()

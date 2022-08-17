@@ -2,14 +2,11 @@ ingame = {}
 ingame = Gamestate.new()
 require "entity_test.tanks_new"
 
-function ingame:getdata()
-    Saving:getdata(Filenumber)
-    Data()
-end
-
 function ingame:init()
     MapNumber=1
-
+    Saving:getdata(Filenumber)
+    Data()
+    
     Gbuttons = buttons.new()
     Settings = buttons.newToolButton(
         Gear,
@@ -23,10 +20,6 @@ function ingame:init()
     )
 
     loadMap('checkpointC')
-    
-    m = Tanks.new()
-    tank1 = m:newtank("entity_test/shushu.txt", Data.ax , Data.ay)
-    m:addai(tank1, keybroadcontrol)
 end
 
 function ingame:update(dt)
