@@ -76,6 +76,13 @@ function Tanks:destroytank(entity)
         end
     end
 end
+
+function Tanks:getdata(entity)
+    local location = entity:get "location"
+    local move = entity:get "move"
+    return location.x, location.y, move.anlge
+end
+
      
 function Tanks:update(dt)
     t_world:update(dt)
