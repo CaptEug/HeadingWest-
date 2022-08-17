@@ -8,7 +8,7 @@ function Saving:createsave(filenum)
     filedata.filenumber=filenum
     filedata.stage=1
     filedata.ax=200
-    filedata.ay=200
+    filedata.ay=1600
    
     love.filesystem.write(file[number], table.show(filedata,'Data'))
 end
@@ -19,7 +19,7 @@ function Saving:filesave (filenum)
     local filedata={}
     filedata.filenumber=Filenumber
     filedata.stage=MapNumber
-    local ax, ay, anlge = m:getdata(tank1)
+    local ax, ay, anlge = tanks_table:getdata(tank1)
     filedata.ax=ax
     filedata.ay=ay
 

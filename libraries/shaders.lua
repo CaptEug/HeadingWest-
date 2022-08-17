@@ -72,7 +72,7 @@ shaders.trueLight = love.graphics.newShader[[
 
 function shaders.dark()
     love.graphics.setShader(shaders.trueLight)
-    local ax, ay, anlge = m:getdata(tank1)
+    local ax, ay, anlge = tanks_table:getdata(tank1)
     local sx,sy = cam:cameraCoords(ax,ay)
     shaders.trueLight:send("X", sx)
     shaders.trueLight:send("Y", sy)

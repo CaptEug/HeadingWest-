@@ -1,6 +1,7 @@
 function destroyAll()
     colliderTableDestroy(Buildings)
     colliderTableDestroy(Obstacles)
+    tanks_table:destroytank()
 end
 
 -- Used for tables of colliders
