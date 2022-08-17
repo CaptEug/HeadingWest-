@@ -41,7 +41,7 @@ end
 function ingame:draw()
     cam:attach()
         drawMap()
-        --world:draw()
+        world:draw()
     cam:detach()
     Gbuttons:use()
 end
@@ -49,6 +49,6 @@ end
 function ingame:drawWithoutButton()
     cam:attach()
         drawMap()
-        --world:draw()
+        world:draw()
     cam:detach()
 end

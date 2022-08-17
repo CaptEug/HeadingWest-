@@ -54,7 +54,7 @@ function DrawCollider()
     for i, j in pairs(Obstacles) do
         local collider_x,collider_y = j:getPosition()
         local collider_angle = j:getAngle()
-        love.graphics.draw(love.graphics.newImage("Assets/objects/Spike1.png"), collider_x,collider_y, collider_angle, 1, 1, j.width, j.height)
+        love.graphics.draw(love.graphics.newImage("Assets/objects/Spike1.png"), collider_x,collider_y, collider_angle, 1, 1, j.width/2, j.height/2)
     end
 
     --[[for i, j in pairs() do
