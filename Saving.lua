@@ -7,26 +7,9 @@ function Saving:createsave(filenum)
     local filedata={}
     filedata.filenumber=filenum
     filedata.stage=1
-    filedata.tank_name="mause"
-    filedata.x=0
-    filedata.y=0
-    filedata.angle=0
-    filedata.turret_angle=0
-    filedata.turret_path="Assets/tanks/german/MAUS/MAUS turret.png"
-    filedata.bodywork_path="Assets/tanks/german/MAUS/MAUS hull.png"
-    filedata.turret_offset=27
-    filedata.maxspeed=200
-    filedata.back_maxspeed=40
-    filedata.acceleration=30
-    filedata.back_acceleration=20
-    filedata.stop_acceleration=150
-    filedata.max_Rotation_speed=0.8
-    filedata.Rotational_acceleration=0.3
-    filedata.stop_rotation_ac=0.7
-    filedata.turret_max_Rotation_speed=0.5
-    filedata.turret_Rotational_acceleration=0.4
-    filedata.turret_stop_rotation_ac=0.8
-
+    filedata.ax=200
+    filedata.ay=200
+   
     love.filesystem.write(file[number], table.show(filedata,'Data'))
 end
 
@@ -36,25 +19,9 @@ function Saving:filesave (filenum)
     local filedata={}
     filedata.filenumber=Filenumber
     filedata.stage=MapNumber
-    filedata.tank_name,
-    filedata.x,
-    filedata.y,
-    filedata.angle,
-    filedata.turret_angle,
-    filedata.turret_path,
-    filedata.bodywork_path,
-    filedata.turret_offset,
-    filedata.maxspeed,
-    filedata.back_maxspeed,
-    filedata.acceleration,
-    filedata.back_acceleration,
-    filedata.stop_acceleration,
-    filedata.max_Rotation_speed,
-    filedata.Rotational_acceleration,
-    filedata.stop_rotation_ac,
-    filedata.turret_max_Rotation_speed,
-    filedata.turret_Rotational_acceleration,
-    filedata.turret_stop_rotation_ac=MAUS1:getdata()
+    local ax, ay, anlge = m:getdata(tank1)
+    filedata.ax=ax
+    filedata.ay=ay
 
     love.filesystem.write(file[number], table.show(filedata,'Data'))
 end
