@@ -37,7 +37,7 @@ function drawMap()
     
     m:draw()
     Ammo.draw()
-    DrawCollider("Assets/objects/Spike1.png")
+    DrawCollider()
 
     if gameMap.layers["Objects"] then
         gameMap:drawLayer(gameMap.layers["Objects"])
@@ -50,12 +50,16 @@ function drawMap()
     shaders.dark()
 end
 
-function DrawCollider(Filelocation)
-    local Collider_image = love.graphics.newImage(Filelocation)
-
+function DrawCollider()
     for i, j in pairs(Obstacles) do
         local collider_x,collider_y = j:getPosition()
         local collider_angle = j:getAngle()
-        love.graphics.draw(Collider_image, collider_x,collider_y, collider_angle, 0.5, 0.5, j.width, j.height)
+        love.graphics.draw(love.graphics.newImage("Assets/objects/Spike1.png"), collider_x,collider_y, collider_angle, 1, 1, j.width, j.height)
     end
+
+    --[[for i, j in pairs() do
+        local collider_x,collider_y = j:getPosition()
+        local collider_angle = j:getAngle()
+        love.graphics.draw(love.graphics.newImage(), collider_x,collider_y, collider_angle, 1, 1, j.width, j.height)
+    end]]--
 end
