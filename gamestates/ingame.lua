@@ -28,7 +28,7 @@ function ingame:update(dt)
     Settings.by = wh - 32
     
     world:update(dt)
-    m:update(dt)
+    tanks_table:update(dt)
 
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)

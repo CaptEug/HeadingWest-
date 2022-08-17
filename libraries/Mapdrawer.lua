@@ -25,9 +25,8 @@ function loadMap(mapName)
         end
     end
 
-    m = Tanks.new()
-    tank1 = m:newtank("entity_test/shushu.txt", Data.ax , Data.ay)
-    m:addai(tank1, keybroadcontrol)
+    tank1 = tanks_table:newtank("entity_test/shushu.txt", Data.ax , Data.ay)
+    tanks_table:addai(tank1, keybroadcontrol)
 end
 
 function drawMap()
@@ -35,7 +34,7 @@ function drawMap()
         gameMap:drawLayer(gameMap.layers["Ground"])
     end
     
-    m:draw()
+    tanks_table:draw()
     Ammo.draw()
     DrawCollider()
 
