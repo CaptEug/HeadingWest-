@@ -4,15 +4,15 @@ cam = Camera()
 Gamestate = require "libraries/gamestate"
 sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
-require 'libraries/CGplayer'
+require 'libraries/utilities/CGplayer'
 require 'libraries/shaders'
 require 'libraries/buttons'
 require 'Tank'
 require 'Ammo'
 require 'Saving'
 require 'libraries/Mapdrawer'
-require 'libraries/destroyAll'
-require 'libraries/show'
+require 'libraries/utilities/destroyAll'
+require 'libraries/utilities/show'
 require 'TankAI'
 
 --Gamestates required
