@@ -9,6 +9,7 @@ function Saving:createsave(filenum)
     filedata.stage=1
     filedata.ax=200
     filedata.ay=1600
+    filedata.angle=0
    
     love.filesystem.write(file[number], table.show(filedata,'Data'))
 end
@@ -17,11 +18,12 @@ function Saving:filesave (filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
     local filedata={}
+    local ax, ay, angle = tanks_table:getdata(tank1)
     filedata.filenumber=Filenumber
     filedata.stage=MapNumber
-    local ax, ay, anlge = tanks_table:getdata(tank1)
     filedata.ax=ax
     filedata.ay=ay
+    filedata.angle=angle
 
     love.filesystem.write(file[number], table.show(filedata,'Data'))
 end
