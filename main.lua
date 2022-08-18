@@ -41,6 +41,7 @@ Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
 Maps={ingame,Loadmenu,MainMenu}
 MapNumber=1
 Filenumber=1
+Year = 1946
 
 local function cammovement()
     local ww, wh = love.graphics.getDimensions()
@@ -71,13 +72,17 @@ function DrawEurope()
 end
 
 function DrawCountries()
-    love.graphics.draw(USSR, 0, 0)
-    love.graphics.draw(Poland, 0, 0)
-    love.graphics.draw(Czechoslovakia, 0, 0)
-    love.graphics.draw(Hungary, 0, 0)
-    love.graphics.draw(Romania, 0, 0)
-    love.graphics.draw(Bulgaria, 0, 0)
-    love.graphics.draw(East_Germany, 0, 0)
+    RedCountries = {}
+    table.insert(RedCountries,USSR)
+    table.insert(RedCountries,Poland)
+    table.insert(RedCountries,Czechoslovakia)
+    table.insert(RedCountries,Hungary)
+    table.insert(RedCountries,Romania)
+    table.insert(RedCountries,Bulgaria)
+    table.insert(RedCountries,East_Germany)
+    for i, country in pairs(RedCountries) do
+        love.graphics.draw(country, 0, 0)
+    end
 end
 
 local function addCollisionClass()
