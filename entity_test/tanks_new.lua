@@ -99,8 +99,7 @@ end
 function Tanks:getdata(entity)
     local location = entity:get "location"
     local move = entity:get "move"
-    return location.x, location.y, move.angle --not anlge
-end
+    return location.x, location.y, move.angle
 
      
 function Tanks:update(dt)
