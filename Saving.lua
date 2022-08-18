@@ -10,7 +10,6 @@ function Saving:createsave(filenum)
     filedata.ax=200
     filedata.ay=1600
     filedata.angle=0
-    filedata.an=0123
    
     love.filesystem.write(file[number], table.show(filedata,'Data'))
 end
