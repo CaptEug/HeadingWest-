@@ -918,7 +918,11 @@ function Collider:destroy()
         self.sensors[name]:setUserData(nil)
         self.sensors[name] = nil
     end
-    self.body:destroy()
+
+    if self.body ~= nil then --destroy tank bug
+        self.body:destroy()
+    end
+
     self.body = nil
 end
 
