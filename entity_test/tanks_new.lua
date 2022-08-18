@@ -86,10 +86,12 @@ function Tanks:destroytank(...)
             v:destroy()
         end
     else
-        for i,v in ipairs(qun) do
-            local b = v:get "bodywork"
-            b.hitbox:destroy()
-            v:destroy()
+        if #qun ~= 0 then
+            for i,v in ipairs(qun) do
+                local b = v:get "bodywork"
+                b.hitbox:destroy()
+                v:destroy()
+            end
         end
     end
 end
