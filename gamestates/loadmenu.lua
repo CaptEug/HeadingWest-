@@ -11,7 +11,7 @@ function Loadmenu:init()
     FILE1 = buttons.newPicButton(
         Stalin,
         function()
-            Saving:fileload(1)
+            Gamestate.switch(Euromap)
         end,
         Lbuttons
     )

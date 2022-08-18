@@ -2,6 +2,8 @@ Euromap = {}
 Euromap = Gamestate.new()
 
 function Euromap:init()
+    Year = 1946
+
     Ebuttons = buttons.new()
     Settings = buttons.newToolButton(
         Gear,
@@ -22,6 +24,7 @@ function Euromap:init()
 end
 
 function Euromap:update()
+    local ww, wh = love.graphics.getDimensions()
     Settings.bx = 32
     Settings.by = wh - 32
     Berlin.bx = ww / 2
@@ -40,8 +43,12 @@ function Euromap:draw()
     cam:attach()
         DrawEurope()
         DrawCountries()
+        
     cam:detach()
+    
+    Ebuttons:use()
+    Cbuttons:use()
 
     love.graphics.setFont(Rtitlefont)
-    love.graphics.print(tostring(Year), love.graphics.getWidth() / 2 - Rtitlefont:getWidth("SAVED FILES") / 2, love.graphics.getHeight() / 13)
+    love.graphics.print(tostring(Year), love.graphics.getWidth() / 2 - Rtitlefont:getWidth("1946") / 2, love.graphics.getHeight() / 13)
 end

@@ -45,7 +45,6 @@ Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
 Maps={ingame,Loadmenu,MainMenu}
 MapNumber=1
 Filenumber=1
-Year = 1946
 
 local function cammovement()
     local ww, wh = love.graphics.getDimensions()
