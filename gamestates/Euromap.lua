@@ -14,7 +14,7 @@ function Euromap:init()
     )
 
     Cbuttons = buttons.new()
-    Berlin = buttons.newToolButton(
+    Berlin = buttons.newCamButton(
         Berlin_Bear,
         function ()
             Gamestate.switch() --加载柏林那关
@@ -27,8 +27,8 @@ function Euromap:update()
     local ww, wh = love.graphics.getDimensions()
     Settings.bx = 32
     Settings.by = wh - 32
-    Berlin.bx = ww / 2
-    Berlin.by = wh / 2
+    Berlin.bx = 1835
+    Berlin.by = 1345
 
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
@@ -43,11 +43,14 @@ function Euromap:draw()
     cam:attach()
         DrawEurope()
         DrawCountries()
+        if cam.scale >= 0.7 then
+            Cbuttons:use()
+        end
         
     cam:detach()
-    
+
     Ebuttons:use()
-    Cbuttons:use()
+    
 
     love.graphics.setFont(Rtitlefont)
     love.graphics.print(tostring(Year), love.graphics.getWidth() / 2 - Rtitlefont:getWidth("1946") / 2, love.graphics.getHeight() / 13)
