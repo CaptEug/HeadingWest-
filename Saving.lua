@@ -1,12 +1,12 @@
 Saving={}
 Data={}
+Loading=true
 
 function Saving:createsave(filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
     local filedata={}
     filedata.filenumber=filenum
-    filedata.MapNumber=1
     filedata.ax=200
     filedata.ay=1600
     filedata.angle=0
