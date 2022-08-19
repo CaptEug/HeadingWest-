@@ -20,6 +20,8 @@ function ingame:init()
     )
 
     loadMap('checkpointC')
+    Target = world:newCircleCollider(200,200,300)
+    Target:setCollisionClass('Amour')
 end
 
 function ingame:update(dt)
