@@ -42,7 +42,7 @@ cg1 = CG.new('Assets/CGs/OP.ogv')
 Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
 Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
 
-Maps={ingame,Loadmenu,MainMenu}
+Maps={'checkpointC','Testmap'}
 MapNumber=1
 Filenumber=1
 

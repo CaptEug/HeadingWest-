@@ -17,7 +17,7 @@ function Euromap:init()
     Berlin = buttons.newCamButton(
         Berlin_Bear,
         function ()
-            Gamestate.switch(ingame) --加载柏林那关
+            Saving:fileload() --加载柏林那关
         end,
         Cbuttons
     )
@@ -30,6 +30,11 @@ function Euromap:update()
     Berlin.bx = 1835
     Berlin.by = 1345
 
+    if love.keyboard.isDown('g') then
+        MapNumber=2
+        ingame:init()
+        Gamestate.switch(ingame)
+    end
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
     end

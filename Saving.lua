@@ -6,7 +6,7 @@ function Saving:createsave(filenum)
     local file={"file1.lua","file2.lua","file3.lua"}
     local filedata={}
     filedata.filenumber=filenum
-    filedata.stage=1
+    filedata.MapNumber=1
     filedata.ax=200
     filedata.ay=1600
     filedata.angle=0
@@ -20,7 +20,7 @@ function Saving:filesave (filenum)
     local filedata={}
     local ax, ay, angle = tanks_table:getdata(tank1)
     filedata.filenumber=Filenumber
-    filedata.stage=MapNumber
+    filedata.MapNumber=MapNumber
     filedata.ax=ax
     filedata.ay=ay
     filedata.angle=angle
@@ -35,7 +35,7 @@ function Saving:fileload ()
         Saving:createsave(Filenumber)
     end
     ingame:init()
-    Gamestate.switch(Maps[MapNumber])
+    Gamestate.switch(ingame)
 end
 
 function Saving:getdata(filenum)

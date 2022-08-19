@@ -3,10 +3,10 @@ ingame = Gamestate.new()
 require "entity_test.tanks_new"
 
 function ingame:init()
-    MapNumber=1
     Saving:getdata(Filenumber)
     Data()
-    
+    MapNumber=Data.MapNumber
+
     Gbuttons = buttons.new()
     Settings = buttons.newToolButton(
         Gear,
@@ -19,7 +19,7 @@ function ingame:init()
         Gbuttons
     )
 
-    loadMap('checkpointC')
+    loadMap(Maps[MapNumber])
 
     Target = {}
     Target.hp = 100
