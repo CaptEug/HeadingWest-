@@ -31,25 +31,8 @@ function Ammo:shoot(shell_name,shell_type,shell_table)
     shell:setLinearVelocity(vx, vy)
     shell.damage = shell_name.damege
     shell.angle = tur.angle
+    shell.isflying = true
     table.insert(shell_table, shell)
-end
-
-function Ammo.draw()
-    for i, shell in ipairs(APCBC) do
-        local sx, sy = shell:getPosition()
-        --love.graphics.rectangle("fill", sx, sy, 100, 100)
-        
-    end
-    for i, shell in ipairs(HEAT) do
-        local sx, sy = shell:getPosition()
-        love.graphics.rectangle("fill", sx, sy, 100, 100)
-        
-    end
-    for i, shell in ipairs(APDS) do
-        local sx, sy = shell:getPosition()
-        love.graphics.rectangle("fill", sx, sy, 100, 100)
-        
-    end
 end
 
 function Ammo.update(dt)
@@ -58,6 +41,7 @@ function Ammo.update(dt)
                 local collision_data = shell:getEnterCollisionData('Amour')
                 local Target = collision_data.collider:getObject()
                 Target.hp = Target.hp - shell.damage
+                shell.isflying = false
                 shell:destroy()
         end
     end
@@ -72,5 +56,24 @@ function Ammo.update(dt)
         if shell:enter() then
             
         end
+    end
+end
+
+function Ammo.draw()
+    for i, shell in ipairs(APCBC) do
+        if shell.isflying == true then
+            local sx, sy = shell:getPosition()
+        --love.graphics.rectangle("fill", sx, sy, 100, 100)
+        end
+    end
+    for i, shell in ipairs(HEAT) do
+        local sx, sy = shell:getPosition()
+        love.graphics.rectangle("fill", sx, sy, 100, 100)
+        
+    end
+    for i, shell in ipairs(APDS) do
+        local sx, sy = shell:getPosition()
+        love.graphics.rectangle("fill", sx, sy, 100, 100)
+        
     end
 end
