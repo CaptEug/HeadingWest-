@@ -20,7 +20,6 @@ function Ammo.newShell(speed,damege,ammo)
 end
 
 function Ammo:shoot(shell_name,shell_type,shell_table)
-    local mx, my = cam:mousePosition()
     local tur = tank1:get "turret_rdata"
     local body = tank1:get "turret"
     local vx, vy = math.sin(tur.angle) * shell_name.speed,
