@@ -10,7 +10,6 @@ function Saving:createsave(filenum)
     filedata.ax=200
     filedata.ay=1600
     filedata.angle=0
-    filedata.an=0123
    
     love.filesystem.write(file[number], table.show(filedata,'Data'))
 end
@@ -19,9 +18,9 @@ function Saving:filesave (filenum)
     local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
     local filedata={}
+    local ax, ay, angle = tanks_table:getdata(tank1)
     filedata.filenumber=Filenumber
     filedata.stage=MapNumber
-    local ax, ay, angle = tanks_table:getdata(tank1)
     filedata.ax=ax
     filedata.ay=ay
     filedata.angle=angle
@@ -29,11 +28,11 @@ function Saving:filesave (filenum)
     love.filesystem.write(file[number], table.show(filedata,'Data'))
 end
 
-function Saving:fileload (filenum)
-    Filenumber=filenum
+function Saving:fileload ()
+    
     local file={"file1.lua","file2.lua","file3.lua"}
-    if love.filesystem.getInfo(file[filenum])==nil then
-        Saving:createsave(filenum)
+    if love.filesystem.getInfo(file[Filenumber])==nil then
+        Saving:createsave(Filenumber)
     end
     ingame:init()
     Gamestate.switch(Maps[MapNumber])

@@ -11,7 +11,8 @@ function Loadmenu:init()
     FILE1 = buttons.newPicButton(
         Stalin,
         function()
-            Saving:fileload(1)
+            Filenumber=1
+            Gamestate.switch(Euromap)
         end,
         Lbuttons
     )
@@ -19,7 +20,8 @@ function Loadmenu:init()
     FILE2 = buttons.newPicButton(
         Khrushchev,
         function()
-            Saving:fileload(2)
+            Filenumber=2
+            Gamestate.switch(Euromap)
         end,
         Lbuttons
     )
@@ -27,7 +29,8 @@ function Loadmenu:init()
     FILE3 = buttons.newPicButton(
         Brezhnev,
         function()
-            Saving:fileload(3)
+            Filenumber=3
+            Gamestate.switch(Euromap)
         end,
         Lbuttons
     )

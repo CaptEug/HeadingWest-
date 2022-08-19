@@ -20,6 +20,7 @@ require 'gamestates/MainMenu'
 require 'gamestates/ingame'
 require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
+require 'gamestates/Euromap'
 
 --Assets registered
 Europe_BandW = love.graphics.newImage('Assets/Europe/Europe_BandW.png')
@@ -31,7 +32,10 @@ Hungary = love.graphics.newImage('Assets/Europe/Hungary.png')
 Romania = love.graphics.newImage('Assets/Europe/Romania.png')
 Bulgaria = love.graphics.newImage('Assets/Europe/Bulgaria.png')
 East_Germany = love.graphics.newImage('Assets/Europe/East_Germany.png')
+
 Gear = love.graphics.newImage('Assets/pictures/Gear.png')
+Berlin_Bear = love.graphics.newImage('Assets/pictures/Berlin_Bear.png')
+
 cg1 = CG.new('Assets/CGs/OP.ogv')
 
 --Fonts registered
@@ -41,7 +45,6 @@ Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
 Maps={ingame,Loadmenu,MainMenu}
 MapNumber=1
 Filenumber=1
-Year = 1946
 
 local function cammovement()
     local ww, wh = love.graphics.getDimensions()
