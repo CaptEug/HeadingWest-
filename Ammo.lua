@@ -30,6 +30,7 @@ function Ammo:shoot(shell_name,shell_type,shell_table)
     shell:setRestitution(0.8)
     shell:setLinearVelocity(vx, vy)
     shell.damage = shell_name.damege
+    shell.angle = tur.angle
     table.insert(shell_table, shell)
 end
 
@@ -54,11 +55,10 @@ end
 function Ammo.update(dt)
     for i, shell in ipairs(APCBC) do
         if shell:enter('Amour') then
-            if shell:enter('Amour') then
                 local collision_data = shell:getEnterCollisionData('Amour')
                 local Target = collision_data.collider:getObject()
                 Target.hp = Target.hp - shell.damage
-            end
+                shell:destroy()
         end
     end
 
