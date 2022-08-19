@@ -28,11 +28,11 @@ function Saving:filesave (filenum)
     love.filesystem.write(file[number], table.show(filedata,'Data'))
 end
 
-function Saving:fileload (filenum)
-    Filenumber=filenum
+function Saving:fileload ()
+    
     local file={"file1.lua","file2.lua","file3.lua"}
-    if love.filesystem.getInfo(file[filenum])==nil then
-        Saving:createsave(filenum)
+    if love.filesystem.getInfo(file[Filenumber])==nil then
+        Saving:createsave(Filenumber)
     end
     ingame:init()
     Gamestate.switch(Maps[MapNumber])

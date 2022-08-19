@@ -8,7 +8,7 @@ function Euromap:init()
     Settings = buttons.newToolButton(
         Gear,
         function()
-            Gamestate.switch(MainMenu)
+            Saving:fileload()
         end,
         Ebuttons
     )
@@ -17,7 +17,7 @@ function Euromap:init()
     Berlin = buttons.newCamButton(
         Berlin_Bear,
         function ()
-            Gamestate.switch() --加载柏林那关
+            Gamestate.switch(ingame) --加载柏林那关
         end,
         Cbuttons
     )
