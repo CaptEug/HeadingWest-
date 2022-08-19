@@ -23,14 +23,14 @@ function Ammo:shoot(shell_name,shell_type,shell_table)
     local mx, my = cam:mousePosition()
     local tur = tank1:get "turret_rdata"
     local body = tank1:get "turret"
-    --local angle = math.atan2(tur.angle)
     local vx, vy = math.sin(tur.angle) * shell_name.speed,
                    -math.cos(tur.angle) * shell_name.speed
-    local shell = world:newRectangleCollider(body.AMx-5, body.AMy-5, 10, 10)
+    local shell = world:newCircleCollider(body.AMx-5, body.AMy-5, 10)
     shell:setCollisionClass(shell_type)
     shell:setRestitution(0.8)
     shell:setLinearVelocity(vx, vy)
     shell.damage = shell_name.damege
+    shell.angle = tur.angle
     table.insert(shell_table, shell)
 end
 
@@ -55,11 +55,10 @@ end
 function Ammo.update(dt)
     for i, shell in ipairs(APCBC) do
         if shell:enter('Amour') then
-            if shell:enter('Amour') then
                 local collision_data = shell:getEnterCollisionData('Amour')
                 local Target = collision_data.collider:getObject()
                 Target.hp = Target.hp - shell.damage
-            end
+                shell:destroy()
         end
     end
 
