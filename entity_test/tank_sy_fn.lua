@@ -10,7 +10,7 @@ return{
             local location = entity:get "location"
             local move = entity:get "move"
             MAUS_Ammo = Ammo.new()
-            APCBC_128mm = Ammo.newShell(25600,0,MAUS_Ammo)
+            APCBC_128mm = Ammo.newShell(25600,35,MAUS_Ammo)
             Reload_time = 1
             Reload_timer = 0
         end

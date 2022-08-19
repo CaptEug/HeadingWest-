@@ -27,10 +27,10 @@ function Ammo:shoot(shell_name,shell_type,shell_table)
     local vx, vy = math.sin(tur.angle) * shell_name.speed,
                    -math.cos(tur.angle) * shell_name.speed
     local shell = world:newRectangleCollider(body.AMx-5, body.AMy-5, 10, 10)
-    --local shell_type = shell_type
     shell:setCollisionClass(shell_type)
     shell:setRestitution(0.8)
     shell:setLinearVelocity(vx, vy)
+    shell.damage = shell_name.damege
     table.insert(shell_table, shell)
 end
 
@@ -55,14 +55,20 @@ end
 function Ammo.update(dt)
     for i, shell in ipairs(APCBC) do
         if shell:enter('Amour') then
-            
+            if shell:enter('Amour') then
+                local collision_data = shell:getEnterCollisionData('Amour')
+                local Target = collision_data.collider:getObject()
+                Target.hp = Target.hp - shell.damage
+            end
         end
     end
+
     for i, shell in ipairs(HEAT) do
         if shell:enter() then
             
         end
     end
+    
     for i, shell in ipairs(APDS) do
         if shell:enter() then
             

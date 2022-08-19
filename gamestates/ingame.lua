@@ -37,6 +37,7 @@ function ingame:update(dt)
     
     world:update(dt)
     tanks_table:update(dt)
+    Ammo.update(dt)
 
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
@@ -52,6 +53,7 @@ function ingame:draw()
         world:draw()
     cam:detach()
     Gbuttons:use()
+    love.graphics.print(tostring(Target.hp), 100, 100)
 end
 
 function ingame:drawWithoutButton()
