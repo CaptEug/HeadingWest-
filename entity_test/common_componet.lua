@@ -61,7 +61,9 @@ return{
         turret.weight, turret.height = turret.picture:getDimensions()
         turret.offset = offset
         turret.x = 0
+        turret.AMx = 0
         turret.y = 0
+        turret.AMy = 0
         return turret
     end,
 
@@ -81,11 +83,14 @@ return{
     movetype = function(self, dt)
         local bodywork = self:get "bodywork"
         local turret = self:get "turret"
+        local turret1 = self:get "turret_rdata"
         local move = self:get "move"
         local r = self:get "rotation_data"
         local m = self:get "move_data"
         local cos = math.cos(move.angle)
         local sin = math.sin(move.angle)
+        local cos1 = math.cos(turret1.angle)
+        local sin1 = math.sin(turret1.angle)
         local vx =  move.speed * sin
         local vy =  move.speed * cos * -1
         Reload_timer = Reload_timer - dt
@@ -96,6 +101,10 @@ return{
 
         turret.x = bodywork.hitbox:getX() - turret.offset * sin
         turret.y = bodywork.hitbox:getY() + turret.offset * cos
+
+        turret.AMx = turret.x + 160 * sin1
+        turret.AMy = turret.y - 160 * cos1 
+        
         
         if love.keyboard.isDown('up') then
             if move.speed<m.maxspeed then

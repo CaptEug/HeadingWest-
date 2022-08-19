@@ -56,7 +56,6 @@ function Euromap:draw()
 
     Ebuttons:use()
     
-
     love.graphics.setFont(Rtitlefont)
-    love.graphics.print(tostring(Year), love.graphics.getWidth() / 2 - Rtitlefont:getWidth("1946") / 2, love.graphics.getHeight() / 13)
+    love.graphics.print(tostring(Year), love.graphics.getWidth() / 2 - Rtitlefont:getWidth(tostring(Year)) / 2, love.graphics.getHeight() / 13)
 end
