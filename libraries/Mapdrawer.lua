@@ -16,8 +16,8 @@ function loadMap(mapName)
         end
     end
     
-    if gameMap.layers['Obstacles'] then
-        for i, j in pairs(gameMap.layers['Obstacles'].objects) do
+    if gameMap.layers['Objects'] then
+        for i, j in pairs(gameMap.layers['Objects'].objects) do
             local Collider = world:newRectangleCollider(j.x, j.y, j.width, j.height)
             Collider.width = j.width
             Collider.height = j.height
@@ -38,8 +38,8 @@ function drawMap()
     Ammo.draw()
     DrawCollider()
 
-    if gameMap.layers["Objects"] then
-        gameMap:drawLayer(gameMap.layers["Objects"])
+    if gameMap.layers["Roof"] then
+        gameMap:drawLayer(gameMap.layers["Roof"])
     end
 
     if gameMap.layers["Sky"] then
