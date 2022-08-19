@@ -101,10 +101,7 @@ function Tanks:getdata(entity)
     local move = entity:get "move"
     return location.x, location.y, move.angle
 end
-<<<<<<< HEAD
 
-=======
->>>>>>> 1f314f6f4ce1cee2235570dd043f4fb2fdfa8304
      
 function Tanks:update(dt)
     t_world:update(dt)
