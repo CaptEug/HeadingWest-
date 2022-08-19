@@ -89,7 +89,7 @@ function DrawCountries()
 end
 
 local function addCollisionClass()
-    world:addCollisionClass('APCBC', {ingores = {'Wall'}})
+    world:addCollisionClass('APCBC')
     world:addCollisionClass('HEAT')
     world:addCollisionClass('APDS')
     world:addCollisionClass('Amour')

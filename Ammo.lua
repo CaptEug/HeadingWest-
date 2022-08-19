@@ -54,7 +54,7 @@ end
 
 function Ammo.update(dt)
     for i, shell in ipairs(APCBC) do
-        if shell:enter() then
+        if shell:enter('Amour') then
             
         end
     end
