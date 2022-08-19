@@ -27,8 +27,9 @@ return{
         return r
     end,
 
-    turret_rdata = function(Rotation_speed, max_Rotation_speed, Rotational_acceleration, stop_rotation_ac)
+    turret_rdata = function(angle, Rotation_speed, max_Rotation_speed, Rotational_acceleration, stop_rotation_ac)
         local r = Component.new "turret_rdata"
+        r.angle = angle
         r.Rotational_speed = Rotation_speed
         r.max_Rotational_speed = max_Rotation_speed
         r.Rotational_acceleration = Rotational_acceleration
@@ -87,6 +88,11 @@ return{
         local sin = math.sin(move.angle)
         local vx =  move.speed * sin
         local vy =  move.speed * cos * -1
+        Reload_timer = Reload_timer - dt
+        if love.mouse.isDown(1) and Reload_timer <= 0 then
+            MAUS_Ammo:shoot(APCBC_128mm, 'APCBC', APCBC)
+            Reload_timer = Reload_time
+        end
 
         turret.x = bodywork.hitbox:getX() - turret.offset * sin
         turret.y = bodywork.hitbox:getY() + turret.offset * cos

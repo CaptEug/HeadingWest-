@@ -19,17 +19,19 @@ function Ammo.newShell(speed,damege,ammo)
     return instance
 end
 
-function Ammo:shoot(shell_name,shell_type)
+function Ammo:shoot(shell_name,shell_type,shell_table)
     local mx, my = cam:mousePosition()
-    local angle = math.atan2(my - MAUS1.y, mx - MAUS1.x)
-    local vx, vy = math.cos(angle) * shell_name.speed,
-                   math.sin(angle) * shell_name.speed
-    local shell = world:newRectangleCollider(MAUS1.x, MAUS1.y - 100, 10, 10)
-    local shell_type = shell_type
-    shell:setCollisionClass('' .. shell_type .. '')
+    local tur = tank1:get "turret_rdata"
+    local body = tank1:get "location"
+    --local angle = math.atan2(tur.angle)
+    local vx, vy = math.cos(tur.angle) * shell_name.speed,
+                   math.sin(tur.angle) * shell_name.speed
+    local shell = world:newRectangleCollider(body.x, body.y - 100, 10, 10)
+    --local shell_type = shell_type
+    shell:setCollisionClass(shell_type)
     shell:setRestitution(0.8)
     shell:setLinearVelocity(vx, vy)
-    table.insert(shell_type, shell)
+    table.insert(shell_table, shell)
 end
 
 function Ammo.draw()
