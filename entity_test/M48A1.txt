@@ -1,6 +1,6 @@
 {
     {location_t, 0, 100},
-    {bodywork_t, 'Assets/tanks/usa/M48A1/M48A1 hull.png'},
+    {hull_t, 'Assets/tanks/usa/M48A1/M48A1 hull.png'},
     {turret_t, 'Assets/tanks/usa/M48A1/M48A1 turret.png', -19.5},
     {move_t, 0, 0},
     {rotation_data_t, 0, 0.8, 0.4, 0.8},

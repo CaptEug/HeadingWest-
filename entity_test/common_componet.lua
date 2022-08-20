@@ -47,12 +47,12 @@ return{
         return m
     end,
 
-    new_bodywork = function(bodywork_path)
-        local bodywork = Component.new "bodywork"
-        bodywork.picture = love.graphics.newImage(bodywork_path)
-        bodywork.weight, bodywork.height = bodywork.picture:getDimensions()
-        bodywork.hitbox = world:newRectangleCollider(0, 0, bodywork.weight*0.2, bodywork.height*0.2)
-        return bodywork
+    new_hull = function(hull_path)
+        local hull = Component.new "hull"
+        hull.picture = love.graphics.newImage(hull_path)
+        hull.weight, hull.height = hull.picture:getDimensions()
+        hull.hitbox = world:newRectangleCollider(0, 0, hull.weight*0.2, hull.height*0.2)
+        return hull
     end,
 
     new_turret = function(turret_path, offset)
@@ -81,7 +81,7 @@ return{
     end,
 
     movetype = function(self, dt)
-        local bodywork = self:get "bodywork"
+        local hull = self:get "hull"
         local turret = self:get "turret"
         local turret1 = self:get "turret_rdata"
         local move = self:get "move"
@@ -99,8 +99,8 @@ return{
             Reload_timer = Reload_time
         end
 
-        turret.x = bodywork.hitbox:getX() - turret.offset * sin
-        turret.y = bodywork.hitbox:getY() + turret.offset * cos
+        turret.x = hull.hitbox:getX() - turret.offset * sin
+        turret.y = hull.hitbox:getY() + turret.offset * cos
 
         turret.AMx = turret.x + 160 * sin1
         turret.AMy = turret.y - 160 * cos1 
@@ -163,8 +163,8 @@ return{
         --local 
         angle1 = math.atan2( - turret.y, - turret.x)
 
-        bodywork.hitbox:setLinearVelocity(vx, vy)
-        bodywork.hitbox:setAngularVelocity(r.Rotational_speed)
+        hull.hitbox:setLinearVelocity(vx, vy)
+        hull.hitbox:setAngularVelocity(r.Rotational_speed)
     end
 
 }

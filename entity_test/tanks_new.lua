@@ -4,7 +4,7 @@ local coms = require  "entity_test.common_componet"
 local syfn = require  "entity_test.tank_sy_fn"
 wf = require 'entity_test.windfield'
 location_t = coms.new_location
-bodywork_t = coms.new_bodywork
+hull_t = coms.new_hull
 move_t = coms.move
 rotation_data_t = coms.rotation_data
 move_data_t = coms.move_data
@@ -49,7 +49,7 @@ function Tanks:newtank(data, ...)
     local h = stringToTable(a)
     local entity = t_world:assemble(h)
     table.insert(qun, entity)
-    local body = entity:get "bodywork"
+    local body = entity:get "hull"
     table1 = {...}
     for i,v in ipairs(table1) do
         if i == 1 then
@@ -81,14 +81,14 @@ function Tanks:destroytank(...)
     local a = {...}
     if #a ~= 0 then
         for i,v in ipairs(a) do
-            local b = v:get "bodywork"
+            local b = v:get "hull"
             b.hitbox:destroy()
             v:destroy()
         end
     else
         if #qun ~= 0 then
             for i,v in ipairs(qun) do
-                local b = v:get "bodywork"
+                local b = v:get "hull"
                 b.hitbox:destroy()
                 v:destroy()
             end
