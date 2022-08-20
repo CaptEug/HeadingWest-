@@ -4,27 +4,7 @@ function TankAI:create(name)
     tankdata()
     local CreatedTanks={}
     local getank=DefaultTank['T_5455']
-    local tank=tanks.new(
-        getank.tank_name,
-        getank.x,
-        getank.y,
-        getank.angle,
-        getank.turret_angle,
-        getank.turret_path,
-        getank.bodywork_path,
-        getank.turret_offset,
-        getank.maxspeed,
-        getank.back_maxspeed,
-        getank.acceleration,
-        getank.back_acceleration,
-        getank.stop_acceleration,
-        getank.max_Rotation_speed,
-        getank.Rotational_acceleration,
-        getank.stop_rotation_ac,
-        getank.turret_max_Rotation_speed,
-        getank.turret_Rotational_acceleration,
-        getank.turret_stop_rotation_ac
-    )
+    local tank=tanks.new()
     table.insert(CreatedTanks,tank)
     tank:create()
 end
@@ -70,14 +50,16 @@ function TankAI:find()
 
 end
 
-function TankAI:move(player)
-    local playerx=MAUS1.x
-    local playery=MAUS1.y
-
+function TankAI:move(x,y,dt)
+    local px=x
+    local py=y
+    tank2.ax=tank2.ax-px*dt
+    tank2.ay=tank2.ay-py*dt
 end
 
 function TankAI:update(dt)
-    MAUS1:use()
+    local ax, ay = tanks_table:getdata(tank1)
+    self.move(ax,ay,dt)
 end
 
 function TankAI:destroyDead()
