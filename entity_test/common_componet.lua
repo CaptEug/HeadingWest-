@@ -104,7 +104,9 @@ return{
 
         turret.AMx = turret.x + 160 * sin1
         turret.AMy = turret.y - 160 * cos1 
-        
+
+        local mx,my = love.mouse.getPosition()
+        angle1 = math.atan2(my - turret.y,mx - turret.x)
         
         if love.keyboard.isDown('up') then
             if move.speed<m.maxspeed then
