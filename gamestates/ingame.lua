@@ -1,23 +1,13 @@
 ingame = {}
 ingame = Gamestate.new()
 require "entity_test.tanks_new"
+require 'UI/ingameUI'
 
 function ingame:init()
-
+    ingameUI:load()
     Saving:getdata(Filenumber)
     Data()
 
-    Gbuttons = buttons.new()
-    Settings = buttons.newToolButton(
-        Gear,
-        function()
-            local state = false
-            if Gamestate.current ~= Pause then
-                Gamestate.push(Pause)
-            end
-        end,
-        Gbuttons
-    )
     local map=Maps[MapNumber]
     loadMap(map)
 
@@ -31,10 +21,8 @@ function ingame:init()
 end
 
 function ingame:update(dt)
-    local ww, wh = love.graphics.getDimensions()
-    Settings.bx = 32
-    Settings.by = wh - 32
-    
+    ingameUI:update()
+
     world:update(dt)
     tanks_table:update(dt)
     Ammo.update(dt)
@@ -52,11 +40,11 @@ function ingame:draw()
         drawMap()
         world:draw()
     cam:detach()
-    Gbuttons:use()
+    ingameUI:draw()
     love.graphics.print(tostring(Target.hp), 100, 100)
 end
 
-function ingame:drawWithoutButton()
+function ingame:drawWithoutUI()
     cam:attach()
         drawMap()
         world:draw()
