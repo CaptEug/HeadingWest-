@@ -24,7 +24,9 @@ function Euromap:init()
     )
 end
 
-function Euromap:update()
+function Euromap:update(dt)
+    
+    Year = Year + dt / 10
     local ww, wh = love.graphics.getDimensions()
     Settings.bx = 32
     Settings.by = wh - 32
@@ -57,5 +59,5 @@ function Euromap:draw()
     Ebuttons:use()
     
     love.graphics.setFont(Rtitlefont)
-    love.graphics.print(tostring(Year), love.graphics.getWidth() / 2 - Rtitlefont:getWidth(tostring(Year)) / 2, love.graphics.getHeight() / 13)
+    love.graphics.print(tostring(math.floor(Year)), love.graphics.getWidth() / 2 - Rtitlefont:getWidth(tostring(math.floor(Year))) / 2, love.graphics.getHeight() / 13)
 end
