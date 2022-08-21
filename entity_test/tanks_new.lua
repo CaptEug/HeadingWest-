@@ -14,6 +14,7 @@ tank_ammo_t = coms.m1
 test = coms.test
 
 keybroadcontrol = coms.movetype
+poorai=coms.poorAI
 
 
 

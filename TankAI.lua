@@ -22,24 +22,27 @@ function TankAI:spawn(x,y,type,args)
 end
 
 function TankAI:find()
-    local playerx=MAUS1.x
-    local playery=MAUS1.y
-    if playerx^2+playery^2>20 then
-        self.move(player)
-    end
 
 end
 
-function TankAI:move(x,y,dt)
-    local px=x
-    local py=y
-    tank2.ax=tank2.ax-px*dt
-    tank2.ay=tank2.ay-py*dt
+function TankAI:move(dt)
+    local px,py=tanks_table:getdata(tank1)
+    local ax,ay=tanks_table:getdata(tank2)
+    local v=0.5
+    if ax~=px then 
+        ax=ax-(ax-px)*v*dt
+    end
+    if ay~=py then
+        ay=ay-(ay-py)*v*dt
+    end
+    tank2.ax=ax
+    tank2.ay=ay
 end
 
 function TankAI:update(dt)
     local ax, ay = tanks_table:getdata(tank1)
-    self.move(ax,ay,dt)
+    local t=dt
+    self.move(ax,ay,t)
 end
 
 function TankAI:destroyDead()
