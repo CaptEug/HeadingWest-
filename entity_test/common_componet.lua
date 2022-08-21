@@ -170,8 +170,6 @@ return{
     end,
 
     poorAI=function(self, dt)
-        local hull = self:get "hull"
-        local turret = self:get "turret"
         local px,py=tanks_table:getdata(tank1)
         local ax,ay=tanks_table:getdata(tank2)
         local v=5
@@ -183,8 +181,6 @@ return{
             ay=ay-(ay-py)*v*dt
         end
 
-        hull.hitbox:setLinearVelocity(vx, vy)
-        hull.hitbox:setAngularVelocity(r.Rotational_speed)
     end
 
 }
