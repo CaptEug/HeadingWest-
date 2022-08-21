@@ -96,10 +96,16 @@ return{
         local move = self:get "move"
         local r = self:get "rotation_data"
         local m = self:get "move_data"
+        local cos = math.cos(move.angle)
+        local sin = math.sin(move.angle)
         local cos1 = math.cos(turret1.angle)
         local sin1 = math.sin(turret1.angle)
         local vx =  move.speed * sin
         local vy =  move.speed * cos * -1
+
+
+        turret.AMx = turret.x + 160 * sin1
+        turret.AMy = turret.y - 160 * cos1 
 
 
         local mx,my = love.mouse.getPosition()
