@@ -43,8 +43,17 @@ return{
         m.back_maxspeed = back_maxspeed
         m.acceleration = acceleration
         m.back_acceleration = back_acceleration
-        m.stop_acceleration = stop_acceleration
+        m.stop_acceleration = stop_acceleration 
         return m
+    end,
+
+    m1 = function(speed, numbers, times)
+        local t = Component.new "tankammo"
+        t.ammo = Ammo.new()
+        t.rack = Ammo.newShell(speed, numbers, t.ammo)
+        t.time = times
+        t.timer = 0
+        return t
     end,
 
     new_hull = function(hull_path)
@@ -93,11 +102,7 @@ return{
         local sin1 = math.sin(turret1.angle)
         local vx =  move.speed * sin
         local vy =  move.speed * cos * -1
-        Reload_timer = Reload_timer - dt
-        if love.mouse.isDown(1) and Reload_timer <= 0 then
-            MAUS_Ammo:shoot(APCBC_128mm, 'APCBC', APCBC)
-            Reload_timer = Reload_time
-        end
+
 
         turret.x = hull.hitbox:getX() - turret.offset * sin
         turret.y = hull.hitbox:getY() + turret.offset * cos
@@ -160,8 +165,7 @@ return{
             end
         end
 
-        --local 
-        angle1 = math.atan2( - turret.y, - turret.x)
+        local angle1 = math.atan2( - turret.y, - turret.x)
 
         hull.hitbox:setLinearVelocity(vx, vy)
         hull.hitbox:setAngularVelocity(r.Rotational_speed)
