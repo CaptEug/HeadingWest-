@@ -2,8 +2,9 @@
     {location_t, 0, 0},
     {hull_t, 'entity_test/MAUS hull.png'},
     {turret_t, 'entity_test/MAUS turret.png', 27},
-    {move_t, 0, 0},
+    {move_t, 0, 1},
     {rotation_data_t, 0, 0.8, 0.4, 0.8},
     {turret_rdata_t, 1.57, 0, 0.5, 0.5, 0.8},
-    {move_data_t, 150, 150, 50, 30, 100}
+    {move_data_t, 150, 150, 50, 30, 100},
+    {tank_ammo_t, 25600, 35, 10}
 }

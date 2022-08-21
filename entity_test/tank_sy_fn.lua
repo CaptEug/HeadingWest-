@@ -3,16 +3,12 @@ local System = require "entity_test.tank_system"
 
 return{
     new_renderer_system = function()
-        local render = System.new {"location", "hull", "move", "rotation_data", "move_data", "turret","turret_rdata"}
+        local render = System.new {"location", "hull", "move", "rotation_data", "move_data", "turret", "tankammo", "turret_rdata"}
     
         function render:load(entity)
             local hull = entity:get "hull"
             local location = entity:get "location"
             local move = entity:get "move"
-            MAUS_Ammo = Ammo.new()
-            APCBC_128mm = Ammo.newShell(25600,35,MAUS_Ammo)
-            Reload_time = 1
-            Reload_timer = 0
         end
     
         function render:update(dt, entity)
@@ -22,6 +18,12 @@ return{
             location.x = hull.hitbox:getX() 
             location.y = hull.hitbox:getY() 
             move.angle = hull.hitbox:getAngle() 
+            local t = entity:get "tankammo"
+            t.timer = t.timer - dt
+            if love.mouse.isDown(1) and t.timer <= 0 then
+                t.ammo:shoot(t.rack, 'APCBC', APCBC)
+                t.timer = t.time
+            end
         end
     
         function render:draw(entity) 
