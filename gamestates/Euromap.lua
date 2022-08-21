@@ -1,17 +1,10 @@
 Euromap = {}
 Euromap = Gamestate.new()
 
-function Euromap:init()
-    Year = 1946
+require 'UI/EuromapUI'
 
-    Ebuttons = buttons.new()
-    Settings = buttons.newToolButton(
-        Gear,
-        function()
-            Saving:fileload()
-        end,
-        Ebuttons
-    )
+function Euromap:init()
+    EuromapUI:load()
 
     Cbuttons = buttons.new()
     Berlin = buttons.newCamButton(
@@ -25,14 +18,10 @@ function Euromap:init()
 end
 
 function Euromap:update(dt)
-    
-    Year = Year + dt / 10
     local ww, wh = love.graphics.getDimensions()
-    Settings.bx = 32
-    Settings.by = wh - 32
     Berlin.bx = 1835
     Berlin.by = 1345
-
+    EuromapUI:update(dt)
     if love.keyboard.isDown('g') then
         MapNumber=2
         Saving:fileload()
@@ -56,8 +45,5 @@ function Euromap:draw()
         
     cam:detach()
 
-    Ebuttons:use()
-    
-    love.graphics.setFont(Rtitlefont)
-    love.graphics.print(tostring(math.floor(Year)), love.graphics.getWidth() / 2 - Rtitlefont:getWidth(tostring(math.floor(Year))) / 2, love.graphics.getHeight() / 13)
+    EuromapUI:draw()
 end
