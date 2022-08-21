@@ -11,6 +11,7 @@ move_data_t = coms.move_data
 turret_t = coms.new_turret
 turret_rdata_t = coms.turret_rdata
 keybroadcontrol = coms.movetype
+poorai=coms.poorAI
 
 
 
