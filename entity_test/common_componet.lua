@@ -104,11 +104,9 @@ return{
         local vy =  move.speed * cos * -1
 
 
-        turret.x = hull.hitbox:getX() - turret.offset * sin
-        turret.y = hull.hitbox:getY() + turret.offset * cos
-
         turret.AMx = turret.x + 160 * sin1
         turret.AMy = turret.y - 160 * cos1 
+
 
         local mx,my = love.mouse.getPosition()
         angle1 = math.atan2(my - turret.y,mx - turret.x)
@@ -169,6 +167,18 @@ return{
 
         hull.hitbox:setLinearVelocity(vx, vy)
         hull.hitbox:setAngularVelocity(r.Rotational_speed)
+    end,
+
+    poorAI=function(self, dt)
+        
+        if ax~=px then 
+            ax=ax-(ax-px)*v*dt
+        end
+        if ay~=py then
+            ay=ay-(ay-py)*v*dt
+        end
+        self.ax=ax
+        self.ay=ay
     end
 
 }
