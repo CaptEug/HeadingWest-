@@ -5,5 +5,6 @@
     {move_t, 0, 0},
     {rotation_data_t, 0, 0.8, 0.4, 0.8},
     {turret_rdata_t, 0.785, 0, 0.5, 0.5, 0.8},
-    {move_data_t, 150, 150, 50, 30, 100}
+    {move_data_t, 150, 150, 50, 30, 100},
+    {tank_ammo_t, 25600, 35, 10}
 }
