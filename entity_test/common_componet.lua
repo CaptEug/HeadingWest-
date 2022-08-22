@@ -179,7 +179,7 @@ return{
 
     poorAI=function(self, dt)
         local px,py=tanks_table:getdata(tank1)
-        local ax,ay=tanks_table:getdata(tank2)
+        local ax,ay,arg=tanks_table:getdata(tank2)
         
         local hull = self:get "hull"
         local turret = self:get "turret"
@@ -210,7 +210,7 @@ return{
         local mx,my = love.mouse.getPosition()
         angle1 = math.atan2(my - turret.y,mx - turret.x)
         
-        if py<ay and math.abs(py-ay)>=10 then
+        if arg-3.14/2-math.atan((py-ay)/(px-ax))<0.1 and arg-3.14/2-math.atan((py-ay)/(px-ax))>-0.1 then --up
             if move.speed<m.maxspeed then
                 move.speed = move.speed + m.acceleration*dt
             end
@@ -221,9 +221,9 @@ return{
                 end
                 move.speed = move.speed - m.stop_acceleration*dt
             end
-        end
+        end--]]
     
-        if py>ay and math.abs(py-ay)>=10 then
+        --[[if py>ay and 0.01>arg-math.atan(py/px)>-0.01 then --down
             if move.speed>-m.back_maxspeed then
                 move.speed = move.speed - m.back_acceleration*dt
             end
@@ -234,9 +234,9 @@ return{
                 end
                 move.speed = move.speed + m.stop_acceleration*dt
             end
-        end
+        end--]]
 
-        if px<ax and math.abs(py-ay)<10 then
+        if  arg-3.14/2-math.atan((py-ay)/(px-ax))>0.1 then --left
             if r.Rotation_speed>-r.max_Rotation_speed then
                 r.Rotation_speed = r.Rotation_speed-r.Rotation_acceleration*dt
             end
@@ -249,7 +249,7 @@ return{
             end
         end
 
-        if px>ax and math.abs(py-ay)<10 then
+        if  arg-3.14/2-math.atan((py-ay)/(px-ax))<-0.1 then  --right
             if r.Rotation_speed<r.max_Rotation_speed then
                 r.Rotation_speed=r.Rotation_speed+r.Rotation_acceleration*dt
             end
