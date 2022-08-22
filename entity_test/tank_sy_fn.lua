@@ -21,7 +21,10 @@ return{
             location.x = hull.hitbox:getX() 
             location.y = hull.hitbox:getY() 
             move.angle = hull.hitbox:getAngle() 
-         
+            
+            turret.x = hull.hitbox:getX() - turret.offset * sin
+            turret.y = hull.hitbox:getY() + turret.offset * cos
+           
         end
     
         function render:draw(entity) 
