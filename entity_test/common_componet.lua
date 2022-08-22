@@ -61,6 +61,7 @@ return{
         hull.picture = love.graphics.newImage(hull_path)
         hull.weight, hull.height = hull.picture:getDimensions()
         hull.hitbox = world:newRectangleCollider(0, 0, hull.weight*0.2, hull.height*0.2)
+        hull.hitbox:setRestitution(0.8)
         return hull
     end,
 
@@ -105,7 +106,7 @@ return{
         local vy =  move.speed * cos * - 1
         
         turret1.realspeed = r.Rotation_speed + turret1.Rotation_speed
-        turret1.angle = turret1.angle + turret1.realspeed
+        turret1.angle = turret1.angle + turret1.realspeed*dt*0.5
 
         turret.AMx = turret.x + 160 * sin1
         turret.AMy = turret.y - 160 * cos1
