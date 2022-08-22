@@ -181,7 +181,6 @@ return{
     poorAI=function(self, dt)
         local px,py=tanks_table:getdata(tank1)
         local ax,ay,arg=tanks_table:getdata(tank2)
-        
         local hull = self:get "hull"
         local turret = self:get "turret"
         local turret1 = self:get "turret_rdata"
@@ -211,13 +210,13 @@ return{
         local mx,my = love.mouse.getPosition()
         angle1 = math.atan2(my - turret.y,mx - turret.x)
         
-        local cx=px-ax
-        local cy=py-ay
-        local cosa=math.cos(arg)
-        local sina=math.sin(arg)
-        local cosca=(cosa*cx+sina*cy)/(((cx^2+cy^2)^0.5))
+        local directx=px-ax
+        local directy=py-ay
+        local cosA=math.cos(arg)
+        local sinA=math.sin(arg)
+        local cosCA=(cosA*directx+sinA*directy)/(((directx^2+directy^2)^0.5))
 
-        if math.abs(cosca)<=1 then --up
+        if math.abs(cosCA)<=0.1 then --up
             if move.speed<m.maxspeed then
                 move.speed = move.speed + m.acceleration*dt
             end
@@ -243,7 +242,7 @@ return{
             end
         end--]]
 
-        if  cosca<-0.1 then --left
+        if  cosCA<-0.1 then --left
             if r.Rotation_speed>-r.max_Rotation_speed then
                 r.Rotation_speed = r.Rotation_speed-r.Rotation_acceleration*dt
             end
@@ -256,7 +255,7 @@ return{
             end
         end
 
-        if  cosca>0.1 then  --right
+        if  cosCA>0.1 then  --right
             if r.Rotation_speed<r.max_Rotation_speed then
                 r.Rotation_speed=r.Rotation_speed+r.Rotation_acceleration*dt
             end
