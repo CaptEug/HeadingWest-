@@ -47,7 +47,7 @@ MapNumber=1
 Filenumber=1
 
 local function cammovement()
-    local ww, wh = love.graphics.getDimensions()
+    
     if love.keyboard.isDown("w") then
         cam:move(0,-5)
     end
@@ -99,6 +99,7 @@ end
 
 
 function love.load()
+    
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
     world = wf.newWorld(0, 0)
@@ -109,6 +110,7 @@ end
 
 
 function love.update(dt)
+    ww, wh = love.graphics.getDimensions()
     cammovement()
 end
 

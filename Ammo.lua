@@ -65,11 +65,13 @@ function Ammo.draw()
         --love.graphics.rectangle("fill", sx, sy, 100, 100)
         end
     end
+    
     for i, shell in ipairs(HEAT) do
         local sx, sy = shell:getPosition()
         love.graphics.rectangle("fill", sx, sy, 100, 100)
         
     end
+
     for i, shell in ipairs(APDS) do
         local sx, sy = shell:getPosition()
         love.graphics.rectangle("fill", sx, sy, 100, 100)

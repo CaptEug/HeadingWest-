@@ -25,7 +25,7 @@ world = wf.newWorld(0, 0)
 Tanks = {}
 Tanks.__index = Tanks
 
-local qun = {}
+local group = {}
 
 
 function stringToTable(str)
@@ -53,7 +53,7 @@ function Tanks:newtank(data, ...)
     local a,b = love.filesystem.read( data, all )
     local h = stringToTable(a)
     local entity = t_world:assemble(h)
-    table.insert(qun, entity)
+    table.insert(group, entity)
     local body = entity:get "hull"
     table1 = {...}
     for i,v in ipairs(table1) do
@@ -69,12 +69,12 @@ function Tanks:newtank(data, ...)
 end
 
 function Tanks:addai(entity, ai)
-    local test = isInArray(qun, entity)
+    local test = isInArray(group, entity)
     entity:add(coms.functional(ai))
 end
 
 function Tanks:gettank(entity)
-    for _, v in ipairs(qun) do
+    for _, v in ipairs(group) do
         if v == entity then
             return true
         end
@@ -91,8 +91,8 @@ function Tanks:destroytank(...)
             v:destroy()
         end
     else
-        if #qun ~= 0 then
-            for i,v in ipairs(qun) do
+        if #group ~= 0 then
+            for i,v in ipairs(group) do
                 local b = v:get "hull"
                 b.hitbox:destroy()
                 v:destroy()

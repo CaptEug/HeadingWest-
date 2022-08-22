@@ -45,7 +45,6 @@ function Loadmenu:init()
 end
 
 function Loadmenu:update()
-    local ww, wh = love.graphics.getDimensions()
     FILE1.bx = ww / 5
     FILE2.bx = ww / 2
     FILE3.bx = ww *(4 / 5)

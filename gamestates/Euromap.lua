@@ -18,7 +18,6 @@ function Euromap:init()
 end
 
 function Euromap:update(dt)
-    local ww, wh = love.graphics.getDimensions()
     Berlin.bx = 1835
     Berlin.by = 1345
     EuromapUI:update(dt)

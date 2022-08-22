@@ -15,7 +15,6 @@ function EuromapUI:load()
 end
 
 function EuromapUI:update(dt)
-    local ww, wh = love.graphics.getDimensions()
     Year = Year + dt / 10
     Settings.bx = 32
     Settings.by = wh - 32
@@ -27,4 +26,5 @@ function EuromapUI:draw()
     
     love.graphics.setFont(Rtitlefont)
     love.graphics.print(tostring(math.floor(Year)), love.graphics.getWidth() / 2 - Rtitlefont:getWidth(tostring(math.floor(Year))) / 2, love.graphics.getHeight() / 13)
+    
 end

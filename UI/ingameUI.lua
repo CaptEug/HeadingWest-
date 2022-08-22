@@ -19,12 +19,12 @@ function ingameUI:load()
     )]]--
 end
 
-function ingameUI:update()
-    local ww, wh = love.graphics.getDimensions()
+function ingameUI:update(dt)
     Settings.bx = 32
     Settings.by = wh - 32
 end
 
 function ingameUI:draw()
     Gbuttons:use()
+    love.graphics.rectangle("fill", ww-200, 50, 200, wh-100)
 end
