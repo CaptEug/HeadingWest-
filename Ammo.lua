@@ -50,7 +50,7 @@ function Ammo.update(dt)
                 shell:destroy()
         end
     end
-
+    
     for i, shell in ipairs(HEAT) do
         if shell:enter() then
             

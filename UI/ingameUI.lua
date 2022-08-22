@@ -1,5 +1,7 @@
 ingameUI = {}
 
+TankIcon = love.graphics.newImage('Assets/pictures/Tank_Icon') 
+
 function ingameUI:load()
     Gbuttons = buttons.new()
     Settings = buttons.newToolButton(
@@ -10,18 +12,20 @@ function ingameUI:load()
         Gbuttons
     )
 
-    --[[TankSummon = buttons.newToolButton(
+    TankSummon = buttons.newToolButton(
         TankIcon,
         function ()
             
         end,
         Gbuttons
-    )]]--
+    )
 end
 
 function ingameUI:update(dt)
     Settings.bx = 32
     Settings.by = wh - 32
+    TankSummon.bx = ww - 32
+    TankSummon.by = 32
 end
 
 function ingameUI:draw()
