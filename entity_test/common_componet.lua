@@ -47,7 +47,7 @@ return{
         return m
     end,
 
-    m1 = function(speed, numbers, times)
+    tank_ammo = function(speed, numbers, times)
         local t = Component.new "tankammo"
         t.ammo = Ammo.new()
         t.rack = Ammo.newShell(speed, numbers, t.ammo)
@@ -96,19 +96,20 @@ return{
         local move = self:get "move"
         local r = self:get "rotation_data"
         local m = self:get "move_data"
+        local t = self:get "tankammo"
         local cos = math.cos(move.angle)
         local sin = math.sin(move.angle)
         local cos1 = math.cos(turret1.angle)
         local sin1 = math.sin(turret1.angle)
         local vx =  move.speed * sin
-        local vy =  move.speed * cos * -1
+        local vy =  move.speed * cos * - 1
+        
         turret1.realspeed = r.Rotation_speed + turret1.Rotation_speed
         turret1.angle = turret1.angle + turret1.realspeed
 
         turret.AMx = turret.x + 160 * sin1
-        turret.AMy = turret.y - 160 * cos1 
+        turret.AMy = turret.y - 160 * cos1
 
-        local t = self:get "tankammo"
         turret.x = hull.hitbox:getX() - turret.offset * sin
         turret.y = hull.hitbox:getY() + turret.offset * cos
         t.timer = t.timer - dt
@@ -116,7 +117,6 @@ return{
             t.ammo:shoot(t.rack, 'APCBC', APCBC)
             t.timer = t.time
         end
-
 
         local mx,my = love.mouse.getPosition()
         angle1 = math.atan2(my - turret.y,mx - turret.x)
