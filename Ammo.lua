@@ -19,9 +19,9 @@ function Ammo.newShell(speed,damege,ammo)
     return instance
 end
 
-function Ammo:shoot(shell_name,shell_type,shell_table)
-    local tur = tank1:get "turret_rdata"
-    local body = tank1:get "turret"
+function Ammo:shoot(shell_name,shell_type,shell_table,entity)
+    local tur = entity:get "turret_rdata"
+    local body = entity:get "turret"
     local vx, vy = math.sin(tur.angle) * shell_name.speed,
                    -math.cos(tur.angle) * shell_name.speed
     local shell = world:newCircleCollider(body.AMx-5, body.AMy-5, 10)
@@ -50,7 +50,7 @@ function Ammo.update(dt)
                 shell:destroy()
         end
     end
-
+    
     for i, shell in ipairs(HEAT) do
         if shell:enter() then
             
