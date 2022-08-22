@@ -31,11 +31,17 @@ function Ammo:shoot(shell_name,shell_type,shell_table)
     shell.damage = shell_name.damege
     shell.angle = tur.angle
     shell.isflying = true
+    shell.life = 10
     table.insert(shell_table, shell)
 end
 
 function Ammo.update(dt)
     for i, shell in ipairs(APCBC) do
+        shell.life = shell.life - dt
+        if shell.life <= 0 then
+            shell.isflying = false
+            shell:destroy()
+        end
         if shell:enter('Amour') then
                 local collision_data = shell:getEnterCollisionData('Amour')
                 local Target = collision_data.collider:getObject()

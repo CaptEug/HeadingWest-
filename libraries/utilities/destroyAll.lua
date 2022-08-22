@@ -1,6 +1,9 @@
 function destroyAll()
     colliderTableDestroy(Buildings)
     colliderTableDestroy(Obstacles)
+    colliderTableDestroy(APCBC)
+    colliderTableDestroy(HEAT)
+    colliderTableDestroy(APDS)
     tanks_table:destroytank()
 end
 
