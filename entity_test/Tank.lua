@@ -19,10 +19,10 @@ function tanks.new(
     back_acceleration,
     stop_acceleration,
     max_Rotation_speed,
-    Rotational_acceleration,
+    Rotation_acceleration,
     stop_rotation_ac,
     turret_max_Rotation_speed,
-    turret_Rotational_acceleration,
+    turret_Rotation_acceleration,
     turret_stop_rotation_ac
     )
     local instance = setmetatable({}, tank)
@@ -40,10 +40,10 @@ function tanks.new(
     instance.back_acceleration = back_acceleration or 0
     instance.stop_acceleration = stop_acceleration or 0
     instance.max_Rotation_speed = max_Rotation_speed or 0
-    instance.Rotational_acceleration = Rotational_acceleration or 0
+    instance.Rotation_acceleration = Rotation_acceleration or 0
     instance.stop_rotation_ac = stop_rotation_ac or 0
     instance.turret_max_Rotation_speed = turret_max_Rotation_speed or 0
-    instance.turret_Rotational_acceleration = turret_Rotational_acceleration or 0
+    instance.turret_Rotation_acceleration = turret_Rotation_acceleration or 0
     instance.turret_stop_rotation_ac = turret_stop_rotation_ac or 0
 
     return instance
@@ -66,10 +66,10 @@ function tanks:getdata()
     self.back_acceleration,
     self.stop_acceleration,
     self.max_Rotation_speed,
-    self.Rotational_acceleration,
+    self.Rotation_acceleration,
     self.stop_rotation_ac,
     self.turret_max_Rotation_speed,
-    self.turret_Rotational_acceleration,
+    self.turret_Rotation_acceleration,
     self.turret_stop_rotation_ac
 end
 
@@ -83,7 +83,7 @@ function tanks:create()
     self.tankbox = world:newRectangleCollider(self.x, self.y, self.aw*0.2, self.ah*0.2)
     self.tankbox:setFixedRotation(true)
     self.speed = 0
-    self.Rotational_speed = 0
+    self.Rotation_speed = 0
     self.vx = 0
     self.vy = 0
     self.vt = 0
@@ -117,28 +117,28 @@ function tanks:move(dt)
     end
     
     if love.keyboard.isDown('left') then
-        if self.Rotational_speed>-self.max_Rotation_speed then
-            self.Rotational_speed=self.Rotational_speed-self.Rotational_acceleration*dt
+        if self.Rotation_speed>-self.max_Rotation_speed then
+            self.Rotation_speed=self.Rotation_speed-self.Rotation_acceleration*dt
         end
     else
-        if self.Rotational_speed<0 then
-            if self.Rotational_speed>-0.1 and self.Rotational_speed<0.1 then
-                self.Rotational_speed = 0
+        if self.Rotation_speed<0 then
+            if self.Rotation_speed>-0.1 and self.Rotation_speed<0.1 then
+                self.Rotation_speed = 0
             end
-            self.Rotational_speed=self.Rotational_speed+self.stop_rotation_ac*dt
+            self.Rotation_speed=self.Rotation_speed+self.stop_rotation_ac*dt
         end
     end
 
     if love.keyboard.isDown('right') then
-        if self.Rotational_speed<self.max_Rotation_speed then
-            self.Rotational_speed=self.Rotational_speed+self.Rotational_acceleration*dt
+        if self.Rotation_speed<self.max_Rotation_speed then
+            self.Rotation_speed=self.Rotation_speed+self.Rotation_acceleration*dt
         end
     else
-        if self.Rotational_speed>0 then
-            if self.Rotational_speed>-0.1 and self.Rotational_speed<0.1 then
-                self.Rotational_speed = 0
+        if self.Rotation_speed>0 then
+            if self.Rotation_speed>-0.1 and self.Rotation_speed<0.1 then
+                self.Rotation_speed = 0
             end
-            self.Rotational_speed=self.Rotational_speed-self.stop_rotation_ac*dt
+            self.Rotation_speed=self.Rotation_speed-self.stop_rotation_ac*dt
         end
     end
 
@@ -157,7 +157,7 @@ function tanks:move(dt)
 
     self.angle = self.tankbox:getAngle()
 
-    self.vt = self.Rotational_speed
+    self.vt = self.Rotation_speed
     
 
     self.tankbox:setLinearVelocity(self.vx , self.vy)

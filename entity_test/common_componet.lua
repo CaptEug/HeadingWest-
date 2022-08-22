@@ -18,21 +18,21 @@ return{
         return move
     end,
 
-    rotation_data = function(Rotation_speed, max_Rotation_speed, Rotational_acceleration, stop_rotation_ac)
+    rotation_data = function(Rotation_speed, max_Rotation_speed, Rotation_acceleration, stop_rotation_ac)
         local r = Component.new "rotation_data"
-        r.Rotational_speed = Rotation_speed
-        r.max_Rotational_speed = max_Rotation_speed
-        r.Rotational_acceleration = Rotational_acceleration
+        r.Rotation_speed = Rotation_speed
+        r.max_Rotation_speed = max_Rotation_speed
+        r.Rotation_acceleration = Rotation_acceleration
         r.stop_rotation_ac = stop_rotation_ac
         return r
     end,
 
-    turret_rdata = function(angle, Rotation_speed, max_Rotation_speed, Rotational_acceleration, stop_rotation_ac)
+    turret_rdata = function(angle, Rotation_speed, max_Rotation_speed, Rotation_acceleration, stop_rotation_ac)
         local r = Component.new "turret_rdata"
         r.angle = angle
-        r.Rotational_speed = Rotation_speed
-        r.max_Rotational_speed = max_Rotation_speed
-        r.Rotational_acceleration = Rotational_acceleration
+        r.Rotation_speed = Rotation_speed
+        r.max_Rotation_speed = max_Rotation_speed
+        r.Rotation_acceleration = Rotation_acceleration
         r.stop_rotation_ac = stop_rotation_ac
         return r
     end,
@@ -102,7 +102,8 @@ return{
         local sin1 = math.sin(turret1.angle)
         local vx =  move.speed * sin
         local vy =  move.speed * cos * -1
-
+        turret1.realspeed = r.Rotation_speed + turret1.Rotation_speed
+        turret1.angle = turret1.angle + turret1.realspeed
 
         turret.AMx = turret.x + 160 * sin1
         turret.AMy = turret.y - 160 * cos1 
@@ -138,35 +139,35 @@ return{
         end
 
         if love.keyboard.isDown('left') then
-            if r.Rotational_speed>-r.max_Rotational_speed then
-                r.Rotational_speed = r.Rotational_speed-r.Rotational_acceleration*dt
+            if r.Rotation_speed>-r.max_Rotation_speed then
+                r.Rotation_speed = r.Rotation_speed-r.Rotation_acceleration*dt
             end
         else
-            if r.Rotational_speed<0 then
-                if r.Rotational_speed>-0.1 and r.Rotational_speed<0.1 then
-                    r.Rotational_speed = 0
+            if r.Rotation_speed<0 then
+                if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
+                    r.Rotation_speed = 0
                 end
-                r.Rotational_speed=r.Rotational_speed+r.stop_rotation_ac*dt
+                r.Rotation_speed=r.Rotation_speed+r.stop_rotation_ac*dt
             end
         end
 
         if love.keyboard.isDown('right') then
-            if r.Rotational_speed<r.max_Rotational_speed then
-                r.Rotational_speed=r.Rotational_speed+r.Rotational_acceleration*dt
+            if r.Rotation_speed<r.max_Rotation_speed then
+                r.Rotation_speed=r.Rotation_speed+r.Rotation_acceleration*dt
             end
         else
-            if r.Rotational_speed>0 then
-                if r.Rotational_speed>-0.1 and r.Rotational_speed<0.1 then
-                    r.Rotational_speed = 0
+            if r.Rotation_speed>0 then
+                if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
+                    r.Rotation_speed = 0
                 end
-                r.Rotational_speed=r.Rotational_speed-r.stop_rotation_ac*dt
+                r.Rotation_speed=r.Rotation_speed-r.stop_rotation_ac*dt
             end
         end
 
         local angle1 = math.atan2( - turret.y, - turret.x)
 
         hull.hitbox:setLinearVelocity(vx, vy)
-        hull.hitbox:setAngularVelocity(r.Rotational_speed)
+        hull.hitbox:setAngularVelocity(r.Rotation_speed)
     end,
 
     poorAI=function(self, dt)
