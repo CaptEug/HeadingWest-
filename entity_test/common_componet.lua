@@ -112,7 +112,7 @@ return{
         
         t.timer = t.timer - dt
         if love.mouse.isDown(1) and t.timer <= 0 then
-            t.ammo:shoot(t.rack, 'APCBC', APCBC)
+            t.ammo:shoot(t.rack, 'APCBC', APCBC, self)
             t.timer = t.time
         end
 
