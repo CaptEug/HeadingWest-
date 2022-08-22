@@ -216,7 +216,7 @@ return{
         local sinA=math.sin(arg)
         local cosCA=(cosA*directx+sinA*directy)/(((directx^2+directy^2)^0.5))
 
-        if math.abs(cosCA)<=0.1 then --up
+        if math.abs(cosCA)<=math.pi/4 then --up
             if move.speed<m.maxspeed then
                 move.speed = move.speed + m.acceleration*dt
             end
