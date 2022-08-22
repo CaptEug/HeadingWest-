@@ -109,7 +109,7 @@ return{
 
         turret.AMx = turret.x + 160 * sin1
         turret.AMy = turret.y - 160 * cos1
-        
+
         t.timer = t.timer - dt
         if love.mouse.isDown(1) and t.timer <= 0 then
             t.ammo:shoot(t.rack, 'APCBC', APCBC)
@@ -180,15 +180,92 @@ return{
     poorAI=function(self, dt)
         local px,py=tanks_table:getdata(tank1)
         local ax,ay=tanks_table:getdata(tank2)
-        local v=5
         
-        if ax~=px then 
-            ax=ax-(ax-px)*v*dt
-        end
-        if ay~=py then
-            ay=ay-(ay-py)*v*dt
+        local hull = self:get "hull"
+        local turret = self:get "turret"
+        local turret1 = self:get "turret_rdata"
+        local move = self:get "move"
+        local r = self:get "rotation_data"
+        local m = self:get "move_data"
+        local t = self:get "tankammo"
+        local cos = math.cos(move.angle)
+        local sin = math.sin(move.angle)
+        local cos1 = math.cos(turret1.angle)
+        local sin1 = math.sin(turret1.angle)
+        local vx =  move.speed * sin
+        local vy =  move.speed * cos * - 1
+        
+        turret1.realspeed = r.Rotation_speed + turret1.Rotation_speed
+        turret1.angle = turret1.angle + turret1.realspeed
+
+        turret.AMx = turret.x + 160 * sin1
+        turret.AMy = turret.y - 160 * cos1
+        
+        t.timer = t.timer - dt
+        if love.mouse.isDown(1) and t.timer <= 0 then
+            t.ammo:shoot(t.rack, 'APCBC', APCBC)
+            t.timer = t.time
         end
 
+        local mx,my = love.mouse.getPosition()
+        angle1 = math.atan2(my - turret.y,mx - turret.x)
+        
+        if py<ay and math.abs(py-ay)>=10 then
+            if move.speed<m.maxspeed then
+                move.speed = move.speed + m.acceleration*dt
+            end
+        else
+            if move.speed>0 then
+                if move.speed>-0.1 and move.speed<0.1 then
+                    move.speed = 0
+                end
+                move.speed = move.speed - m.stop_acceleration*dt
+            end
+        end
+    
+        if py>ay and math.abs(py-ay)>=10 then
+            if move.speed>-m.back_maxspeed then
+                move.speed = move.speed - m.back_acceleration*dt
+            end
+        else
+            if move.speed<0 then
+                if move.speed>-0.1 and move.speed<0.1 then
+                    move.speed = 0
+                end
+                move.speed = move.speed + m.stop_acceleration*dt
+            end
+        end
+
+        if px<ax and math.abs(py-ay)<10 then
+            if r.Rotation_speed>-r.max_Rotation_speed then
+                r.Rotation_speed = r.Rotation_speed-r.Rotation_acceleration*dt
+            end
+        else
+            if r.Rotation_speed<0 then
+                if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
+                    r.Rotation_speed = 0
+                end
+                r.Rotation_speed=r.Rotation_speed+r.stop_rotation_ac*dt
+            end
+        end
+
+        if px>ax and math.abs(py-ay)<10 then
+            if r.Rotation_speed<r.max_Rotation_speed then
+                r.Rotation_speed=r.Rotation_speed+r.Rotation_acceleration*dt
+            end
+        else
+            if r.Rotation_speed>0 then
+                if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
+                    r.Rotation_speed = 0
+                end
+                r.Rotation_speed=r.Rotation_speed-r.stop_rotation_ac*dt
+            end
+        end
+
+        local angle1 = math.atan2( - turret.y, - turret.x)
+
+        hull.hitbox:setLinearVelocity(vx, vy)
+        hull.hitbox:setAngularVelocity(r.Rotation_speed)
     end
 
 }

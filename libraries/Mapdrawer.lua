@@ -25,8 +25,8 @@ function loadMap(mapName)
         end
     end
 
-    tank1 = tanks_table:newtank("entity_test/MAUS.txt", Data.ax , Data.ay, Data.angle)
-    tank2 = tanks_table:newtank("entity_test/M48A1.txt", Data.ax , Data.ay, Data.angle)
+    tank1 = tanks_table:newtank("entity_test/MAUS.txt", Data.ax , Data.ay, 0.5)
+    tank2 = tanks_table:newtank("entity_test/M48A1.txt", 0 , 0, 0)
     tanks_table:addai(tank1, keybroadcontrol)
     tanks_table:addai(tank2,poorai)
 end
