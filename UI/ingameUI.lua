@@ -1,8 +1,10 @@
 ingameUI = {}
 
-TankIcon = love.graphics.newImage('Assets/pictures/Tank_Icon') 
+TankIcon = love.graphics.newImage('Assets/pictures/Tank_Icon.png') 
 
 function ingameUI:load()
+    drawTankList = false
+
     Gbuttons = buttons.new()
     Settings = buttons.newToolButton(
         Gear,
@@ -15,7 +17,7 @@ function ingameUI:load()
     TankSummon = buttons.newToolButton(
         TankIcon,
         function ()
-            
+            drawTankList = true
         end,
         Gbuttons
     )
@@ -30,5 +32,13 @@ end
 
 function ingameUI:draw()
     Gbuttons:use()
-    love.graphics.rectangle("fill", ww-200, 50, 200, wh-100)
+    if drawTankList then
+        drawtanklist()
+    end
+end
+
+function drawtanklist()
+    love.graphics.setColor(1, 1, 1, 0.7)
+    love.graphics.rectangle("fill", ww-200, 64, 200, wh-128)
+    love.graphics.setColor(1, 1, 1)
 end
