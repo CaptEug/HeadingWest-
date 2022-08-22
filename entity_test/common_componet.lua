@@ -108,6 +108,15 @@ return{
         turret.AMx = turret.x + 160 * sin1
         turret.AMy = turret.y - 160 * cos1 
 
+        local t = self:get "tankammo"
+        turret.x = hull.hitbox:getX() - turret.offset * sin
+        turret.y = hull.hitbox:getY() + turret.offset * cos
+        t.timer = t.timer - dt
+        if love.mouse.isDown(1) and t.timer <= 0 then
+            t.ammo:shoot(t.rack, 'APCBC', APCBC)
+            t.timer = t.time
+        end
+
 
         local mx,my = love.mouse.getPosition()
         angle1 = math.atan2(my - turret.y,mx - turret.x)
