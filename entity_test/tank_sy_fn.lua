@@ -21,14 +21,14 @@ return{
             location.x = hull.hitbox:getX() 
             location.y = hull.hitbox:getY() 
             move.angle = hull.hitbox:getAngle() 
-            local t = entity:get "tankammo"
+            --[[local t = entity:get "tankammo"
             turret.x = hull.hitbox:getX() - turret.offset * sin
             turret.y = hull.hitbox:getY() + turret.offset * cos
             t.timer = t.timer - dt
             if love.mouse.isDown(1) and t.timer <= 0 then
                 t.ammo:shoot(t.rack, 'APCBC', APCBC)
                 t.timer = t.time
-            end
+            end--]]
         end
     
         function render:draw(entity) 
