@@ -211,7 +211,13 @@ return{
         local mx,my = love.mouse.getPosition()
         angle1 = math.atan2(my - turret.y,mx - turret.x)
         
-        if arg-3.14/2-math.atan((py-ay)/(px-ax))<0.1 and arg-3.14/2-math.atan((py-ay)/(px-ax))>-0.1 then --up
+        local cx=px-ax
+        local cy=py-ay
+        local cosa=math.cos(arg)
+        local sina=math.sin(arg)
+        local cosca=(cosa*cx+sina*cy)/(((cx^2+cy^2)^0.5))
+
+        if math.abs(cosca)<=0.1 then --up
             if move.speed<m.maxspeed then
                 move.speed = move.speed + m.acceleration*dt
             end
@@ -222,7 +228,7 @@ return{
                 end
                 move.speed = move.speed - m.stop_acceleration*dt
             end
-        end--]]
+        end
     
         --[[if py>ay and 0.01>arg-math.atan(py/px)>-0.01 then --down
             if move.speed>-m.back_maxspeed then
@@ -237,7 +243,7 @@ return{
             end
         end--]]
 
-        if  arg-3.14/2-math.atan((py-ay)/(px-ax))>0.1 then --left
+        if  cosca<-0.1 then --left
             if r.Rotation_speed>-r.max_Rotation_speed then
                 r.Rotation_speed = r.Rotation_speed-r.Rotation_acceleration*dt
             end
@@ -250,7 +256,7 @@ return{
             end
         end
 
-        if  arg-3.14/2-math.atan((py-ay)/(px-ax))<-0.1 then  --right
+        if  cosca>0.1 then  --right
             if r.Rotation_speed<r.max_Rotation_speed then
                 r.Rotation_speed=r.Rotation_speed+r.Rotation_acceleration*dt
             end
