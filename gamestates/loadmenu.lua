@@ -71,7 +71,7 @@ function Loadmenu:draw()
         love.graphics.setColor(1, 1, 1)
     cam:detach()
     love.graphics.setFont(Rtitlefont)
-    love.graphics.print("SAVED FILES", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("SAVED FILES") / 2, love.graphics.getHeight() / 13)
+    love.graphics.print("SAVED FILES", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("SAVED FILES") / 2, 0)
     
     Lbuttons:use()
 end

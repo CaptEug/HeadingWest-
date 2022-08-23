@@ -1,8 +1,10 @@
 ingameUI = {}
+TankList = {}
 
 TankIcon = love.graphics.newImage('Assets/pictures/Tank_Icon.png') 
 
 function ingameUI:load()
+    table.insert(TankList, T54)
     drawTankList = false
 
     Gbuttons = buttons.new()
@@ -38,7 +40,13 @@ function ingameUI:draw()
 end
 
 function drawtanklist()
+    local locationSet = {{ww-256, 64}, {ww-256, 320}, {ww-256, 576}}
+    
     love.graphics.setColor(1, 1, 1, 0.7)
-    love.graphics.rectangle("fill", ww-200, 64, 200, wh-128)
+    love.graphics.rectangle("fill", ww-256, 64, 256, wh-128)
     love.graphics.setColor(1, 1, 1)
+    
+    for i, pic in pairs(TankList) do
+        love.graphics.draw(pic, unpack(locationSet[i]))
+    end
 end
