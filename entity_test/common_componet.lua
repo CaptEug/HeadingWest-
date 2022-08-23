@@ -30,6 +30,7 @@ return{
     turret_rdata = function(angle, Rotation_speed, max_Rotation_speed, Rotation_acceleration, stop_rotation_ac)
         local r = Component.new "turret_rdata"
         r.angle = angle
+        r.angledrta = angle
         r.Rotation_speed = Rotation_speed
         r.max_Rotation_speed = max_Rotation_speed
         r.Rotation_acceleration = Rotation_acceleration
@@ -105,11 +106,23 @@ return{
         local vx =  move.speed * sin
         local vy =  move.speed * cos * - 1
         
-        turret1.realspeed = r.Rotation_speed + turret1.Rotation_speed
-        turret1.angle = turret1.angle + turret1.realspeed*dt*0.5
 
         turret.AMx = turret.x + 160 * sin1
         turret.AMy = turret.y - 160 * cos1
+
+        local mX, mY = love.mouse.getPosition()
+        local angle_to_target = math.atan2(mY - turret.AMy,mX - turret.AMx)
+
+        if turret1.angle == angle_to_target then
+            turret1.Rotation_speed = 0
+        else
+            turret1.Rotation_speed = turret1.max_Rotation_speed
+        end
+
+        
+
+        turret1.angledrta = turret1.angledrta + turret1.Rotation_speed*0.5*dt
+        turret1.angle = move.angle + turret1.angledrta
 
         t.timer = t.timer - dt
         if love.mouse.isDown(1) and t.timer <= 0 then
