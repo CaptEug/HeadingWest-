@@ -4,22 +4,23 @@ cam = Camera()
 Gamestate = require "libraries/gamestate"
 sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
-require 'libraries/CGplayer'
+require 'libraries/utilities/CGplayer'
 require 'libraries/shaders'
 require 'libraries/buttons'
 require 'Tank'
 require 'Ammo'
 require 'Saving'
 require 'libraries/Mapdrawer'
-require 'libraries/destroyAll'
-require 'libraries/show'
+require 'libraries/utilities/destroyAll'
+require 'libraries/utilities/show'
 require 'TankAI'
 
 --Gamestates required
 require 'gamestates/MainMenu'
-require 'gamestates/testmap'
+require 'gamestates/ingame'
 require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
+require 'gamestates/Euromap'
 
 --Assets registered
 Europe_BandW = love.graphics.newImage('Assets/Europe/Europe_BandW.png')
@@ -31,19 +32,22 @@ Hungary = love.graphics.newImage('Assets/Europe/Hungary.png')
 Romania = love.graphics.newImage('Assets/Europe/Romania.png')
 Bulgaria = love.graphics.newImage('Assets/Europe/Bulgaria.png')
 East_Germany = love.graphics.newImage('Assets/Europe/East_Germany.png')
+
 Gear = love.graphics.newImage('Assets/pictures/Gear.png')
+Berlin_Bear = love.graphics.newImage('Assets/pictures/Berlin_Bear.png')
+
 cg1 = CG.new('Assets/CGs/OP.ogv')
 
 --Fonts registered
 Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
 Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
 
-Maps={testmap,Loadmenu,MainMenu}
+Maps={'checkpointC','Testmap'}
 MapNumber=1
 Filenumber=1
 
 local function cammovement()
-    local ww, wh = love.graphics.getDimensions()
+    
     if love.keyboard.isDown("w") then
         cam:move(0,-5)
     end
@@ -71,17 +75,21 @@ function DrawEurope()
 end
 
 function DrawCountries()
-    love.graphics.draw(USSR, 0, 0)
-    love.graphics.draw(Poland, 0, 0)
-    love.graphics.draw(Czechoslovakia, 0, 0)
-    love.graphics.draw(Hungary, 0, 0)
-    love.graphics.draw(Romania, 0, 0)
-    love.graphics.draw(Bulgaria, 0, 0)
-    love.graphics.draw(East_Germany, 0, 0)
+    RedCountries = {}
+    table.insert(RedCountries,USSR)
+    table.insert(RedCountries,Poland)
+    table.insert(RedCountries,Czechoslovakia)
+    table.insert(RedCountries,Hungary)
+    table.insert(RedCountries,Romania)
+    table.insert(RedCountries,Bulgaria)
+    table.insert(RedCountries,East_Germany)
+    for i, country in pairs(RedCountries) do
+        love.graphics.draw(country, 0, 0)
+    end
 end
 
-function addCollisionClass()
-    world:addCollisionClass('APCBC', {ingores = {'Wall'}})
+local function addCollisionClass()
+    world:addCollisionClass('APCBC')
     world:addCollisionClass('HEAT')
     world:addCollisionClass('APDS')
     world:addCollisionClass('Amour')
@@ -91,15 +99,18 @@ end
 
 
 function love.load()
+    
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
     world = wf.newWorld(0, 0)
+    tanks_table = Tanks.new()
     addCollisionClass()
 end
 
 
 
 function love.update(dt)
+    ww, wh = love.graphics.getDimensions()
     cammovement()
 end
 

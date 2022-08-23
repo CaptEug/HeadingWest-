@@ -39,7 +39,6 @@ end
 
 
 function MainMenu:update(dt)
-    local ww, wh = love.graphics.getDimensions()
     Start.bx = ww / 2
     Start.by = wh / 2
     Quit.bx = ww / 2

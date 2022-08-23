@@ -44,7 +44,7 @@ end
 
 function Pause:draw()
     love.graphics.setColor(0.3, 0.3, 0.3, 1)
-    self.from:drawwithoutButton()
+    self.from:drawWithoutUI()
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("PAUSE", love.graphics.getWidth() /2 - Rtitlefont:getWidth("PAUSE") / 2, love.graphics.getHeight() / 13)
@@ -52,7 +52,7 @@ function Pause:draw()
 end
 
 function love.keypressed(key)
-    if Gamestate.current() == testmap and key == 'escape' then
+    if Gamestate.current() == ingame and key == 'escape' then
         return Gamestate.push(Pause)
     end
 end

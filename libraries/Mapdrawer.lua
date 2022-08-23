@@ -16,14 +16,19 @@ function loadMap(mapName)
         end
     end
     
-    if gameMap.layers['Obstacles'] then
-        for i, j in pairs(gameMap.layers['Obstacles'].objects) do
+    if gameMap.layers['Objects'] then
+        for i, j in pairs(gameMap.layers['Objects'].objects) do
             local Collider = world:newRectangleCollider(j.x, j.y, j.width, j.height)
             Collider.width = j.width
             Collider.height = j.height
             table.insert(Obstacles, Collider)
         end
     end
+
+    tank1 = tanks_table:newtank("entity_test/MAUS.txt", Data.ax , Data.ay, Data.angle)
+    tank2 = tanks_table:newtank("entity_test/M48A1.txt", 1000 , 1000, 0)
+    tanks_table:addai(tank1, keybroadcontrol)
+    tanks_table:addai(tank2,poorai)
 end
 
 function drawMap()
@@ -31,12 +36,12 @@ function drawMap()
         gameMap:drawLayer(gameMap.layers["Ground"])
     end
     
-    MAUS1:use()
+    tanks_table:draw()
     Ammo.draw()
-    DrawCollider("Assets/objects/Spike1.png")
+    DrawCollider()
 
-    if gameMap.layers["Objects"] then
-        gameMap:drawLayer(gameMap.layers["Objects"])
+    if gameMap.layers["Roof"] then
+        gameMap:drawLayer(gameMap.layers["Roof"])
     end
 
     if gameMap.layers["Sky"] then
@@ -46,12 +51,16 @@ function drawMap()
     shaders.dark()
 end
 
-function DrawCollider(Filelocation)
-    local Collider_image = love.graphics.newImage(Filelocation)
-
+function DrawCollider()
     for i, j in pairs(Obstacles) do
         local collider_x,collider_y = j:getPosition()
         local collider_angle = j:getAngle()
-        love.graphics.draw(Collider_image, collider_x,collider_y, collider_angle, 0.5, 0.5, j.width, j.height)
+        love.graphics.draw(love.graphics.newImage("Assets/objects/Spike1.png"), collider_x,collider_y, collider_angle, 1, 1, j.width/2, j.height/2)
     end
+
+    --[[for i, j in pairs() do
+        local collider_x,collider_y = j:getPosition()
+        local collider_angle = j:getAngle()
+        love.graphics.draw(love.graphics.newImage(), collider_x,collider_y, collider_angle, 1, 1, j.width, j.height)
+    end]]--
 end

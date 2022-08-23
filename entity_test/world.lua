@@ -1,4 +1,4 @@
-local Enitity = require "tank_entity"
+local Enitity = require "entity_test.tank_entity"
 
 local tworld = {
     entitis = {},

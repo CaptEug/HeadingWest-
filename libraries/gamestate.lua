@@ -69,6 +69,9 @@ function GS.pop(...)
 	state_is_dirty = true
 	return (to.resume or __NULL__)(to, pre, ...)
 end
+function GS.TRASH(...)
+
+	end
 
 function GS.current()
 	return stack[#stack]

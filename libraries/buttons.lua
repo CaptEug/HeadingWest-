@@ -54,13 +54,31 @@ function buttons.newToolButton(picture, fn, buttons, bx, by)
     return instance
 end
 
+function buttons.newCamButton(picture, fn, buttons, bx, by)
+    local instance = {
+        type = 3,
+        picture = picture,
+        fn = fn,
+        w = picture:getWidth(),
+        h = picture:getHeight(),
+        bx = bx or picture:getWidth() / 2,
+        by = by or picture:getHeight() / 2,
+        now = true,
+        last = true
+    }
+    table.insert(buttons, instance)
+    return instance
+end
+
 function buttons:use()
     local ratio = love.graphics.getWidth() / 1536
     local mx, my = love.mouse.getPosition()
-    
+    local cmx, cmy = cam:mousePosition()
+
     for i, button in ipairs(self) do
         local ButtonColor = {1, 1, 1, 0.7}
-        
+        local CButtonColor = {1, 1, 1, 1}
+
         if button.type == 0 then
             love.graphics.setFont(Rbuttonfont)
             local x, y = button.bx - button.w / 2, button.by - button.h / 2
@@ -105,6 +123,22 @@ function buttons:use()
             end
             love.graphics.setColor(unpack(ButtonColor))
             love.graphics.draw(button.picture, x, y)
+        end
+
+        if button.type == 3 then
+            local x, y = button.bx - button.w, button.by - button.h
+            local scale = 1
+            local Hot = cmx>=x-button.w/(2*cam.scale) and cmx<=x+button.w/(2*cam.scale) and cmy>=y-button.h/(2*cam.scale) and cmy<=y+button.h/(2*cam.scale)
+            button.last = button.now
+            if Hot then
+                scale = 1.2
+            end
+            button.now = love.mouse.isDown(1)
+            if button.now and not button.last and Hot then
+                button.fn()
+            end
+            love.graphics.setColor(unpack(CButtonColor))
+            love.graphics.draw(button.picture, x, y, 0, scale/cam.scale, scale/cam.scale, button.w/2, button.h/2)
         end
     end
     love.graphics.setColor(1, 1, 1)

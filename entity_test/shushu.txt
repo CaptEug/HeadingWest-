@@ -1,9 +1,0 @@
-{
-    {location_t, 0, 0},
-    {bodywork_t, 'MAUS hull.png'},
-    {turret_t, 'MAUS turret.png', 27},
-    {move_t, 0, 0},
-    {rotation_data_t, 0, 0.8, 0.4, 0.8},
-    {turret_rdata_t, 0, 0.5, 0.5, 0.8},
-    {move_data_t, 150, 150, 50, 30, 100}
-}

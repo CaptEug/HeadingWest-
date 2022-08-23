@@ -1,4 +1,5 @@
 shaders = {}
+require  "entity_test.tank_entity"
 
 shaders.BandWshader = love.graphics.newShader[[
 vec4 effect(vec4 color, Image image, vec2 uvs, vec2 screen_coords) {
@@ -71,7 +72,8 @@ shaders.trueLight = love.graphics.newShader[[
 
 function shaders.dark()
     love.graphics.setShader(shaders.trueLight)
-    local sx,sy = cam:cameraCoords(MAUS1.x,MAUS1.y)
+    local ax, ay, angle = tanks_table:getdata(tank1)
+    local sx,sy = cam:cameraCoords(ax,ay)
     shaders.trueLight:send("X", sx)
     shaders.trueLight:send("Y", sy)
     shaders.trueLight:send("Size",cam.scale)
