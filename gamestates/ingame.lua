@@ -4,13 +4,13 @@ require "entity_test.tanks_new"
 require 'UI/ingameUI'
 
 function ingame:init()
-    ingameUI:load()
+    
     Saving:getdata(Filenumber)
     Data()
 
     local map=Maps[MapNumber]
     loadMap(map)
-
+    ingameUI:load()
     Target = {}
     Target.hp = 100
     Target.collider = world:newCircleCollider(200,200,300)

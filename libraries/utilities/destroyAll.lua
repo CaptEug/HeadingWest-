@@ -5,6 +5,7 @@ function destroyAll()
     colliderTableDestroy(HEAT)
     colliderTableDestroy(APDS)
     tanks_table:destroytank()
+    removeTable(TankList)
 end
 
 -- Used for tables of colliders
