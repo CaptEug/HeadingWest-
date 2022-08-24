@@ -1,11 +1,9 @@
 return{
-    turret_to_target = function(self, dt)
+    turret_to_target = function(self, dt, x, y)
         local turret = self:get "turret"
         local turret1 = self:get "turret_rdata"
         local move = self:get "move"
-
-        local mX, mY = cam:mousePosition()
-        local angle_to_target = math.atan2(mY - turret.y,mX - turret.x)
+        local angle_to_target = math.atan2(y - turret.y,x - turret.x)
         if angle_to_target <= 0 then
             angle_to_target = angle_to_target + math.pi*2
         end
