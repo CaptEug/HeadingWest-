@@ -201,9 +201,8 @@ return{
         local sin1 = math.sin(turret1.angle)
         local vx =  move.speed * sin
         local vy =  move.speed * cos * - 1
-        
-        turret1.realspeed = r.Rotation_speed + turret1.Rotation_speed
-        turret1.angle = turret1.angle + turret1.realspeed
+
+        functions.turret_to_target(self, dt, px, py)
 
         turret.AMx = turret.x + 160 * sin1
         turret.AMy = turret.y - 160 * cos1
@@ -213,9 +212,6 @@ return{
             t.ammo:shoot(t.rack, 'APCBC', APCBC)
             t.timer = t.time
         end--]]
-
-        local mx,my = love.mouse.getPosition()
-        angle1 = math.atan2(my - turret.y,mx - turret.x)
         
         local directx=px-ax
         local directy=py-ay
