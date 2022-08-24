@@ -48,7 +48,7 @@ function drawMap()
         gameMap:drawLayer(gameMap.layers["Sky"])
     end
 
-    shaders.dark()
+    --shaders.dark()
 end
 
 function DrawCollider()

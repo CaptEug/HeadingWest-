@@ -25,6 +25,7 @@ function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     local vx, vy = math.sin(tur.angle) * shell_name.speed,
                    -math.cos(tur.angle) * shell_name.speed
     local shell = world:newCircleCollider(body.AMx-5, body.AMy-5, 10)
+    table.insert(shell_table, shell)
     shell:setCollisionClass(shell_type)
     shell:setRestitution(0.8)
     shell:setLinearVelocity(vx, vy)
@@ -33,7 +34,7 @@ function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     shell.isflying = true
     shell.life = 10
     shell.hitTimes = 0
-    table.insert(shell_table, shell)
+    
 end
 
 function Ammo.update(dt)
