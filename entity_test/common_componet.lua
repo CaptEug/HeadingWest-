@@ -112,8 +112,9 @@ return{
 
         turret.AMx = turret.x + 160 * cos1
         turret.AMy = turret.y + 160 * sin1
+        local mX, mY = cam:mousePosition()
 
-        functions.turret_to_target(self, dt)
+        functions.turret_to_target(self, dt, mX, mY)
 
         
 
