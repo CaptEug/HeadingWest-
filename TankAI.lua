@@ -57,3 +57,22 @@ function TankAI:destroyDead()
         i = i - 1
     end
 end
+
+--[[function TankAI:setTank()
+        local hull = self:get "hull"
+        local turret = self:get "turret"
+        local turret1 = self:get "turret_rdata"
+        local move = self:get "move"
+        local r = self:get "rotation_data"
+        local m = self:get "move_data"
+        local t = self:get "tankammo"
+        local cos = math.cos(move.angle)
+        local sin = math.sin(move.angle)
+        local cos1 = math.cos(turret1.angle)
+        local sin1 = math.sin(turret1.angle)
+        local vx =  move.speed * sin
+        local vy =  move.speed * cos * - 1
+        local mx,my = love.mouse.getPosition()
+        return hull,turret,turret1,move,r,m,t,cos,sin,cos1,sin1,vx,mx,my
+end
+local hull,turret,turret1,move,r,m,t,cos,sin,cos1,sin1,vx,mx,my=TankAI:setTank(self)--]]
