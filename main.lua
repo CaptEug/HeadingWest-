@@ -34,7 +34,6 @@ Bulgaria = love.graphics.newImage('Assets/Europe/Bulgaria.png')
 East_Germany = love.graphics.newImage('Assets/Europe/East_Germany.png')
 
 Gear = love.graphics.newImage('Assets/pictures/Gear.png')
-Berlin_Bear = love.graphics.newImage('Assets/pictures/Berlin_Bear.png')
 
 T54 = love.graphics.newImage('Assets/tanks/soviet/T-5455/T54.png')
 

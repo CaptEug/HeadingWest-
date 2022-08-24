@@ -3,6 +3,9 @@ Euromap = Gamestate.new()
 
 require 'UI/EuromapUI'
 
+Berlin_Bear = love.graphics.newImage('Assets/pictures/Berlin_Bear.png')
+UVZ_Icon = love.graphics.newImage('Assets/pictures/UVZ_Icon.png')
+
 function Euromap:init()
     EuromapUI:load()
 
@@ -11,7 +14,15 @@ function Euromap:init()
         Berlin_Bear,
         function ()
             MapNumber=1
-            Saving:fileload() --加载柏林那关
+            Saving:fileload()
+        end,
+        Cbuttons
+    )
+
+    UVZ = buttons.newCamButton(
+        UVZ_Icon,
+        function ()
+            
         end,
         Cbuttons
     )
@@ -20,7 +31,11 @@ end
 function Euromap:update(dt)
     Berlin.bx = 1835
     Berlin.by = 1345
+    UVZ.bx = 0
+    UVZ.by = 0
+
     EuromapUI:update(dt)
+
     if love.keyboard.isDown('g') then
         MapNumber=2
         Saving:fileload()

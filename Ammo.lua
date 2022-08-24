@@ -25,6 +25,7 @@ function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     local vx, vy = math.cos(tur.angle) * shell_name.speed,
                    math.sin(tur.angle) * shell_name.speed
     local shell = world:newCircleCollider(body.AMx-5, body.AMy-5, 10)
+    table.insert(shell_table, shell)
     shell:setCollisionClass(shell_type)
     shell:setRestitution(0.8)
     shell:setLinearVelocity(vx, vy)
@@ -32,7 +33,8 @@ function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     shell.angle = tur.angle
     shell.isflying = true
     shell.life = 10
-    table.insert(shell_table, shell)
+    shell.hitTimes = 0
+    
 end
 
 function Ammo.update(dt)
@@ -42,12 +44,18 @@ function Ammo.update(dt)
             shell.isflying = false
             shell:destroy()
         end
+        
         if shell:enter('Amour') then
+            shell.hitTimes = shell.hitTimes + 1
+            if shell.hitTimes == 2 then
+                shell:destroy()
+            else
                 local collision_data = shell:getEnterCollisionData('Amour')
                 local Target = collision_data.collider:getObject()
                 Target.hp = Target.hp - shell.damage
                 shell.isflying = false
                 shell:destroy()
+            end
         end
     end
     
@@ -68,7 +76,9 @@ function Ammo.draw()
     for i, shell in ipairs(APCBC) do
         if shell.isflying == true then
             local sx, sy = shell:getPosition()
-        --love.graphics.rectangle("fill", sx, sy, 100, 100)
+            love.graphics.setColor(1, 0, 0, 10)
+            love.graphics.circle("fill", sx, sy, 10)
+            love.graphics.setColor(1,1,1)
         end
     end
     

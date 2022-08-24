@@ -250,60 +250,61 @@ return{
         local cosA=math.cos(arg)
         local sinA=math.sin(arg)
         local cosCA=(cosA*directx+sinA*directy)/(((directx^2+directy^2)^0.5))
+        local direction=(directx^2+directy^2)^0.5
 
-        if math.abs(cosCA)<=math.pi/4 then --up
-            if move.speed<m.maxspeed then
-                move.speed = move.speed + m.acceleration*dt
-            end
-        else
-            if move.speed>0 then
-                if move.speed>-0.1 and move.speed<0.1 then
-                    move.speed = 0
+        
+            if math.abs(cosCA)<=math.pi/4 and direction>700 then --up
+                if move.speed<m.maxspeed then
+                    move.speed = move.speed + m.acceleration*dt
                 end
-                move.speed = move.speed - m.stop_acceleration*dt
+            else
+                if move.speed>0 then
+                    if move.speed>-0.1 and move.speed<0.1 then
+                        move.speed = 0
+                    end
+                    move.speed = move.speed - m.stop_acceleration*dt
+                end
             end
-        end
+
+            if direction<500 then
+                if move.speed>-m.back_maxspeed then
+                    move.speed = move.speed - m.back_acceleration*dt
+                end
+            else
+                if move.speed<0 then
+                    if move.speed>-0.1 and move.speed<0.1 then
+                        move.speed = 0
+                    end
+                    move.speed = move.speed + m.stop_acceleration*dt
+                end
+            end    
+
+            if  cosCA<-0.1 then --left
+                if r.Rotation_speed>-r.max_Rotation_speed then
+                    r.Rotation_speed = r.Rotation_speed-r.Rotation_acceleration*dt
+                end
+            else
+                if r.Rotation_speed<0 then
+                    if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
+                        r.Rotation_speed = 0
+                    end
+                    r.Rotation_speed=r.Rotation_speed+r.stop_rotation_ac*dt
+                end
+            end
     
-        --[[if py>ay and 0.01>arg-math.atan(py/px)>-0.01 then --down
-            if move.speed>-m.back_maxspeed then
-                move.speed = move.speed - m.back_acceleration*dt
-            end
-        else
-            if move.speed<0 then
-                if move.speed>-0.1 and move.speed<0.1 then
-                    move.speed = 0
+            if  cosCA>0.1 then  --right
+                if r.Rotation_speed<r.max_Rotation_speed then
+                    r.Rotation_speed=r.Rotation_speed+r.Rotation_acceleration*dt
                 end
-                move.speed = move.speed + m.stop_acceleration*dt
-            end
-        end--]]
-
-        if  cosCA<-0.1 then --left
-            if r.Rotation_speed>-r.max_Rotation_speed then
-                r.Rotation_speed = r.Rotation_speed-r.Rotation_acceleration*dt
-            end
-        else
-            if r.Rotation_speed<0 then
-                if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
-                    r.Rotation_speed = 0
+            else
+                if r.Rotation_speed>0 then
+                    if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
+                        r.Rotation_speed = 0
+                    end
+                    r.Rotation_speed=r.Rotation_speed-r.stop_rotation_ac*dt
                 end
-                r.Rotation_speed=r.Rotation_speed+r.stop_rotation_ac*dt
             end
-        end
 
-        if  cosCA>0.1 then  --right
-            if r.Rotation_speed<r.max_Rotation_speed then
-                r.Rotation_speed=r.Rotation_speed+r.Rotation_acceleration*dt
-            end
-        else
-            if r.Rotation_speed>0 then
-                if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
-                    r.Rotation_speed = 0
-                end
-                r.Rotation_speed=r.Rotation_speed-r.stop_rotation_ac*dt
-            end
-        end
-
-        local angle1 = math.atan2( - turret.y, - turret.x)
 
         hull.hitbox:setLinearVelocity(vx, vy)
         hull.hitbox:setAngularVelocity(r.Rotation_speed)

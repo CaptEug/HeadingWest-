@@ -19,7 +19,11 @@ function ingameUI:load()
     TankSummon = buttons.newToolButton(
         TankIcon,
         function ()
-            drawTankList = true
+            if drawTankList then
+                drawTankList = false
+            else
+                drawTankList = true
+            end
         end,
         Gbuttons
     )
