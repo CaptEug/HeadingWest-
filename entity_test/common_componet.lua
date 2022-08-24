@@ -1,4 +1,5 @@
 local Component = require "entity_test.tank_component"
+local functions = require "entity_test.Commonly_used_functions"
 
 
 return{
@@ -29,7 +30,7 @@ return{
 
     turret_rdata = function(angle, Rotation_speed, max_Rotation_speed, Rotation_acceleration, stop_rotation_ac)
         local r = Component.new "turret_rdata"
-        r.angle = angle
+        r.angle = angle - math.pi*0.5
         r.angledrta = angle
         r.Rotation_speed = Rotation_speed
         r.max_Rotation_speed = max_Rotation_speed
@@ -91,10 +92,12 @@ return{
         return functiona
     end,
 
+    
+
     movetype = function(self, dt)
         local hull = self:get "hull"
-        turret = self:get "turret"
-        turret1 = self:get "turret_rdata"
+        local turret = self:get "turret"
+        local turret1 = self:get "turret_rdata"
         local move = self:get "move"
         local r = self:get "rotation_data"
         local m = self:get "move_data"
@@ -110,39 +113,7 @@ return{
         turret.AMx = turret.x + 160 * cos1
         turret.AMy = turret.y + 160 * sin1
 
-        local mX, mY = cam:mousePosition()
-        angle_to_target = math.atan2(mY - turret.y,mX - turret.x)
-        if angle_to_target <= 0 then
-            angle_to_target = angle_to_target + math.pi*2
-        end
-     
-
-        while turret1.angle > 2*math.pi do
-            turret1.angle = turret1.angle - 2*math.pi
-        end
-
-        while turret1.angle < 0 do
-            turret1.angle = turret1.angle + 2*math.pi
-        end
-
-        if turret1.angle > angle_to_target then
-            if turret1.angle - angle_to_target <= math.pi then
-                turret1.angledrta = turret1.angledrta - turret1.max_Rotation_speed*0.5*dt
-            else
-                turret1.angledrta = turret1.angledrta + turret1.max_Rotation_speed*0.5*dt
-            end
-        end
-
-        if turret1.angle < angle_to_target then
-            if angle_to_target - turret1.angle <= math.pi then
-                turret1.angledrta = turret1.angledrta + turret1.max_Rotation_speed*0.5*dt
-            else
-                turret1.angledrta = turret1.angledrta - turret1.max_Rotation_speed*0.5*dt
-            end
-        end
-
-
-        turret1.angle = move.angle + turret1.angledrta
+        functions.turret_to_target(self, dt)
 
         
 
