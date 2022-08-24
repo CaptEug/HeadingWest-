@@ -58,7 +58,7 @@ function TankAI:destroyDead()
     end
 end
 
-function TankAI:setTank(self)
+function TankAI:setTank()
         local hull = self:get "hull"
         local turret = self:get "turret"
         local turret1 = self:get "turret_rdata"
