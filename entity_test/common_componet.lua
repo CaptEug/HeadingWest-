@@ -231,7 +231,7 @@ return{
         local direction=(directx^2+directy^2)^0.5
 
         
-            if math.abs(cosCA)<=math.pi/4 and direction>500  then --up
+            if math.abs(cosCA)<=math.pi/4 and direction>700 then --up
                 if move.speed<m.maxspeed then
                     move.speed = move.speed + m.acceleration*dt
                 end
@@ -244,18 +244,18 @@ return{
                 end
             end
 
-            if  direction<1  then --down
+            if direction<500 then
                 if move.speed>-m.back_maxspeed then
                     move.speed = move.speed - m.back_acceleration*dt
                 end
-                else
+            else
                 if move.speed<0 then
                     if move.speed>-0.1 and move.speed<0.1 then
                         move.speed = 0
                     end
                     move.speed = move.speed + m.stop_acceleration*dt
                 end
-            end
+            end    
 
             if  cosCA<-0.1 then --left
                 if r.Rotation_speed>-r.max_Rotation_speed then
