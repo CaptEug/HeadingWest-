@@ -34,7 +34,7 @@ return{
             local move = entity:get "move"
             local tur = entity:get "turret_rdata"
             love.graphics.draw(hull.picture, location.x, location.y, move.angle, 0.2, 0.2, hull.weight/2, hull.height/2)
-            love.graphics.draw(turret.picture, turret.x, turret.y, tur.angle, 0.2, 0.2, turret.weight/2, turret.height/2)
+            love.graphics.draw(turret.picture, turret.x, turret.y, tur.angle + math.pi*0.5, 0.2, 0.2, turret.weight/2, turret.height/2)
         end
         return render
     end,

@@ -22,8 +22,8 @@ end
 function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     local tur = entity:get "turret_rdata"
     local body = entity:get "turret"
-    local vx, vy = math.sin(tur.angle) * shell_name.speed,
-                   -math.cos(tur.angle) * shell_name.speed
+    local vx, vy = math.cos(tur.angle) * shell_name.speed,
+                   math.sin(tur.angle) * shell_name.speed
     local shell = world:newCircleCollider(body.AMx-5, body.AMy-5, 10)
     table.insert(shell_table, shell)
     shell:setCollisionClass(shell_type)

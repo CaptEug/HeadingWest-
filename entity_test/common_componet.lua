@@ -93,8 +93,8 @@ return{
 
     movetype = function(self, dt)
         local hull = self:get "hull"
-        local turret = self:get "turret"
-        local turret1 = self:get "turret_rdata"
+        turret = self:get "turret"
+        turret1 = self:get "turret_rdata"
         local move = self:get "move"
         local r = self:get "rotation_data"
         local m = self:get "move_data"
@@ -107,22 +107,45 @@ return{
         local vy =  move.speed * cos * - 1
         
 
-        turret.AMx = turret.x + 160 * sin1
-        turret.AMy = turret.y - 160 * cos1
+        turret.AMx = turret.x + 160 * cos1
+        turret.AMy = turret.y + 160 * sin1
 
-        local mX, mY = love.mouse.getPosition()
-        local angle_to_target = math.atan2(mY - turret.AMy,mX - turret.AMx)
-
-        if turret1.angle == angle_to_target then
-            turret1.Rotation_speed = 0
-        else
-            turret1.Rotation_speed = turret1.max_Rotation_speed
+        local mX, mY = cam:mousePosition()
+        angle_to_target = math.atan2(mY - turret.y,mX - turret.x)
+        if angle_to_target <= 0 then
+            angle_to_target = angle_to_target + math.pi*2
         end
+     
+
+        while turret1.angle > 2*math.pi do
+            turret1.angle = turret1.angle - 2*math.pi
+        end
+
+        while turret1.angle < 0 do
+            turret1.angle = turret1.angle + 2*math.pi
+        end
+
+        if turret1.angle > angle_to_target then
+            if turret1.angle - angle_to_target <= math.pi then
+                turret1.angledrta = turret1.angledrta - turret1.max_Rotation_speed*0.5*dt
+            else
+                turret1.angledrta = turret1.angledrta + turret1.max_Rotation_speed*0.5*dt
+            end
+        end
+
+        if turret1.angle < angle_to_target then
+            if angle_to_target - turret1.angle <= math.pi then
+                turret1.angledrta = turret1.angledrta + turret1.max_Rotation_speed*0.5*dt
+            else
+                turret1.angledrta = turret1.angledrta - turret1.max_Rotation_speed*0.5*dt
+            end
+        end
+
+
+        turret1.angle = move.angle + turret1.angledrta
 
         
 
-        turret1.angledrta = turret1.angledrta + turret1.Rotation_speed*0.5*dt
-        turret1.angle = move.angle + turret1.angledrta
 
         t.timer = t.timer - dt
         if love.mouse.isDown(1) and t.timer <= 0 then
@@ -130,8 +153,7 @@ return{
             t.timer = t.time
         end
 
-        local mx,my = love.mouse.getPosition()
-        angle1 = math.atan2(my - turret.y,mx - turret.x)
+        
         
         if love.keyboard.isDown('up') then
             if move.speed<m.maxspeed then
