@@ -58,7 +58,7 @@ function TankAI:destroyDead()
     end
 end
 
-function TankAI:setTank()
+--[[function TankAI:setTank()
         local hull = self:get "hull"
         local turret = self:get "turret"
         local turret1 = self:get "turret_rdata"
@@ -75,4 +75,4 @@ function TankAI:setTank()
         local mx,my = love.mouse.getPosition()
         return hull,turret,turret1,move,r,m,t,cos,sin,cos1,sin1,vx,mx,my
 end
-local hull,turret,turret1,move,r,m,t,cos,sin,cos1,sin1,vx,mx,my=TankAI:setTank(self)
+local hull,turret,turret1,move,r,m,t,cos,sin,cos1,sin1,vx,mx,my=TankAI:setTank(self)--]]
