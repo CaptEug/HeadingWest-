@@ -7,13 +7,11 @@ wf = require 'libraries/windfield'
 require 'libraries/utilities/CGplayer'
 require 'libraries/shaders'
 require 'libraries/buttons'
-require 'Tank'
 require 'Ammo'
 require 'Saving'
 require 'libraries/Mapdrawer'
 require 'libraries/utilities/destroyAll'
 require 'libraries/utilities/show'
-require 'TankAI'
 
 --Gamestates required
 require 'gamestates/MainMenu'
