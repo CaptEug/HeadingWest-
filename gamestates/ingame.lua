@@ -27,6 +27,10 @@ function ingame:update(dt)
     tanks_table:update(dt)
     Ammo.update(dt)
 
+    if Target.hp <= 0 then
+        Target.collider:destroy()
+    end
+
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
     end
