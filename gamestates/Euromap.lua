@@ -31,8 +31,8 @@ end
 function Euromap:update(dt)
     Berlin.bx = 1835
     Berlin.by = 1345
-    UVZ.bx = 0
-    UVZ.by = 0
+    UVZ.bx = 3100
+    UVZ.by = 1200
 
     EuromapUI:update(dt)
 
@@ -53,7 +53,7 @@ function Euromap:draw()
     cam:attach()
         DrawEurope()
         DrawCountries()
-        if cam.scale >= 0.7 then
+        if cam.scale >= 0.5 then
             Cbuttons:use()
         end
         
