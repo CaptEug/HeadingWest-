@@ -182,7 +182,7 @@ return{
         local vx =  move.speed * sin
         local vy =  move.speed * cos * - 1
 
-        functions.turret_to_target(self, dt, px, py)
+        local isAim = functions.turret_to_target(self, dt, px, py)
         turret.AMx = turret.x + 160 * sin1
         turret.AMy = turret.y - 160 * cos1
         t.timer = t.timer - dt
@@ -194,7 +194,7 @@ return{
         local cosCA=(cosA*directx+sinA*directy)/(((directx^2+directy^2)^0.5))
         local direction=(directx^2+directy^2)^0.5
 
-        if direction<700 and direction>500 and t.timer <= 0 then
+        if isAim and direction<700 and direction>500 and t.timer <= 0 then
             t.ammo:shoot(t.rack, 'APCBC', APCBC, self)
             t.timer = t.time
         end
