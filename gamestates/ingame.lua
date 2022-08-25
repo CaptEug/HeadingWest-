@@ -45,7 +45,7 @@ function ingame:draw()
         world:draw()
     cam:detach()
     ingameUI:draw()
-    love.graphics.print(tostring(Target.hp), 100, 100)
+    love.graphics.print(tostring(r.Rotation_speed), 100, 100)
 end
 
 function ingame:drawWithoutUI()

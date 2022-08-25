@@ -4,7 +4,6 @@ local functions = require "entity_test.Commonly_used_functions"
 
 return{
     
-
     new_location = function(x, y)
         local location = Component.new "location"
         location.x = x
@@ -63,6 +62,8 @@ return{
         hull.picture = love.graphics.newImage(hull_path)
         hull.weight, hull.height = hull.picture:getDimensions()
         hull.hitbox = world:newRectangleCollider(0, 0, hull.weight*0.2, hull.height*0.2)
+        hull.hitbox:setLinearDamping(10)
+        hull.hitbox:setAngularDamping(10)
         hull.hitbox:setRestitution(0.8)
         return hull
     end,
@@ -92,14 +93,12 @@ return{
         return functiona
     end,
 
-    
-
     movetype = function(self, dt)
         local hull = self:get "hull"
         local turret = self:get "turret"
         local turret1 = self:get "turret_rdata"
         local move = self:get "move"
-        local r = self:get "rotation_data"
+        r = self:get "rotation_data"
         local m = self:get "move_data"
         local t = self:get "tankammo"
         local cos = math.cos(move.angle)
@@ -116,9 +115,6 @@ return{
 
         functions.turret_to_target(self, dt, mX, mY)
 
-        
-
-
         t.timer = t.timer - dt
         if love.mouse.isDown(1) and t.timer <= 0 then
             t.ammo:shoot(t.rack, 'APCBC', APCBC, self)
@@ -131,55 +127,39 @@ return{
             if move.speed<m.maxspeed then
                 move.speed = move.speed + m.acceleration*dt
             end
-        else
-            if move.speed>0 then
-                if move.speed>-0.1 and move.speed<0.1 then
-                    move.speed = 0
-                end
-                move.speed = move.speed - m.stop_acceleration*dt
-            end
-        end
-    
-        if love.keyboard.isDown('down') then
+        elseif love.keyboard.isDown('down') then
             if move.speed>-m.back_maxspeed then
                 move.speed = move.speed - m.back_acceleration*dt
             end
         else
-            if move.speed<0 then
-                if move.speed>-0.1 and move.speed<0.1 then
-                    move.speed = 0
-                end
+            if move.speed>0.1 then
+                move.speed = move.speed - m.stop_acceleration*dt
+            elseif move.speed<-0.1 then
                 move.speed = move.speed + m.stop_acceleration*dt
+            else
+                move.speed = 0
             end
         end
-
+    
+        
         if love.keyboard.isDown('left') then
             if r.Rotation_speed>-r.max_Rotation_speed then
                 r.Rotation_speed = r.Rotation_speed-r.Rotation_acceleration*dt
             end
-        else
-            if r.Rotation_speed<0 then
-                if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
-                    r.Rotation_speed = 0
-                end
-                r.Rotation_speed=r.Rotation_speed+r.stop_rotation_ac*dt
-            end
-        end
-
-        if love.keyboard.isDown('right') then
+        elseif love.keyboard.isDown('right') then
             if r.Rotation_speed<r.max_Rotation_speed then
                 r.Rotation_speed=r.Rotation_speed+r.Rotation_acceleration*dt
             end
         else
-            if r.Rotation_speed>0 then
-                if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
-                    r.Rotation_speed = 0
-                end
-                r.Rotation_speed=r.Rotation_speed-r.stop_rotation_ac*dt
+            if r.Rotation_speed < -0.1 then
+                r.Rotation_speed = r.Rotation_speed+r.stop_rotation_ac*dt
+            elseif r.Rotation_speed > 0.1 then
+                r.Rotation_speed = r.Rotation_speed-r.stop_rotation_ac*dt
+            else
+                r.Rotation_speed = 0
             end
         end
 
-        local angle1 = math.atan2( - turret.y, - turret.x)
 
         hull.hitbox:setLinearVelocity(vx, vy)
         hull.hitbox:setAngularVelocity(r.Rotation_speed)
