@@ -45,8 +45,33 @@ Maps={'checkpointC','Testmap'}
 MapNumber=1
 Filenumber=1
 
-local function cammovement()
+
+
+function love.load()
     
+    Gamestate.registerEvents()
+    Gamestate.switch(MainMenu)
+    world = wf.newWorld(0, 0)
+    tanks_table = Tanks.new()
+    addCollisionClass()
+end
+
+
+
+function love.update(dt)
+    ww, wh = love.graphics.getDimensions()
+    cammovement()
+end
+
+
+
+function love.draw()
+    --cg1:playCG()
+end
+
+
+
+function cammovement()
     if love.keyboard.isDown("w") then
         cam:move(0,-5)
     end
@@ -87,34 +112,10 @@ function DrawCountries()
     end
 end
 
-local function addCollisionClass()
+function addCollisionClass()
     world:addCollisionClass('APCBC')
     world:addCollisionClass('HEAT')
     world:addCollisionClass('APDS')
     world:addCollisionClass('Amour')
     world:addCollisionClass('Wall')
-end
-
-
-
-function love.load()
-    
-    Gamestate.registerEvents()
-    Gamestate.switch(MainMenu)
-    world = wf.newWorld(0, 0)
-    tanks_table = Tanks.new()
-    addCollisionClass()
-end
-
-
-
-function love.update(dt)
-    ww, wh = love.graphics.getDimensions()
-    cammovement()
-end
-
-
-
-function love.draw()
-    --cg1:playCG()
 end

@@ -7,32 +7,12 @@ Berlin_Bear = love.graphics.newImage('Assets/pictures/Berlin_Bear.png')
 UVZ_Icon = love.graphics.newImage('Assets/pictures/UVZ_Icon.png')
 
 function Euromap:init()
+    
     EuromapUI:load()
 
-    Cbuttons = buttons.new()
-    Berlin = buttons.newCamButton(
-        Berlin_Bear,
-        function ()
-            MapNumber=1
-            Saving:fileload()
-        end,
-        Cbuttons
-    )
-
-    UVZ = buttons.newCamButton(
-        UVZ_Icon,
-        function ()
-            
-        end,
-        Cbuttons
-    )
 end
 
 function Euromap:update(dt)
-    Berlin.bx = 1835
-    Berlin.by = 1345
-    UVZ.bx = 3100
-    UVZ.by = 1200
 
     EuromapUI:update(dt)
 
@@ -53,10 +33,6 @@ function Euromap:draw()
     cam:attach()
         DrawEurope()
         DrawCountries()
-        if cam.scale >= 0.5 then
-            Cbuttons:use()
-        end
-        
     cam:detach()
 
     EuromapUI:draw()
