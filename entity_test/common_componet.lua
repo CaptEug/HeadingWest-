@@ -208,11 +208,11 @@ return{
         turret.AMy = turret.y - 160 * cos1
         
         t.timer = t.timer - dt
-        --[[if love.mouse.isDown(1) and t.timer <= 0 then
-            t.ammo:shoot(t.rack, 'APCBC', APCBC)
+        if love.mouse.isDown(1) and t.timer <= 0 then
+            t.ammo:shoot(t.rack, 'APCBC', APCBC, self)
             t.timer = t.time
-        end--]]
-        
+        end
+
         local directx=px-ax
         local directy=py-ay
         local cosA=math.cos(arg)
