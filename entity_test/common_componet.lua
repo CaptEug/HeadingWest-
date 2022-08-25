@@ -113,10 +113,10 @@ return{
         turret.AMy = turret.y + 160 * sin1
         local mX, mY = cam:mousePosition()
 
-        functions.turret_to_target(self, dt, mX, mY)
+        local isaim = functions.turret_to_target(self, dt, mX, mY)
 
         t.timer = t.timer - dt
-        if love.mouse.isDown(1) and t.timer <= 0 then
+        if love.mouse.isDown(1) and t.timer <= 0 and isaim then
             t.ammo:shoot(t.rack, 'APCBC', APCBC, self)
             t.timer = t.time
         end
