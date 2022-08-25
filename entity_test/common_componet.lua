@@ -57,7 +57,7 @@ return{
         return t
     end,
 
-    new_hull = function(hull_path)
+    new_hull = function(hull_path, hp)
         local hull = Component.new "hull"
         hull.picture = love.graphics.newImage(hull_path)
         hull.weight, hull.height = hull.picture:getDimensions()
@@ -65,10 +65,11 @@ return{
         hull.hitbox:setLinearDamping(10)
         hull.hitbox:setAngularDamping(10)
         hull.hitbox:setRestitution(0.8)
+        hull.hp = hp
         return hull
     end,
 
-    new_turret = function(turret_path, offset)
+    new_turret = function(turret_path, offset, length)
         local turret = Component.new "turret"
         turret.picture = love.graphics.newImage(turret_path)
         turret.weight, turret.height = turret.picture:getDimensions()
@@ -77,6 +78,7 @@ return{
         turret.AMx = 0
         turret.y = 0
         turret.AMy = 0
+        turret.length = length
         return turret
     end,
 
@@ -109,8 +111,8 @@ return{
         local vy =  move.speed * cos * - 1
         
 
-        turret.AMx = turret.x + 160 * cos1
-        turret.AMy = turret.y + 160 * sin1
+        turret.AMx = turret.x + turret.length * cos1
+        turret.AMy = turret.y + turret.length * sin1
         local mX, mY = cam:mousePosition()
 
         local isaim = functions.turret_to_target(self, dt, mX, mY)
