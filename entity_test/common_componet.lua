@@ -98,7 +98,7 @@ return{
         local turret = self:get "turret"
         local turret1 = self:get "turret_rdata"
         local move = self:get "move"
-        r = self:get "rotation_data"
+        local r = self:get "rotation_data"
         local m = self:get "move_data"
         local t = self:get "tankammo"
         local cos = math.cos(move.angle)
