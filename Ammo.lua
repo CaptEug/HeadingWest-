@@ -27,7 +27,8 @@ function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     local shell = world:newCircleCollider(body.AMx-5, body.AMy-5, 10)
     table.insert(shell_table, shell)
     shell:setCollisionClass(shell_type)
-    --shell:setRestitution(0.8)
+    shell:setRestitution(0.5)
+    shell:setLinearDamping(1)
     shell:setLinearVelocity(vx, vy)
     shell.damage = shell_name.damege
     shell.angle = tur.angle
