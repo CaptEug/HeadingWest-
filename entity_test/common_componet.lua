@@ -63,9 +63,11 @@ return{
         hull.weight, hull.height = hull.picture:getDimensions()
         hull.hitbox = world:newRectangleCollider(0, 0, hull.weight*0.2, hull.height*0.2)
         hull.hitbox:setType('Amour')
+        hull.hitbox:setObject(hull)
         hull.hitbox:setLinearDamping(500)
         hull.hitbox:setAngularDamping(10)
         hull.hitbox:setRestitution(0.8)
+        hull.fullhp=hp
         hull.hp = hp
         return hull
     end,
