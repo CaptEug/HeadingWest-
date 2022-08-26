@@ -62,6 +62,7 @@ return{
         hull.picture = love.graphics.newImage(hull_path)
         hull.weight, hull.height = hull.picture:getDimensions()
         hull.hitbox = world:newRectangleCollider(0, 0, hull.weight*0.2, hull.height*0.2)
+        hull.hitbox:setType('Amour')
         hull.hitbox:setLinearDamping(10)
         hull.hitbox:setAngularDamping(10)
         hull.hitbox:setRestitution(0.8)
