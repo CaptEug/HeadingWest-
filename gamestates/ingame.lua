@@ -11,13 +11,7 @@ function ingame:init()
     local map=Maps[MapNumber]
     loadMap(map)
     ingameUI:load()
-    Target = {}
-    Target.hp = 100
-    Target.collider = world:newCircleCollider(200,200,300)
-    Target.collider:setCollisionClass('Amour')
-    Target.collider:setObject(Target)
 
-    
 end
 
 function ingame:update(dt)
@@ -26,10 +20,6 @@ function ingame:update(dt)
     world:update(dt)
     tanks_table:update(dt)
     Ammo.update(dt)
-
-    if Target.hp <= 0 then
-        Target.collider:destroy()
-    end
 
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
@@ -45,7 +35,6 @@ function ingame:draw()
         world:draw()
     cam:detach()
     ingameUI:draw()
-    love.graphics.print(tostring(Target.hp), 100, 100)
 end
 
 function ingame:drawWithoutUI()
