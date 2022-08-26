@@ -36,7 +36,6 @@ return{
             local bar_width=hull.hp/hull.fullhp*200-4
             local bar_height=14
             if hull.hp<=0 then
-                hull.hp=0
                 love.graphics.setColor(0,0,0,0.5)
             end
             love.graphics.draw(hull.picture, location.x, location.y, move.angle, 0.2, 0.2, hull.weight/2, hull.height/2)

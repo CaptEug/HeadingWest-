@@ -186,11 +186,7 @@ return{
         local sin1 = math.sin(turret1.angle)
         local vx =  move.speed * sin
         local vy =  move.speed * cos * - 1
-
-        local isAim = functions.turret_to_target(self, dt, px, py)
-        turret.AMx = turret.x + 160 * sin1
-        turret.AMy = turret.y - 160 * cos1
-        t.timer = t.timer - dt
+        local state = 1
 
         local directx=px-ax
         local directy=py-ay
@@ -199,63 +195,74 @@ return{
         local cosCA=(cosA*directx+sinA*directy)/(((directx^2+directy^2)^0.5))
         local direction=(directx^2+directy^2)^0.5
 
-        if isAim and direction<700 and direction>500 and t.timer <= 0 then
-            t.ammo:shoot(t.rack, 'APCBC', APCBC, self)
-            t.timer = t.time
+        if hull.hp<=0 then
+            state=0
+            hull.hitbox:setType('static')
         end
+
+        if state==1 then
+            local isAim = functions.turret_to_target(self, dt, px, py)
+            turret.AMx = turret.x + 160 * sin1
+            turret.AMy = turret.y - 160 * cos1
+            t.timer = t.timer - dt
+
+            if isAim and direction<700 and direction>500 and t.timer <= 0 then
+                t.ammo:shoot(t.rack, 'APCBC', APCBC, self)
+                t.timer = t.time
+            end
         
-        if math.abs(cosCA)<=math.pi/4 and direction>700 then --up
-            if move.speed<m.maxspeed then
-                move.speed = move.speed + m.acceleration*dt
-            end
-        else
-            if move.speed>0 then
-                if move.speed>-0.1 and move.speed<0.1 then
-                    move.speed = 0
+            if math.abs(cosCA)<=math.pi/4 and direction>700 then --up
+                if move.speed<m.maxspeed then
+                    move.speed = move.speed + m.acceleration*dt
                 end
-                move.speed = move.speed - m.stop_acceleration*dt
+            else
+                if move.speed>0 then
+                    if move.speed>-0.1 and move.speed<0.1 then
+                        move.speed = 0
+                    end
+                    move.speed = move.speed - m.stop_acceleration*dt
+                end
             end
-        end
 
-        if direction<500 then
-            if move.speed>-m.back_maxspeed then
-                move.speed = move.speed - m.back_acceleration*dt
-            end
-        else
-            if move.speed<0 then
-                if move.speed>-0.1 and move.speed<0.1 then
-                    move.speed = 0
+            if direction<500 then
+                if move.speed>-m.back_maxspeed then
+                    move.speed = move.speed - m.back_acceleration*dt
                 end
-                move.speed = move.speed + m.stop_acceleration*dt
+            else
+                if move.speed<0 then
+                    if move.speed>-0.1 and move.speed<0.1 then
+                        move.speed = 0
+                    end
+                    move.speed = move.speed + m.stop_acceleration*dt
+                end
             end
-        end
 
-        if  cosCA<-0.1 then --left
-            if r.Rotation_speed>-r.max_Rotation_speed then
-                r.Rotation_speed = r.Rotation_speed-r.Rotation_acceleration*dt
-            end
-        else
-            if r.Rotation_speed<0 then
-                if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
-                    r.Rotation_speed = 0
+            if  cosCA<-0.1 then --left
+                if r.Rotation_speed>-r.max_Rotation_speed then
+                    r.Rotation_speed = r.Rotation_speed-r.Rotation_acceleration*dt
                 end
-                r.Rotation_speed=r.Rotation_speed+r.stop_rotation_ac*dt
+            else
+                if r.Rotation_speed<0 then
+                    if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
+                        r.Rotation_speed = 0
+                    end
+                    r.Rotation_speed=r.Rotation_speed+r.stop_rotation_ac*dt
+                end
+            end
+        
+            if cosCA>0.1 then  --right
+                if r.Rotation_speed<r.max_Rotation_speed then
+                    r.Rotation_speed=r.Rotation_speed+r.Rotation_acceleration*dt
+                end
+            else
+                if r.Rotation_speed>0 then
+                    if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
+                        r.Rotation_speed = 0
+                    end
+                        r.Rotation_speed=r.Rotation_speed-r.stop_rotation_ac*dt
+                end
             end
         end
-    
-        if cosCA>0.1 then  --right
-            if r.Rotation_speed<r.max_Rotation_speed then
-                r.Rotation_speed=r.Rotation_speed+r.Rotation_acceleration*dt
-            end
-        else
-            if r.Rotation_speed>0 then
-                if r.Rotation_speed>-0.1 and r.Rotation_speed<0.1 then
-                    r.Rotation_speed = 0
-                end
-                    r.Rotation_speed=r.Rotation_speed-r.stop_rotation_ac*dt
-            end
-        end
-
 
         hull.hitbox:setLinearVelocity(vx, vy)
         hull.hitbox:setAngularVelocity(r.Rotation_speed)
