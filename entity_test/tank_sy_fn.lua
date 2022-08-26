@@ -33,7 +33,8 @@ return{
             local location = entity:get "location"
             local move = entity:get "move"
             local tur = entity:get "turret_rdata"
-            local bar_width=1000/hull.hp*200
+            local hp=hull.hp
+            local bar_width=hp/hull.hp*200-4
             local bar_height=14
             love.graphics.draw(hull.picture, location.x, location.y, move.angle, 0.2, 0.2, hull.weight/2, hull.height/2)
             love.graphics.draw(turret.picture, turret.x, turret.y, tur.angle + math.pi*0.5, 0.2, 0.2, turret.weight/2, turret.height/2)
