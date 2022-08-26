@@ -27,7 +27,7 @@ function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     local shell = world:newCircleCollider(body.AMx-5, body.AMy-5, 10)
     table.insert(shell_table, shell)
     shell:setCollisionClass(shell_type)
-    shell:setRestitution(0.8)
+    --shell:setRestitution(0.8)
     shell:setLinearVelocity(vx, vy)
     shell.damage = shell_name.damege
     shell.angle = tur.angle
@@ -44,22 +44,20 @@ function Ammo.update(dt)
             shell.isflying = false
             shell:destroy()
         end
-        
+        if shell.hitTimes == 2 then
+            shell.isflying = false
+            shell:destroy()
+        end
+        if shell:enter('Wall') then
+            shell.hitTimes = shell.hitTimes + 1 
+        end
         if shell:enter('Amour') then
             shell.hitTimes = shell.hitTimes + 1
-            if shell.hitTimes == 2 then
-                shell:destroy()
-            else
-                local collision_data = shell:getEnterCollisionData('Amour')
-                local Target = collision_data.collider:getObject()
-                if Target.hp-shell.damage>0 then
-                    Target.hp = Target.hp - shell.damage
-                else
-                    Target.hp=0
-                end
-                shell.isflying = false
-                shell:destroy()
-            end
+            local collision_data = shell:getEnterCollisionData('Amour')
+            local Target = collision_data.collider:getObject()
+            Target.hp = Target.hp - shell.damage
+            shell.isflying = false
+            shell:destroy()
         end
     end
     
