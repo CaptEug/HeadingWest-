@@ -29,6 +29,9 @@ return{
     
         function render:draw(entity) 
             local hull = entity:get "hull"
+            if hull.hp < 0 then
+                hull.hp = 0
+            end
             local turret = entity:get "turret"
             local location = entity:get "location"
             local move = entity:get "move"
