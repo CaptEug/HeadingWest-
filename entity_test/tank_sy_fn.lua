@@ -33,18 +33,20 @@ return{
             local location = entity:get "location"
             local move = entity:get "move"
             local tur = entity:get "turret_rdata"
-            local bar_width=hull.hp/hull.fullhp*200-4
             local bar_height=14
             if hull.hp<=0 then
+                hull.hp=0
                 love.graphics.setColor(0,0,0,0.5)
             end
+            local bar_width=hull.hp/hull.fullhp*200-4
+
             love.graphics.draw(hull.picture, location.x, location.y, move.angle, 0.2, 0.2, hull.weight/2, hull.height/2)
             love.graphics.draw(turret.picture, turret.x, turret.y, tur.angle + math.pi*0.5, 0.2, 0.2, turret.weight/2, turret.height/2)
             love.graphics.setColor(1,1,1,1)
             love.graphics.print(tostring(hull.hp), location.x - hull.weight/4, location.y - 200)
             love.graphics.rectangle("fill",location.x - hull.weight/4,location.y - 200,200,bar_height)
             love.graphics.setColor(1,0,0,1)
-            love.graphics.rectangle("fill",location.x - hull.weight/4+2,location.y - 200+2,bar_width,10)
+            love.graphics.rectangle("fill",location.x - hull.weight/4+2,location.y - 200+2,bar_width,bar_height-4)
             love.graphics.setColor(1,1,1,1)
         end
         return render
