@@ -51,11 +51,11 @@ function Ammo.update(dt)
             shell.hitTimes = shell.hitTimes + 1
             local collision_data = shell:getEnterCollisionData('Amour')
             local Target = collision_data.collider:getObject()
-            if Target.hp-shell.damage>0 then
+            --if Target.hp-shell.damage>0 then
                 Target.hp = Target.hp - shell.damage
-            else
-                Target.hp=0
-            end
+            --else
+                --Target.hp=0
+            --end
             shell.isflying = false
             shell:destroy()
         end
