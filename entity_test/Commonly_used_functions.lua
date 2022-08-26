@@ -34,7 +34,7 @@ return{
             end
         end
 
-        if turret1.angle < angle_to_target + math.pi/18 and turret1.angle > angle_to_target - math.pi/18 then
+        if turret1.angle < angle_to_target + math.pi/36 and turret1.angle > angle_to_target - math.pi/36 then
             isaim = true
         end
 
