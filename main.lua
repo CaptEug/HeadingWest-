@@ -48,7 +48,6 @@ Filenumber=1
 
 
 function love.load()
-    
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
     world = wf.newWorld(0, 0)
