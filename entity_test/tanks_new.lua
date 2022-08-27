@@ -2,7 +2,6 @@ local t_world = require 'entity_test.world'
 local Component = require "entity_test.tank_component"
 local coms = require  "entity_test.common_componet"
 local syfn = require  "entity_test.tank_sy_fn"
-wf = require 'entity_test.windfield'
 location_t = coms.new_location
 hull_t = coms.new_hull
 move_t = coms.move

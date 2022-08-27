@@ -48,10 +48,10 @@ return{
         return m
     end,
 
-    tank_ammo = function(speed, numbers, times)
+    tank_ammo = function(speed, numbers, mass, times)
         local t = Component.new "tankammo"
         t.ammo = Ammo.new()
-        t.rack = Ammo.newShell(speed, numbers, t.ammo)
+        t.rack = Ammo.newShell(speed, numbers, mass, t.ammo)
         t.time = times
         t.timer = 0
         return t
