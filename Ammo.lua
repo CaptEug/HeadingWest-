@@ -10,10 +10,11 @@ function Ammo.new()
     return instance
 end
 
-function Ammo.newShell(speed,damege,ammo)
+function Ammo.newShell(speed,damege,mass,ammo)
     local instance = {
         speed = speed,
-        damege = damege
+        damege = damege,
+        mass = mass
     }
     table.insert(ammo, instance)
     return instance
@@ -22,16 +23,16 @@ end
 function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     local tur = entity:get "turret_rdata"
     local body = entity:get "turret"
-    local vx, vy = math.cos(tur.angle) * shell_name.speed,
+    local ix, iy = math.cos(tur.angle) * shell_name.speed,
                    math.sin(tur.angle) * shell_name.speed
     local shell = world:newCircleCollider(body.AMx-5, body.AMy-5, 10)
     table.insert(shell_table, shell)
     shell:setCollisionClass(shell_type)
     shell:setRestitution(0.5)
     shell:setLinearDamping(0.01)
-    shell:setMass(10)
-    shell:applyLinearImpulse(vx, vy)
-    --shell:setLinearVelocity(vx, vy)
+    shell:setMass(shell_name.mass)
+    shell:applyLinearImpulse(ix, iy)
+    
     shell.damage = shell_name.damege
     shell.angle = tur.angle
     shell.isflying = true
