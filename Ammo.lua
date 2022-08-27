@@ -28,8 +28,10 @@ function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     table.insert(shell_table, shell)
     shell:setCollisionClass(shell_type)
     shell:setRestitution(0.5)
-    shell:setLinearDamping(1)
-    shell:setLinearVelocity(vx, vy)
+    shell:setLinearDamping(0.01)
+    shell:setMass(10)
+    shell:applyLinearImpulse(vx, vy)
+    --shell:setLinearVelocity(vx, vy)
     shell.damage = shell_name.damege
     shell.angle = tur.angle
     shell.isflying = true
