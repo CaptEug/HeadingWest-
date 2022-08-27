@@ -40,8 +40,8 @@ return{
             end
             local bar_width=hull.hp/hull.fullhp*200-4
 
-            love.graphics.draw(hull.picture, location.x, location.y, move.angle, 0.2, 0.2, hull.weight/2, hull.height/2)
-            love.graphics.draw(turret.picture, turret.x, turret.y, tur.angle + math.pi*0.5, 0.2, 0.2, turret.weight/2, turret.height/2)
+            love.graphics.draw(hull.picture, location.x, location.y, move.angle, 1, 1, hull.weight/2, hull.height/2)
+            love.graphics.draw(turret.picture, turret.x, turret.y, tur.angle + math.pi*0.5, 1, 1, turret.weight/2, turret.height/2)
             love.graphics.setColor(1,1,1,1)
             love.graphics.print(tostring(hull.hp), location.x - hull.weight/4, location.y - 200)
             love.graphics.rectangle("fill",location.x - hull.weight/4,location.y - 200,200,bar_height)
