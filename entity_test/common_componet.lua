@@ -61,10 +61,11 @@ return{
         local hull = Component.new "hull"
         hull.picture = love.graphics.newImage(hull_path)
         hull.weight, hull.height = hull.picture:getDimensions()
-        hull.hitbox = world:newRectangleCollider(0, 0, hull.weight*0.2, hull.height*0.2)
+        hull.hitbox = world:newRectangleCollider(0, 0, hull.weight, hull.height)
         hull.hitbox:setCollisionClass('Amour')
         hull.hitbox:setObject(hull)
-        hull.hitbox:setLinearDamping(500)
+        hull.hitbox:setMass(0)
+        hull.hitbox:setLinearDamping(5)
         hull.hitbox:setAngularDamping(10)
         hull.hitbox:setRestitution(0.8)
         hull.fullhp=hp
@@ -137,13 +138,13 @@ return{
                 move.speed = move.speed - m.back_acceleration*dt
             end
         else
-            if move.speed>0.1 then
-                move.speed = move.speed - m.stop_acceleration*dt
-            elseif move.speed<-0.1 then
-                move.speed = move.speed + m.stop_acceleration*dt
-            else
+            --if move.speed>0.1 then
+                --move.speed = move.speed - m.stop_acceleration*dt
+           -- elseif move.speed<-0.1 then
+                --move.speed = move.speed + m.stop_acceleration*dt
+            --else
                 move.speed = 0
-            end
+            --end
         end
     
         
@@ -166,7 +167,7 @@ return{
         end
 
 
-        hull.hitbox:setLinearVelocity(vx, vy)
+        hull.hitbox:applyLinearImpulse(vx, vy)
         hull.hitbox:setAngularVelocity(r.Rotation_speed)
     end,
 
