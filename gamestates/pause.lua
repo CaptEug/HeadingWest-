@@ -33,7 +33,7 @@ function Pause:init()
     Settings = buttons.newButton(
         "Settings",
         function()
-            Gamestate.switch(Settings)
+            Gamestate.switch(SettingMenu)
         end,
         Pbuttons
     )

@@ -20,7 +20,7 @@ require 'gamestates/ingame'
 require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
 require 'gamestates/Euromap'
-require 'gamestates/Settings'
+require 'gamestates/SettingMenu'
 
 --Assets registered
 Europe_BandW = love.graphics.newImage('Assets/Europe/Europe_BandW.png')
