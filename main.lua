@@ -8,6 +8,7 @@ require 'libraries/utilities/CGplayer'
 require 'libraries/shaders'
 require 'libraries/buttons'
 require 'Ammo'
+require 'Airstrike'
 require 'Saving'
 require 'libraries/Mapdrawer'
 require 'libraries/utilities/destroyAll'
@@ -118,4 +119,5 @@ function addCollisionClass()
     world:addCollisionClass('APDS')
     world:addCollisionClass('Amour')
     world:addCollisionClass('Wall')
+    world:addCollisionClass('Explosion')
 end
