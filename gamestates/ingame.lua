@@ -27,6 +27,9 @@ function ingame:update(dt)
     if cam.scale < 0.2 then
         cam:zoomTo(0.2)
     end
+    if love.mouse.isDown(1) then
+        Bombing(dt)
+    end
 end
 
 function ingame:draw()
