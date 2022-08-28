@@ -65,7 +65,7 @@ return{
         hull.hitbox:setCollisionClass('Amour')
         hull.hitbox:setObject(hull)
         hull.hitbox:setMass(mass)
-        hull.hitbox:setLinearDamping(15)
+        hull.hitbox:setLinearDamping(5)
         hull.hitbox:setAngularDamping(10)
         hull.hitbox:setRestitution(0.8)
         hull.fullhp=hp
@@ -131,11 +131,11 @@ return{
         
         if love.keyboard.isDown('up') then
             if move.speed<m.maxspeed then
-                move.speed = move.speed + m.acceleration*dt
+                move.speed = m.maxspeed
             end
         elseif love.keyboard.isDown('down') then
             if move.speed>-m.back_maxspeed then
-                move.speed = move.speed - m.back_acceleration*dt
+                move.speed = m.maxspeed
             end
         else
                 move.speed = 0
