@@ -10,7 +10,7 @@ function Bombing(dt)
         local explode = world:newCircleCollider(mx, my, math.random(100,300))
         explode:setCollisionClass('Explosion')
         explode.damage = 800
-        explode.life = 1
+        explode.life = 2
         table.insert(Explosion, explode)
         count = count + 1
     end
@@ -19,7 +19,7 @@ function Bombing(dt)
     
 end
 
-function Airstrike:update(dt)
+function Airstrike.update(dt)
     for i, explode in ipairs(Explosion) do
         explode.life = explode.life - dt
         if explode:enter('Amour') then

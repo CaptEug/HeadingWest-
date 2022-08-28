@@ -20,7 +20,8 @@ function ingame:update(dt)
     world:update(dt)
     tanks_table:update(dt)
     Ammo.update(dt)
-
+    Airstrike.update(dt)
+    
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
     end
@@ -30,7 +31,7 @@ function ingame:update(dt)
     if love.mouse.isDown(1) then
         Bombing(dt)
     end
-    Airstrike:update(dt)
+    
 end
 
 function ingame:draw()
