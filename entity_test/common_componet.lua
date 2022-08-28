@@ -173,7 +173,7 @@ return{
 
     poorAI=function(self, dt)
         local px,py=tanks_table:getdata(tank1)
-        local ax,ay,arg=tanks_table:getdata(tank2)
+        local ax,ay,arg=tanks_table:getdata(self)
         local hull = self:get "hull"
         local turret = self:get "turret"
         local turret1 = self:get "turret_rdata"
