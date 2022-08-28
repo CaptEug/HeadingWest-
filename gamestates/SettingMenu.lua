@@ -1,7 +1,7 @@
-Settings = {}
-Settings = Gamestate.new()
+SettingMenu = {}
+SettingMenu = Gamestate.new()
 
-function Settings:init()
+function SettingMenu:init()
     Sbuttons=buttons.new()
     Apply=buttons.newButton(
         "Apply",
@@ -20,7 +20,7 @@ function Settings:init()
 
 end
 
-function Settings:update()
+function SettingMenu:update()
     local ww, wh = love.graphics.getDimensions()
     Apply.bx=ww/2
     Apply.by=wh/2
@@ -28,6 +28,6 @@ function Settings:update()
     Back.by=100
 end
 
-function Settings:draw()
+function SettingMenu:draw()
     Sbuttons:use()
 end
