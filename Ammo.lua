@@ -44,22 +44,23 @@ end
 function Ammo.update(dt)
     for i, shell in ipairs(APCBC) do
         shell.life = shell.life - dt
-        if shell.life <= 0 then
-            shell.isflying = false
-            shell:destroy()
-        end
+        
         if shell:enter('Wall') then
             shell.hitTimes = shell.hitTimes + 1
+            if shell.hitTimes == 2 then
+                    shell.isflying = false
+                    shell:destroy()
+            end
         end
+            
         if shell:enter('Amour') then
-            shell.hitTimes = shell.hitTimes + 1
             local collision_data = shell:getEnterCollisionData('Amour')
             local Target = collision_data.collider:getObject()
             Target.hp = Target.hp - shell.damage
             shell.isflying = false
             shell:destroy()
         end
-        if shell.hitTimes == 2 then
+        if shell.life <= 0 and shell.isflying then
             shell.isflying = false
             shell:destroy()
         end
