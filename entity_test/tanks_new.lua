@@ -49,7 +49,7 @@ end
 function Tanks:newtank(data, ...)
     t_world:register(syfn.new_renderer_system())
     t_world:register(syfn.new_functional_system())
-    local a,b = love.filesystem.read( data, all )
+    a,b = love.filesystem.read( data, all )
     local h = stringToTable(a)
     local entity = t_world:assemble(h)
     table.insert(group, entity)

@@ -1,10 +1,10 @@
 {
     {location_t, 0, 0},
-    {hull_t, 'Assets/tanks/german/MAUS/MAUS hull.png', 3000},
+    {hull_t, 'Assets/tanks/german/MAUS/MAUS hull.png', 3000, 188},
     {turret_t, 'Assets/tanks/german/MAUS/MAUS turret.png', 32, 200},
     {move_t, 0, 0},
     {rotation_data_t, 0, 0.3, 0.1, 0.3},
     {turret_rdata_t, 0, 0, 0.07, 0.3, 0.3},
-    {move_data_t, 1200, 1200, 200, 30, 100},
+    {move_data_t, 1200, 1200, 90, 30, 100},
     {tank_ammo_t, 25600, 530, 28, 10}
 }
