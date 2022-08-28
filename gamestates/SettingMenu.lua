@@ -27,16 +27,16 @@ function SettingMenu:init()
     Volume_high=buttons.newButton(
         "+",
         function ()
-            local volume=love.audio.getVolume()
-            love.audio.setVolume(volume+0.1)
+            local volume=math.floor(love.audio.getVolume())
+            love.audio.setVolume(volume+1)
         end,
         Sbuttons
     )
     Volume_low=buttons.newButton(
         "-",
         function ()
-            local volume=love.audio.getVolume()
-            love.audio.setVolume(volume-0.1)
+            local volume=math.floor(love.audio.getVolume())
+            love.audio.setVolume(volume-1)
         end,
         Sbuttons
     )
