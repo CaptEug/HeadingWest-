@@ -119,4 +119,5 @@ function addCollisionClass()
     world:addCollisionClass('APDS')
     world:addCollisionClass('Amour')
     world:addCollisionClass('Wall')
+    world:addCollisionClass('Explosion')
 end

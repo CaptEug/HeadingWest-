@@ -30,6 +30,7 @@ function ingame:update(dt)
     if love.mouse.isDown(1) then
         Bombing(dt)
     end
+    Airstrike:update(dt)
 end
 
 function ingame:draw()
