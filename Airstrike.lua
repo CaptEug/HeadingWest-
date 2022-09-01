@@ -7,18 +7,15 @@ function Bombing(dt)
     local count = 1
     
     while count < 4 do
-        local explode = world:newCircleCollider(mx, my, math.random(100,300))
+        local explode = world:newCircleCollider(mx, my, math.random(10,50))
         explode:setCollisionClass('Explosion')
-        explode:applyLinearImpulse(math.random(1,10),math.random(1,10))
+        explode:applyLinearImpulse(math.random(-1,1),math.random(-1,1))
         explode.damage = 800
         explode.life = 1
         explode.isoccur = true
         table.insert(Explosion, explode)
         count = count + 1
     end
-    
-
-    
 end
 
 function Airstrike.update(dt)
