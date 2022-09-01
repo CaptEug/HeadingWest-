@@ -39,6 +39,9 @@ T54 = love.graphics.newImage('Assets/tanks/soviet/T-5455/T54.png')
 
 cg1 = CG.new('Assets/CGs/OP.ogv')
 
+cursor = love.mouse.newCursor('Assets/cursors/RedArrow.png', 0, 0)
+bombcursor = love.mouse.newCursor('Assets/cursors/RedBomb.png', 32, 32)
+
 --Fonts registered
 Rtitlefont = love.graphics.newFont('Russian.ttf', 100)
 Rbuttonfont = love.graphics.newFont('Russian.ttf', 50)
@@ -54,7 +57,10 @@ function love.load()
     Gamestate.switch(MainMenu)
     world = wf.newWorld(0, 0)
     tanks_table = Tanks.new()
+    
     addCollisionClass()
+
+    love.mouse.setCursor(cursor)
 end
 
 

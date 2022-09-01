@@ -1,7 +1,8 @@
 ingameUI = {}
 TankList = {}
 
-TankIcon = love.graphics.newImage('Assets/pictures/Tank_Icon.png') 
+TankIcon = love.graphics.newImage('Assets/pictures/Tank_Icon.png')
+PlaneIcon = love.graphics.newImage('Assets/pictures/Plane_Icon.png')
 
 function ingameUI:load()
     table.insert(TankList, T54)
@@ -16,7 +17,7 @@ function ingameUI:load()
         Gbuttons
     )
 
-    TankSummon = buttons.newToolButton(
+    SummonTank = buttons.newToolButton(
         TankIcon,
         function ()
             if drawTankList then
@@ -28,14 +29,25 @@ function ingameUI:load()
         Gbuttons
     )
 
+    CallAirStrike = buttons.newToolButton(
+        PlaneIcon,
+        function ()
+            if love.mouse.getCursor() ==  bombcursor then
+                love.mouse.setCursor(cursor)
+            else
+                love.mouse.setCursor(bombcursor)
+            end
+        end,
+        Gbuttons
+    )
 
 end
 
 function ingameUI:update(dt)
     Settings.bx = 32
     Settings.by = wh - 32
-    TankSummon.bx = ww - 32
-    TankSummon.by = 32
+    SummonTank.bx = ww - 32
+    SummonTank.by = 32
 end
 
 function ingameUI:draw()

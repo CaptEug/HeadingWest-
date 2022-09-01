@@ -28,7 +28,7 @@ function ingame:update(dt)
     if cam.scale < 0.2 then
         cam:zoomTo(0.2)
     end
-    if love.mouse.isDown(1) then
+    if love.mouse.isDown(1) and love.mouse.getCursor() == bombcursor then
         Bombing(dt)
     end
     
