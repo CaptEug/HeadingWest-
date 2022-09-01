@@ -75,6 +75,9 @@ function SettingMenu:change_resolution()
     elseif ww==1024 then
         ww=800
         wh=800
+    else
+        ww=800
+        wh=800
     end
     love.window.setMode(ww,wh)
     Sbuttons[4].text=tostring(ww).."X"..tostring(wh)
