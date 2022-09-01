@@ -10,7 +10,7 @@ function EuromapUI:load()
     Settings = buttons.newToolButton(
         Gear,
         function()
-            Saving:fileload()
+            Gamestate.push(Pause)
         end,
         Ebuttons
     )
