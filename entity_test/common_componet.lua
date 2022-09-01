@@ -134,9 +134,9 @@ return{
                 move.speed = m.maxspeed
             end
         elseif love.keyboard.isDown('down') then
-            if move.speed>-m.back_maxspeed then
-                move.speed = m.maxspeed
-            end
+            --if move.speed>-m.back_maxspeed then
+                move.speed = -m.maxspeed
+            --end
         else
                 move.speed = 0
         end
