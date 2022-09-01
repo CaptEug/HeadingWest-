@@ -30,7 +30,7 @@ function MainMenu:init()
     Settings = buttons.newToolButton(
         Gear,
         function()
-            
+            Gamestate.push(SettingMenu)
         end,
         MMbuttons
     )
