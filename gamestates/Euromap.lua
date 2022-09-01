@@ -37,3 +37,9 @@ function Euromap:draw()
 
     EuromapUI:draw()
 end
+
+function Euromap:drawWithoutUI()
+    cam:attach()
+    
+    cam:detach()
+end

@@ -11,13 +11,6 @@ function SettingMenu:init()
         end,
         Sbuttons
     )
-    Volume=buttons.newButton(
-        "Volume",
-        function ()
-            love.audio.setVolume(1)
-        end,
-        Sbuttons
-    )
     Volume_high=buttons.newButton(
         "+",
         function ()
@@ -44,8 +37,6 @@ function SettingMenu:update()
 
     Back.bx=button_rightlimit
     Back.by=wh*9/10
-    Volume.bx=button_leftlimit
-    Volume.by=wh/10
     Volume_high.bx=button_leftlimit+100
     Volume_high.by=wh/10
     Volume_low.bx=button_leftlimit+150
@@ -58,4 +49,6 @@ function SettingMenu:draw()
     local button_leftlimit=ww*1/9
     local volume=tostring(love.audio.getVolume())
     love.graphics.print(volume,button_leftlimit+200,wh/10-37)
+    love.graphics.print("Volume",button_leftlimit-75,wh/10-37)
+    love.graphics.print("Resolution",button_leftlimit-75,wh*3/20)
 end
