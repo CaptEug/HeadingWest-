@@ -50,6 +50,7 @@ function Ammo.update(dt)
             if shell.hitTimes == 2 then
                     shell.isflying = false
                     shell:destroy()
+                    table.remove(APCBC, i)
             end
         end
             
@@ -59,10 +60,12 @@ function Ammo.update(dt)
             Target.hp = Target.hp - shell.damage
             shell.isflying = false
             shell:destroy()
+            table.remove(APCBC, i)
         end
         if shell.life <= 0 and shell.isflying then
             shell.isflying = false
             shell:destroy()
+            table.remove(APCBC, i)
         end
     end
     
