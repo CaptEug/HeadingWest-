@@ -3,17 +3,11 @@ SettingMenu = Gamestate.new()
 
 function SettingMenu:init()
     Sbuttons=buttons.new()
-    Apply=buttons.newButton(
-        "Apply",
-        function ()
-            Gamestate.pop()
-        end,
-        Sbuttons
-    )
+
     Back=buttons.newButton(
         "Back",
         function ()
-            Gamestate.switch(ingame)
+            Gamestate.pop()
         end,
         Sbuttons
     )
@@ -40,6 +34,7 @@ function SettingMenu:init()
         end,
         Sbuttons
     )
+
 end
 
 function SettingMenu:update()
@@ -47,8 +42,6 @@ function SettingMenu:update()
     local button_rightlimit=ww*8/9
     local button_leftlimit=ww*1/9
 
-    Apply.bx=button_rightlimit-150
-    Apply.by=wh*9/10
     Back.bx=button_rightlimit
     Back.by=wh*9/10
     Volume.bx=button_leftlimit
@@ -64,5 +57,5 @@ function SettingMenu:draw()
     local ww, wh = love.graphics.getDimensions()
     local button_leftlimit=ww*1/9
     local volume=tostring(love.audio.getVolume())
-    love.graphics.print(volume,button_leftlimit+200,wh/11)
+    love.graphics.print(volume,button_leftlimit+200,wh/10-37)
 end
