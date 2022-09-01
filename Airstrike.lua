@@ -29,6 +29,7 @@ function Airstrike.update(dt)
         if explode.life <= 0 and explode.isoccur then
             explode.isoccur = false
             explode:destroy()
+            table.remove(Explosion, i)
         end
     end
 end
