@@ -86,15 +86,20 @@ function Tanks:destroytank(...)
     if #a ~= 0 then
         for i,v in ipairs(a) do
             local b = v:get "hull"
-            b.hitbox:destroy()
-            v:destroy()
+            if b.hitbox ~= nil then
+                b.hitbox:destroy()
+                v:destroy()  
+            end
         end
     else
         if #group ~= 0 then
             for i,v in ipairs(group) do
                 local b = v:get "hull"
-                b.hitbox:destroy()
-                v:destroy()
+                if b.hitbox ~= nil then 
+                    b.hitbox:destroy()
+                    v:destroy()
+                    table.remove(group, i)
+                end
             end
         end
     end
