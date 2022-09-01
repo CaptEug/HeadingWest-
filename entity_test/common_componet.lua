@@ -161,7 +161,7 @@ return{
         end
 
 
-        hull.hitbox:applyLinearImpulse(vx, vy)
+        hull.hitbox:setLinearVelocity(vx, vy)
         hull.hitbox:setAngularVelocity(r.Rotation_speed)
     end,
 
