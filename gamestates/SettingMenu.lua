@@ -27,6 +27,15 @@ function SettingMenu:init()
         end,
         Sbuttons
     )
+    local ww, wh = love.graphics.getDimensions()
+    local resolution=tostring(ww).."X"..tostring(wh)
+    Resolution=buttons.newButton(
+        resolution,
+        function ()
+            SettingMenu:change_resolution()
+        end,
+        Sbuttons
+    )
 
 end
 
@@ -41,6 +50,8 @@ function SettingMenu:update()
     Volume_high.by=wh/10
     Volume_low.bx=button_leftlimit+150
     Volume_low.by=wh/10
+    Resolution.bx=button_leftlimit+250
+    Resolution.by=wh*3/20+37
 end
 
 function SettingMenu:draw()
@@ -51,4 +62,20 @@ function SettingMenu:draw()
     love.graphics.print(volume,button_leftlimit+200,wh/10-37)
     love.graphics.print("Volume",button_leftlimit-75,wh/10-37)
     love.graphics.print("Resolution",button_leftlimit-75,wh*3/20)
+end
+
+function SettingMenu:change_resolution()
+    local ww, wh = love.graphics.getDimensions()
+    if ww==800 then
+       ww=1920
+       wh=1080
+    elseif ww==1920 then
+        ww=1024
+        wh=768
+    elseif ww==1024 then
+        ww=800
+        wh=800
+    end
+    love.window.setMode(ww,wh)
+    Sbuttons[4].text=tostring(ww).."X"..tostring(wh)
 end
