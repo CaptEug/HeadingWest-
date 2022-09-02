@@ -7,6 +7,7 @@ function SettingMenu:init()
     Back=buttons.newButton(
         "Back",
         function ()
+            Saving:save_settings()
             Gamestate.pop()
         end,
         Sbuttons

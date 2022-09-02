@@ -61,6 +61,7 @@ function love.load()
     addCollisionClass()
 
     love.mouse.setCursor(cursor)
+    Saving:load_settings()
 end
 
 

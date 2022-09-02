@@ -52,7 +52,7 @@ function Saving:create_settings()
     filedata.wh=800
     filedata.volume=1
    
-    love.filesystem.write("Setting_data", table.show(filedata,'Setting_data'))
+    love.filesystem.write("Setting_data.lua", table.show(filedata,'Setting_data'))
 end
 function Saving:save_settings()
     local ww,wh=love.graphics.getDimensions()
@@ -60,15 +60,15 @@ function Saving:save_settings()
     filedata.ww=ww
     filedata.wh=wh
     filedata.volume=love.audio.getVolume()
-    love.filesystem.write("Setting_data", table.show(filedata,'Setting_data'))
+    love.filesystem.write("Setting_data.lua", table.show(filedata,'Setting_data'))
 end
 
 function Saving:load_settings()
 
-    if love.filesystem.getInfo("Setting_data")==nil then
-        Saving:createsave("Setting_data")
+    if love.filesystem.getInfo("Setting_data.lua")==nil then
+        Saving:create_settings()
     end
-    local Setting_data=love.filesystem.load("Setting_data")
+    Setting_data=love.filesystem.load("Setting_data.lua")
     Setting_data()
     love.audio.setVolume(Setting_data.volume)
     love.window.setMode(Setting_data.ww,Setting_data.wh)
