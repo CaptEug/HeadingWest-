@@ -65,7 +65,7 @@ return{
         hull.hitbox:setCollisionClass('Amour')
         hull.hitbox:setObject(hull)
         hull.hitbox:setMass(mass)
-        hull.hitbox:setLinearDamping(5)
+        hull.hitbox:setLinearDamping(0.1)
         hull.hitbox:setAngularDamping(10)
         hull.hitbox:setRestitution(0.8)
         hull.fullhp=hp
@@ -104,6 +104,7 @@ return{
         local turret = self:get "turret"
         local turret1 = self:get "turret_rdata"
         local move = self:get "move"
+        local location = self:get "location"
         local r = self:get "rotation_data"
         local m = self:get "move_data"
         local t = self:get "tankammo"
@@ -161,7 +162,7 @@ return{
         end
 
 
-        hull.hitbox:setLinearVelocity(vx, vy)
+        hull.hitbox:applyForce(1000, 1000)
         hull.hitbox:setAngularVelocity(r.Rotation_speed)
     end,
 

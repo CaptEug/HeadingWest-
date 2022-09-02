@@ -918,8 +918,10 @@ function Collider:destroy()
         self.sensors[name]:setUserData(nil)
         self.sensors[name] = nil
     end
-    self.body:destroy()
-    self.body = nil
+    if self.body ~= nil then 
+        self.body:destroy()
+        self.body = nil
+    end
 end
 
 wf.World = World
