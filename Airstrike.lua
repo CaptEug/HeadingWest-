@@ -9,7 +9,7 @@ function Bombing(dt)
     while count < 4 do
         local explode = world:newCircleCollider(mx, my, math.random(10,50))
         explode:setCollisionClass('Explosion')
-        explode:applyLinearImpulse(math.random(-1,1),math.random(-1,1))
+        explode:applyLinearImpulse(math.random(-2000,2000),math.random(-2000,2000))
         explode.damage = 800
         explode.life = 1
         explode.isoccur = true
