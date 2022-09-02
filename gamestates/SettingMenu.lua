@@ -28,10 +28,10 @@ function SettingMenu:init()
         end,
         Sbuttons
     )
-    local ww, wh = love.graphics.getDimensions()
-    local resolution=tostring(ww).."X"..tostring(wh)
+    --local resolution=tostring(ww).."X"..tostring(wh)
+    
     Resolution=buttons.newButton(
-        resolution,
+        "Window",
         function ()
             SettingMenu:change_resolution()
         end,
@@ -66,20 +66,13 @@ function SettingMenu:draw()
 end
 
 function SettingMenu:change_resolution()
-    local ww, wh = love.graphics.getDimensions()
-    if ww==800 then
-       ww=1920
-       wh=1080
-    elseif ww==1920 then
-        ww=1024
-        wh=768
-    elseif ww==1024 then
-        ww=800
-        wh=800
-    else
-        ww=800
-        wh=800
+    local screen_type,x=love.window.getFullscreen()
+    if screen_type==true then
+        love.window.setFullscreen(false)
+        Sbuttons[4].text="Window"
+    elseif screen_type==false then
+        love.window.setFullscreen(true)
+        Sbuttons[4].text="Fullscreen"
     end
-    love.window.setMode(ww,wh)
-    Sbuttons[4].text=tostring(ww).."X"..tostring(wh)
+
 end

@@ -48,17 +48,14 @@ end
 
 function Saving:create_settings()
     local filedata={}
-    filedata.ww=800
-    filedata.wh=800
+    filedata.resolution=false
     filedata.volume=1
    
     love.filesystem.write("Setting_data.lua", table.show(filedata,'Setting_data'))
 end
 function Saving:save_settings()
-    local ww,wh=love.graphics.getDimensions()
     local filedata={}
-    filedata.ww=ww
-    filedata.wh=wh
+    filedata.resolution=love.window.getFullscreen()
     filedata.volume=love.audio.getVolume()
     love.filesystem.write("Setting_data.lua", table.show(filedata,'Setting_data'))
 end
@@ -71,5 +68,5 @@ function Saving:load_settings()
     Setting_data=love.filesystem.load("Setting_data.lua")
     Setting_data()
     love.audio.setVolume(Setting_data.volume)
-    love.window.setMode(Setting_data.ww,Setting_data.wh)
+    love.window.setFullscreen(Setting_data.resolution)
 end
