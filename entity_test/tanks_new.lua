@@ -98,7 +98,7 @@ function Tanks:destroytank(...)
                 if b.hitbox ~= nil then 
                     b.hitbox:destroy()
                     v:destroy()
-                    0
+
                 end
             end
         end
@@ -113,6 +113,9 @@ end
 
      
 function Tanks:update(dt)
+    t_world:update(dt)
+    t_world:update(dt)
+    t_world:update(dt)
     t_world:update(dt)
 end
 
