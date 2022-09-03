@@ -30,7 +30,7 @@ function Pause:init()
         end,
         Pbuttons
     )
-    Settings = buttons.newButton(
+    Settings_button = buttons.newButton(
         "Settings",
         function()
             Gamestate.push(SettingMenu)
@@ -48,8 +48,8 @@ function Pause:update(dt)
     BacktoMMenu.by = wh * 3 / 5
     Save.bx=ww/2
     Save.by=wh* 7 / 10
-    Settings.bx=ww/2
-    Settings.by=wh*4/5
+    Settings_button.bx=ww/2
+    Settings_button.by=wh*4/5
 end
 
 function Pause:draw()
