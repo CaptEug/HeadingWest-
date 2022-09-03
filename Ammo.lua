@@ -94,10 +94,10 @@ function Ammo.draw()
             love.graphics.circle("fill", sx, sy, 10)
             love.graphics.setColor(1,1,1)
             
-            psystem:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
-	        psystem:setEmissionRate(5)
+            psystem:setParticleLifetime(1, 2) -- Particles live at least 2s and at most 5s.
+	        psystem:setEmissionRate(3)
 	        psystem:setSizeVariation(1)
-	        psystem:setLinearAcceleration(shell.ax, shell.ay)
+	        psystem:setLinearAcceleration(-shell.ax/2, -shell.ay/2)
 	        psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) -- Fade to transparency.
             
             love.graphics.draw(psystem, sx, sy)
