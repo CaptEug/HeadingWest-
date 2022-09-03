@@ -1,5 +1,4 @@
 Saving={}
-Data={}
 Loading=true
 
 function Saving:createsave(filenum)
