@@ -60,7 +60,7 @@ function Saving:create_settings()
         depth=0,
         refreshrate=144,
         vsync=1,
-        msaa=1,
+        msaa=0,
         borderless=false,
         resizable=true,
         centered=true,
