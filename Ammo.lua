@@ -34,6 +34,8 @@ function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     shell:applyLinearImpulse(ix, iy)
     
     shell.damage = shell_name.damege
+    shell.ax = ix
+    shell.ay = iy
     shell.angle = tur.angle
     shell.isflying = true
     shell.life = 10
@@ -80,15 +82,28 @@ function Ammo.update(dt)
             
         end
     end
+
+    psystem:update(dt)
 end
 
 function Ammo.draw()
     for i, shell in ipairs(APCBC) do
-        if shell.isflying == true then
+        if shell.isflying then
             local sx, sy = shell:getPosition()
             love.graphics.setColor(1, 0, 0, 10)
             love.graphics.circle("fill", sx, sy, 10)
             love.graphics.setColor(1,1,1)
+            
+            psystem:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
+	        psystem:setEmissionRate(5)
+	        psystem:setSizeVariation(1)
+	        psystem:setLinearAcceleration(shell.ax, shell.ay)
+	        psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) -- Fade to transparency.
+            
+            love.graphics.draw(psystem, sx, sy)
+            psystem:emit(1)
+        
+            
         end
     end
     
