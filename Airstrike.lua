@@ -6,7 +6,7 @@ function Bombing(dt)
    
     local count = 1
     
-    while count < 4 do
+    while count < 5 do
         local explode = world:newCircleCollider(mx, my, math.random(10,50))
         explode:setCollisionClass('Explosion')
         explode:applyLinearImpulse(math.random(-2000,2000),math.random(-2000,2000))

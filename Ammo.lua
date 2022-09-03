@@ -2,6 +2,7 @@ Ammo = {}
 Ammo.__index = Ammo
 
 APCBC = {}
+APCBCtrails = {}
 HEAT = {}
 APDS = {}
 
@@ -40,25 +41,26 @@ function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     shell.isflying = true
     shell.life = 10
     shell.hitTimes = 0
+    shell.trail = {}
     
-    psystem = love.graphics.newParticleSystem(PlaneIcon)
-    psystem:setParticleLifetime(1, 2) -- Particles live at least 2s and at most 5s.
-    psystem:setEmissionRate(3)
-	psystem:setSizeVariation(1)
-	psystem:setLinearAcceleration(-10, -10, 10, 10)
-	psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) -- Fade to transparency.
+    table.insert(APCBCtrails, shell.trail)
 end
 
 function Ammo.update(dt)
     for i, shell in ipairs(APCBC) do
         shell.life = shell.life - dt
-        
+
+        local sx, sy = shell:getPosition()
+        table.insert (shell.trail, 1, sy)
+	    table.insert (shell.trail, 1, sx)
+       
         if shell:enter('Wall') then
             shell.hitTimes = shell.hitTimes + 1
-            if shell.hitTimes == 2 then
+            if shell.hitTimes == 3 then
                     shell.isflying = false
                     shell:destroy()
                     table.remove(APCBC, i)
+                    table.remove(APCBCtrails, i)
             end
         end
             
@@ -69,11 +71,14 @@ function Ammo.update(dt)
             shell.isflying = false
             shell:destroy()
             table.remove(APCBC, i)
+            table.remove(APCBCtrails, i)
         end
+        
         if shell.life <= 0 and shell.isflying then
             shell.isflying = false
             shell:destroy()
             table.remove(APCBC, i)
+            table.remove(APCBCtrails, i)
         end
     end
     
@@ -86,6 +91,24 @@ function Ammo.update(dt)
     for i, shell in ipairs(APDS) do
         if shell:enter() then
             
+        end
+    end
+
+    for i, trail in ipairs(APCBCtrails) do
+        local trailTimer = 0
+        if #trail > 2 then
+            trailTimer = trailTimer + dt
+            while trailTimer > 0.03 do
+                trailTimer = trailTimer - 0.03
+                -- remove two last coordinates:
+                trail[#trail] = nil
+                trail[#trail] = nil
+            end
+        end
+        if #trail > 20*2 then
+            for i = #trail, 20*2+1, -1 do -- backwards
+                trail[i] = nil
+            end
         end
     end
 end
@@ -98,8 +121,7 @@ function Ammo.draw()
             love.graphics.circle("fill", sx, sy, 10)
             love.graphics.setColor(1,1,1)
             
-            love.graphics.draw(psystem, sx, sy)
-            psystem:emit(1)
+
         end
     end
     
@@ -113,5 +135,18 @@ function Ammo.draw()
         local sx, sy = shell:getPosition()
         love.graphics.rectangle("fill", sx, sy, 100, 100)
         
+    end
+
+    for i, trail in ipairs(APCBCtrails) do
+        for i = #trail-1, 3, -2 do -- backwards for color trail
+            local c = (#trail-(i+1))/#trail -- value of color
+            local w = 20 * c
+            love.graphics.setLineWidth (w)
+            love.graphics.setColor (1,1,1,c)
+            love.graphics.line (trail[i-2], trail[i-1], trail[i], trail[i+1])
+            love.graphics.circle ('fill', trail[i], trail[i+1], w/2)
+            love.graphics.setLineWidth (1)
+            love.graphics.setColor (1,1,1)
+        end
     end
 end
