@@ -41,6 +41,12 @@ function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     shell.life = 10
     shell.hitTimes = 0
     
+    psystem = love.graphics.newParticleSystem(PlaneIcon)
+    psystem:setParticleLifetime(1, 2) -- Particles live at least 2s and at most 5s.
+    psystem:setEmissionRate(3)
+	psystem:setSizeVariation(1)
+	psystem:setLinearAcceleration(-10, -10, 10, 10)
+	psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) -- Fade to transparency.
 end
 
 function Ammo.update(dt)
@@ -82,8 +88,6 @@ function Ammo.update(dt)
             
         end
     end
-
-    psystem:update(dt)
 end
 
 function Ammo.draw()
@@ -94,16 +98,8 @@ function Ammo.draw()
             love.graphics.circle("fill", sx, sy, 10)
             love.graphics.setColor(1,1,1)
             
-            psystem:setParticleLifetime(1, 2) -- Particles live at least 2s and at most 5s.
-	        psystem:setEmissionRate(3)
-	        psystem:setSizeVariation(1)
-	        psystem:setLinearAcceleration(-shell.ax/2, -shell.ay/2)
-	        psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) -- Fade to transparency.
-            
             love.graphics.draw(psystem, sx, sy)
             psystem:emit(1)
-        
-            
         end
     end
     
