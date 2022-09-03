@@ -12,6 +12,7 @@ function ingame:init()
     loadMap(map)
     ingameUI:load()
 
+    psystem = love.graphics.newParticleSystem(PlaneIcon)
 end
 
 function ingame:update(dt)
@@ -31,7 +32,6 @@ function ingame:update(dt)
     if love.mouse.isDown(1) and love.mouse.getCursor() == bombcursor then
         Bombing(dt)
     end
-    
 end
 
 function ingame:draw()
