@@ -73,6 +73,7 @@ function Saving:create_settings()
     
     love.filesystem.write("Setting_data.lua", table.show(filedata,'Setting_data'))
 end
+
 function Saving:save_settings()
     local filedata={}
     filedata.resolution=love.window.getFullscreen()
