@@ -56,6 +56,7 @@ function love.load()
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
     world = wf.newWorld(0, 0)
+    particleworld = wf.newWorld(0, 0)
     tanks_table = Tanks.new()
     
     addCollisionClass()
