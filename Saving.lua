@@ -50,13 +50,40 @@ function Saving:create_settings()
     local filedata={}
     filedata.resolution=false
     filedata.volume=1
-   
+    filedata.ww=800
+    filedata.wh=600
+    filedata.flags={
+        fullscreen=false,
+        fullscreentype="desktop",
+        display=1,
+        stencil=true,
+        depth=0,
+        refreshrate=144,
+        vsync=1,
+        msaa=1,
+        borderless=false,
+        resizable=true,
+        centered=true,
+        highdpi=false,
+        usedpiscale=true,
+        x=560,
+        y=140,
+        minwidth=1,
+        minheight=1
+    }
+    
     love.filesystem.write("Setting_data.lua", table.show(filedata,'Setting_data'))
 end
 function Saving:save_settings()
     local filedata={}
     filedata.resolution=love.window.getFullscreen()
     filedata.volume=love.audio.getVolume()
+    if filedata.resolution==false then
+        local ww,wh,flags =love.window.getMode()
+        filedata.ww=ww
+        filedata.wh=wh
+        filedata.flags=flags
+    end
     love.filesystem.write("Setting_data.lua", table.show(filedata,'Setting_data'))
 end
 
@@ -69,4 +96,7 @@ function Saving:load_settings()
     Setting_data()
     love.audio.setVolume(Setting_data.volume)
     love.window.setFullscreen(Setting_data.resolution)
+    if Setting_data.resolution==false then
+        love.window.setMode(Setting_data.ww,Setting_data.wh,Setting_data.flags)
+    end
 end
