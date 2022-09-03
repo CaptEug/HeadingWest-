@@ -65,7 +65,7 @@ return{
         hull.hitbox:setCollisionClass('Amour')
         hull.hitbox:setObject(hull)
         hull.hitbox:setMass(mass)
-        hull.hitbox:setLinearDamping(0.1)
+        hull.hitbox:setLinearDamping(5)
         hull.hitbox:setAngularDamping(10)
         hull.hitbox:setRestitution(0.8)
         hull.fullhp=hp
@@ -162,7 +162,7 @@ return{
         end
 
 
-        hull.hitbox:applyForce(1000, 1000)
+        hull.hitbox:applyLinearImpulse(vx, vy)
         hull.hitbox:setAngularVelocity(r.Rotation_speed)
     end,
 

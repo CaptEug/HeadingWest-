@@ -43,12 +43,12 @@ end
 
 function Tanks.new()
     local instance = setmetatable({}, Tanks)
+    t_world:register(syfn.new_functional_system())
     return instance
 end
 
 function Tanks:newtank(data, ...)
     t_world:register(syfn.new_renderer_system())
-    t_world:register(syfn.new_functional_system())
     a,b = love.filesystem.read( data, all )
     local h = stringToTable(a)
     local entity = t_world:assemble(h)
