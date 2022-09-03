@@ -11,8 +11,6 @@ function ingame:init()
     local map=Maps[MapNumber]
     loadMap(map)
     ingameUI:load()
-
-    psystem = love.graphics.newParticleSystem(PlaneIcon)
 end
 
 function ingame:update(dt)
