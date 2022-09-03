@@ -66,7 +66,7 @@ return{
         hull.hitbox:setObject(hull)
         hull.hitbox:setMass(mass)
         hull.hitbox:setLinearDamping(5)
-        hull.hitbox:setAngularDamping(10)
+        hull.hitbox:setAngularDamping(5)
         hull.hitbox:setRestitution(0.8)
         hull.fullhp=hp
         hull.hp = hp
@@ -163,7 +163,7 @@ return{
 
 
         hull.hitbox:applyLinearImpulse(vx, vy)
-        hull.hitbox:setAngularVelocity(r.Rotation_speed)
+        hull.hitbox:applyAngularImpulse(1000)
     end,
 
     poorAI=function(self, dt)
