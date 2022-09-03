@@ -28,7 +28,6 @@ function SettingMenu:init()
         end,
         Sbuttons
     )
-    --local resolution=tostring(ww).."X"..tostring(wh)
     
     Resolution=buttons.newButton(
         "Window",
