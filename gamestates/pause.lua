@@ -26,8 +26,8 @@ function Pause:init()
     Save = buttons.newButton(
         "Save",
         function()
-            if self.from~= Euromap then 
-            Saving:filesave(Filenumber)
+            if self.from~= Euromap then
+                Saving:filesave(Filenumber)
             end
         end,
         Pbuttons
