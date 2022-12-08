@@ -4,7 +4,6 @@ MainMenu = Gamestate.new()
 
 
 function MainMenu:init()
-    Letsgo = love.audio.newSource('Assets/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
     love.audio.play(Letsgo)
 
     cam:lookAt(EUw * 2 / 5, EUh * 3/5)
@@ -12,7 +11,7 @@ function MainMenu:init()
     
     MMbuttons = buttons.new()
     Start = buttons.newButton(
-        "В путь!",
+        "Start!",
         function()
             Gamestate.switch(Loadmenu)
         end,
@@ -20,7 +19,7 @@ function MainMenu:init()
     )
     
     Quit = buttons.newButton(
-        "Покидать",
+        "Exit",
         function()
             love.event.quit(0)   
         end,

@@ -28,27 +28,28 @@ function loadMap(mapName)
     tank1 = tanks_table:newtank("Assets/tanks/german/MAUS/MAUS.txt", Data.ax , Data.ay, Data.angle)
     tank2 = tanks_table:newtank("Assets/tanks/usa/M48A1/M48A1.txt", 1000 , 1000, 0)
     tank3 = tanks_table:newtank("Assets/tanks/soviet/T-5455/T-54.txt", 1500 , 1500, 0)
+    tank4 = tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)
     tanks_table:addai(tank1, keybroadcontrol)
     --tanks_table:addai(tank2,poorai)
     --tanks_table:addai(tank3,poorai)
 end
 
 function drawMap()
-    if gameMap.layers["Ground"] then
+    --[[if gameMap.layers["Ground"] then
         gameMap:drawLayer(gameMap.layers["Ground"])
-    end
+    end]]
     
     tanks_table:draw()
     Ammo.draw()
     DrawCollider()
 
-    if gameMap.layers["Roof"] then
+    --[[if gameMap.layers["Roof"] then
         gameMap:drawLayer(gameMap.layers["Roof"])
     end
 
     if gameMap.layers["Sky"] then
         gameMap:drawLayer(gameMap.layers["Sky"])
-    end
+    end]]
 
     --shaders.dark()
 end

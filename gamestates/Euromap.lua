@@ -3,9 +3,6 @@ Euromap = Gamestate.new()
 
 require 'UI/EuromapUI'
 
-Berlin_Bear = love.graphics.newImage('Assets/pictures/Berlin_Bear.png')
-UVZ_Icon = love.graphics.newImage('Assets/pictures/UVZ_Icon.png')
-
 function Euromap:init()
     
     EuromapUI:load()
