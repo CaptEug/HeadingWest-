@@ -42,15 +42,14 @@ Berlin_Bear = love.graphics.newImage('Assets/pictures/Berlin_Bear.png')
 UVZ_Icon = love.graphics.newImage('Assets/pictures/UVZ_Icon.png')
 T54 = love.graphics.newImage('Assets/tanks/soviet/T-5455/T54.png')
 --audio
-cg1 = CG.new('Assets/CGs/OP.ogv')
-Letsgo = love.audio.newSource('Assets/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
+cg1 = CG.new('Assets/audio/OP.ogv')
+Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
 --cursor
 cursor = love.mouse.newCursor('Assets/cursors/RedArrow.png', 0, 0)
 bombcursor = love.mouse.newCursor('Assets/cursors/RedBomb.png', 32, 32)
-
---Fonts registered
-Rtitlefont = love.graphics.newFont('pixelfont.otf', 100)
-Rbuttonfont = love.graphics.newFont('pixelfont.otf', 50)
+--font
+Rtitlefont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 100)
+Rbuttonfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 50)
 
 Maps={'checkpointC','Testmap'}
 MapNumber=1
