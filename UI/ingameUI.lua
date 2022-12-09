@@ -1,9 +1,6 @@
 ingameUI = {}
 TankList = {}
 
-TankIcon = love.graphics.newImage('Assets/pictures/Tank_Icon.png')
-PlaneIcon = love.graphics.newImage('Assets/pictures/Plane_Icon.png')
-
 function ingameUI:load()
     table.insert(TankList, T54)
     drawTankList = false

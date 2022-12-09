@@ -6,7 +6,7 @@ sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
 require 'libraries/utilities/CGplayer'
 require 'libraries/shaders'
-require 'libraries/buttons'
+require 'libraries/utilities/buttons'
 require 'Ammo'
 require 'Airstrike'
 require 'Saving'
@@ -41,6 +41,8 @@ Gear = love.graphics.newImage('Assets/pictures/Gear.png')
 Berlin_Bear = love.graphics.newImage('Assets/pictures/Berlin_Bear.png')
 UVZ_Icon = love.graphics.newImage('Assets/pictures/UVZ_Icon.png')
 T54 = love.graphics.newImage('Assets/tanks/soviet/T-5455/T54.png')
+TankIcon = love.graphics.newImage('Assets/pictures/Tank_Icon.png')
+PlaneIcon = love.graphics.newImage('Assets/pictures/Plane_Icon.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
