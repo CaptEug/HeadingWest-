@@ -17,6 +17,7 @@ function EuromapUI:load()
     )
 
     Cbuttons = buttons.new()
+    Cbuttons.ison = true
     Berlin = buttons.newCamButton(
         Berlin_Bear,
         function ()
@@ -34,6 +35,7 @@ function EuromapUI:load()
             else
                 KMDB.isopen = true
             end
+            Cbuttons.ison = false
         end,
         Cbuttons
     )
@@ -55,12 +57,11 @@ function EuromapUI:draw()
     Ebuttons:use()
 
     cam:attach()
-        
-        Cbuttons:use()
-        
-        TankFactories:draw()
+        if Cbuttons.ison then
+            Cbuttons:use()
+        end
     cam:detach()
-
+    TankFactories:draw()
     love.graphics.setFont(Rtitlefont)
     love.graphics.print(tostring(math.floor(Year)), love.graphics.getWidth() / 2 - Rtitlefont:getWidth(tostring(math.floor(Year))) / 2, 0)
     

@@ -10,7 +10,7 @@ require 'libraries/utilities/buttons'
 require 'Ammo'
 require 'Airstrike'
 require 'Saving'
-require 'libraries/Mapdrawer'
+require 'libraries.utilities/Mapdrawer'
 require 'libraries/utilities/destroyAll'
 require 'libraries/utilities/show'
 

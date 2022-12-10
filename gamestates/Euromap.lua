@@ -38,6 +38,7 @@ end
 
 function Euromap:drawWithoutUI()
     cam:attach()
-    
+        DrawEurope()
+        DrawCountries()
     cam:detach()
 end
