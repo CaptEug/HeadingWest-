@@ -2,8 +2,8 @@ ingameUI = {}
 TankList = {}
 
 function ingameUI:load()
-    table.insert(TankList, T54)
-    drawTankList = false
+    --table.insert(TankList, T54)
+    --drawTankList = false
 
     Gbuttons = buttons.new()
     Settings = buttons.newToolButton(
@@ -14,17 +14,6 @@ function ingameUI:load()
         Gbuttons
     )
 
-    SummonTank = buttons.newToolButton(
-        TankIcon,
-        function ()
-            if drawTankList then
-                drawTankList = false
-            else
-                drawTankList = true
-            end
-        end,
-        Gbuttons
-    )
 
     CallAirStrike = buttons.newToolButton(
         PlaneIcon,
@@ -43,18 +32,15 @@ end
 function ingameUI:update(dt)
     Settings.bx = 32
     Settings.by = wh - 32
-    SummonTank.bx = ww - 32
-    SummonTank.by = 32
+    
 end
 
 function ingameUI:draw()
     Gbuttons:use()
-    if drawTankList then
-        drawtanklist()
-    end
+    
 end
 
-function drawtanklist()
+--[[function drawtanklist()
     local locationSet = {{ww-192, 128}, {ww-64, 128}, {ww-192, 256}, {ww-64, 256}}
     
     love.graphics.setColor(1, 1, 1, 0.7)
@@ -73,4 +59,4 @@ function drawtanklist()
         )
         TLButtons:use()
     end
-end
+end]]

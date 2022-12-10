@@ -12,11 +12,12 @@ end
 function Euromap:update(dt)
 
     EuromapUI:update(dt)
-
+    --secret map
     if love.keyboard.isDown('g') then
         MapNumber=2
         Saving:fileload()
     end
+    
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
     end

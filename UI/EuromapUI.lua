@@ -1,11 +1,12 @@
 EuromapUI = {}
 
-require 'UI/buttonList'
+require 'UI/TankFactories'
 
 function EuromapUI:load()
     Year = 1946
 
-    buttonList:load()
+    TankFactories:load()
+
     Ebuttons = buttons.new()
     Settings = buttons.newToolButton(
         Gear,
@@ -28,10 +29,10 @@ function EuromapUI:load()
     UVZ = buttons.newCamButton(
         UVZ_Icon,
         function ()
-            if UVZ_list.drawlist then
-                UVZ_list.drawlist = false
+            if KMDB.isopen then
+                KMDB.isopen = false
             else
-                UVZ_list.drawlist = true
+                KMDB.isopen = true
             end
         end,
         Cbuttons
@@ -54,10 +55,10 @@ function EuromapUI:draw()
     Ebuttons:use()
 
     cam:attach()
-        if cam.scale >= 0.5 then
+        
         Cbuttons:use()
-        end
-        buttonList:draw()
+        
+        TankFactories:draw()
     cam:detach()
 
     love.graphics.setFont(Rtitlefont)
