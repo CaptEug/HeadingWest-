@@ -37,12 +37,14 @@ East_Germany = love.graphics.newImage('Assets/Europe/East_Germany.png')
 Stalin = love.graphics.newImage('Assets/pictures/Joseph_Stalin.png')
 Khrushchev = love.graphics.newImage('Assets/pictures/Khrushchev.png')
 Brezhnev = love.graphics.newImage('Assets/pictures/Brezhnev.png')
-Gear = love.graphics.newImage('Assets/pictures/Gear.png')
-Berlin_Bear = love.graphics.newImage('Assets/pictures/Berlin_Bear.png')
-UVZ_Icon = love.graphics.newImage('Assets/pictures/UVZ_Icon.png')
+Gear = love.graphics.newImage('Assets/pictures/icons/Gear.png')
+Berlin_Bear = love.graphics.newImage('Assets/pictures/icons/Berlin_Bear.png')
+UVZ_Icon = love.graphics.newImage('Assets/pictures/icons/UVZ_Icon.png')
 T54 = love.graphics.newImage('Assets/tanks/soviet/T-5455/T54.png')
-TankIcon = love.graphics.newImage('Assets/pictures/Tank_Icon.png')
-PlaneIcon = love.graphics.newImage('Assets/pictures/Plane_Icon.png')
+TankIcon = love.graphics.newImage('Assets/pictures/icons/Tank_Icon.png')
+PlaneIcon = love.graphics.newImage('Assets/pictures/icons/Plane_Icon.png')
+leftArrow = love.graphics.newImage('Assets/pictures/buttons/leftArrow.png')
+rightArrow = love.graphics.newImage('Assets/pictures/buttons/rightArrow.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
@@ -52,7 +54,10 @@ bombcursor = love.mouse.newCursor('Assets/cursors/RedBomb.png', 32, 32)
 --font
 Rtitlefont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 100)
 Rbuttonfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 50)
-
+Rtextfont = love.graphics.newFont('Assets/fonts/pixelfont.otf')
+--tanks
+T72A_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_line.png')
+T72B_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_line.png')
 Maps={'checkpointC','Testmap'}
 MapNumber=1
 Filenumber=1
