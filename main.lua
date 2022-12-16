@@ -45,6 +45,8 @@ TankIcon = love.graphics.newImage('Assets/pictures/icons/Tank_Icon.png')
 PlaneIcon = love.graphics.newImage('Assets/pictures/icons/Plane_Icon.png')
 leftArrow = love.graphics.newImage('Assets/pictures/buttons/leftArrow.png')
 rightArrow = love.graphics.newImage('Assets/pictures/buttons/rightArrow.png')
+--UI
+factory_screen = love.graphics.newImage('Assets/pictures/factory_screen.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
@@ -58,6 +60,7 @@ Rtextfont = love.graphics.newFont('Assets/fonts/pixelfont.otf')
 --tanks
 T72A_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_line.png')
 T72B_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_line.png')
+T72B_kontakt1_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt1_line.png')
 Maps={'checkpointC','Testmap'}
 MapNumber=1
 Filenumber=1
