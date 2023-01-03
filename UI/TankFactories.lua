@@ -19,7 +19,10 @@ function TankFactories:load()
     T72B = {
         name = 'T-72b',
         line_image = T72B_line,
-        accessories = {{name = 'Kontakt_1',line_image = T72B_kontakt1_line}}
+        accessories = {
+            {name = 'Kontakt_1',line_image = T72B_kontakt1_line},
+            {name = 'Kontakt_5',line_image = T72B_kontakt5_line}
+        }
     }
     table.insert(KMDB.tanklist, T72B)
 
