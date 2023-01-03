@@ -61,7 +61,7 @@ function Saving:create_settings()
         vsync=1,
         msaa=0,
         borderless=false,
-        resizable=true,
+        resizable=false,
         centered=true,
         highdpi=false,
         usedpiscale=true,
