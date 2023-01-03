@@ -62,6 +62,7 @@ T72A_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_line.png')
 T72B_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_line.png')
 T72B_kontakt1_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt1_line.png')
 T72B_kontakt5_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt5_line.png')
+
 Maps={'checkpointC','Testmap'}
 MapNumber=1
 Filenumber=1
