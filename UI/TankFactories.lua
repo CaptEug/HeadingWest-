@@ -1,6 +1,7 @@
 TankFactories = {}
 
 function TankFactories:load()
+    --test factory
     KMDB = {
         x = 3100,
         y = 1200,
