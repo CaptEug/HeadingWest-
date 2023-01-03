@@ -105,29 +105,29 @@ function TankFactories:draw()
         local TankPresent = factory.tanklist[factory.tankindex]
         if factory.isopen then
             love.graphics.setColor(0.7, 0.7, 0.7)
-            love.graphics.rectangle("fill", ww/6, wh/8, 4*ww/6, 6*wh/8)
+            love.graphics.rectangle("fill", ww/8, wh/8, 6*ww/8, 6*wh/8)
             love.graphics.setColor(1,1,1)
-            love.graphics.draw(factory_screen, ww/6 + 50, wh/8 + 50)
+            love.graphics.draw(factory_screen, ww/8 + 50, wh/8 + 50)
             love.graphics.setFont(Rbuttonfont)
-            love.graphics.print(factory.name, ww/6, wh/8)
+            love.graphics.print(factory.name, ww/8, wh/8)
             love.graphics.setFont(Rtextfont)
             love.graphics.setColor(0,179/255,0)
-            love.graphics.print(TankPresent.name, ww/6 + 56, wh/8 + 52)
+            love.graphics.print(TankPresent.name, ww/8 + 56, wh/8 + 52)
             love.graphics.setColor(1,1,1)
-            love.graphics.draw(TankPresent.line_image, ww/6 + 50, wh/8 + 50)
+            love.graphics.draw(TankPresent.line_image, ww/8 + 50, wh/8 + 50)
 
             if TankPresent.accessories then
                 
                 for i, accessory in ipairs(TankPresent.accessories) do
                     love.graphics.setFont(Rtextfont)
-                    love.graphics.print(accessory.name, ww/6 + 390, wh/8 + 70*i)
+                    love.graphics.print(accessory.name, ww/8 + 390, wh/8 + 70*i)
                 end
 
                 TankPresent.Abuttons:use()
 
                 for i, accessory in ipairs(TankPresent.accessories) do
                     if accessory.draw then
-                        love.graphics.draw(accessory.line_image, ww/6 + 50, wh/8 + 50)
+                        love.graphics.draw(accessory.line_image, ww/8 + 50, wh/8 + 50)
                     end
                 end
             end
