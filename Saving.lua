@@ -49,8 +49,8 @@ function Saving:create_settings()
     local filedata={}
     filedata.resolution=false
     filedata.volume=1
-    filedata.ww=1024
-    filedata.wh=768
+    filedata.ww=800
+    filedata.wh=600
     filedata.flags={
         fullscreen=false,
         fullscreentype="desktop",
