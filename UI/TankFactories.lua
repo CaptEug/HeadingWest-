@@ -20,20 +20,21 @@ function TankFactories:load()
     T72B = {
         name = 'T-72b',
         line_image = T72B_line,
-        accessories = {
-            {name = 'Kontakt_1',line_image = T72B_kontakt1_line},
-            {name = 'Kontakt_5',line_image = T72B_kontakt5_line}
+        accessories = { 
+            {name = 'Kontakt_1', line_image = T72B_kontakt1_line, tag = 'Armor'},
+            {name = 'Kontakt_5', line_image = T72B_kontakt5_line, tag = 'Armor'}
         }
     }
     table.insert(KMDB.tanklist, T72B)
 
+    
     for i, factory in ipairs(TankFactories) do
         factory.isopen = false
         factory.Fbuttons = buttons.new()
         factory.tankindex = 1
         
         Close = buttons.newToolButton(
-            Gear,
+            Close,
             function ()
                 factory.isopen = false
                 Cbuttons.ison = true
@@ -66,30 +67,87 @@ function TankFactories:load()
             factory.Fbuttons
         )
 
+
         for i, tank in ipairs(factory.tanklist) do
             if tank.accessories then
-                tank.Abuttons = buttons.new()
-
                 for i, accessory in ipairs(tank.accessories) do
                     accessory.draw = false
-                    
-                    Turnon = buttons.newToolButton(
+                    accessory.use = false
+                    accessory.Abuttons = buttons.new()
+
+                    Draw = buttons.newToolButton(
                         leftArrow,
                         function ()
                             if accessory.draw then
                                 accessory.draw = false
                             else
-                                accessory.draw = true  
+                                accessory.draw = true
                             end
                         end,
-                        tank.Abuttons,
+                        accessory.Abuttons,
                         ww/6 + 370,
                         wh/8 + 70*i
                     )
-
                 end
             end
         end
+
+        Armor = buttons.newToolButton(
+            Armor,
+            function ()
+                for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
+                    if accessory.tag == 'Armor' then
+                        accessory.use = true
+                    else
+                        accessory.use = false
+                    end
+                end
+            end,
+            factory.Fbuttons
+        )
+
+        Aiming = buttons.newToolButton(
+            Aiming,
+            function ()
+                for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
+                    if accessory.tag == 'Aim' then
+                        accessory.use = true
+                    else
+                        accessory.use = false
+                    end
+                end
+            end,
+            factory.Fbuttons
+        )
+
+        Ammo = buttons.newToolButton(
+            Ammo,
+            function ()
+                for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
+                    if accessory.tag == 'Ammo' then
+                        accessory.use = true
+                    else
+                        accessory.use = false
+                    end
+                end
+            end,
+            factory.Fbuttons
+        )
+
+        Mobility = buttons.newToolButton(
+            Mobility,
+            function ()
+                for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
+                    if accessory.tag == 'Mob' then
+                        accessory.use = true
+                    else
+                        accessory.use = false
+                    end
+                end
+            end,
+            factory.Fbuttons
+        )
+
     end
 end
 
@@ -104,41 +162,48 @@ function TankFactories:draw()
 
         local TankPresent = factory.tanklist[factory.tankindex]
         if factory.isopen then
-            love.graphics.setColor(0.7, 0.7, 0.7)
-            love.graphics.rectangle("fill", ww/8, wh/8, 6*ww/8, 6*wh/8)
-            love.graphics.setColor(1,1,1)
-            love.graphics.draw(factory_screen, ww/8 + 50, wh/8 + 50)
+            love.graphics.draw(factory_screen, ww/2 - 320, wh/2 - 240)
             love.graphics.setFont(Rbuttonfont)
-            love.graphics.print(factory.name, ww/8, wh/8)
+            love.graphics.print(factory.name, ww/2 - 320 + 40, wh/2 - 240)
             love.graphics.setFont(Rtextfont)
             love.graphics.setColor(0,179/255,0)
-            love.graphics.print(TankPresent.name, ww/8 + 56, wh/8 + 52)
+            love.graphics.print(TankPresent.name, ww/2 - 320 + 40 + 6, wh/2 - 240 + 64 + 6)
             love.graphics.setColor(1,1,1)
-            love.graphics.draw(TankPresent.line_image, ww/8 + 50, wh/8 + 50)
+            love.graphics.draw(TankPresent.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
 
             if TankPresent.accessories then
                 
                 for i, accessory in ipairs(TankPresent.accessories) do
-                    love.graphics.setFont(Rtextfont)
-                    love.graphics.print(accessory.name, ww/8 + 390, wh/8 + 70*i)
+                    if accessory.use then
+                        love.graphics.setFont(Rtextfont)
+                        love.graphics.print(accessory.name, ww/20 + 390, wh/10 + 70*i)
+                        accessory.Abuttons:use()
+                    end   
                 end
-
-                TankPresent.Abuttons:use()
 
                 for i, accessory in ipairs(TankPresent.accessories) do
                     if accessory.draw then
-                        love.graphics.draw(accessory.line_image, ww/8 + 50, wh/8 + 50)
+                        love.graphics.draw(accessory.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
                     end
                 end
             end
 
             factory.Fbuttons:use()
-            Close.bx = ww*5/6 - Close.w/2
-            Close.by = wh/8 + Close.h/2
-            Next.bx = ww/6 + 200
-            Next.by = 6*wh/8
-            Previous.bx = ww/6 + 100
-            Previous.by = 6*wh/8
+            Close.bx = ww/2 + 320 - 15
+            Close.by = wh/2 - 240 + 18
+            Next.bx = wh/2 - 240 + 331
+            Next.by = wh/2 - 240 + 331
+            Previous.bx = ww/2 - 320 + 56
+            Previous.by = wh/2 - 240 + 331
+            Armor.bx = ww/2 - 320 + 80
+            Armor.by = wh/2 - 240 + 390
+            Aiming.bx = ww/2 - 320 + 128
+            Aiming.by = wh/2 - 240 + 390
+            Ammo.bx = ww/2 - 320 + 176
+            Ammo.by = wh/2 - 240 + 390
+            Mobility.bx = ww/2 - 320 + 224
+            Mobility.by = wh/2 - 240 + 390
+
         end
     end
 end
