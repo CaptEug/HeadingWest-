@@ -61,8 +61,8 @@ function EuromapUI:draw()
             Cbuttons:use()
         end
     cam:detach()
-    TankFactories:draw()
+    
     love.graphics.setFont(Rtitlefont)
     love.graphics.print(tostring(math.floor(Year)), love.graphics.getWidth() / 2 - Rtitlefont:getWidth(tostring(math.floor(Year))) / 2, 0)
-    
+    TankFactories:draw()
 end

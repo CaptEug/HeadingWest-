@@ -45,6 +45,11 @@ TankIcon = love.graphics.newImage('Assets/pictures/icons/Tank_Icon.png')
 PlaneIcon = love.graphics.newImage('Assets/pictures/icons/Plane_Icon.png')
 leftArrow = love.graphics.newImage('Assets/pictures/buttons/leftArrow.png')
 rightArrow = love.graphics.newImage('Assets/pictures/buttons/rightArrow.png')
+Close = love.graphics.newImage('Assets/pictures/buttons/X.png')
+Armor = love.graphics.newImage('Assets/pictures/buttons/Armor.png')
+Aiming = love.graphics.newImage('Assets/pictures/buttons/Aiming.png')
+Ammo = love.graphics.newImage('Assets/pictures/buttons/Ammo.png')
+Mobility = love.graphics.newImage('Assets/pictures/buttons/Mobility.png')
 --UI
 factory_screen = love.graphics.newImage('Assets/pictures/factory_screen.png')
 --audio
