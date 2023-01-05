@@ -93,7 +93,7 @@ function TankFactories:load()
         end
 
         Armor = buttons.newToolButton(
-            Armor,
+            Armor_icon,
             function ()
                 for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
                     if accessory.tag == 'Armor' then
@@ -107,7 +107,7 @@ function TankFactories:load()
         )
 
         Aiming = buttons.newToolButton(
-            Aiming,
+            Aiming_icon,
             function ()
                 for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
                     if accessory.tag == 'Aim' then
@@ -120,8 +120,8 @@ function TankFactories:load()
             factory.Fbuttons
         )
 
-        Ammo = buttons.newToolButton(
-            Ammo,
+        Ammunition = buttons.newToolButton(
+            Ammo_icon,
             function ()
                 for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
                     if accessory.tag == 'Ammo' then
@@ -135,7 +135,7 @@ function TankFactories:load()
         )
 
         Mobility = buttons.newToolButton(
-            Mobility,
+            Mobility_icon,
             function ()
                 for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
                     if accessory.tag == 'Mob' then
@@ -176,7 +176,9 @@ function TankFactories:draw()
                 for i, accessory in ipairs(TankPresent.accessories) do
                     if accessory.use then
                         love.graphics.setFont(Rtextfont)
+                        love.graphics.setColor(0,179/255,0)
                         love.graphics.print(accessory.name, ww/20 + 390, wh/10 + 70*i)
+                        love.graphics.setColor(1,1,1)
                         accessory.Abuttons:use()
                     end   
                 end
@@ -199,8 +201,8 @@ function TankFactories:draw()
             Armor.by = wh/2 - 240 + 390
             Aiming.bx = ww/2 - 320 + 128
             Aiming.by = wh/2 - 240 + 390
-            Ammo.bx = ww/2 - 320 + 176
-            Ammo.by = wh/2 - 240 + 390
+            Ammunition.bx = ww/2 - 320 + 176
+            Ammunition.by = wh/2 - 240 + 390
             Mobility.bx = ww/2 - 320 + 224
             Mobility.by = wh/2 - 240 + 390
 
