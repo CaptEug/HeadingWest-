@@ -1,17 +1,17 @@
-Euromap = {}
-Euromap = Gamestate.new()
+Worldmap = {}
+Worldmap = Gamestate.new()
 
-require 'UI/EuromapUI'
+require 'UI/WorldmapUI'
 
-function Euromap:init()
+function Worldmap:init()
     
-    EuromapUI:load()
+    WorldmapUI:load()
 
 end
 
-function Euromap:update(dt)
+function Worldmap:update(dt)
 
-    EuromapUI:update(dt)
+    WorldmapUI:update(dt)
     --secret map
     if love.keyboard.isDown('g') then
         MapNumber=2
@@ -27,16 +27,16 @@ function Euromap:update(dt)
     cam:lockcamera(0, 0, EUw, EUh, 0, ww, 0, wh)
 end
 
-function Euromap:draw()
+function Worldmap:draw()
     cam:attach()
         DrawEurope()
         DrawCountries()
     cam:detach()
 
-    EuromapUI:draw()
+    WorldmapUI:draw()
 end
 
-function Euromap:drawWithoutUI()
+function Worldmap:drawWithoutUI()
     cam:attach()
         DrawEurope()
         DrawCountries()

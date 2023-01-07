@@ -8,7 +8,7 @@ function Loadmenu:init()
         Stalin,
         function()
             Filenumber=1
-            Gamestate.switch(Euromap)
+            Gamestate.switch(Worldmap)
         end,
         Lbuttons
     )
@@ -17,7 +17,7 @@ function Loadmenu:init()
         Khrushchev,
         function()
             Filenumber=2
-            Gamestate.switch(Euromap)
+            Gamestate.switch(Worldmap)
         end,
         Lbuttons
     )
@@ -26,7 +26,7 @@ function Loadmenu:init()
         Brezhnev,
         function()
             Filenumber=3
-            Gamestate.switch(Euromap)
+            Gamestate.switch(Worldmap)
         end,
         Lbuttons
     )

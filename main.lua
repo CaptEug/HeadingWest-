@@ -19,7 +19,7 @@ require 'gamestates/MainMenu'
 require 'gamestates/ingame'
 require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
-require 'gamestates/Euromap'
+require 'gamestates/Worldmap'
 require 'gamestates/SettingMenu'
 
 --Assets registered
@@ -52,6 +52,7 @@ Ammo_icon = love.graphics.newImage('Assets/pictures/buttons/Ammo.png')
 Mobility_icon = love.graphics.newImage('Assets/pictures/buttons/Mobility.png')
 --UI
 factory_screen = love.graphics.newImage('Assets/pictures/factory_screen.png')
+city_page = love.graphics.newImage('Assets/pictures/Citypage.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
@@ -61,6 +62,7 @@ bombcursor = love.mouse.newCursor('Assets/cursors/RedBomb.png', 32, 32)
 --font
 Rtitlefont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 100)
 Rbuttonfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 50)
+Rheadfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 20)
 Rtextfont = love.graphics.newFont('Assets/fonts/pixelfont.otf')
 --tanks
 T72A_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_line.png')

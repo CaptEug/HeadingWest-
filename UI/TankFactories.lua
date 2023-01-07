@@ -3,8 +3,6 @@ TankFactories = {}
 function TankFactories:load()
     --test factory
     KMDB = {
-        x = 3100,
-        y = 1200,
         name = 'TEST FACTORY',
         tanklist = {}
     }
@@ -154,6 +152,21 @@ end
 
 function TankFactories:update()
 
+    Close.bx = ww/2 + 320 - 15
+    Close.by = wh/2 - 240 + 18
+    Next.bx = wh/2 - 240 + 331
+    Next.by = wh/2 - 240 + 331
+    Previous.bx = ww/2 - 320 + 56
+    Previous.by = wh/2 - 240 + 331
+    Armor.bx = ww/2 - 320 + 80
+    Armor.by = wh/2 - 240 + 390
+    Aiming.bx = ww/2 - 320 + 128
+    Aiming.by = wh/2 - 240 + 390
+    Ammunition.bx = ww/2 - 320 + 176
+    Ammunition.by = wh/2 - 240 + 390
+    Mobility.bx = ww/2 - 320 + 224
+    Mobility.by = wh/2 - 240 + 390
+    
 end
 
 
@@ -191,20 +204,6 @@ function TankFactories:draw()
             end
 
             factory.Fbuttons:use()
-            Close.bx = ww/2 + 320 - 15
-            Close.by = wh/2 - 240 + 18
-            Next.bx = wh/2 - 240 + 331
-            Next.by = wh/2 - 240 + 331
-            Previous.bx = ww/2 - 320 + 56
-            Previous.by = wh/2 - 240 + 331
-            Armor.bx = ww/2 - 320 + 80
-            Armor.by = wh/2 - 240 + 390
-            Aiming.bx = ww/2 - 320 + 128
-            Aiming.by = wh/2 - 240 + 390
-            Ammunition.bx = ww/2 - 320 + 176
-            Ammunition.by = wh/2 - 240 + 390
-            Mobility.bx = ww/2 - 320 + 224
-            Mobility.by = wh/2 - 240 + 390
 
         end
     end
