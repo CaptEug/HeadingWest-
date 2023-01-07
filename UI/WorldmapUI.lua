@@ -12,7 +12,7 @@ function WorldmapUI:load()
         y = 1200,
         name = 'Uralvagonzavod',
         icon = UVZ_Icon,
-        --map = 
+        --map = 这里放地图编号
     }
     table.insert(Cities, UVZ)
 
