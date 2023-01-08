@@ -50,6 +50,7 @@ Armor_icon = love.graphics.newImage('Assets/pictures/buttons/Armor.png')
 Aiming_icon = love.graphics.newImage('Assets/pictures/buttons/Aiming.png')
 Ammo_icon = love.graphics.newImage('Assets/pictures/buttons/Ammo.png')
 Mobility_icon = love.graphics.newImage('Assets/pictures/buttons/Mobility.png')
+Go = love.graphics.newImage('Assets/pictures/buttons/Go.png')
 --UI
 factory_screen = love.graphics.newImage('Assets/pictures/factory_screen.png')
 city_page = love.graphics.newImage('Assets/pictures/Citypage.png')

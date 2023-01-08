@@ -56,7 +56,7 @@ function WorldmapUI:load()
         )
 
         city.Go = buttons.newToolButton(
-            rightArrow,
+            Go,
             function ()
                 MapNumber = city.map
                 Saving:fileload()
@@ -119,8 +119,8 @@ function WorldmapUI:draw()
     for i, city in ipairs(Cities) do
         if city.isopen then
             local x, y = cam:cameraCoords(city.x, city.y)
-            city.Go.bx = x + 200
-            city.Go.by = y + 160
+            city.Go.bx = x + 208
+            city.Go.by = y + 146
             pagex = x
             pagey = y - 176
             headx = x + 16
