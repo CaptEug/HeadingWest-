@@ -1,7 +1,7 @@
-ingameUI = {}
+BattlefieldUI = {}
 TankList = {}
 
-function ingameUI:load()
+function BattlefieldUI:load()
     --table.insert(TankList, T54)
     --drawTankList = false
 
@@ -29,13 +29,13 @@ function ingameUI:load()
 
 end
 
-function ingameUI:update(dt)
+function BattlefieldUI:update(dt)
     Settings.bx = 32
     Settings.by = wh - 32
     
 end
 
-function ingameUI:draw()
+function BattlefieldUI:draw()
     Gbuttons:use()
     
 end
