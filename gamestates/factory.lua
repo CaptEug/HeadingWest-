@@ -1,2 +1,0 @@
-Factory={}
-Factory=Gamestate.new()
