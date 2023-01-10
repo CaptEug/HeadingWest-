@@ -1,12 +1,12 @@
-TankFactories = {}
+TankDesigner = {}
 
-function TankFactories:load()
+function TankDesigner:load()
     --test factory
     KMDB = {
         name = 'TEST FACTORY',
         tanklist = {}
     }
-    table.insert(TankFactories, KMDB)
+    table.insert(TankDesigner, KMDB)
 
     --test tanklist
     T72A = {
@@ -26,7 +26,7 @@ function TankFactories:load()
     table.insert(KMDB.tanklist, T72B)
 
     
-    for i, factory in ipairs(TankFactories) do
+    for i, factory in ipairs(TankDesigner) do
         factory.isopen = false
         factory.Fbuttons = buttons.new()
         factory.tankindex = 1
@@ -150,7 +150,7 @@ function TankFactories:load()
 end
 
 
-function TankFactories:update()
+function TankDesigner:update()
 
     Close.bx = ww/2 + 320 - 15
     Close.by = wh/2 - 240 + 18
@@ -170,8 +170,8 @@ function TankFactories:update()
 end
 
 
-function TankFactories:draw()
-    for i, factory in ipairs(TankFactories) do
+function TankDesigner:draw()
+    for i, factory in ipairs(TankDesigner) do
 
         local TankPresent = factory.tanklist[factory.tankindex]
         if factory.isopen then

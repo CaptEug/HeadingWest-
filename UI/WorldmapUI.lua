@@ -1,7 +1,6 @@
 WorldmapUI = {}
 Cities = {}
 
-require 'UI/TankFactories'
 
 function WorldmapUI:load()
     Year = 1946
