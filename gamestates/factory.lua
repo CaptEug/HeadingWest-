@@ -1,1 +1,2 @@
-factory={}
+Factory={}
+Factory=Gamestate.new()
