@@ -58,7 +58,7 @@ city_page = love.graphics.newImage('Assets/pictures/Citypage.png')
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
 --cursor
-cursor = love.mouse.newCursor('Assets/cursors/RedArrow.png', 0, 0)
+cursor = love.mouse.newCursor('Assets/cursors/Cursor.png', 0, 0)
 bombcursor = love.mouse.newCursor('Assets/cursors/RedBomb.png', 32, 32)
 --font
 Rtitlefont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 100)
