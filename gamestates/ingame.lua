@@ -1,7 +1,7 @@
 ingame = {}
 ingame = Gamestate.new()
 require "entity_test.tanks_new"
-require 'UI/ingameUI'
+require 'UI/BattlefieldUI'
 
 function ingame:init()
     
@@ -10,7 +10,7 @@ function ingame:init()
 
     local map=Maps[MapNumber]
     loadMap(map)
-    ingameUI:load()
+    BattlefieldUI:load()
 
     --[[psystem = love.graphics.newParticleSystem(PlaneIcon, 32)
     psystem:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
@@ -21,7 +21,7 @@ function ingame:init()
 end
 
 function ingame:update(dt)
-    ingameUI:update()
+    BattlefieldUI:update()
 
     world:update(dt)
     particleworld:update(dt)
@@ -47,7 +47,7 @@ function ingame:draw()
         world:draw()
         particleworld:draw()
     cam:detach()
-    ingameUI:draw()
+    BattlefieldUI:draw()
 end
 
 function ingame:drawWithoutUI()
