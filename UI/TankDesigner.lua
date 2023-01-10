@@ -12,7 +12,9 @@ function TankDesigner:load()
     T72A = {
         name = 'T-72a',
         line_image = T72A_line,
-        accessories = {}
+        accessories = { 
+            {name = 'Kontakt_1', line_image = T72A_kontakt1_line, tag = 'Armor'},
+        }
     }
     table.insert(KMDB.tanklist, T72A)
     T72B = {
