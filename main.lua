@@ -21,6 +21,7 @@ require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
 require 'gamestates/Worldmap'
 require 'gamestates/SettingMenu'
+require 'gamestates/Factory'
 
 --Assets registered
 --country
