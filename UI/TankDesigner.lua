@@ -37,9 +37,10 @@ function TankDesigner:load()
             Close,
             function ()
                 factory.isopen = false
-                Cbuttons.ison = true
             end,
-            factory.Fbuttons
+            factory.Fbuttons,
+            ww/2 + 320 - 15,
+            wh/2 - 240 + 18
         )
 
         Next = buttons.newToolButton(
@@ -52,7 +53,9 @@ function TankDesigner:load()
                 end
                 
             end,
-            factory.Fbuttons
+            factory.Fbuttons,
+            wh/2 - 240 + 331,
+            wh/2 - 240 + 331
         )
 
         Previous = buttons.newToolButton(
@@ -64,7 +67,9 @@ function TankDesigner:load()
                     factory.tankindex = table.getn(factory.tanklist)
                 end
             end,
-            factory.Fbuttons
+            factory.Fbuttons,
+            ww/2 - 320 + 56,
+            wh/2 - 240 + 331
         )
 
 
@@ -103,7 +108,9 @@ function TankDesigner:load()
                     end
                 end
             end,
-            factory.Fbuttons
+            factory.Fbuttons,
+            ww/2 - 320 + 80,
+            wh/2 - 240 + 390
         )
 
         Aiming = buttons.newToolButton(
@@ -117,7 +124,9 @@ function TankDesigner:load()
                     end
                 end
             end,
-            factory.Fbuttons
+            factory.Fbuttons,
+            ww/2 - 320 + 128,
+            wh/2 - 240 + 390
         )
 
         Ammunition = buttons.newToolButton(
@@ -131,7 +140,9 @@ function TankDesigner:load()
                     end
                 end
             end,
-            factory.Fbuttons
+            factory.Fbuttons,
+            ww/2 - 320 + 176,
+            wh/2 - 240 + 390
         )
 
         Mobility = buttons.newToolButton(
@@ -145,7 +156,9 @@ function TankDesigner:load()
                     end
                 end
             end,
-            factory.Fbuttons
+            factory.Fbuttons,
+            ww/2 - 320 + 224,
+            wh/2 - 240 + 390
         )
 
     end
@@ -153,21 +166,6 @@ end
 
 
 function TankDesigner:update()
-
-    Close.bx = ww/2 + 320 - 15
-    Close.by = wh/2 - 240 + 18
-    Next.bx = wh/2 - 240 + 331
-    Next.by = wh/2 - 240 + 331
-    Previous.bx = ww/2 - 320 + 56
-    Previous.by = wh/2 - 240 + 331
-    Armor.bx = ww/2 - 320 + 80
-    Armor.by = wh/2 - 240 + 390
-    Aiming.bx = ww/2 - 320 + 128
-    Aiming.by = wh/2 - 240 + 390
-    Ammunition.bx = ww/2 - 320 + 176
-    Ammunition.by = wh/2 - 240 + 390
-    Mobility.bx = ww/2 - 320 + 224
-    Mobility.by = wh/2 - 240 + 390
     
 end
 
@@ -196,9 +194,7 @@ function TankDesigner:draw()
                         love.graphics.setColor(1,1,1)
                         accessory.Abuttons:use()
                     end   
-                end
-
-                for i, accessory in ipairs(TankPresent.accessories) do
+                    
                     if accessory.draw then
                         love.graphics.draw(accessory.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
                     end
