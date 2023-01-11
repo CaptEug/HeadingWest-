@@ -3,7 +3,7 @@ ingame = Gamestate.new()
 require "entity_test.tanks_new"
 require 'UI/BattlefieldUI'
 
-function ingame:init()
+function ingame:init(map_type)
     
     Saving:getdata(Filenumber)
     Data()

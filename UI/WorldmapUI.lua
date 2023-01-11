@@ -11,6 +11,7 @@ function WorldmapUI:load()
         y = 1200,
         name = 'Uralvagonzavod',
         icon = UVZ_Icon,
+        type='Factory',
         map = 2
     }
     table.insert(Cities, UVZ)
@@ -20,6 +21,7 @@ function WorldmapUI:load()
         y = 1345,
         name = 'Berlin',
         icon = Berlin_Bear,
+        type='Battlefield',
         map = 1
     }
     table.insert(Cities, Berlin)
@@ -58,7 +60,8 @@ function WorldmapUI:load()
             Go,
             function ()
                 MapNumber = city.map
-                Saving:fileload()
+                local map_type=city.type
+                Saving:fileload(map_type)
             end,
             city.Gobuttons
         )
