@@ -60,8 +60,8 @@ function WorldmapUI:load()
             Go,
             function ()
                 MapNumber = city.map
-                local map_type=city.type
-                Saving:fileload(map_type)
+                Map_type=city.type
+                Saving:fileload()
             end,
             city.Gobuttons
         )
