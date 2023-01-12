@@ -2,7 +2,7 @@ ingame = {}
 ingame = Gamestate.new()
 require "entity_test.tanks_new"
 require 'UI/BattlefieldUI'
-
+require 'UI/FactoryUI'
 function ingame:init()
     
     Saving:getdata(Filenumber)
@@ -10,7 +10,12 @@ function ingame:init()
 
     local map=Maps[MapNumber]
     loadMap(map)
-    BattlefieldUI:load()
+    if Map_type=='Battlefield'then
+        BattlefieldUI:load()
+    end
+    if Map_type=='Factory'then
+        FactoryUI:load()
+    end
 
     --[[psystem = love.graphics.newParticleSystem(PlaneIcon, 32)
     psystem:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
@@ -21,7 +26,12 @@ function ingame:init()
 end
 
 function ingame:update(dt)
-    BattlefieldUI:update()
+    if Map_type=='Battlefield'then
+        BattlefieldUI:update()
+    end
+    if Map_type=='Factory'then
+        FactoryUI:update()
+    end
 
     world:update(dt)
     particleworld:update(dt)
@@ -47,7 +57,13 @@ function ingame:draw()
         world:draw()
         particleworld:draw()
     cam:detach()
-    BattlefieldUI:draw()
+    if Map_type=='Battlefield'then
+        BattlefieldUI:draw()
+    end
+    
+    if Map_type=='Factory'then
+        FactoryUI:draw()
+    end    
 end
 
 function ingame:drawWithoutUI()
