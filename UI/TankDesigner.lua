@@ -1,33 +1,7 @@
 TankDesigner = {}
 
 function TankDesigner:load()
-    --test factory
-    KMDB = {
-        name = 'TEST FACTORY',
-        tanklist = {}
-    }
-    table.insert(TankDesigner, KMDB)
 
-    --test tanklist
-    T72A = {
-        name = 'T-72a',
-        line_image = T72A_line,
-        accessories = { 
-            {name = 'Kontakt_1', line_image = T72A_kontakt1_line, tag = 'Armor'},
-        }
-    }
-    table.insert(KMDB.tanklist, T72A)
-    T72B = {
-        name = 'T-72b',
-        line_image = T72B_line,
-        accessories = { 
-            {name = 'Kontakt_1', line_image = T72B_kontakt1_line, tag = 'Armor'},
-            {name = 'Kontakt_5', line_image = T72B_kontakt5_line, tag = 'Armor'}
-        }
-    }
-    table.insert(KMDB.tanklist, T72B)
-
-    
     for i, factory in ipairs(TankDesigner) do
         factory.isopen = false
         factory.Fbuttons = buttons.new()
