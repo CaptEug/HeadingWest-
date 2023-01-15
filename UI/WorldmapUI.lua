@@ -37,7 +37,7 @@ function WorldmapUI:load()
             Go,
             function ()
                 MapNumber = city.map
-                Map_type=city.type
+                Map_type = city.type
                 if city.type == 'Factory' then
                     Factory = city
                 end
