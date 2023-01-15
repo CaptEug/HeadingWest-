@@ -38,6 +38,10 @@ function WorldmapUI:load()
             function ()
                 MapNumber = city.map
                 Map_type=city.type
+                if city.type == 'Factory' then
+                    Factory = city
+                end
+                
                 Saving:fileload()
             end,
             city.Gobuttons

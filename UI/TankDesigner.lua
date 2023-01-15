@@ -2,17 +2,16 @@ TankDesigner = {}
 
 function TankDesigner:load()
 
-    for i, factory in ipairs(TankDesigner) do
-        factory.isopen = false
-        factory.Fbuttons = buttons.new()
-        factory.tankindex = 1
+    Factory.isopen = false
+    Factory.Fbuttons = buttons.new()
+    Factory.tankindex = 1
         
         Close = buttons.newToolButton(
-            Close,
+            Close_icon,
             function ()
-                factory.isopen = false
+                Factory.isopen = false
             end,
-            factory.Fbuttons,
+            Factory.Fbuttons,
             ww/2 + 320 - 15,
             wh/2 - 240 + 18
         )
@@ -20,14 +19,14 @@ function TankDesigner:load()
         Next = buttons.newToolButton(
             rightArrow,
             function ()
-                if factory.tankindex < table.getn(factory.tanklist) then
-                    factory.tankindex = factory.tankindex + 1
+                if Factory.tankindex < table.getn(Factory.tanklist) then
+                    Factory.tankindex = Factory.tankindex + 1
                 else
-                    factory.tankindex = 1
+                    Factory.tankindex = 1
                 end
                 
             end,
-            factory.Fbuttons,
+            Factory.Fbuttons,
             wh/2 - 240 + 331,
             wh/2 - 240 + 331
         )
@@ -35,19 +34,19 @@ function TankDesigner:load()
         Previous = buttons.newToolButton(
             leftArrow,
             function ()
-                if factory.tankindex > 1 then
-                    factory.tankindex = factory.tankindex - 1
+                if Factory.tankindex > 1 then
+                    Factory.tankindex = Factory.tankindex - 1
                 else
-                    factory.tankindex = table.getn(factory.tanklist)
+                    Factory.tankindex = table.getn(Factory.tanklist)
                 end
             end,
-            factory.Fbuttons,
+            Factory.Fbuttons,
             ww/2 - 320 + 56,
             wh/2 - 240 + 331
         )
 
 
-        for i, tank in ipairs(factory.tanklist) do
+        for i, tank in ipairs(Factory.tanklist) do
             if tank.accessories then
                 for i, accessory in ipairs(tank.accessories) do
                     accessory.draw = false
@@ -74,7 +73,7 @@ function TankDesigner:load()
         Armor = buttons.newToolButton(
             Armor_icon,
             function ()
-                for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
+                for i, accessory in ipairs(Factory.tanklist[Factory.tankindex].accessories) do
                     if accessory.tag == 'Armor' then
                         accessory.use = true
                     else
@@ -82,7 +81,7 @@ function TankDesigner:load()
                     end
                 end
             end,
-            factory.Fbuttons,
+            Factory.Fbuttons,
             ww/2 - 320 + 80,
             wh/2 - 240 + 390
         )
@@ -90,7 +89,7 @@ function TankDesigner:load()
         Aiming = buttons.newToolButton(
             Aiming_icon,
             function ()
-                for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
+                for i, accessory in ipairs(Factory.tanklist[Factory.tankindex].accessories) do
                     if accessory.tag == 'Aim' then
                         accessory.use = true
                     else
@@ -98,7 +97,7 @@ function TankDesigner:load()
                     end
                 end
             end,
-            factory.Fbuttons,
+            Factory.Fbuttons,
             ww/2 - 320 + 128,
             wh/2 - 240 + 390
         )
@@ -106,7 +105,7 @@ function TankDesigner:load()
         Ammunition = buttons.newToolButton(
             Ammo_icon,
             function ()
-                for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
+                for i, accessory in ipairs(Factory.tanklist[Factory.tankindex].accessories) do
                     if accessory.tag == 'Ammo' then
                         accessory.use = true
                     else
@@ -114,7 +113,7 @@ function TankDesigner:load()
                     end
                 end
             end,
-            factory.Fbuttons,
+            Factory.Fbuttons,
             ww/2 - 320 + 176,
             wh/2 - 240 + 390
         )
@@ -122,7 +121,7 @@ function TankDesigner:load()
         Mobility = buttons.newToolButton(
             Mobility_icon,
             function ()
-                for i, accessory in ipairs(factory.tanklist[factory.tankindex].accessories) do
+                for i, accessory in ipairs(Factory.tanklist[Factory.tankindex].accessories) do
                     if accessory.tag == 'Mob' then
                         accessory.use = true
                     else
@@ -130,12 +129,12 @@ function TankDesigner:load()
                     end
                 end
             end,
-            factory.Fbuttons,
+            Factory.Fbuttons,
             ww/2 - 320 + 224,
             wh/2 - 240 + 390
         )
-
-    end
+    
+    
 end
 
 
@@ -145,13 +144,13 @@ end
 
 
 function TankDesigner:draw()
-    for i, factory in ipairs(TankDesigner) do
-
-        local TankPresent = factory.tanklist[factory.tankindex]
-        if factory.isopen then
+    
+    local TankPresent = Factory.tanklist[Factory.tankindex]
+    
+        if Factory.isopen then
             love.graphics.draw(factory_screen, ww/2 - 320, wh/2 - 240)
             love.graphics.setFont(Rbuttonfont)
-            love.graphics.print(factory.name, ww/2 - 320 + 40, wh/2 - 240)
+            love.graphics.print(Factory.name, ww/2 - 320 + 40, wh/2 - 240)
             love.graphics.setFont(Rtextfont)
             love.graphics.setColor(0,179/255,0)
             love.graphics.print(TankPresent.name, ww/2 - 320 + 40 + 6, wh/2 - 240 + 64 + 6)
@@ -175,10 +174,10 @@ function TankDesigner:draw()
                 end
             end
 
-            factory.Fbuttons:use()
+            Factory.Fbuttons:use()
 
         end
-    end
+    
 end
 
 --[[function newtank(tankname,factoryname)

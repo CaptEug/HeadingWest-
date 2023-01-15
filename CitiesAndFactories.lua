@@ -1,6 +1,5 @@
 CitiesAndFactories = {}
 Cities = {}
-Designers = {}
 
 function CitiesAndFactories:load()
     --test citis
