@@ -2,7 +2,7 @@ CitiesAndFactories = {}
 Cities = {}
 
 function CitiesAndFactories:load()
-    --test citis
+    --citylist
     UVZ = {
         x = 3100,
         y = 1200,
