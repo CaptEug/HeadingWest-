@@ -5,6 +5,12 @@ function TankDesigner:load()
     Factory.isopen = false
     Factory.Fbuttons = buttons.new()
     Factory.tankindex = 1
+    TankGear = {
+        armor = {line_image = Blank_line},
+        aim = {line_image = Blank_line},
+        ammo = {line_image = Blank_line},
+        mob = {line_image = Blank_line}
+    }
     
         Close = buttons.newToolButton(
             Close_icon,
@@ -24,6 +30,12 @@ function TankDesigner:load()
                 else
                     Factory.tankindex = 1
                 end
+                TankGear = {
+                    armor = {line_image = Blank_line},
+                    aim = {line_image = Blank_line},
+                    ammo = {line_image = Blank_line},
+                    mob = {line_image = Blank_line}
+                }
             end,
             Factory.Fbuttons,
             wh/2 - 240 + 331,
@@ -38,6 +50,12 @@ function TankDesigner:load()
                 else
                     Factory.tankindex = table.getn(Factory.tanklist)
                 end
+                TankGear = {
+                    armor = {line_image = Blank_line},
+                    aim = {line_image = Blank_line},
+                    ammo = {line_image = Blank_line},
+                    mob = {line_image = Blank_line}
+                }
             end,
             Factory.Fbuttons,
             ww/2 - 320 + 56,
@@ -54,20 +72,16 @@ function TankDesigner:load()
                         leftArrow,
                         function ()
                             if accessory.tag == 'Armor' then
-                                local armor = accessory
-                                table.insert(tank, armor)
+                                TankGear.armor = accessory
                             end
                             if accessory.tag == 'Aim' then
-                                local aim = accessory
-                                table.insert(tank, aim)
+                                TankGear.aim = accessory
                             end
                             if accessory.tag == 'Ammo' then
-                                local ammo = accessory
-                                table.insert(tank, ammo)
+                                TankGear.ammo = accessory
                             end
                             if accessory.tag == 'Mob' then
-                                local mob = accessory
-                                table.insert(tank, mob)
+                                TankGear.mob = accessory
                             end
                         end,
                         accessory.Abuttons,
@@ -177,18 +191,15 @@ function TankDesigner:draw()
                 end
             end
 
-            if TankPresent.armor then
-                love.graphics.draw(TankPresent.armor.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            end
-            if TankPresent.aim then
-                love.graphics.draw(TankPresent.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            end
-            if TankPresent.ammo then
-                love.graphics.draw(TankPresent.ammo.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            end
-            if TankPresent.mob then
-                love.graphics.draw(TankPresent.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            end
+            
+            love.graphics.draw(TankGear.armor.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            
+            love.graphics.draw(TankGear.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            
+            love.graphics.draw(TankGear.ammo.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            
+            love.graphics.draw(TankGear.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            
             
             Factory.Fbuttons:use()
 
