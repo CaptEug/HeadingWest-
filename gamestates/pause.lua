@@ -26,7 +26,7 @@ function Pause:init()
     Save = buttons.newButton(
         "Save",
         function()
-            if self.from~= Euromap then
+            if self.from~= Worldmap then
                 Saving:filesave(Filenumber)
             end
         end,
