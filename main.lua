@@ -67,6 +67,7 @@ Rbuttonfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 50)
 Rheadfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 20)
 Rtextfont = love.graphics.newFont('Assets/fonts/pixelfont.otf')
 --tanks
+Blank_line = love.graphics.newImage('Assets/tanks/Blank_line.png')
 T72A_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_line.png')
 T72A_kontakt1_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_kontakt1_line.png')
 T72B_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_line.png')

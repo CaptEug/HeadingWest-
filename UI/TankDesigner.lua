@@ -5,7 +5,12 @@ function TankDesigner:load()
     Factory.isopen = false
     Factory.Fbuttons = buttons.new()
     Factory.tankindex = 1
-        
+
+    TankPresent.armor = {line_image = Blank_line}
+    TankPresent.aim = {line_image = Blank_line}
+    TankPresent.ammo = {line_image = Blank_line}
+    TankPresent.mob = {line_image = Blank_line}
+    
         Close = buttons.newToolButton(
             Close_icon,
             function ()
@@ -24,7 +29,6 @@ function TankDesigner:load()
                 else
                     Factory.tankindex = 1
                 end
-                
             end,
             Factory.Fbuttons,
             wh/2 - 240 + 331,
@@ -45,21 +49,26 @@ function TankDesigner:load()
             wh/2 - 240 + 331
         )
 
-
         for i, tank in ipairs(Factory.tanklist) do
             if tank.accessories then
                 for i, accessory in ipairs(tank.accessories) do
-                    accessory.draw = false
                     accessory.use = false
                     accessory.Abuttons = buttons.new()
-
-                    Draw = buttons.newToolButton(
+                    
+                    Equip = buttons.newToolButton(
                         leftArrow,
                         function ()
-                            if accessory.draw then
-                                accessory.draw = false
-                            else
-                                accessory.draw = true
+                            if accessory.tag == 'Armor' then
+                                TankPresent.armor = accessory
+                            end
+                            if accessory.tag == 'Aim' then
+                                TankPresent.aim = accessory
+                            end
+                            if accessory.tag == 'Ammo' then
+                                TankPresent.ammo = accessory
+                            end
+                            if accessory.tag == 'Mob' then
+                                TankPresent.mob = accessory
                             end
                         end,
                         accessory.Abuttons,
@@ -144,9 +153,9 @@ end
 
 
 function TankDesigner:draw()
-    
-    local TankPresent = Factory.tanklist[Factory.tankindex]
-    
+
+    TankPresent = Factory.tanklist[Factory.tankindex]
+
         if Factory.isopen then
             love.graphics.draw(factory_screen, ww/2 - 320, wh/2 - 240)
             love.graphics.setFont(Rbuttonfont)
@@ -155,10 +164,8 @@ function TankDesigner:draw()
             love.graphics.setColor(0,179/255,0)
             love.graphics.print(TankPresent.name, ww/2 - 320 + 40 + 6, wh/2 - 240 + 64 + 6)
             love.graphics.setColor(1,1,1)
-            love.graphics.draw(TankPresent.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
 
             if TankPresent.accessories then
-                
                 for i, accessory in ipairs(TankPresent.accessories) do
                     if accessory.use then
                         love.graphics.setFont(Rtextfont)
@@ -166,14 +173,16 @@ function TankDesigner:draw()
                         love.graphics.print(accessory.name, ww/20 + 390, wh/10 + 70*i)
                         love.graphics.setColor(1,1,1)
                         accessory.Abuttons:use()
-                    end   
-                    
-                    if accessory.draw then
-                        love.graphics.draw(accessory.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
                     end
                 end
             end
 
+            love.graphics.draw(TankPresent.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankPresent.armor.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankPresent.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankPresent.ammo.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankPresent.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            
             Factory.Fbuttons:use()
 
         end
