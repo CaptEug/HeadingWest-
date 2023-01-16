@@ -18,7 +18,12 @@ function Pause:init()
     BacktoMMenu = buttons.newButton(
         "MainMenu",
         function()
+            if self.from~= Worldmap then
+                Saving:filesave(Filenumber)
+            end
+            Worldmap:init()
             Gamestate.switch(MainMenu)
+
         end,
         Pbuttons
     )
@@ -26,7 +31,7 @@ function Pause:init()
     Save = buttons.newButton(
         "Save",
         function()
-            if self.from~= Euromap then
+            if self.from~= Worldmap then
                 Saving:filesave(Filenumber)
             end
         end,
