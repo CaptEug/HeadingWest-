@@ -70,7 +70,7 @@ function GS.pop(...)
 	return (to.resume or __NULL__)(to, pre, ...)
 end
 function GS.TRASH(...)
-
+	
 	end
 
 function GS.current()

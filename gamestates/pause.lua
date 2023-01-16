@@ -21,7 +21,9 @@ function Pause:init()
             if self.from~= Worldmap then
                 Saving:filesave(Filenumber)
             end
+            Worldmap:init()
             Gamestate.switch(MainMenu)
+
         end,
         Pbuttons
     )
