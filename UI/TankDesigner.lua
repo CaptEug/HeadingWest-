@@ -5,11 +5,6 @@ function TankDesigner:load()
     Factory.isopen = false
     Factory.Fbuttons = buttons.new()
     Factory.tankindex = 1
-
-    TankPresent.armor = {line_image = Blank_line}
-    TankPresent.aim = {line_image = Blank_line}
-    TankPresent.ammo = {line_image = Blank_line}
-    TankPresent.mob = {line_image = Blank_line}
     
         Close = buttons.newToolButton(
             Close_icon,
@@ -59,16 +54,20 @@ function TankDesigner:load()
                         leftArrow,
                         function ()
                             if accessory.tag == 'Armor' then
-                                TankPresent.armor = accessory
+                                local armor = accessory
+                                table.insert(tank, armor)
                             end
                             if accessory.tag == 'Aim' then
-                                TankPresent.aim = accessory
+                                local aim = accessory
+                                table.insert(tank, aim)
                             end
                             if accessory.tag == 'Ammo' then
-                                TankPresent.ammo = accessory
+                                local ammo = accessory
+                                table.insert(tank, ammo)
                             end
                             if accessory.tag == 'Mob' then
-                                TankPresent.mob = accessory
+                                local mob = accessory
+                                table.insert(tank, mob)
                             end
                         end,
                         accessory.Abuttons,
@@ -164,6 +163,7 @@ function TankDesigner:draw()
             love.graphics.setColor(0,179/255,0)
             love.graphics.print(TankPresent.name, ww/2 - 320 + 40 + 6, wh/2 - 240 + 64 + 6)
             love.graphics.setColor(1,1,1)
+            love.graphics.draw(TankPresent.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
 
             if TankPresent.accessories then
                 for i, accessory in ipairs(TankPresent.accessories) do
@@ -177,11 +177,18 @@ function TankDesigner:draw()
                 end
             end
 
-            love.graphics.draw(TankPresent.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            love.graphics.draw(TankPresent.armor.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            love.graphics.draw(TankPresent.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            love.graphics.draw(TankPresent.ammo.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            love.graphics.draw(TankPresent.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            if TankPresent.armor then
+                love.graphics.draw(TankPresent.armor.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            end
+            if TankPresent.aim then
+                love.graphics.draw(TankPresent.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            end
+            if TankPresent.ammo then
+                love.graphics.draw(TankPresent.ammo.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            end
+            if TankPresent.mob then
+                love.graphics.draw(TankPresent.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            end
             
             Factory.Fbuttons:use()
 
