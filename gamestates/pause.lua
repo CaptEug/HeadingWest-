@@ -18,6 +18,9 @@ function Pause:init()
     BacktoMMenu = buttons.newButton(
         "MainMenu",
         function()
+            if self.from~= Worldmap then
+                Saving:filesave(Filenumber)
+            end
             Gamestate.switch(MainMenu)
         end,
         Pbuttons
