@@ -1,7 +1,6 @@
 TankDesigner = {}
 
 function TankDesigner:load()
-
     Factory.isopen = false
     Factory.Fbuttons = buttons.new()
     Factory.tankindex = 1
@@ -156,7 +155,16 @@ function TankDesigner:load()
             wh/2 - 240 + 390
         )
     
-    
+    Build = buttons.newToolButton(
+        Build_icon,
+        function ()
+            Buildtank()
+        end,
+        Factory.Fbuttons,
+        ww/2 - 320 + 405,
+        wh/2 - 240 + 390
+    )
+
 end
 
 
@@ -191,27 +199,30 @@ function TankDesigner:draw()
                 end
             end
 
-            
             love.graphics.draw(TankGear.armor.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            
             love.graphics.draw(TankGear.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            
             love.graphics.draw(TankGear.ammo.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            
             love.graphics.draw(TankGear.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
             
+            for i, tank in ipairs(Factory.ProductionQueue) do
+                love.graphics.print(tank.name, ww/2 - 320 + 452, wh/2 - 240 + 72 + 20*i)
+            end
             
             Factory.Fbuttons:use()
 
         end
-    
 end
 
---[[function newtank(tankname,factoryname)
+function Buildtank()
     local instance = {
-        tankname = tankname,
-        productionQueue = 0,
-        stock = 0,
+        name = TankPresent.name,
+        hull_image = TankPresent.hull_image,
+        turret_image = TankPresent.turret_image,
+        armor = TankGear.armor,
+        aim = TankGear.aim,
+        ammo = TankGear.ammo,
+        mob = TankGear.mob,
     }
-    table.insert(factoryname.tanklists, instance)
-end]]
+    table.insert(Factory.ProductionQueue, instance)
+    Factory.ProductionNumber = Factory.ProductionNumber + 1
+end

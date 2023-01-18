@@ -2,6 +2,9 @@ FactoryUI={}
 require 'UI/TankDesigner'
 
 function FactoryUI:load()
+    Factory.ProductionQueue = {}
+    Factory.ProductionNumber = 0
+
     Facbutton = buttons.new()
     FacDesigner = buttons.newToolButton(
         Tankdesigner_icon,
