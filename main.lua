@@ -53,6 +53,7 @@ Mobility_icon = love.graphics.newImage('Assets/pictures/buttons/Mobility.png')
 Go = love.graphics.newImage('Assets/pictures/buttons/Go.png')
 Tankdesigner_icon = love.graphics.newImage('Assets/pictures/buttons/Tankdesigner.png')
 Build_icon = love.graphics.newImage('Assets/pictures/buttons/Build.png')
+Delete_icon = love.graphics.newImage('Assets/pictures/buttons/Delete.png')
 --UI
 factory_screen = love.graphics.newImage('Assets/pictures/factory_screen.png')
 city_page = love.graphics.newImage('Assets/pictures/Citypage.png')
