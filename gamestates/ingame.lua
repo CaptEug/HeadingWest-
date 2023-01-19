@@ -33,6 +33,10 @@ function ingame:update(dt)
         FactoryUI:update()
     end
 
+    if TankAdded then
+        ADDtank()
+    end
+
     world:update(dt)
     particleworld:update(dt)
     tanks_table:update(dt)

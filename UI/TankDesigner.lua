@@ -225,4 +225,5 @@ function Buildtank()
     }
     table.insert(Factory.ProductionQueue, instance)
     Factory.ProductionNumber = Factory.ProductionNumber + 1
+    TankAdded=true
 end
