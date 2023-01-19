@@ -81,6 +81,4 @@ function ADDtank()
         table.insert(Exsistank,tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0))
         TankAdded=false
     end
-    Factory.ProductionNumber=0
-    Factory.ProductionQueue={}
 end

@@ -3,6 +3,7 @@ TankDesigner = {}
 function TankDesigner:load()
     Factory.isopen = false
     Factory.Fbuttons = buttons.new()
+    Factory.Pbuttons = buttons.new()
     Factory.tankindex = 1
     TankGear = {
         armor = {line_image = Blank_line},
@@ -169,6 +170,18 @@ end
 
 
 function TankDesigner:update()
+    for i, tank in ipairs(Factory.ProductionQueue) do
+        Delet = buttons.newToolButton(
+            Close_icon,
+            function ()
+                table.remove(Factory.ProductionQueue, i)
+                table.remove(Factory.Pbuttons, i)
+            end,
+            Factory.Pbuttons,
+            ww/2 - 320 + 452,
+            wh/2 - 240 + 72 + 20*i
+        )
+    end
     
 end
 
@@ -209,6 +222,7 @@ function TankDesigner:draw()
             end
             
             Factory.Fbuttons:use()
+            Factory.Pbuttons:use()
 
         end
 end
