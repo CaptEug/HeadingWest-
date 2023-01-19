@@ -2,10 +2,12 @@ Worldmap = {}
 Worldmap = Gamestate.new()
 
 require 'UI/WorldmapUI'
-require 'CitiesAndFactories'
+require 'Data/CitiesAndFactories'
+require 'Data/TankData'
 
 function Worldmap:init()
     CitiesAndFactories:load()
+    TankData:load()
     WorldmapUI:load()
 
 end
