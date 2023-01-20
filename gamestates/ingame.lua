@@ -44,10 +44,10 @@ function ingame:update(dt)
         FactoryUI:update(dt)
     end
 
-    if TankAdded then
+    --[[if TankAdded then
         TankSpawner:spawn()
         ADDtank()
-    end
+    end]]
 
     world:update(dt)
     particleworld:update(dt)

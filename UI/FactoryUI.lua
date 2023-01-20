@@ -27,6 +27,7 @@ function FactoryUI:update(dt)
     for i, tank in ipairs(Factory.ProductionQueue) do
         tank.buildtime = tank.buildtime - dt
         if tank.buildtime <= 0 then
+            ADDtank()
             table.remove(Factory.ProductionQueue, i)
         end
     end

@@ -239,6 +239,6 @@ function Buildtank()
     table.insert(Factory.ProductionQueue, 1, instance)
     
     Factory.ProductionNumber = Factory.ProductionNumber + 1
-    TankAdded=true
+    --TankAdded=true
 
 end

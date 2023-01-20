@@ -46,6 +46,7 @@ function drawMap()
     tanks_table:draw()
     Ammo.draw()
     DrawCollider()
+    --TankSpawner:draw()
 
     --[[if gameMap.layers["Roof"] then
         gameMap:drawLayer(gameMap.layers["Roof"])
@@ -81,7 +82,7 @@ function ADDtank()
     for i,t in ipairs(tankqueue) do
         --tank1=tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)
         tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)
-        TankSpawner:spawn()
+        --TankSpawner:spawn()
         TankAdded=false
     end
 end

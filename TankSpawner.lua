@@ -33,10 +33,20 @@ end
 --love.graphics.draw()
 --world.newRectangleCollider()
 --[[Exsistank={
-    tank1={
+    {
         name='t72'
         hull_image=...
         yuttt=..
+        x=
+        y=
+        a=
+        a
+        r=
+
+    }
+
+    {
+        name=...
 
     }
 }]]
