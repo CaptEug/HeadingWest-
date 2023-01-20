@@ -42,8 +42,8 @@ function MainMenu:update(dt)
     Start.by = wh / 2
     Quit.bx = ww / 2
     Quit.by = wh * 3 / 5
-    Settings.bx = 32
-    Settings.by = wh - 32
+    Settings.bx = 16
+    Settings.by = wh - 16
 
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
