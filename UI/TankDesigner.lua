@@ -215,7 +215,8 @@ function TankDesigner:draw()
             love.graphics.draw(TankGear.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
             
             for i, tank in ipairs(Factory.ProductionQueue) do
-                love.graphics.print(tank.name, ww/2 - 320 + 452, wh/2 - 240 + 72 + 20*i)
+                love.graphics.print(tank.name, ww/2 - 320 + 452, wh/2 - 240 + 74 + 20*i)
+                love.graphics.rectangle('fill', ww/2 - 320 + 452, wh/2 - 240 + 90 + 20*i, 140 - (140*tank.buildtime/tank.fixedbuildtime), 4)
             end
             
             Factory.Fbuttons:use()
@@ -232,8 +233,12 @@ function Buildtank()
         aim = TankGear.aim,
         ammo = TankGear.ammo,
         mob = TankGear.mob,
+        buildtime = TankPresent.buildtime,
+        fixedbuildtime = TankPresent.buildtime
     }
     table.insert(Factory.ProductionQueue, 1, instance)
+    
     Factory.ProductionNumber = Factory.ProductionNumber + 1
     TankAdded=true
+
 end

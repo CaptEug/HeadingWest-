@@ -3,17 +3,18 @@ WorldmapUI = {}
 function WorldmapUI:load()
     Year = 1946
 
-    Ebuttons = buttons.new()
+    Wbuttons = buttons.new()
     Settings = buttons.newToolButton(
         Gear,
         function()
             Gamestate.push(Pause)
         end,
-        Ebuttons
+        Wbuttons,
+        16,
+        wh - 16
     )
 
     Cbuttons = buttons.new()
-    Cbuttons.ison = true
 
     for i, city in ipairs(Cities) do
         city.isopen = false
@@ -47,54 +48,18 @@ function WorldmapUI:load()
             city.Gobuttons
         )
     end
-
-    --[[Berlin = buttons.newCamButton(
-        Berlin_Bear,
-        function ()
-            MapNumber=1
-            Saving:fileload()
-        end,
-        Cbuttons
-    )
-
-    UVZ = buttons.newCamButton(
-        UVZ_Icon,
-        function ()
-            if KMDB.isopen then
-                KMDB.isopen = false
-            else
-                KMDB.isopen = true
-            end
-            Cbuttons.ison = false
-        end,
-        Cbuttons
-    )]]
 end
 
 function WorldmapUI:update(dt)
-    Year = Year + dt / 10
-    Settings.bx = 32
-    Settings.by = wh - 32
-
-    
-
-    --[[Berlin.bx = 1835
-    Berlin.by = 1345
-    UVZ.bx = 3100
-    UVZ.by = 1200]]
-    
+    Year = Year + dt / 10 
 end
 
 function WorldmapUI:draw()
-    Ebuttons:use()
-
     cam:attach()
-        if Cbuttons.ison then
-            Cbuttons:use()
-        end
-
-        
+        Cbuttons:use()
     cam:detach()
+
+    Wbuttons:use()
     
     love.graphics.setFont(Rtitlefont)
     love.graphics.print(tostring(math.floor(Year)), love.graphics.getWidth() / 2 - Rtitlefont:getWidth(tostring(math.floor(Year))) / 2, 0)

@@ -5,16 +5,8 @@ function BattlefieldUI:load()
     --table.insert(TankList, T54)
     --drawTankList = false
 
-    Gbuttons = buttons.new()
-    Settings = buttons.newToolButton(
-        Gear,
-        function()
-            Gamestate.push(Pause)
-        end,
-        Gbuttons
-    )
-
-
+    BFbuttons = buttons.new()
+    
     CallAirStrike = buttons.newToolButton(
         PlaneIcon,
         function ()
@@ -24,19 +16,16 @@ function BattlefieldUI:load()
                 love.mouse.setCursor(bombcursor)
             end
         end,
-        Gbuttons
+        BFbuttons
     )
 
 end
 
 function BattlefieldUI:update(dt)
-    Settings.bx = 32
-    Settings.by = wh - 32
     
 end
 
 function BattlefieldUI:draw()
-    Gbuttons:use()
     
 end
 

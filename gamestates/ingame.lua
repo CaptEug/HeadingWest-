@@ -4,6 +4,16 @@ require "entity_test.tanks_new"
 require 'UI/BattlefieldUI'
 require 'UI/FactoryUI'
 function ingame:init()
+    Gbuttons = buttons.new()
+    Settings = buttons.newToolButton(
+        Gear,
+        function()
+            Gamestate.push(Pause)
+        end,
+        Gbuttons,
+        16,
+        wh - 16
+    )
     
     Saving:getdata(Filenumber)
     Data()
@@ -28,10 +38,10 @@ end
 
 function ingame:update(dt)
     if Map_type=='Battlefield'then
-        BattlefieldUI:update()
+        BattlefieldUI:update(dt)
     end
     if Map_type=='Factory'then
-        FactoryUI:update()
+        FactoryUI:update(dt)
     end
 
     if TankAdded then
@@ -66,11 +76,11 @@ function ingame:draw()
     if Map_type=='Battlefield'then
         BattlefieldUI:draw()
     end
-    
     if Map_type=='Factory'then
         FactoryUI:draw()
-    end
-    
+    end    
+
+    Gbuttons:use() 
 end
 
 function ingame:drawWithoutUI()
