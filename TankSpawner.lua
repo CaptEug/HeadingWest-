@@ -1,9 +1,42 @@
 TankSpawner={}
-
+local c={}
 function TankSpawner:loadTank()
     
 end
 
 function TankSpawner:spawn()
-    love.graphics.draw(T72A_hull,0,0,0,100,100)
+    table.insert(Exsistank,TankFunctions:newtank())
 end
+
+function TankSpawner:draw()
+    for i,t in ipairs(Exsistank) do
+        love.graphics.draw(t.hull_image)
+        love.graphics.draw(t.turret_image)
+    end
+end
+
+TankFunctions={}
+
+function TankFunctions:newtank()
+    local tankfactors=Factory.ProductionQueue
+    local tank={}
+    --[[name = TankPresent.name,
+        hull_image = TankPresent.hull_image,
+        turret_image = TankPresent.turret_image,
+        armor = TankGear.armor,
+        aim = TankGear.aim,
+        ammo = TankGear.ammo,
+        mob = TankGear.mob,]]
+        return tank
+end
+
+--love.graphics.draw()
+--world.newRectangleCollider()
+--[[Exsistank={
+    tank1={
+        name='t72'
+        hull_image=...
+        yuttt=..
+
+    }
+}]]

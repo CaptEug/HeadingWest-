@@ -42,7 +42,7 @@ function drawMap()
     --[[if gameMap.layers["Ground"] then
         gameMap:drawLayer(gameMap.layers["Ground"])
     end]]
-    
+
     tanks_table:draw()
     Ammo.draw()
     DrawCollider()
@@ -80,7 +80,7 @@ function ADDtank()
     local tankqueue=Factory.ProductionQueue
     for i,t in ipairs(tankqueue) do
         --tank1=tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)
-        table.insert(Exsistank,tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0))
+        tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)
         TankSpawner:spawn()
         TankAdded=false
     end

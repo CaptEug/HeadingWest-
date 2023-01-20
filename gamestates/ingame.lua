@@ -10,6 +10,7 @@ function ingame:init()
 
     local map=Maps[MapNumber]
     loadMap(map)
+    love.graphics.draw(love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_hull.png'))
     if Map_type=='Battlefield'then
         BattlefieldUI:load()
     end
@@ -34,8 +35,8 @@ function ingame:update(dt)
     end
 
     if TankAdded then
+        TankSpawner:spawn()
         ADDtank()
-        love.graphics.draw(T72A_hull,0,0,0,100,100)
     end
 
     world:update(dt)
