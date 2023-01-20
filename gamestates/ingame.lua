@@ -35,6 +35,7 @@ function ingame:update(dt)
 
     if TankAdded then
         ADDtank()
+        love.graphics.draw(T72A_hull,0,0,0,100,100)
     end
 
     world:update(dt)
@@ -67,7 +68,8 @@ function ingame:draw()
     
     if Map_type=='Factory'then
         FactoryUI:draw()
-    end    
+    end
+    
 end
 
 function ingame:drawWithoutUI()
