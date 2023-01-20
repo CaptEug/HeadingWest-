@@ -21,11 +21,20 @@ function FactoryUI:load()
     TankDesigner:load()
 end
 
-function FactoryUI:update()
+function FactoryUI:update(dt)
     TankDesigner:update()
+    --tank production process
+    for i, tank in ipairs(Factory.ProductionQueue) do
+        tank.buildtime = tank.buildtime - dt
+        if tank.buildtime <= 0 then
+            table.remove(Factory.ProductionQueue, i)
+        end
+    end
+
 end
 
 function FactoryUI:draw()
+    
     Facbutton:use()
     TankDesigner:draw()
 end

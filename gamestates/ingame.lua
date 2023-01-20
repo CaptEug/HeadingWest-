@@ -37,10 +37,10 @@ end
 
 function ingame:update(dt)
     if Map_type=='Battlefield'then
-        BattlefieldUI:update()
+        BattlefieldUI:update(dt)
     end
     if Map_type=='Factory'then
-        FactoryUI:update()
+        FactoryUI:update(dt)
     end
 
     if TankAdded then
