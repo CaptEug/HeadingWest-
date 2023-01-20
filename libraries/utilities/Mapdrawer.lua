@@ -2,6 +2,8 @@ Buildings = {}
 Obstacles = {}
 Exsistank={}
 
+require 'TankSpawner'
+
 function loadMap(mapName)
     destroyAll()
     gameMap = sti("chapters/maps/" .. mapName .. ".lua")
@@ -79,6 +81,7 @@ function ADDtank()
     for i,t in ipairs(tankqueue) do
         --tank1=tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)
         table.insert(Exsistank,tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0))
+        TankSpawner:spawn()
         TankAdded=false
     end
 end
