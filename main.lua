@@ -57,6 +57,7 @@ Delete_icon = love.graphics.newImage('Assets/pictures/buttons/Delete.png')
 --UI
 factory_screen = love.graphics.newImage('Assets/pictures/factory_screen.png')
 city_page = love.graphics.newImage('Assets/pictures/Citypage.png')
+production_box = love.graphics.newImage('Assets/pictures/Pbox.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')

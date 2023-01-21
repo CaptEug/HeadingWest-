@@ -4,6 +4,8 @@ function TankDesigner:load()
     Factory.isopen = false
     Factory.Fbuttons = buttons.new()
     Factory.tankindex = 1
+    Factory.ProductionQueue = {}
+    Factory.ProductionNumber = 0
     TankGear = {
         armor = {line_image = Blank_line},
         aim = {line_image = Blank_line},
@@ -67,7 +69,7 @@ function TankDesigner:load()
                     accessory.use = false
                     accessory.Abuttons = buttons.new()
                     
-                    Equip = buttons.newToolButton(
+                    local Equip = buttons.newToolButton(
                         leftArrow,
                         function ()
                             if accessory.tag == 'Armor' then
@@ -172,14 +174,22 @@ function TankDesigner:load()
         end,
         Factory.Fbuttons,
         ww/2 - 320 + 567,
-        wh/2 - 240 + 84
+        wh/2 - 240 + 79
     )
 
 end
 
 
-function TankDesigner:update()
-    
+function TankDesigner:update(dt)
+    --tank production process
+    for i, tank in ipairs(Factory.ProductionQueue) do
+        tank.buildtime = tank.buildtime - dt
+        if tank.buildtime <= 0 then
+            ADDtank()
+            table.remove(Factory.ProductionQueue, i)
+            Factory.ProductionNumber = Factory.ProductionNumber - 1
+        end
+    end
 end
 
 
@@ -215,8 +225,11 @@ function TankDesigner:draw()
             love.graphics.draw(TankGear.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
             
             for i, tank in ipairs(Factory.ProductionQueue) do
-                love.graphics.print(tank.name, ww/2 - 320 + 452, wh/2 - 240 + 74 + 20*i)
-                love.graphics.rectangle('fill', ww/2 - 320 + 452, wh/2 - 240 + 90 + 20*i, 140 - (140*tank.buildtime/tank.fixedbuildtime), 4)
+                love.graphics.draw(production_box,ww/2 - 320 + 452, wh/2 - 240 + 62 + 28*i)
+                love.graphics.setColor(0,179/255,0)
+                love.graphics.print(tank.name, ww/2 - 320 + 456, wh/2 - 240 + 66 + 28*i)
+                love.graphics.rectangle('fill', ww/2 - 320 + 456, wh/2 - 240 + 80 + 28*i, 132 - (132*tank.buildtime/tank.fixedbuildtime), 4)
+                love.graphics.setColor(1,1,1)
             end
             
             Factory.Fbuttons:use()
@@ -239,6 +252,4 @@ function Buildtank()
     table.insert(Factory.ProductionQueue, 1, instance)
     
     Factory.ProductionNumber = Factory.ProductionNumber + 1
-    --TankAdded=true
-
 end
