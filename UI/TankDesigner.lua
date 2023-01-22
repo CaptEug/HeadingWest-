@@ -186,7 +186,7 @@ function TankDesigner:update(dt)
         tank.buildtime = tank.buildtime - dt
         if tank.buildtime <= 0 then
             ADDtank()
-            table.remove(Factory.ProductionQueue, i)
+            table.insert(Factory.tankstock, table.remove(Factory.ProductionQueue, i))
             Factory.ProductionNumber = Factory.ProductionNumber - 1
         end
     end

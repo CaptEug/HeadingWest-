@@ -1,5 +1,6 @@
 CitiesAndFactories = {}
 Cities = {}
+Alltanks = {}
 
 function CitiesAndFactories:load()
     UVZ = {
@@ -9,7 +10,8 @@ function CitiesAndFactories:load()
         icon = UVZ_Icon,
         type='Factory',
         map = 2,
-        tanklist = {}
+        tanklist = {},
+        tankstock = {}
     }
     table.insert(Cities, UVZ)
 
@@ -19,7 +21,8 @@ function CitiesAndFactories:load()
         name = 'Berlin',
         icon = Berlin_Bear,
         type='Battlefield',
-        map = 1
+        map = 1,
+        tankstock = {}
     }
     table.insert(Cities, Berlin)
 end
