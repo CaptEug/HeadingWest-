@@ -19,7 +19,7 @@ function CitiesAndFactories:load()
         x = 1835,
         y = 1345,
         name = 'Berlin',
-        icon = Berlin_Bear,
+        icon = Berlin_icon,
         type='Battlefield',
         map = 1,
         tankstock = {}

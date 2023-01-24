@@ -70,12 +70,12 @@ function WorldmapUI:draw()
     for i, city in ipairs(Cities) do
         if city.isopen then
             local x, y = cam:cameraCoords(city.x, city.y)
-            city.Go.bx = x + 208
-            city.Go.by = y + 146
+            city.Go.bx = x + 205
+            city.Go.by = y + 226
             pagex = x
-            pagey = y - 176
+            pagey = y - 100
             headx = x + 16
-            heady = y - 160
+            heady = y - 84
 
             love.graphics.draw(city_page, pagex, pagey)
             love.graphics.setFont(Rheadfont)
