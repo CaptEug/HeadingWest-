@@ -4,8 +4,14 @@ function TankSpawner:loadTank()
     
 end
 
-function TankSpawner:spawn()
-    table.insert(Exsistank,TankFunctions:newtank())
+function TankSpawner:spawn(place)
+    --table.insert(Exsistank,TankFunctions:newtank())
+    for i, tank in ipairs(place.tankstock) do
+        love.graphics.draw(tank.hull_image, 100 + 100*i, 100)
+        love.graphics.draw(tank.armor.hull_image, 100 + 100*i, 100)
+        love.graphics.draw(tank.turret_image, 100 + 100*i, 100)
+        love.graphics.draw(tank.armor.turret_image, 100 + 100*i, 100)
+    end
 end
 
 function TankSpawner:draw()

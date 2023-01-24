@@ -7,10 +7,10 @@ function TankDesigner:load()
     Factory.ProductionQueue = {}
     Factory.ProductionNumber = 0
     TankGear = {
-        armor = {line_image = Blank_line},
-        aim = {line_image = Blank_line},
-        ammo = {line_image = Blank_line},
-        mob = {line_image = Blank_line}
+        armor = Blank_Gear,
+        aim = Blank_Gear,
+        ammo = Blank_Gear,
+        mob = Blank_Gear
     }
     
         Close = buttons.newToolButton(
@@ -32,10 +32,10 @@ function TankDesigner:load()
                     Factory.tankindex = 1
                 end
                 TankGear = {
-                    armor = {line_image = Blank_line},
-                    aim = {line_image = Blank_line},
-                    ammo = {line_image = Blank_line},
-                    mob = {line_image = Blank_line}
+                    armor = Blank_Gear,
+                    aim = Blank_Gear,
+                    ammo = Blank_Gear,
+                    mob = Blank_Gear
                 }
             end,
             Factory.Fbuttons,
@@ -52,10 +52,10 @@ function TankDesigner:load()
                     Factory.tankindex = table.getn(Factory.tanklist)
                 end
                 TankGear = {
-                    armor = {line_image = Blank_line},
-                    aim = {line_image = Blank_line},
-                    ammo = {line_image = Blank_line},
-                    mob = {line_image = Blank_line}
+                    armor = Blank_Gear,
+                    aim = Blank_Gear,
+                    ammo = Blank_Gear,
+                    mob = Blank_Gear
                 }
             end,
             Factory.Fbuttons,

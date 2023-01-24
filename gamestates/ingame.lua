@@ -44,11 +44,6 @@ function ingame:update(dt)
         FactoryUI:update(dt)
     end
 
-    --[[if TankAdded then
-        TankSpawner:spawn()
-        ADDtank()
-    end]]
-
     world:update(dt)
     particleworld:update(dt)
     tanks_table:update(dt)
@@ -70,15 +65,19 @@ end
 function ingame:draw()
     cam:attach()
         drawMap()
+        TankSpawner:spawn(CurrentPlace)
         world:draw()
         particleworld:draw()
     cam:detach()
+
     if Map_type=='Battlefield'then
         BattlefieldUI:draw()
     end
     if Map_type=='Factory'then
         FactoryUI:draw()
     end    
+    
+    
 
     Gbuttons:use() 
 end
