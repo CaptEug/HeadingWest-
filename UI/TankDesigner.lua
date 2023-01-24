@@ -217,6 +217,7 @@ function TankDesigner:update(dt)
         if tank.buildtime <= 0 then
             ADDtank()
             table.insert(Factory.tankstock, table.remove(Factory.ProductionQueue, i))
+            TankSpawner:spawn()
             Factory.ProductionNumber = Factory.ProductionNumber - 1
         end
     end

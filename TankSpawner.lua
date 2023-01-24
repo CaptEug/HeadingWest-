@@ -1,15 +1,24 @@
 TankSpawner={}
-local c={}
+TurretCollider={}
+
 function TankSpawner:loadTank()
     
 end
 
 function TankSpawner:spawn(place)
     --table.insert(Exsistank,TankFunctions:newtank())
+    TankColliders()
 end
 
-function TankSpawner:colliders(place)
-    world:newRectangleCollider(100 + 100, 100,100,100)
+function TankColliders(place)
+    table.insert(TurretCollider,world:newRectangleCollider(100 + 100*Dx, 100,100,100))
+    local turretcollider={}
+    Dx=Dx+1
+end
+function GetCollidersPositon()
+    for i,j in (TurretCollider) do
+    local x,y=body:GetCollidersPositon(j)
+    end
 end
 function TankSpawner:draw(place)
     --[[for i,t in ipairs(Exsistank) do
