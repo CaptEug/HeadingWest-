@@ -65,7 +65,7 @@ end
 function ingame:draw()
     cam:attach()
         drawMap()
-        TankSpawner:spawn(CurrentPlace)
+        TankSpawner:draw(CurrentPlace)
         world:draw()
         particleworld:draw()
     cam:detach()

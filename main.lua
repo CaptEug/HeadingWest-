@@ -75,7 +75,7 @@ Rtextfont = love.graphics.newFont('Assets/fonts/pixelfont.otf')
 Maps={'checkpointC','Testmap'}
 MapNumber=1
 Filenumber=1
-
+Dx=1
 
 
 function love.load()
