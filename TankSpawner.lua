@@ -6,18 +6,21 @@ end
 
 function TankSpawner:spawn(place)
     --table.insert(Exsistank,TankFunctions:newtank())
+end
+
+function TankSpawner:colliders(place)
+    world:newRectangleCollider(100 + 100, 100,100,100)
+end
+function TankSpawner:draw(place)
+    --[[for i,t in ipairs(Exsistank) do
+        love.graphics.draw(t.hull_image)
+        love.graphics.draw(t.turret_image)
+    end]]
     for i, tank in ipairs(place.tankstock) do
         love.graphics.draw(tank.hull_image, 100 + 100*i, 100)
         love.graphics.draw(tank.armor.hull_image, 100 + 100*i, 100)
         love.graphics.draw(tank.turret_image, 100 + 100*i, 100)
         love.graphics.draw(tank.armor.turret_image, 100 + 100*i, 100)
-    end
-end
-
-function TankSpawner:draw()
-    for i,t in ipairs(Exsistank) do
-        love.graphics.draw(t.hull_image)
-        love.graphics.draw(t.turret_image)
     end
 end
 
