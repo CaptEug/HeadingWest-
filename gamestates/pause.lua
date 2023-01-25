@@ -69,7 +69,7 @@ function Pause:draw()
 end
 
 function love.keypressed(key)
-    if Gamestate.current() == ingame and key == 'escape' then
+    if key == 'escape' and (Gamestate.current() == ingame or Gamestate.current()== Worldmap) then
         return Gamestate.push(Pause)
     end
 end
