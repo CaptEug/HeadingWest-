@@ -1,5 +1,6 @@
 TankSpawner={}
-TurretCollider={}
+HullColliders={}
+TurretColliders={}
 
 function TankSpawner:loadTank()
     
@@ -38,19 +39,21 @@ function TankSpawner:testspawn(place)
     for i,tank in ipairs(place.tankstock) do
         local x,y,w,h=100,200,tank.width,tank.length
 
-        testcollider=world:newRectangleCollider(x+100*Dx , y,w,h)
-        testcollider:setCollisionClass('tankhull')
-        testcollider_turret=world:newCircleCollider(x+100*Dx+w/2,y+h/2,25)
-        testcollider_turret:setCollisionClass('tankturret')
+        local hullcollider=world:newRectangleCollider(x+100*Dx , y,w,h)
+        hullcollider:setCollisionClass('tankhull')
+        table.insert(HullColliders,hullcollider)
+        --[[local turretcollider=world:newCircleCollider(x+100*Dx+w/2,y+h/2,25)
+        turretcollider:setCollisionClass('tankturret')
+        table.insert(TurretColliders,turretcollider)]]
         
     end
 end
 
 function TankSpawner:testdraw(place)
-    if testcollider~=nil then
+    if HullColliders~=nil then
         for i,tank in ipairs(place.tankstock) do
-            local x,y=testcollider:getPosition()
-            local a=testcollider:getAngle()
+            local x,y=HullColliders[i]:getPosition()
+            local a=HullColliders[i]:getAngle()
             local ox=tank.hull_image:getWidth()/2
             local oy=tank.hull_image:getHeight()/2
             love.graphics.draw(tank.hull_image,x,y,a,1,1,ox,oy)
