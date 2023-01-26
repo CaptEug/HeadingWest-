@@ -217,7 +217,8 @@ function TankDesigner:update(dt)
         if tank.buildtime <= 0 then
             ADDtank()
             table.insert(Factory.tankstock, table.remove(Factory.ProductionQueue, i))
-            TankSpawner:spawn()
+            --TankSpawner:spawn()
+            TankSpawner:testspawn(CurrentPlace)
             Factory.ProductionNumber = Factory.ProductionNumber - 1
         end
     end
@@ -271,6 +272,8 @@ end
 function Buildtank()
     local instance = {
         name = TankPresent.name,
+        width=TankPresent.width,
+        length=TankPresent.length,
         hull_image = TankPresent.hull_image,
         turret_image = TankPresent.turret_image,
         armor = TankGear.armor,

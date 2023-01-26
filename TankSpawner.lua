@@ -15,11 +15,7 @@ function TankColliders(place)
     local turretcollider={}
     Dx=Dx+1
 end
-function GetCollidersPositon()
-    for i,j in (TurretCollider) do
-    local x,y=body:GetCollidersPositon(j)
-    end
-end
+
 function TankSpawner:draw(place)
     --[[for i,t in ipairs(Exsistank) do
         love.graphics.draw(t.hull_image)
@@ -33,38 +29,34 @@ function TankSpawner:draw(place)
     end
 end
 
-TankFunctions={}
-
-function TankFunctions:newtank()
-    local tankfactors=Factory.ProductionQueue
-    local tank={}
-    --[[name = TankPresent.name,
-        hull_image = TankPresent.hull_image,
-        turret_image = TankPresent.turret_image,
-        armor = TankGear.armor,
-        aim = TankGear.aim,
-        ammo = TankGear.ammo,
-        mob = TankGear.mob,]]
-        return tank
+function TankSpawner:load()
+    world:addCollisionClass('tankhull')
+    world:addCollisionClass('tankturret',{ignores={'tankhull'}})
 end
 
---love.graphics.draw()
---world.newRectangleCollider()
---[[Exsistank={
-    {
-        name='t72'
-        hull_image=...
-        yuttt=..
-        x=
-        y=
-        a=
-        a
-        r=
+function TankSpawner:testspawn(place)
+    for i,tank in ipairs(place.tankstock) do
+        local x,y,w,h=100,200,tank.width,tank.length
 
-    }
+        testcollider=world:newRectangleCollider(x+100*Dx , y,w,h)
+        testcollider:setCollisionClass('tankhull')
+        testcollider_turret=world:newCircleCollider(x+100*Dx+w/2,y+h/2,25)
+        testcollider_turret:setCollisionClass('tankturret')
+        
+    end
+end
 
-    {
-        name=...
-
-    }
-}]]
+function TankSpawner:testdraw(place)
+    if testcollider~=nil then
+        for i,tank in ipairs(place.tankstock) do
+            local x,y=testcollider:getPosition()
+            local a=testcollider:getAngle()
+            local ox=tank.hull_image:getWidth()/2
+            local oy=tank.hull_image:getHeight()/2
+            love.graphics.draw(tank.hull_image,x,y,a,1,1,ox,oy)
+            love.graphics.draw(tank.armor.hull_image, x,y,1,1,ox, oy)
+            love.graphics.draw(tank.turret_image,x,y,a,1,1,ox,oy)
+            love.graphics.draw(tank.armor.turret_image, x, y,a,1,1,ox,oy)
+        end
+    end
+end
