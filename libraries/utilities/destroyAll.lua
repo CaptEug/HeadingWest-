@@ -1,5 +1,5 @@
 function destroyAll()
-    colliderTableDestroy(Buildings)
+    colliderTableDestroy(Structure)
     colliderTableDestroy(Obstacles)
     colliderTableDestroy(APCBC)
     colliderTableDestroy(HEAT)

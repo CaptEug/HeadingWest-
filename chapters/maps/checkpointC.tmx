@@ -47,7 +47,7 @@
 26,26,26,26,26,26,26,26,26,26,26,27,9,16,16,16,16,16,7,25,26,26,27,26,26,26,25,26,26,27,9,16,16,16,7,25,26,26,26,26
 </data>
  </layer>
- <layer id="4" name="Roof" width="40" height="40" locked="1">
+ <layer id="4" name="Ceiling" width="40" height="40" locked="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,18,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,12,0,
@@ -135,7 +135,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="5" name="Buildings" locked="1">
+ <objectgroup id="5" name="Structure" locked="1">
   <object id="5" x="0" y="0" width="1536" height="512"/>
   <object id="6" x="2432" y="0" width="1408" height="512"/>
   <object id="7" x="0" y="4736" width="1536" height="384"/>
@@ -157,7 +157,7 @@
   <object id="27" x="2688" y="1920" width="256" height="384"/>
   <object id="28" x="3200" y="1920" width="256" height="384"/>
  </objectgroup>
- <objectgroup id="6" name="Objects">
+ <objectgroup id="6" name="Obstacles">
   <object id="39" x="1664" y="384" width="128" height="128"/>
   <object id="40" x="1920" y="384" width="128" height="128"/>
   <object id="41" x="2176" y="384" width="128" height="128"/>

@@ -9,7 +9,7 @@ function CitiesAndFactories:load()
         name = 'Uralvagonzavod',
         icon = UVZ_Icon,
         type='Factory',
-        map = 2,
+        map = 3,
         tanklist = {},
         tankstock = {}
     }

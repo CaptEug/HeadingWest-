@@ -30,7 +30,7 @@
 31,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,33
 </data>
  </layer>
- <objectgroup id="4" name="Buildings">
+ <objectgroup id="4" name="Structure">
   <object id="26" x="0" y="0" width="3840" height="128"/>
   <object id="27" x="0" y="128" width="128" height="2304"/>
   <object id="28" x="3712" y="128" width="128" height="2304"/>
@@ -38,7 +38,7 @@
   <object id="32" x="1152" y="128" width="128" height="768"/>
   <object id="33" x="1152" y="1792" width="128" height="640"/>
  </objectgroup>
- <objectgroup id="5" name="Objects">
+ <objectgroup id="5" name="Obstacles">
   <object id="4" x="1024" y="1024" width="128" height="128"/>
   <object id="5" x="1024" y="1280" width="128" height="128"/>
   <object id="6" x="1024" y="1536" width="128" height="128"/>
@@ -70,7 +70,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="3" name="Roof" width="30" height="20">
+ <layer id="3" name="Ceiling" width="30" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,11,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11,12,0,

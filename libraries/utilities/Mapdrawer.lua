@@ -1,4 +1,4 @@
-Buildings = {}
+Structure = {}
 Obstacles = {}
 Exsistank={}
 
@@ -8,19 +8,19 @@ function loadMap(mapName)
     destroyAll()
     gameMap = sti("chapters/maps/" .. mapName .. ".lua")
 
-    if gameMap.layers['Buildings'] then
-        for i, j in pairs(gameMap.layers['Buildings'].objects) do
+    if gameMap.layers['Structure'] then
+        for i, j in pairs(gameMap.layers['Structure'].objects) do
             local Collider = world:newRectangleCollider(j.x, j.y, j.width, j.height)
             Collider.width = j.width
             Collider.height = j.height
             Collider:setType('static')
             Collider:setCollisionClass('Wall')
-            table.insert(Buildings, Collider)
+            table.insert(Structure, Collider)
         end
     end
     
-    if gameMap.layers['Objects'] then
-        for i, j in pairs(gameMap.layers['Objects'].objects) do
+    if gameMap.layers['Obstacles'] then
+        for i, j in pairs(gameMap.layers['Obstacles'].objects) do
             local Collider = world:newRectangleCollider(j.x, j.y, j.width, j.height)
             Collider.width = j.width
             Collider.height = j.height
@@ -39,22 +39,29 @@ function loadMap(mapName)
 end
 
 function drawMap()
-    --[[if gameMap.layers["Ground"] then
+    if gameMap.layers["Ground"] then
         gameMap:drawLayer(gameMap.layers["Ground"])
-    end]]
+    end
+
+    if gameMap.layers["Objects"] then
+        gameMap:drawLayer(gameMap.layers["Objects"])
+    end
+
+    if gameMap.layers["Buildings"] then
+        gameMap:drawLayer(gameMap.layers["Buildings"])
+    end
 
     tanks_table:draw()
     Ammo.draw()
     DrawCollider()
-    --TankSpawner:draw()
 
-    --[[if gameMap.layers["Roof"] then
-        gameMap:drawLayer(gameMap.layers["Roof"])
+    if gameMap.layers["Ceiling"] then
+        gameMap:drawLayer(gameMap.layers["Ceiling"])
     end
 
     if gameMap.layers["Sky"] then
         gameMap:drawLayer(gameMap.layers["Sky"])
-    end]]
+    end
 
     --shaders.dark()
 end

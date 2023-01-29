@@ -51,8 +51,8 @@ function ingame:update(dt)
     Airstrike.update(dt)
     --psystem:update(dt)
     
-    if cam.scale > 1 then
-        cam:zoomTo(1)
+    if cam.scale > 2 then
+        cam:zoomTo(2)
     end
     if cam.scale < 0.2 then
         cam:zoomTo(0.2)

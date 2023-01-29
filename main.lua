@@ -72,7 +72,7 @@ Rheadfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 20)
 Rtextfont = love.graphics.newFont('Assets/fonts/pixelfont.otf')
 
 
-Maps={'checkpointC','Testmap'}
+Maps={'checkpointC','Testmap','UVZfac'}
 MapNumber=1
 Filenumber=1
 Dx=1
