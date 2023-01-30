@@ -18,7 +18,6 @@ require 'libraries/utilities/show'
 --Gamestates required
 require 'gamestates/MainMenu'
 require 'gamestates/ingame'
-require 'gamestates/Loadmenu'
 require 'gamestates/Pause'
 require 'gamestates/Worldmap'
 require 'gamestates/SettingMenu'
