@@ -59,7 +59,7 @@ function drawMap()
         gameMap:drawLayer(gameMap.layers["Ceiling"])
     end
 
-    if gameMap.layers["Roof"] and cam.scale < 0.8 then
+    if gameMap.layers["Roof"] and cam.scale < 1 then
         love.graphics.setColor(1,1,1,0.5/cam.scale)
         gameMap:drawLayer(gameMap.layers["Roof"])
     end
