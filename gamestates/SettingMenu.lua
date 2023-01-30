@@ -44,8 +44,8 @@ function SettingMenu:update()
     local button_rightlimit=ww*8/9
     local button_leftlimit=ww*1/9
 
-    Back.bx=button_rightlimit
-    Back.by=wh*9/10
+    Back.bx = ww / 2
+    Back.by = wh *(12 / 13)
     Volume_high.bx=button_leftlimit+280
     Volume_high.by=wh/10
     Volume_low.bx=button_leftlimit+330

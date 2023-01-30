@@ -10,10 +10,14 @@ function MainMenu:init()
     cam:zoomTo(0.7)
     
     MMbuttons = buttons.new()
+    MMbuttons.isopen = true
+    Lbuttons = buttons.new()
+    Lbuttons.isopen = false
     Start = buttons.newButton(
         "Start!",
         function()
-            Gamestate.switch(Loadmenu)
+            Lbuttons.isopen = true
+            MMbuttons.isopen = false
         end,
         MMbuttons
     )
@@ -33,6 +37,42 @@ function MainMenu:init()
         end,
         MMbuttons
     )
+
+    FILE1 = buttons.newPicButton(
+        Stalin,
+        function()
+            Filenumber=1
+            Gamestate.switch(Worldmap)
+        end,
+        Lbuttons
+    )
+
+    FILE2 = buttons.newPicButton(
+        Khrushchev,
+        function()
+            Filenumber=2
+            Gamestate.switch(Worldmap)
+        end,
+        Lbuttons
+    )
+
+    FILE3 = buttons.newPicButton(
+        Brezhnev,
+        function()
+            Filenumber=3
+            Gamestate.switch(Worldmap)
+        end,
+        Lbuttons
+    )
+
+    Back = buttons.newButton(
+        "Back",
+        function()
+            Lbuttons.isopen = false
+            MMbuttons.isopen = true
+        end,
+        Lbuttons
+    )
 end
 
 
@@ -44,6 +84,14 @@ function MainMenu:update(dt)
     Quit.by = wh * 3 / 5
     Settings.bx = 16
     Settings.by = wh - 16
+    FILE1.bx = ww / 5
+    FILE2.bx = ww / 2
+    FILE3.bx = ww *(4 / 5)
+    FILE1.by = wh *(1 / 2)
+    FILE2.by = wh *(1 / 2)
+    FILE3.by = wh *(1 / 2)
+    Back.bx = ww / 2
+    Back.by = wh *(12 / 13)
 
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
@@ -61,8 +109,16 @@ function MainMenu:draw()
         DrawEurope()
         DrawCountries()
     cam:detach()
-    love.graphics.setFont(Rtitlefont)
-    love.graphics.print("НА ЗАПАД!", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("НА ЗАПАД!") / 2, love.graphics.getHeight() / 5)
-    
-    MMbuttons:use()
+
+    if MMbuttons.isopen then
+        love.graphics.setFont(Rtitlefont)
+        love.graphics.print("НА ЗАПАД!", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("НА ЗАПАД!") / 2, love.graphics.getHeight() / 5)
+        MMbuttons:use()
+    end
+
+    if Lbuttons.isopen then
+        love.graphics.setFont(Rtitlefont)
+        love.graphics.print("SAVED FILES", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("SAVED FILES") / 2, 0)
+        Lbuttons:use()
+    end
 end
