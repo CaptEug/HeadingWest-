@@ -23,7 +23,7 @@ require 'gamestates/Worldmap'
 require 'gamestates/SettingMenu'
 
 --Assets registered
---map
+--country
 Earth = love.graphics.newImage('Assets/Maps/WorldMap.png')
 Worldw, Worldh = Earth:getDimensions()
 --botton
