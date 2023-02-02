@@ -65,7 +65,7 @@ function MainMenu:init()
         Lbuttons
     )
 
-    Back = buttons.newButton(
+    BackL = buttons.newButton(
         "Back",
         function()
             Lbuttons.isopen = false
@@ -90,8 +90,8 @@ function MainMenu:update(dt)
     FILE1.by = wh *(1 / 2)
     FILE2.by = wh *(1 / 2)
     FILE3.by = wh *(1 / 2)
-    Back.bx = ww / 2
-    Back.by = wh *(12 / 13)
+    BackL.bx = ww / 2
+    BackL.by = wh *(12 / 13)
 
     if cam.scale > 1.5 then
         cam:zoomTo(1.5)
@@ -106,8 +106,12 @@ end
 
 function MainMenu:draw()
     cam:attach()
+        if Lbuttons.isopen then
+            love.graphics.setColor(0.3,0.3,0.3)
+        end
         DrawEurope()
         DrawCountries()
+
     cam:detach()
 
     if MMbuttons.isopen then
