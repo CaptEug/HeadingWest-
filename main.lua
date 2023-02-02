@@ -34,7 +34,7 @@ Romania = love.graphics.newImage('Assets/Europe/Romania.png')
 Bulgaria = love.graphics.newImage('Assets/Europe/Bulgaria.png')
 East_Germany = love.graphics.newImage('Assets/Europe/East_Germany.png')
 --botton
-Stalin = love.graphics.newImage('Assets/pictures/Joseph_Stalin.png')
+Stalin = love.graphics.newImage('Assets/pictures/Stalin.png')
 Khrushchev = love.graphics.newImage('Assets/pictures/Khrushchev.png')
 Brezhnev = love.graphics.newImage('Assets/pictures/Brezhnev.png')
 Gear = love.graphics.newImage('Assets/pictures/buttons/Gear.png')
