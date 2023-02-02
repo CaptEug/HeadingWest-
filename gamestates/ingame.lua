@@ -1,8 +1,7 @@
 ingame = {}
 ingame = Gamestate.new()
 require "entity_test.tanks_new"
-require 'UI/BattlefieldUI'
-require 'UI/FactoryUI'
+require 'UI.ingameUI'
 function ingame:init()
     Gbuttons = buttons.new()
     Settings = buttons.newToolButton(
@@ -14,19 +13,15 @@ function ingame:init()
         16,
         wh - 16
     )
-    
+
     Saving:getdata(Filenumber)
     Data()
 
     local map=Maps[MapNumber]
     loadMap(map)
     love.graphics.draw(love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_hull.png'))
-    if Map_type=='Battlefield'then
-        BattlefieldUI:load()
-    end
-    if Map_type=='Factory'then
-        FactoryUI:load()
-    end
+
+    ingameUI:load()
 
     --[[psystem = love.graphics.newParticleSystem(PlaneIcon, 32)
     psystem:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
@@ -37,13 +32,7 @@ function ingame:init()
 end
 
 function ingame:update(dt)
-    if Map_type=='Battlefield'then
-        BattlefieldUI:update(dt)
-    end
-    if Map_type=='Factory'then
-        FactoryUI:update(dt)
-    end
-
+    ingameUI:update(dt)
     world:update(dt)
     particleworld:update(dt)
     tanks_table:update(dt)
@@ -71,14 +60,8 @@ function ingame:draw()
         particleworld:draw()
     cam:detach()
 
-    if Map_type=='Battlefield'then
-        BattlefieldUI:draw()
-    end
-    if Map_type=='Factory'then
-        FactoryUI:draw()
-    end
-    
-    
+
+    ingameUI:draw()
 
     Gbuttons:use() 
 end

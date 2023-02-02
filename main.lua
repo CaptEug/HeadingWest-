@@ -1,17 +1,17 @@
 --files required
-Camera = require 'libraries/camera'
+Camera = require 'libraries.utilities.camera'
 cam = Camera()
-Gamestate = require "libraries/gamestate"
+Gamestate = require "libraries.utilities.gamestate"
 sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
 require 'libraries/utilities/CGplayer'
 require 'libraries/shaders'
 require 'libraries/utilities/buttons'
-require 'Ammo'
-require 'Airstrike'
-require 'TankSpawner'
+require 'libraries.Ammo'
+require 'libraries/Airstrike'
+require 'libraries.TankSpawner'
 require 'Saving'
-require 'libraries.utilities/Mapdrawer'
+require 'libraries.Mapdrawer'
 require 'libraries/utilities/destroyAll'
 require 'libraries/utilities/show'
 

@@ -39,12 +39,6 @@ function WorldmapUI:load()
             function ()
                 MapNumber = city.map
                 Map_type = city.type
-                if city.type == 'Factory' then
-                    Factory = city
-                    else if city.type == 'Battlefield' then
-                        Battlefield = city
-                    end
-                end
                 CurrentPlace = city
                 Saving:fileload()
             end,
