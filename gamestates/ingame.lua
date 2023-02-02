@@ -76,7 +76,7 @@ function ingame:draw()
     end
     if Map_type=='Factory'then
         FactoryUI:draw()
-    end    
+    end
     
     
 

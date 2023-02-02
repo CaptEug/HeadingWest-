@@ -21,18 +21,18 @@ function Worldmap:update(dt)
         Saving:fileload()
     end
     
-    if cam.scale > 1.5 then
-        cam:zoomTo(1.5)
+    if cam.scale > 2 then
+        cam:zoomTo(2)
     end
-    if cam.scale < wh / EUh then
-        cam:zoomTo(wh / EUh)
+    if cam.scale < wh / Worldh then
+        cam:zoomTo(wh / Worldh)
     end
-    cam:lockcamera(0, 0, EUw, EUh, 0, ww, 0, wh)
+    cam:lockcamera(0, 0, Worldw, Worldh, 0, ww, 0, wh)
 end
 
 function Worldmap:draw()
     cam:attach()
-        DrawEurope()
+        DrawMaps()
         DrawCountries()
     cam:detach()
 
@@ -41,7 +41,7 @@ end
 
 function Worldmap:drawWithoutUI()
     cam:attach()
-        DrawEurope()
+        DrawMaps()
         DrawCountries()
     cam:detach()
 end

@@ -68,10 +68,10 @@ function TankSpawner:testdraw(place)
             local ox=tank.hull_image:getWidth()/2
             local oy=tank.hull_image:getHeight()/2
             
-            love.graphics.draw(tank.hull_image,x,y,a,1,1,ox,oy)
-            love.graphics.draw(tank.armor.hull_image, x,y,1,1,ox, oy)
-            love.graphics.draw(tank.turret_image,x,y,a,1,1,ox,oy)
-            love.graphics.draw(tank.armor.turret_image, x, y,a,1,1,ox,oy)
+            love.graphics.draw(tank.hull_image, x, y, a, 1, 1, ox, oy)
+            love.graphics.draw(tank.armor.hull_image, x, y, a, 1, 1, ox, oy)
+            love.graphics.draw(tank.turret_image, x, y, a, 1, 1, ox, oy)
+            love.graphics.draw(tank.armor.turret_image, x, y, a, 1, 1, ox, oy)
         end
     end
 end

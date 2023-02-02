@@ -23,16 +23,9 @@ require 'gamestates/Worldmap'
 require 'gamestates/SettingMenu'
 
 --Assets registered
---country
-Europe_BandW = love.graphics.newImage('Assets/Europe/Europe_BandW.png')
-EUw, EUh = Europe_BandW:getDimensions()
-USSR = love.graphics.newImage('Assets/Europe/USSR.png')
-Poland = love.graphics.newImage('Assets/Europe/Poland.png')
-Czechoslovakia = love.graphics.newImage('Assets/Europe/Czechoslovakia.png')
-Hungary = love.graphics.newImage('Assets/Europe/Hungary.png')
-Romania = love.graphics.newImage('Assets/Europe/Romania.png')
-Bulgaria = love.graphics.newImage('Assets/Europe/Bulgaria.png')
-East_Germany = love.graphics.newImage('Assets/Europe/East_Germany.png')
+--map
+Earth = love.graphics.newImage('Assets/Maps/WorldMap.png')
+Worldw, Worldh = Earth:getDimensions()
 --botton
 Stalin = love.graphics.newImage('Assets/pictures/Stalin.png')
 Khrushchev = love.graphics.newImage('Assets/pictures/Khrushchev.png')
@@ -129,20 +122,13 @@ function cammovement()
     end
 end
 
-function DrawEurope()
-    love.graphics.draw(Europe_BandW, 0, 0)
+function DrawMaps()
+    love.graphics.draw(Earth, 0, 0)
 end
 
 function DrawCountries()
-    RedCountries = {}
-    table.insert(RedCountries,USSR)
-    table.insert(RedCountries,Poland)
-    table.insert(RedCountries,Czechoslovakia)
-    table.insert(RedCountries,Hungary)
-    table.insert(RedCountries,Romania)
-    table.insert(RedCountries,Bulgaria)
-    table.insert(RedCountries,East_Germany)
-    for i, country in pairs(RedCountries) do
+    Countries = {}
+    for i, country in pairs(Countries) do
         love.graphics.draw(country, 0, 0)
     end
 end
