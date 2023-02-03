@@ -24,7 +24,7 @@ require 'gamestates/SettingMenu'
 
 --Assets registered
 --country
-Earth = love.graphics.newImage('Assets/countries/WorldMap.png')
+Earth = love.graphics.newImage('Assets/countries/WorldMap1945.png')
 Worldw, Worldh = Earth:getDimensions()
 --botton
 Stalin = love.graphics.newImage('Assets/pictures/Stalin.png')
