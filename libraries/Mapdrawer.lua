@@ -6,7 +6,7 @@ require 'libraries.TankSpawner'
 
 function loadMap(mapName)
     destroyAll()
-    gameMap = sti("chapters/maps/" .. mapName .. ".lua")
+    gameMap = sti("Assets/maps/" .. mapName .. ".lua")
 
     if gameMap.layers['Structure'] then
         for i, j in pairs(gameMap.layers['Structure'].objects) do
