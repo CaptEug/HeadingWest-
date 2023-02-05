@@ -55,7 +55,6 @@ production_box = love.graphics.newImage('Assets/pictures/Pbox.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
-
 --cursor
 cursor = love.mouse.newCursor('Assets/cursors/Cursor.png', 0, 0)
 bombcursor = love.mouse.newCursor('Assets/cursors/RedBomb.png', 32, 32)
