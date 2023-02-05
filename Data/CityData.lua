@@ -16,8 +16,8 @@ function CityData:load()
         tankstock = {},
         building_slot = 16,
         songlist = {
-            Cuckoo_Bird = love.audio.newSource('Assets/audio/music/KINO/Кино - Кукушка.mp3', 'stream'),
-            Summer = love.audio.newSource('Assets/audio/music/KINO/Кино - Кончится лето.mp3', 'stream')
+            {love.audio.newSource('Assets/audio/music/KINO/Кино - Кукушка.mp3', 'stream')},
+            {love.audio.newSource('Assets/audio/music/KINO/Кино - Кончится лето.mp3', 'stream')}
         }
     }
     table.insert(Cities, UVZ)

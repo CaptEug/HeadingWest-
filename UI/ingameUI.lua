@@ -7,7 +7,7 @@ function ingameUI:load()
     RadioStation = buttons.newToolButton(
         RadioStation_icon,
         function ()
-            love.audio.play(CurrentPlace.songlist[math.random(1, table.getn(CurrentPlace.songlist))])
+            love.audio.play(CurrentPlace.songlist[1])
         end,
         DefButtons,
         ww - 16,
