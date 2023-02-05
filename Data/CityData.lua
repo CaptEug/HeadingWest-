@@ -1,9 +1,10 @@
 CityData = {}
 Cities = {}
 Alltanks = {}
-RadioStation = {}
+
 
 function CityData:load()
+    --Cities
     UVZ = {
         x = 1000,
         y = 500,
@@ -14,7 +15,10 @@ function CityData:load()
         tanklist = {},
         tankstock = {},
         building_slot = 16,
-        songlist = TestFMlist
+        songlist = {
+            Cuckoo_Bird = love.audio.newSource('Assets/audio/music/KINO/Кино - Кукушка.mp3', 'stream'),
+            Summer = love.audio.newSource('Assets/audio/music/KINO/Кино - Кончится лето.mp3', 'stream')
+        }
     }
     table.insert(Cities, UVZ)
 
@@ -31,10 +35,4 @@ function CityData:load()
 
 end
 
-function RadioStation:load()
-    TestFMlist = {
-        Cuckoo_Bird = love.audio.newSource('Assets/audio/music/KINO/Кино - Кукушка.mp3', 'stream'),
-        Summer = love.audio.newSource('Assets/audio/music/KINO/Кино - Кончится лето.mp3', 'stream')
-    }
-end
 
