@@ -1,11 +1,11 @@
 TankDesigner = {}
 
 function TankDesigner:load()
-    Factory.isopen = false
-    Factory.Fbuttons = buttons.new()
-    Factory.tankindex = 1
-    Factory.ProductionQueue = {}
-    Factory.ProductionNumber = 0
+    CurrentPlace.opendesigner = false
+    CurrentPlace.Fbuttons = buttons.new()
+    CurrentPlace.tankindex = 1
+    CurrentPlace.ProductionQueue = {}
+    CurrentPlace.ProductionNumber = 0
     TankGear = {
         armor = Blank_Gear,
         aim = Blank_Gear,
@@ -16,9 +16,9 @@ function TankDesigner:load()
         Close = buttons.newToolButton(
             Close_icon,
             function ()
-                Factory.isopen = false
+                CurrentPlace.opendesigner = false
             end,
-            Factory.Fbuttons,
+            CurrentPlace.Fbuttons,
             ww/2 + 320 - 15,
             wh/2 - 240 + 18
         )
@@ -26,10 +26,10 @@ function TankDesigner:load()
         Next = buttons.newToolButton(
             rightArrow,
             function ()
-                if Factory.tankindex < table.getn(Factory.tanklist) then
-                    Factory.tankindex = Factory.tankindex + 1
+                if CurrentPlace.tankindex < table.getn(CurrentPlace.tanklist) then
+                    CurrentPlace.tankindex = CurrentPlace.tankindex + 1
                 else
-                    Factory.tankindex = 1
+                    CurrentPlace.tankindex = 1
                 end
                 TankGear = {
                     armor = Blank_Gear,
@@ -38,7 +38,7 @@ function TankDesigner:load()
                     mob = Blank_Gear
                 }
             end,
-            Factory.Fbuttons,
+            CurrentPlace.Fbuttons,
             ww/2 - 320 + 311,
             wh/2 - 240 + 331
         )
@@ -46,10 +46,10 @@ function TankDesigner:load()
         Previous = buttons.newToolButton(
             leftArrow,
             function ()
-                if Factory.tankindex > 1 then
-                    Factory.tankindex = Factory.tankindex - 1
+                if CurrentPlace.tankindex > 1 then
+                    CurrentPlace.tankindex = CurrentPlace.tankindex - 1
                 else
-                    Factory.tankindex = table.getn(Factory.tanklist)
+                    CurrentPlace.tankindex = table.getn(CurrentPlace.tanklist)
                 end
                 TankGear = {
                     armor = Blank_Gear,
@@ -58,12 +58,12 @@ function TankDesigner:load()
                     mob = Blank_Gear
                 }
             end,
-            Factory.Fbuttons,
+            CurrentPlace.Fbuttons,
             ww/2 - 320 + 56,
             wh/2 - 240 + 331
         )
 
-        for i, tank in ipairs(Factory.tanklist) do
+        for i, tank in ipairs(CurrentPlace.tanklist) do
             if tank.accessories then
                 for i, accessory in ipairs(tank.accessories) do
                     accessory.use = false
@@ -96,7 +96,7 @@ function TankDesigner:load()
         Armor = buttons.newToolButton(
             Armor_icon,
             function ()
-                for i, accessory in ipairs(Factory.tanklist[Factory.tankindex].accessories) do
+                for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
                     if accessory.tag == 'Armor' then
                         accessory.use = true
                     else
@@ -104,7 +104,7 @@ function TankDesigner:load()
                     end
                 end
             end,
-            Factory.Fbuttons,
+            CurrentPlace.Fbuttons,
             ww/2 - 320 + 80,
             wh/2 - 240 + 390
         )
@@ -112,7 +112,7 @@ function TankDesigner:load()
         Aiming = buttons.newToolButton(
             Aiming_icon,
             function ()
-                for i, accessory in ipairs(Factory.tanklist[Factory.tankindex].accessories) do
+                for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
                     if accessory.tag == 'Aim' then
                         accessory.use = true
                     else
@@ -120,7 +120,7 @@ function TankDesigner:load()
                     end
                 end
             end,
-            Factory.Fbuttons,
+            CurrentPlace.Fbuttons,
             ww/2 - 320 + 128,
             wh/2 - 240 + 390
         )
@@ -128,7 +128,7 @@ function TankDesigner:load()
         Ammunition = buttons.newToolButton(
             Ammo_icon,
             function ()
-                for i, accessory in ipairs(Factory.tanklist[Factory.tankindex].accessories) do
+                for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
                     if accessory.tag == 'Ammo' then
                         accessory.use = true
                     else
@@ -136,7 +136,7 @@ function TankDesigner:load()
                     end
                 end
             end,
-            Factory.Fbuttons,
+            CurrentPlace.Fbuttons,
             ww/2 - 320 + 176,
             wh/2 - 240 + 390
         )
@@ -144,7 +144,7 @@ function TankDesigner:load()
         Mobility = buttons.newToolButton(
             Mobility_icon,
             function ()
-                for i, accessory in ipairs(Factory.tanklist[Factory.tankindex].accessories) do
+                for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
                     if accessory.tag == 'Mob' then
                         accessory.use = true
                     else
@@ -152,7 +152,7 @@ function TankDesigner:load()
                     end
                 end
             end,
-            Factory.Fbuttons,
+            CurrentPlace.Fbuttons,
             ww/2 - 320 + 224,
             wh/2 - 240 + 390
         )
@@ -162,7 +162,7 @@ function TankDesigner:load()
         function ()
             Buildtank()
         end,
-        Factory.Fbuttons,
+        CurrentPlace.Fbuttons,
         ww/2 - 320 + 405,
         wh/2 - 240 + 390
     )
@@ -170,9 +170,9 @@ function TankDesigner:load()
     Delete = buttons.newToolButton(
         Delete_icon,
         function ()
-            table.remove(Factory.ProductionQueue, 1)
+            table.remove(CurrentPlace.ProductionQueue, 1)
         end,
-        Factory.Fbuttons,
+        CurrentPlace.Fbuttons,
         ww/2 - 320 + 567,
         wh/2 - 240 + 79
     )
@@ -200,7 +200,7 @@ function TankDesigner:update(dt)
     Build.by = wh/2 - 240 + 390
     Delete.bx = ww/2 - 320 + 567
     Delete.by = wh/2 - 240 + 79
-    for i, tank in ipairs(Factory.tanklist) do
+    for i, tank in ipairs(CurrentPlace.tanklist) do
         if tank.accessories then
             for i, accessory in ipairs(tank.accessories) do
                 for n, button in ipairs(accessory.Abuttons) do
@@ -212,14 +212,14 @@ function TankDesigner:update(dt)
     end
 
     --tank production process
-    for i, tank in ipairs(Factory.ProductionQueue) do
+    for i, tank in ipairs(CurrentPlace.ProductionQueue) do
         tank.buildtime = tank.buildtime - dt
         if tank.buildtime <= 0 then
             --ADDtank()
-            table.insert(Factory.tankstock, table.remove(Factory.ProductionQueue, i))
+            table.insert(CurrentPlace.tankstock, table.remove(CurrentPlace.ProductionQueue, i))
             --TankSpawner:spawn()
             TankSpawner:testspawn(CurrentPlace)
-            Factory.ProductionNumber = Factory.ProductionNumber - 1
+            CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
         end
     end
 end
@@ -227,12 +227,12 @@ end
 
 function TankDesigner:draw()
 
-    TankPresent = Factory.tanklist[Factory.tankindex]
+    TankPresent = CurrentPlace.tanklist[CurrentPlace.tankindex]
 
-        if Factory.isopen then
+        if CurrentPlace.opendesigner then
             love.graphics.draw(factory_screen, ww/2 - 320, wh/2 - 240)
             love.graphics.setFont(Rbuttonfont)
-            love.graphics.print(Factory.name, ww/2 - 320 + 40, wh/2 - 240)
+            love.graphics.print(CurrentPlace.name, ww/2 - 320 + 40, wh/2 - 240)
             love.graphics.setFont(Rtextfont)
             love.graphics.setColor(0,179/255,0)
             love.graphics.print(TankPresent.name, ww/2 - 320 + 40 + 6, wh/2 - 240 + 64 + 6)
@@ -256,7 +256,7 @@ function TankDesigner:draw()
             love.graphics.draw(TankGear.ammo.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankGear.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
             
-            for i, tank in ipairs(Factory.ProductionQueue) do
+            for i, tank in ipairs(CurrentPlace.ProductionQueue) do
                 love.graphics.draw(production_box,ww/2 - 320 + 452, wh/2 - 240 + 62 + 28*i)
                 love.graphics.setColor(0,179/255,0)
                 love.graphics.print(tank.name, ww/2 - 320 + 456, wh/2 - 240 + 66 + 28*i)
@@ -264,7 +264,7 @@ function TankDesigner:draw()
                 love.graphics.setColor(1,1,1)
             end
             
-            Factory.Fbuttons:use()
+            CurrentPlace.Fbuttons:use()
 
         end
 end
@@ -283,7 +283,7 @@ function Buildtank()
         buildtime = TankPresent.buildtime,
         fixedbuildtime = TankPresent.buildtime
     }
-    table.insert(Factory.ProductionQueue, 1, instance)
+    table.insert(CurrentPlace.ProductionQueue, 1, instance)
     
-    Factory.ProductionNumber = Factory.ProductionNumber + 1
+    CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
 end

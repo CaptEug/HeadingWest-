@@ -34,7 +34,7 @@ function TankData:load()
         accessories = { 
             {name = 'Kontakt_1', line_image = T72A_kontakt1_line, turret_image = T72A_kontakt1_turret, hull_image = T72A_kontakt1_hull, tag = 'Armor'},
         },
-        buildtime = 20
+        buildtime = 2
     }
     table.insert(UVZ.tanklist, T72A)
 
@@ -49,7 +49,7 @@ function TankData:load()
             {name = 'Kontakt_1', line_image = T72B_kontakt1_line, turret_image = T72B_kontakt1_turret, hull_image = T72B_kontakt1_hull,tag = 'Armor'},
             {name = 'Kontakt_5', line_image = T72B_kontakt5_line, turret_image = T72B_kontakt5_turret, hull_image = T72B_kontakt5_hull,tag = 'Armor'}
         },
-        buildtime = 25
+        buildtime = 2
     }
     table.insert(UVZ.tanklist, T72B)
 end

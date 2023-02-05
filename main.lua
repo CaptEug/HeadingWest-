@@ -1,17 +1,17 @@
 --files required
-Camera = require 'libraries/camera'
+Camera = require 'libraries.utilities.camera'
 cam = Camera()
-Gamestate = require "libraries/gamestate"
+Gamestate = require "libraries.utilities.gamestate"
 sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
 require 'libraries/utilities/CGplayer'
 require 'libraries/shaders'
 require 'libraries/utilities/buttons'
-require 'Ammo'
-require 'Airstrike'
-require 'TankSpawner'
+require 'libraries.Ammo'
+require 'libraries/Airstrike'
+require 'libraries.TankSpawner'
 require 'Saving'
-require 'libraries.utilities/Mapdrawer'
+require 'libraries.Mapdrawer'
 require 'libraries/utilities/destroyAll'
 require 'libraries/utilities/show'
 
@@ -24,17 +24,10 @@ require 'gamestates/SettingMenu'
 
 --Assets registered
 --country
-Europe_BandW = love.graphics.newImage('Assets/Europe/Europe_BandW.png')
-EUw, EUh = Europe_BandW:getDimensions()
-USSR = love.graphics.newImage('Assets/Europe/USSR.png')
-Poland = love.graphics.newImage('Assets/Europe/Poland.png')
-Czechoslovakia = love.graphics.newImage('Assets/Europe/Czechoslovakia.png')
-Hungary = love.graphics.newImage('Assets/Europe/Hungary.png')
-Romania = love.graphics.newImage('Assets/Europe/Romania.png')
-Bulgaria = love.graphics.newImage('Assets/Europe/Bulgaria.png')
-East_Germany = love.graphics.newImage('Assets/Europe/East_Germany.png')
+Earth = love.graphics.newImage('Assets/countries/WorldMap1945.png')
+Worldw, Worldh = Earth:getDimensions()
 --botton
-Stalin = love.graphics.newImage('Assets/pictures/Joseph_Stalin.png')
+Stalin = love.graphics.newImage('Assets/pictures/Stalin.png')
 Khrushchev = love.graphics.newImage('Assets/pictures/Khrushchev.png')
 Brezhnev = love.graphics.newImage('Assets/pictures/Brezhnev.png')
 Gear = love.graphics.newImage('Assets/pictures/buttons/Gear.png')
@@ -129,20 +122,13 @@ function cammovement()
     end
 end
 
-function DrawEurope()
-    love.graphics.draw(Europe_BandW, 0, 0)
+function DrawMaps()
+    love.graphics.draw(Earth, 0, 0)
 end
 
 function DrawCountries()
-    RedCountries = {}
-    table.insert(RedCountries,USSR)
-    table.insert(RedCountries,Poland)
-    table.insert(RedCountries,Czechoslovakia)
-    table.insert(RedCountries,Hungary)
-    table.insert(RedCountries,Romania)
-    table.insert(RedCountries,Bulgaria)
-    table.insert(RedCountries,East_Germany)
-    for i, country in pairs(RedCountries) do
+    Countries = {}
+    for i, country in pairs(Countries) do
         love.graphics.draw(country, 0, 0)
     end
 end

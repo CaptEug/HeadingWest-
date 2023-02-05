@@ -1,14 +1,14 @@
-CitiesAndFactories = {}
+CityData = {}
 Cities = {}
 Alltanks = {}
 
-function CitiesAndFactories:load()
+function CityData:load()
     UVZ = {
-        x = 3100,
-        y = 1200,
+        x = 1000,
+        y = 500,
         name = 'Uralvagonzavod',
         icon = UVZ_Icon,
-        type='Factory',
+        state ='Captured',
         map = 3,
         tanklist = {},
         tankstock = {}
@@ -16,11 +16,11 @@ function CitiesAndFactories:load()
     table.insert(Cities, UVZ)
 
     Berlin = {
-        x = 1835,
-        y = 1345,
+        x = 500,
+        y = 500,
         name = 'Berlin',
         icon = Berlin_icon,
-        type='Battlefield',
+        state ='Battlefield',
         map = 1,
         tankstock = {}
     }

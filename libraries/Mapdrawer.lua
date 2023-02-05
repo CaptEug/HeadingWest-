@@ -2,11 +2,11 @@ Structure = {}
 Obstacles = {}
 Exsistank={}
 
-require 'TankSpawner'
+require 'libraries.TankSpawner'
 
 function loadMap(mapName)
     destroyAll()
-    gameMap = sti("chapters/maps/" .. mapName .. ".lua")
+    gameMap = sti("Assets/maps/" .. mapName .. ".lua")
 
     if gameMap.layers['Structure'] then
         for i, j in pairs(gameMap.layers['Structure'].objects) do
@@ -90,7 +90,7 @@ function LoadTank()
 end
 
 function ADDtank()
-    local tankqueue=Factory.ProductionQueue
+    local tankqueue=CurrentPlace.ProductionQueue
     for i,t in ipairs(tankqueue) do
         --tank1=tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)
         tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)

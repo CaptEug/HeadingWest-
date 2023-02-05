@@ -6,8 +6,7 @@ MainMenu = Gamestate.new()
 function MainMenu:init()
     love.audio.play(Letsgo)
 
-    cam:lookAt(EUw * 2 / 5, EUh * 3/5)
-    cam:zoomTo(0.7)
+    cam:lookAt(Worldw * 2 / 5, Worldh * 3/5)
     
     MMbuttons = buttons.new()
     MMbuttons.isopen = true
@@ -65,7 +64,7 @@ function MainMenu:init()
         Lbuttons
     )
 
-    Back = buttons.newButton(
+    BackL = buttons.newButton(
         "Back",
         function()
             Lbuttons.isopen = false
@@ -90,23 +89,26 @@ function MainMenu:update(dt)
     FILE1.by = wh *(1 / 2)
     FILE2.by = wh *(1 / 2)
     FILE3.by = wh *(1 / 2)
-    Back.bx = ww / 2
-    Back.by = wh *(12 / 13)
+    BackL.bx = ww / 2
+    BackL.by = wh *(12 / 13)
 
-    if cam.scale > 1.5 then
-        cam:zoomTo(1.5)
+    if cam.scale > 2 then
+        cam:zoomTo(2)
     end
-    if cam.scale < wh / EUh then
-        cam:zoomTo(wh / EUh)
+    if cam.scale < wh / Worldh then
+        cam:zoomTo(wh / Worldh)
     end
-    cam:lockcamera(0, 0, EUw, EUh, 0, ww, 0, wh)
+    cam:lockcamera(0, 0, Worldw, Worldh, 0, ww, 0, wh)
 end
 
 
 
 function MainMenu:draw()
     cam:attach()
-        DrawEurope()
+        if Lbuttons.isopen then
+            love.graphics.setColor(0.3,0.3,0.3)
+        end
+        DrawMaps()
         DrawCountries()
     cam:detach()
 
