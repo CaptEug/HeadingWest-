@@ -6,6 +6,7 @@ require 'Data/CityData'
 require 'Data/TankData'
 
 function Worldmap:init()
+    RadioStation:load()
     CityData:load()
     TankData:load()
     WorldmapUI:load()

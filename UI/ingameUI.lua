@@ -7,7 +7,7 @@ function ingameUI:load()
     RadioStation = buttons.newToolButton(
         RadioStation_icon,
         function ()
-            RadioStation:use(CurrentPlace.songlist)
+            love.audio.play(CurrentPlace.songlist[1])
         end,
         DefButtons,
         ww - 16,
@@ -44,6 +44,7 @@ function ingameUI:update(dt)
 end
 
 function ingameUI:draw()
+    DefButtons:use()
     if CurrentPlace.state == 'Captured' then
         Facbutton:use()
         TankDesigner:draw()
