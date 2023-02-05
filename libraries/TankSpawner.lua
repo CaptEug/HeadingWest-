@@ -2,6 +2,25 @@ TankSpawner={}
 HullColliders={}
 TurretColliders={}
 Number=1
+Portnumber=1
+Uvzportlocation={
+    {x=12,y=48},
+    {x=12,y=48+256*1},
+    {x=12,y=48+256*2},
+    {x=12,y=48+256*3},
+    {x=12,y=48+256*4},
+    {x=12,y=48+256*5},
+    {x=12,y=48+256*6},
+    {x=12,y=48+256*7},
+    {x=12+544,y=48},
+    {x=12+544,y=48+256*1},
+    {x=12+544,y=48+256*2},
+    {x=12+544,y=48+256*3},
+    {x=12+544,y=48+256*4},
+    {x=12+544,y=48+256*5},
+    {x=12+544,y=48+256*6},
+    {x=12+544,y=48+256*7},
+}
 
 function TankSpawner:loadTank()
     
@@ -35,6 +54,15 @@ function TankSpawner:update()
     
 end
 
+function TankSpawner:findspwanlocation()
+    
+    local x,y=0,0
+
+    x,y=Uvzportlocation[Portnumber].x,Uvzportlocation[Portnumber].y
+    Portnumber=Portnumber+1
+return x,y
+end
+
 function TankSpawner:load()
     world:addCollisionClass('tankhull')
     world:addCollisionClass('tankturret',{ignores={'tankhull'}})
@@ -52,8 +80,8 @@ function TankSpawner:testspawn(place)
         table.insert(TurretColliders,turretcollider)]]
         --[[place.tankstock[i].width
     end]]
-    
-    local x,y,w,h=100,200,place.tankstock[Number].width,place.tankstock[Number].length
+    local x,y=TankSpawner:findspwanlocation()
+    local w,h=place.tankstock[Number].width,place.tankstock[Number].length
 
     local hullcollider=world:newRectangleCollider(x+100*Dx , y,w,h)
     hullcollider:setCollisionClass('tankhull')

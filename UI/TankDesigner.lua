@@ -215,7 +215,7 @@ function TankDesigner:update(dt)
     for i, tank in ipairs(CurrentPlace.ProductionQueue) do
         tank.buildtime = tank.buildtime - dt
         if tank.buildtime <= 0 then
-            ADDtank()
+            --ADDtank()
             table.insert(CurrentPlace.tankstock, table.remove(CurrentPlace.ProductionQueue, i))
             --TankSpawner:spawn()
             TankSpawner:testspawn(CurrentPlace)
