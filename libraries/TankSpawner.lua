@@ -57,10 +57,11 @@ end
 function TankSpawner:findspwanlocation()
     
     local x,y=0,0
+    local portstatus=true
 
     x,y=Uvzportlocation[Portnumber].x,Uvzportlocation[Portnumber].y
     Portnumber=Portnumber+1
-return x,y
+return x,y,portstatus
 end
 
 function TankSpawner:load()
@@ -80,12 +81,14 @@ function TankSpawner:testspawn(place)
         table.insert(TurretColliders,turretcollider)]]
         --[[place.tankstock[i].width
     end]]
-    local x,y=TankSpawner:findspwanlocation()
-    local w,h=place.tankstock[Number].width,place.tankstock[Number].length
+    local x,y,portstatus=TankSpawner:findspwanlocation()
+    if portstatus==true then
+        local w,h=place.tankstock[Number].width,place.tankstock[Number].length
+        local hullcollider=world:newRectangleCollider(x+100*Dx , y,w,h)
 
-    local hullcollider=world:newRectangleCollider(x+100*Dx , y,w,h)
-    hullcollider:setCollisionClass('tankhull')
-    table.insert(HullColliders,hullcollider)
+        hullcollider:setCollisionClass('tankhull')
+        table.insert(HullColliders,hullcollider)
+    end
 end
 
 function TankSpawner:testdraw(place)
