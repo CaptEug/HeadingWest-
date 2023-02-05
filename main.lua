@@ -45,6 +45,7 @@ Ammo_icon = love.graphics.newImage('Assets/pictures/buttons/Ammo.png')
 Mobility_icon = love.graphics.newImage('Assets/pictures/buttons/Mobility.png')
 Go = love.graphics.newImage('Assets/pictures/buttons/Go.png')
 Tankdesigner_icon = love.graphics.newImage('Assets/pictures/buttons/Tankdesigner.png')
+RadioStation_icon = love.graphics.newImage('Assets/pictures/buttons/RadioStation.png')
 Build_icon = love.graphics.newImage('Assets/pictures/buttons/Build.png')
 Delete_icon = love.graphics.newImage('Assets/pictures/buttons/Delete.png')
 --UI
@@ -54,6 +55,7 @@ production_box = love.graphics.newImage('Assets/pictures/Pbox.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
+
 --cursor
 cursor = love.mouse.newCursor('Assets/cursors/Cursor.png', 0, 0)
 bombcursor = love.mouse.newCursor('Assets/cursors/RedBomb.png', 32, 32)

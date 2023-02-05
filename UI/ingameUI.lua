@@ -2,7 +2,17 @@ ingameUI={}
 require 'UI/TankDesigner'
 
 function ingameUI:load()
-    --buttons in captured 
+    --buttons in captured
+    DefButtons = buttons.new() 
+    RadioStation = buttons.newToolButton(
+        RadioStation_icon,
+        function ()
+            RadioStation:use(CurrentPlace.songlist)
+        end,
+        DefButtons,
+        ww - 16,
+        wh - 16
+    )
     Facbutton = buttons.new()
     FacDesigner = buttons.newToolButton(
         Tankdesigner_icon,
@@ -20,7 +30,7 @@ function ingameUI:load()
         TankDesigner:load()
     end
     if CurrentPlace.state == 'Battlefield' then
-        
+
     end
 end
 

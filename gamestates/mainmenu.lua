@@ -4,7 +4,7 @@ MainMenu = Gamestate.new()
 
 
 function MainMenu:init()
-    love.audio.play(Letsgo)
+    --love.audio.play(Letsgo)
 
     cam:lookAt(Worldw * 2 / 5, Worldh * 3/5)
     
