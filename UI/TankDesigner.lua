@@ -66,29 +66,31 @@ function TankDesigner:load()
         for i, tank in ipairs(CurrentPlace.tanklist) do
             if tank.accessories then
                 for i, accessory in ipairs(tank.accessories) do
-                    accessory.use = false
                     accessory.Abuttons = buttons.new()
-                    
-                    local Equip = buttons.newToolButton(
+                    accessory.isopen = false
+                    for i, equipment in ipairs(accessory) do
+                        local Equip = buttons.newToolButton(
                         leftArrow,
                         function ()
-                            if accessory.tag == 'Armor' then
-                                TankGear.armor = accessory
+                            if equipment.tag == 'Armor' then
+                                TankGear.armor = equipment
                             end
-                            if accessory.tag == 'Aim' then
-                                TankGear.aim = accessory
+                            if equipment.tag == 'Aim' then
+                                TankGear.aim = equipment
                             end
-                            if accessory.tag == 'Ammo' then
-                                TankGear.ammo = accessory
+                            if equipment.tag == 'Ammo' then
+                                TankGear.ammo = equipment
                             end
-                            if accessory.tag == 'Mob' then
-                                TankGear.mob = accessory
+                            if equipment.tag == 'Mob' then
+                                TankGear.mob = equipment
                             end
                         end,
                         accessory.Abuttons,
                         ww/2 - 320 + 416,
-                        wh/2 - 240  + 11 + 70*i
+                        wh/2 - 240 + 11 + 70*i
                     )
+                    equipment.use = false
+                    end
                 end
             end
         end
@@ -97,10 +99,10 @@ function TankDesigner:load()
             Armor_icon,
             function ()
                 for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
-                    if accessory.tag == 'Armor' then
-                        accessory.use = true
+                    if i == 1 and accessory.isopen == false then
+                        accessory.isopen = true
                     else
-                        accessory.use = false
+                        accessory.isopen = false
                     end
                 end
             end,
@@ -113,10 +115,10 @@ function TankDesigner:load()
             Aiming_icon,
             function ()
                 for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
-                    if accessory.tag == 'Aim' then
-                        accessory.use = true
+                    if i == 2 and accessory.isopen == false then
+                        accessory.isopen = true
                     else
-                        accessory.use = false
+                        accessory.isopen = false
                     end
                 end
             end,
@@ -129,10 +131,10 @@ function TankDesigner:load()
             Ammo_icon,
             function ()
                 for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
-                    if accessory.tag == 'Ammo' then
-                        accessory.use = true
+                    if i == 3 and accessory.isopen == false then
+                        accessory.isopen = true
                     else
-                        accessory.use = false
+                        accessory.isopen = false
                     end
                 end
             end,
@@ -145,10 +147,10 @@ function TankDesigner:load()
             Mobility_icon,
             function ()
                 for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
-                    if accessory.tag == 'Mob' then
-                        accessory.use = true
+                    if i == 4 and accessory.isopen == false then
+                        accessory.isopen = true
                     else
-                        accessory.use = false
+                        accessory.isopen = false
                     end
                 end
             end,
@@ -203,7 +205,7 @@ function TankDesigner:update(dt)
     for i, tank in ipairs(CurrentPlace.tanklist) do
         if tank.accessories then
             for i, accessory in ipairs(tank.accessories) do
-                for n, button in ipairs(accessory.Abuttons) do
+                for i, button in ipairs(accessory.Abuttons) do
                     button.bx = ww/2 - 320 + 416
                     button.by = wh/2 - 240  + 11 + 70*i
                 end
@@ -241,12 +243,14 @@ function TankDesigner:draw()
 
             if TankPresent.accessories then
                 for i, accessory in ipairs(TankPresent.accessories) do
-                    if accessory.use then
-                        love.graphics.setFont(Rtextfont)
-                        love.graphics.setColor(0,179/255,0)
-                        love.graphics.print(accessory.name, ww/2 - 320 + 336, wh/2 - 240 + 70*i)
-                        love.graphics.setColor(1,1,1)
+                    if accessory.isopen then
                         accessory.Abuttons:use()
+                        for i, equipment in ipairs(accessory) do
+                            love.graphics.setFont(Rtextfont)
+                            love.graphics.setColor(0,179/255,0)
+                            love.graphics.print(equipment.name, ww/2 - 320 + 336, wh/2 - 240 + 70*i)
+                            love.graphics.setColor(1,1,1)
+                        end
                     end
                 end
             end
