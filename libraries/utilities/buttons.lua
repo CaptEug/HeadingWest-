@@ -70,6 +70,25 @@ function buttons.newCamButton(picture, fn, buttons, bx, by)
     return instance
 end
 
+function buttons.newStateButton(picture1, picture2, picture3, fn, buttons, bx, by)
+    local instance = {
+        type = 4,
+        state = 'Off',
+        picture1 = picture1,
+        picture2 = picture2,
+        picture3 = picture3,
+        fn = fn,
+        w = picture1:getWidth(),
+        h = picture1:getHeight(),
+        bx = bx or picture1:getWidth() / 2,
+        by = by or picture1:getHeight() / 2,
+        now = true,
+        last = true
+    }
+    table.insert(buttons, instance)
+    return instance
+end
+
 function buttons:use()
     local ratio = love.graphics.getWidth() / 1536
     local mx, my = love.mouse.getPosition()
@@ -139,6 +158,25 @@ function buttons:use()
             end
             love.graphics.setColor(unpack(CButtonColor))
             love.graphics.draw(button.picture, x, y, 0, scale/cam.scale, scale/cam.scale, button.w/2, button.h/2)
+        end
+
+        if button.type == 4 then
+            local x, y = button.bx - button.w / 2, button.by - button.h / 2
+            local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
+            button.last = button.now
+            if Hot then
+                love.graphics.draw(button.picture3, x, y)
+            end
+            button.now = love.mouse.isDown(1)
+            if button.now and not button.last and Hot then
+                button.fn()
+                button.state = 'On'
+            end
+            if button.state == 'Off' then
+                love.graphics.draw(button.picture1, x, y)
+            elseif button.state == 'On' then
+                love.graphics.draw(button.picture2, x, y)
+            end
         end
     end
     love.graphics.setColor(1, 1, 1)

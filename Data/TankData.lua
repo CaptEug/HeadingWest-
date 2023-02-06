@@ -43,7 +43,7 @@ function TankData:load()
             },
             --ammo
             {
-                {name = '3BM22', line_image = Blank_line},
+                {name = '3BM22', line_image = Blank_line, tag = 'Ammo'},
             },
             --mob
             {
@@ -74,8 +74,8 @@ function TankData:load()
             },
             --ammo
             {
-                {name = '3BM22', line_image = Blank_line},
-                {name = '3BM42', line_image = Blank_line},
+                {name = '3BM22', line_image = Blank_line, tag = 'Ammo'},
+                {name = '3BM42', line_image = Blank_line, tag = 'Ammo'},
             },
             --mob
             {

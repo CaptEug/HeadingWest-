@@ -48,6 +48,9 @@ Tankdesigner_icon = love.graphics.newImage('Assets/pictures/buttons/Tankdesigner
 RadioStation_icon = love.graphics.newImage('Assets/pictures/buttons/RadioStation.png')
 Build_icon = love.graphics.newImage('Assets/pictures/buttons/Build.png')
 Delete_icon = love.graphics.newImage('Assets/pictures/buttons/Delete.png')
+EquipmentSelectOn = love.graphics.newImage('Assets/pictures/buttons/EquipmentSelectOn.png')
+EquipmentSelectOff = love.graphics.newImage('Assets/pictures/buttons/EquipmentSelectOff.png')
+EquipmentSelectHot = love.graphics.newImage('Assets/pictures/buttons/EquipmentSelectHot.png')
 --UI
 factory_screen = love.graphics.newImage('Assets/pictures/factory_screen.png')
 city_page = love.graphics.newImage('Assets/pictures/Citypage.png')

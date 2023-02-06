@@ -69,8 +69,10 @@ function TankDesigner:load()
                     accessory.Abuttons = buttons.new()
                     accessory.isopen = false
                     for i, equipment in ipairs(accessory) do
-                        local Equip = buttons.newToolButton(
-                        leftArrow,
+                        local Equip = buttons.newStateButton(
+                        EquipmentSelectOff,
+                        EquipmentSelectOff,
+                        EquipmentSelectHot,
                         function ()
                             if equipment.tag == 'Armor' then
                                 TankGear.armor = equipment
@@ -86,8 +88,8 @@ function TankDesigner:load()
                             end
                         end,
                         accessory.Abuttons,
-                        ww/2 - 320 + 416,
-                        wh/2 - 240 + 11 + 70*i
+                        ww/2 - 320 + 386,
+                        wh/2 - 240 + 45 + 47*i
                     )
                     equipment.use = false
                     end
@@ -206,8 +208,8 @@ function TankDesigner:update(dt)
         if tank.accessories then
             for i, accessory in ipairs(tank.accessories) do
                 for i, button in ipairs(accessory.Abuttons) do
-                    button.bx = ww/2 - 320 + 416
-                    button.by = wh/2 - 240  + 11 + 70*i
+                    button.bx = ww/2 - 320 + 386
+                    button.by = wh/2 - 240 + 45 + 47*i
                 end
             end
         end
@@ -248,7 +250,13 @@ function TankDesigner:draw()
                         for i, equipment in ipairs(accessory) do
                             love.graphics.setFont(Rtextfont)
                             love.graphics.setColor(0,179/255,0)
-                            love.graphics.print(equipment.name, ww/2 - 320 + 336, wh/2 - 240 + 70*i)
+                            love.graphics.print(equipment.name, ww/2 - 320 + 336, wh/2 - 240 + 24 + 47*i)
+                            if equipment == TankGear.armor or equipment == TankGear.aim or equipment == TankGear.ammo or equipment == TankGear.mob then
+                                love.graphics.setColor(0,179/255,0)
+                                love.graphics.rectangle("fill", ww/2 - 320 + 332, wh/2 - 240 + 23 + 47*i, 108, 44)
+                                love.graphics.setColor(34/255,32/255,52/255)
+                                love.graphics.print(equipment.name, ww/2 - 320 + 336, wh/2 - 240 + 24 + 47*i)
+                            end
                             love.graphics.setColor(1,1,1)
                         end
                     end
@@ -259,7 +267,7 @@ function TankDesigner:draw()
             love.graphics.draw(TankGear.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankGear.ammo.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankGear.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            
+                  
             for i, tank in ipairs(CurrentPlace.ProductionQueue) do
                 love.graphics.draw(production_box,ww/2 - 320 + 452, wh/2 - 240 + 62 + 28*i)
                 love.graphics.setColor(0,179/255,0)
