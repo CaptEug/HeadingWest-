@@ -7,7 +7,7 @@ function ingameUI:load()
     RadioStation = buttons.newToolButton(
         RadioStation_icon,
         function ()
-            love.audio.play(CurrentPlace.songlist[1])
+            CityData:playRadio(CurrentPlace.songlist)
         end,
         DefButtons,
         ww - 16,
