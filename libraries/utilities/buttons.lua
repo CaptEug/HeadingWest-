@@ -38,10 +38,15 @@ function buttons.newPicButton(picture, fn, buttons, bx, by)
     return instance
 end
 
-function buttons.newToolButton(picture, fn, buttons, bx, by)
+function buttons.newToolButton(picture, fn, buttons, bx, by, picturepressed, pictureHot, pictureOn)
     local instance = {
         type = 2,
+        state = 'Off',
+        pic = picture,
         picture = picture,
+        picturepressed = picturepressed or picture,
+        pictureHot = pictureHot or picture,
+        pictureOn = pictureOn or picture,
         fn = fn,
         w = picture:getWidth(),
         h = picture:getHeight(),
@@ -63,25 +68,6 @@ function buttons.newCamButton(picture, fn, buttons, bx, by)
         h = picture:getHeight(),
         bx = bx or picture:getWidth() / 2,
         by = by or picture:getHeight() / 2,
-        now = true,
-        last = true
-    }
-    table.insert(buttons, instance)
-    return instance
-end
-
-function buttons.newStateButton(picture1, picture2, picture3, fn, buttons, bx, by)
-    local instance = {
-        type = 4,
-        state = 'Off',
-        picture1 = picture1,
-        picture2 = picture2,
-        picture3 = picture3,
-        fn = fn,
-        w = picture1:getWidth(),
-        h = picture1:getHeight(),
-        bx = bx or picture1:getWidth() / 2,
-        by = by or picture1:getHeight() / 2,
         now = true,
         last = true
     }
@@ -133,15 +119,27 @@ function buttons:use()
             local x, y = button.bx - button.w / 2, button.by - button.h / 2
             button.Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
             button.last = button.now
+            button.now = love.mouse.isDown(1)
             if button.Hot then
                 Cursor = handcursor
+                button.pic = button.pictureHot
+            else
+                button.pic = button.picture
             end
-            button.now = love.mouse.isDown(1)
+            if button.now and button.Hot then
+                button.pic = button.picturepressed
+            end
             if button.now and not button.last and button.Hot then
                 button.fn()
+                button.state = 'On'
+            end
+            if button.state == 'Off' and not button.Hot then
+                button.pic = button.picture
+            elseif button.state == 'On' and not button.Hot then
+                button.pic = button.pictureOn
             end
             love.graphics.setColor(unpack(ButtonColor))
-            love.graphics.draw(button.picture, x, y)
+            love.graphics.draw(button.pic, x, y)
         end
 
         if button.type == 3 then
@@ -160,28 +158,15 @@ function buttons:use()
             love.graphics.setColor(unpack(ButtonColor))
             love.graphics.draw(button.picture, x, y, 0, scale/cam.scale, scale/cam.scale, button.w/2, button.h/2)
         end
-
-        if button.type == 4 then
-            local x, y = button.bx - button.w / 2, button.by - button.h / 2
-            button.Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
-            button.last = button.now
-            if button.Hot then
-                love.graphics.draw(button.picture3, x, y)
-                Cursor = handcursor
-            end
-            button.now = love.mouse.isDown(1)
-            if button.now and not button.last and button.Hot then
-                button.fn()
-                button.state = 'On'
-            end
-            love.graphics.setColor(unpack(ButtonColor))
-            if button.state == 'Off' then
-                love.graphics.draw(button.picture1, x, y)
-            elseif button.state == 'On' then
-                love.graphics.draw(button.picture2, x, y)
-            end
-        end
     end
     love.graphics.setColor(1, 1, 1)
     love.mouse.setCursor(Cursor)
+end
+
+function Buttonclicked(buttons)
+    for i, button in ipairs(buttons) do
+        if button.now and not button.last and button.Hot then
+            return button
+        end
+    end
 end

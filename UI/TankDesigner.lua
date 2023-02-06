@@ -69,10 +69,8 @@ function TankDesigner:load()
                     accessory.Abuttons = buttons.new()
                     accessory.isopen = false
                     for i, equipment in ipairs(accessory) do
-                        local Equip = buttons.newStateButton(
-                        EquipmentSelectOff,
-                        EquipmentSelectOff,
-                        EquipmentSelectHot,
+                        local Equip = buttons.newToolButton(
+                        EquipmentSelect,
                         function ()
                             if equipment.tag == 'Armor' then
                                 TankGear.armor = equipment
@@ -89,7 +87,9 @@ function TankDesigner:load()
                         end,
                         accessory.Abuttons,
                         ww/2 - 320 + 386,
-                        wh/2 - 240 + 46 + 46*i
+                        wh/2 - 240 + 46 + 46*i,
+                        EquipmentSelectHot,
+                        EquipmentSelectHot
                     )
                     equipment.use = false
                     end
@@ -168,7 +168,8 @@ function TankDesigner:load()
         end,
         CurrentPlace.Fbuttons,
         ww/2 - 320 + 405,
-        wh/2 - 240 + 390
+        wh/2 - 240 + 390,
+        Build_Hot
     )
 
     Delete = buttons.newToolButton(
