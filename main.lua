@@ -59,8 +59,9 @@ production_box = love.graphics.newImage('Assets/pictures/Pbox.png')
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
 --cursor
-cursor = love.mouse.newCursor('Assets/cursors/Cursor.png', 0, 0)
-bombcursor = love.mouse.newCursor('Assets/cursors/RedBomb.png', 32, 32)
+pointcursor = love.mouse.newCursor('Assets/pictures/cursors/PointCursor.png', 0, 0)
+handcursor = love.mouse.newCursor('Assets/pictures/cursors/HandCursor.png', 7, 0)
+bombcursor = love.mouse.newCursor('Assets/pictures/cursors/RedBomb.png', 32, 32)
 --font
 Rtitlefont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 100)
 Rbuttonfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 50)
@@ -84,7 +85,8 @@ function love.load()
     
     addCollisionClass()
 
-    love.mouse.setCursor(cursor)
+    Cursor = pointcursor
+    love.mouse.setCursor(Cursor)
     Saving:load_settings()
 end
 
@@ -99,6 +101,7 @@ end
 
 function love.draw()
     --cg1:playCG()
+    Cursor = pointcursor
 end
 
 

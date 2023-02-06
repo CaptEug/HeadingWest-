@@ -95,19 +95,18 @@ function buttons:use()
     local cmx, cmy = cam:mousePosition()
 
     for i, button in ipairs(self) do
-        local ButtonColor = {1, 1, 1, 0.7}
-        local CButtonColor = {1, 1, 1, 1}
-
+        local ButtonColor = {1, 1, 1, 1}
         if button.type == 0 then
             love.graphics.setFont(Rbuttonfont)
             local x, y = button.bx - button.w / 2, button.by - button.h / 2
-            local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
+            button.Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
             button.last = button.now
-            if Hot then
+            if button.Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
+                Cursor = handcursor
             end
             button.now = love.mouse.isDown(1)
-            if button.now and not button.last and Hot then
+            if button.now and not button.last and button.Hot then
                 button.fn()
             end
             love.graphics.setColor(unpack(ButtonColor))
@@ -116,28 +115,29 @@ function buttons:use()
         
         if button.type == 1 then
             local x, y = button.bx - button.w * ratio / 2, button.by - button.h * ratio / 2
-            local Hot = mx>=x and mx<=x+button.w * ratio and my>=y and my<=y+button.h * ratio
+            button.Hot = mx>=x and mx<=x+button.w * ratio and my>=y and my<=y+button.h * ratio
             button.last = button.now
-            if Hot then
+            if button.Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
+                Cursor = handcursor
             end
             button.now = love.mouse.isDown(1)
-            if button.now and not button.last and Hot then
+            if button.now and not button.last and button.Hot then
                 button.fn()
             end
             love.graphics.setColor(unpack(ButtonColor))
             love.graphics.draw(button.picture, x, y, 0, ratio)
-        end    
+        end
         
         if button.type == 2 then
             local x, y = button.bx - button.w / 2, button.by - button.h / 2
-            local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
+            button.Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
             button.last = button.now
-            if Hot then
-                ButtonColor ={1, 0.1, 0.1, 1}
+            if button.Hot then
+                Cursor = handcursor
             end
             button.now = love.mouse.isDown(1)
-            if button.now and not button.last and Hot then
+            if button.now and not button.last and button.Hot then
                 button.fn()
             end
             love.graphics.setColor(unpack(ButtonColor))
@@ -147,31 +147,34 @@ function buttons:use()
         if button.type == 3 then
             local x, y = button.bx - button.w, button.by - button.h
             local scale = 1
-            local Hot = cmx>=x-button.w/(2*cam.scale) and cmx<=x+button.w/(2*cam.scale) and cmy>=y-button.h/(2*cam.scale) and cmy<=y+button.h/(2*cam.scale)
+            button.Hot = cmx>=x-button.w/(2*cam.scale) and cmx<=x+button.w/(2*cam.scale) and cmy>=y-button.h/(2*cam.scale) and cmy<=y+button.h/(2*cam.scale)
             button.last = button.now
-            if Hot then
+            if button.Hot then
                 scale = 1.2
+                Cursor = handcursor
             end
             button.now = love.mouse.isDown(1)
-            if button.now and not button.last and Hot then
+            if button.now and not button.last and button.Hot then
                 button.fn()
             end
-            love.graphics.setColor(unpack(CButtonColor))
+            love.graphics.setColor(unpack(ButtonColor))
             love.graphics.draw(button.picture, x, y, 0, scale/cam.scale, scale/cam.scale, button.w/2, button.h/2)
         end
 
         if button.type == 4 then
             local x, y = button.bx - button.w / 2, button.by - button.h / 2
-            local Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
+            button.Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
             button.last = button.now
-            if Hot then
+            if button.Hot then
                 love.graphics.draw(button.picture3, x, y)
+                Cursor = handcursor
             end
             button.now = love.mouse.isDown(1)
-            if button.now and not button.last and Hot then
+            if button.now and not button.last and button.Hot then
                 button.fn()
                 button.state = 'On'
             end
+            love.graphics.setColor(unpack(ButtonColor))
             if button.state == 'Off' then
                 love.graphics.draw(button.picture1, x, y)
             elseif button.state == 'On' then
@@ -180,4 +183,5 @@ function buttons:use()
         end
     end
     love.graphics.setColor(1, 1, 1)
+    love.mouse.setCursor(Cursor)
 end

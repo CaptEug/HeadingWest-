@@ -73,5 +73,4 @@ function SettingMenu:change_resolution()
         love.window.setFullscreen(true)
         Sbuttons[4].text="Fullscreen"
     end
-
 end
