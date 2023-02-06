@@ -89,7 +89,7 @@ function TankDesigner:load()
                         end,
                         accessory.Abuttons,
                         ww/2 - 320 + 386,
-                        wh/2 - 240 + 45 + 47*i
+                        wh/2 - 240 + 46 + 46*i
                     )
                     equipment.use = false
                     end
@@ -209,7 +209,7 @@ function TankDesigner:update(dt)
             for i, accessory in ipairs(tank.accessories) do
                 for i, button in ipairs(accessory.Abuttons) do
                     button.bx = ww/2 - 320 + 386
-                    button.by = wh/2 - 240 + 45 + 47*i
+                    button.by = wh/2 - 240 + 46 + 46*i
                 end
             end
         end
@@ -250,12 +250,12 @@ function TankDesigner:draw()
                         for i, equipment in ipairs(accessory) do
                             love.graphics.setFont(Rtextfont)
                             love.graphics.setColor(0,179/255,0)
-                            love.graphics.print(equipment.name, ww/2 - 320 + 336, wh/2 - 240 + 24 + 47*i)
+                            love.graphics.print(equipment.name, ww/2 - 320 + 336, wh/2 - 240 + 24 + 46*i)
                             if equipment == TankGear.armor or equipment == TankGear.aim or equipment == TankGear.ammo or equipment == TankGear.mob then
                                 love.graphics.setColor(0,179/255,0)
-                                love.graphics.rectangle("fill", ww/2 - 320 + 332, wh/2 - 240 + 23 + 47*i, 108, 44)
+                                love.graphics.rectangle("fill", ww/2 - 320 + 332, wh/2 - 240 + 24 + 46*i, 108, 44)
                                 love.graphics.setColor(34/255,32/255,52/255)
-                                love.graphics.print(equipment.name, ww/2 - 320 + 336, wh/2 - 240 + 24 + 47*i)
+                                love.graphics.print(equipment.name, ww/2 - 320 + 336, wh/2 - 240 + 24 + 46*i)
                             end
                             love.graphics.setColor(1,1,1)
                         end
