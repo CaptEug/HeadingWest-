@@ -21,6 +21,7 @@ UvzSlotInfo={
     {x=12+544,y=48+256*6,available=true},
     {x=12+544,y=48+256*7,available=true},
 }
+SlotSequence={}
 
 function TankSpawner:loadTank()
     
@@ -59,11 +60,25 @@ function TankSpawner:load()
     world:addCollisionClass('tankturret',{ignores={'tankhull'}})
 end
 
+function TankSpawner:slotOperate()
+    for i,SlotNumber in ipairs(UvzSlotInfo) do
+        if SlotNumber.available==true then
+            Portnumber=i
+            --port_isavailable=true
+            table.insert(SlotSequence,Portnumber)
+            SlotNumber.available=false
+            break
+        else
+            --port_isavailable=false
+        end
+    end
+end
+
 function TankSpawner:findspwanlocation(place)
     
-    local port_isavailable=false
+    local port_isavailable=true
     local building_slot=place.building_slot
-    for i,SlotNumber in ipairs(UvzSlotInfo) do
+    --[[for i,SlotNumber in ipairs(UvzSlotInfo) do
         if SlotNumber.available==true then
             Portnumber=i
             port_isavailable=true
@@ -74,25 +89,15 @@ function TankSpawner:findspwanlocation(place)
     --[[if building_slot>place.ProductionNumber then
         Portnumber=Portnumber+1
     end]]
-
-    local x,y=UvzSlotInfo[Portnumber].x,UvzSlotInfo[Portnumber].y
-
-return x,y,port_isavailable
+    local n=SlotSequence[1]
+    if SlotSequence[1] ~=nil then
+        local x,y=UvzSlotInfo[n].x,UvzSlotInfo[n].y
+        return x,y,port_isavailable,n
+    end
 end
 
 function TankSpawner:testspawn(place)
-    --[[for i,tank in ipairs(place.tankstock) do
-        local x,y,w,h=100,200,tank.width,tank.length
-
-        local hullcollider=world:newRectangleCollider(x+100*Dx , y,w,h)
-        hullcollider:setCollisionClass('tankhull')
-        table.insert(HullColliders,hullcollider)
-        --[[local turretcollider=world:newCircleCollider(x+100*Dx+w/2,y+h/2,25)
-        turretcollider:setCollisionClass('tankturret')
-        table.insert(TurretColliders,turretcollider)]]
-        --[[place.tankstock[i].width
-    end]]
-    local x,y,port_isavailable=TankSpawner:findspwanlocation(place)
+    local x,y,port_isavailable,n=TankSpawner:findspwanlocation(place)
     if port_isavailable==true then
         local w,h=place.tankstock[Number].width,place.tankstock[Number].length
         local hullcollider=world:newRectangleCollider(x+100*Dx , y,w,h)
@@ -100,6 +105,8 @@ function TankSpawner:testspawn(place)
         hullcollider:setCollisionClass('tankhull')
         table.insert(HullColliders,hullcollider)
         Number=Number+1
+        UvzSlotInfo[n].available=true
+        table.remove(SlotSequence,1)
     end
 end
 

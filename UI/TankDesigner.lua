@@ -297,6 +297,6 @@ function Buildtank()
         fixedbuildtime = TankPresent.buildtime
     }
     table.insert(CurrentPlace.ProductionQueue, 1, instance)
-    
+    TankSpawner:slotOperate()
     CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
 end
