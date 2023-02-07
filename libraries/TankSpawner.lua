@@ -3,23 +3,23 @@ HullColliders={}
 TurretColliders={}
 Number=1
 Portnumber=1
-Uvzportlocation={
-    {x=12,y=48},
-    {x=12,y=48+256*1},
-    {x=12,y=48+256*2},
-    {x=12,y=48+256*3},
-    {x=12,y=48+256*4},
-    {x=12,y=48+256*5},
-    {x=12,y=48+256*6},
-    {x=12,y=48+256*7},
-    {x=12+544,y=48},
-    {x=12+544,y=48+256*1},
-    {x=12+544,y=48+256*2},
-    {x=12+544,y=48+256*3},
-    {x=12+544,y=48+256*4},
-    {x=12+544,y=48+256*5},
-    {x=12+544,y=48+256*6},
-    {x=12+544,y=48+256*7},
+UvzSlotInfo={
+    {x=12,y=48,available=true},
+    {x=12,y=48+256*1,available=true},
+    {x=12,y=48+256*2,available=true},
+    {x=12,y=48+256*3,available=true},
+    {x=12,y=48+256*4,available=true},
+    {x=12,y=48+256*5,available=true},
+    {x=12,y=48+256*6,available=true},
+    {x=12,y=48+256*7,available=true},
+    {x=12+544,y=48,available=true},
+    {x=12+544,y=48+256*1,available=true},
+    {x=12+544,y=48+256*2,available=true},
+    {x=12+544,y=48+256*3,available=true},
+    {x=12+544,y=48+256*4,available=true},
+    {x=12+544,y=48+256*5,available=true},
+    {x=12+544,y=48+256*6,available=true},
+    {x=12+544,y=48+256*7,available=true},
 }
 
 function TankSpawner:loadTank()
@@ -54,19 +54,30 @@ function TankSpawner:update()
     
 end
 
-function TankSpawner:findspwanlocation(place)
-    
-    local portstatus=true
-    local building_slot=place.building_slot
-    local x,y=Uvzportlocation[Portnumber].x,Uvzportlocation[Portnumber].y
-    
-    Portnumber=Portnumber+1
-return x,y,portstatus
-end
-
 function TankSpawner:load()
     world:addCollisionClass('tankhull')
     world:addCollisionClass('tankturret',{ignores={'tankhull'}})
+end
+
+function TankSpawner:findspwanlocation(place)
+    
+    local port_isavailable=false
+    local building_slot=place.building_slot
+    for i,SlotNumber in ipairs(UvzSlotInfo) do
+        if SlotNumber.available==true then
+            Portnumber=i
+            port_isavailable=true
+            SlotNumber.available=false
+            break
+        end
+    end
+    --[[if building_slot>place.ProductionNumber then
+        Portnumber=Portnumber+1
+    end]]
+
+    local x,y=UvzSlotInfo[Portnumber].x,UvzSlotInfo[Portnumber].y
+
+return x,y,port_isavailable
 end
 
 function TankSpawner:testspawn(place)
@@ -81,28 +92,29 @@ function TankSpawner:testspawn(place)
         table.insert(TurretColliders,turretcollider)]]
         --[[place.tankstock[i].width
     end]]
-    local x,y,portstatus=TankSpawner:findspwanlocation(place)
-    if portstatus==true then
+    local x,y,port_isavailable=TankSpawner:findspwanlocation(place)
+    if port_isavailable==true then
         local w,h=place.tankstock[Number].width,place.tankstock[Number].length
         local hullcollider=world:newRectangleCollider(x+100*Dx , y,w,h)
 
         hullcollider:setCollisionClass('tankhull')
         table.insert(HullColliders,hullcollider)
+        Number=Number+1
     end
 end
 
 function TankSpawner:testdraw(place)
-    if HullColliders~=nil then
-        for i,tank in ipairs(place.tankstock) do
-            local x,y=HullColliders[i]:getPosition()
-            local a=HullColliders[i]:getAngle()
-            local ox=tank.hull_image:getWidth()/2
-            local oy=tank.hull_image:getHeight()/2
+    for i,tank in ipairs(place.tankstock) do
+        if HullColliders[i]~=nil then
+        local x,y=HullColliders[i]:getPosition()
+        local a=HullColliders[i]:getAngle()
+        local ox=tank.hull_image:getWidth()/2
+        local oy=tank.hull_image:getHeight()/2
             
-            love.graphics.draw(tank.hull_image, x, y, a, 1, 1, ox, oy)
-            love.graphics.draw(tank.armor.hull_image, x, y, a, 1, 1, ox, oy)
-            love.graphics.draw(tank.turret_image, x, y, a, 1, 1, ox, oy)
-            love.graphics.draw(tank.armor.turret_image, x, y, a, 1, 1, ox, oy)
+        love.graphics.draw(tank.hull_image, x, y, a, 1, 1, ox, oy)
+        love.graphics.draw(tank.armor.hull_image, x, y, a, 1, 1, ox, oy)
+        love.graphics.draw(tank.turret_image, x, y, a, 1, 1, ox, oy)
+        love.graphics.draw(tank.armor.turret_image, x, y, a, 1, 1, ox, oy)
         end
     end
 end
