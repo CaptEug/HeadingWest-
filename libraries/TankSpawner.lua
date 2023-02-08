@@ -3,6 +3,8 @@ HullColliders={}
 TurretColliders={}
 Number=1
 Portnumber=1
+Port_isavailable=true
+
 UvzSlotInfo={
     {x=12,y=48,available=true},
     {x=12,y=48+256*1,available=true},
@@ -68,8 +70,15 @@ function TankSpawner:slotOperate()
             table.insert(SlotSequence,Portnumber)
             SlotNumber.available=false
             break
-        else
-            Port_isavailable=false
+            local minimum_time_number=0
+            for i, tank in ipairs(CurrentPlace.ProductionQueue) do
+                if minimum_time_number>tank.buildtime then
+                    minimum_time_number=tank.buildtime
+                end
+                if i>17 then
+                    break
+                end
+            end
         end
     end
 end

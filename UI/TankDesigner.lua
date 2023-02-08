@@ -219,12 +219,14 @@ function TankDesigner:update(dt)
     --tank production process
     for i, tank in ipairs(CurrentPlace.ProductionQueue) do
         tank.buildtime = tank.buildtime - dt
-        if tank.buildtime <= 0 then
+        if tank.buildtime <= 0 and Port_isavailable then
             --ADDtank()
             table.insert(CurrentPlace.tankstock, table.remove(CurrentPlace.ProductionQueue, i))
             --TankSpawner:spawn()
             TankSpawner:testspawn(CurrentPlace)
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
+        else
+            
         end
     end
 end
