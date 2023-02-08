@@ -70,7 +70,7 @@ function TankSpawner:slotOperate()
             table.insert(SlotSequence,Portnumber)
             SlotNumber.available=false
             break
-        else if CurrentPlace.ProductionNumber> CurrentPlace.building_slot then
+        --[[else if CurrentPlace.ProductionNumber> CurrentPlace.building_slot then
             local minimum_time_number=0
                 for i, tank in ipairs(CurrentPlace.ProductionQueue) do
                     if minimum_time_number>tank.buildtime then
@@ -80,7 +80,7 @@ function TankSpawner:slotOperate()
                         break
                     end
                 end
-            end
+            end]]
         end
     end
 end
