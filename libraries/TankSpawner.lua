@@ -69,7 +69,7 @@ function TankSpawner:slotOperate()
             SlotNumber.available=false
             break
         else
-            --port_isavailable=false
+            Port_isavailable=false
         end
     end
 end
@@ -78,17 +78,6 @@ function TankSpawner:findspwanlocation(place)
     
     local port_isavailable=true
     local building_slot=place.building_slot
-    --[[for i,SlotNumber in ipairs(UvzSlotInfo) do
-        if SlotNumber.available==true then
-            Portnumber=i
-            port_isavailable=true
-            SlotNumber.available=false
-            break
-        end
-    end
-    --[[if building_slot>place.ProductionNumber then
-        Portnumber=Portnumber+1
-    end]]
     local n=SlotSequence[1]
     if SlotSequence[1] ~=nil then
         local x,y=UvzSlotInfo[n].x,UvzSlotInfo[n].y
