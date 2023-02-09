@@ -6,6 +6,8 @@ T72A_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_line.png')
 T72A_turret = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_turret.png')
 T72A_hull = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_hull.png')
     --accessory
+    T72A_smokegernade_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_smokegernade_line.png')
+    T72A_smokegernade_turret = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_smokegernade_turret.png')
     T72A_kontakt1_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_kontakt1_line.png')
     T72A_kontakt1_turret = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_kontakt1_turret.png')
     T72A_kontakt1_hull = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_kontakt1_hull.png')
@@ -35,6 +37,7 @@ function TankData:load()
         accessories = {
             --armor
             {
+                {name = 'BASE_ARMOR', line_image = T72A_smokegernade_line, turret_image = T72A_smokegernade_turret, hull_image = Blank_line, tag = 'Armor'},
                 {name = 'Kontakt_1', line_image = T72A_kontakt1_line, turret_image = T72A_kontakt1_turret, hull_image = T72A_kontakt1_hull, tag = 'Armor'},
             },
             --aim

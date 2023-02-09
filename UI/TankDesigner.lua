@@ -6,12 +6,7 @@ function TankDesigner:load()
     CurrentPlace.tankindex = 1
     CurrentPlace.ProductionQueue = {}
     CurrentPlace.ProductionNumber = 0
-    TankGear = {
-        armor = Blank_Gear,
-        aim = Blank_Gear,
-        ammo = Blank_Gear,
-        mob = Blank_Gear
-    }
+    ResetGear()
     
         Close = buttons.newToolButton(
             Close_icon,
@@ -31,12 +26,7 @@ function TankDesigner:load()
                 else
                     CurrentPlace.tankindex = 1
                 end
-                TankGear = {
-                    armor = Blank_Gear,
-                    aim = Blank_Gear,
-                    ammo = Blank_Gear,
-                    mob = Blank_Gear
-                }
+                ResetGear()
             end,
             CurrentPlace.Fbuttons,
             ww/2 - 320 + 311,
@@ -51,12 +41,7 @@ function TankDesigner:load()
                 else
                     CurrentPlace.tankindex = table.getn(CurrentPlace.tanklist)
                 end
-                TankGear = {
-                    armor = Blank_Gear,
-                    aim = Blank_Gear,
-                    ammo = Blank_Gear,
-                    mob = Blank_Gear
-                }
+                ResetGear()
             end,
             CurrentPlace.Fbuttons,
             ww/2 - 320 + 56,
@@ -282,6 +267,15 @@ function TankDesigner:draw()
             CurrentPlace.Fbuttons:use()
 
         end
+end
+
+function ResetGear()
+    TankGear = {
+        armor = CurrentPlace.tanklist[CurrentPlace.tankindex].accessories[1][1] or Blank_Gear,
+        aim = CurrentPlace.tanklist[CurrentPlace.tankindex].accessories[2][1] or Blank_Gear,
+        ammo = CurrentPlace.tanklist[CurrentPlace.tankindex].accessories[3][1] or Blank_Gear,
+        mob = CurrentPlace.tanklist[CurrentPlace.tankindex].accessories[4][1] or Blank_Gear
+    }
 end
 
 function Buildtank()
