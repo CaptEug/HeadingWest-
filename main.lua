@@ -24,7 +24,8 @@ require 'gamestates/SettingMenu'
 
 --Assets registered
 --country
-Earth = love.graphics.newImage('Assets/countries/WorldMap1945.png')
+Earth = love.graphics.newImage('Assets/countries/WorldMap.png')
+WdMap = sti('Assets/countries/Worldmap.lua')
 Worldw, Worldh = Earth:getDimensions()
 --botton
 Stalin = love.graphics.newImage('Assets/pictures/Stalin.png')
@@ -130,7 +131,8 @@ function cammovement()
 end
 
 function DrawMaps()
-    love.graphics.draw(Earth, 0, 0)
+    --love.graphics.draw(Earth, 0, 0)
+    WdMap:drawLayer(WdMap.layers['Earth'])
 end
 
 function DrawCountries()
