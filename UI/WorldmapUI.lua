@@ -42,7 +42,11 @@ function WorldmapUI:load()
                 CurrentPlace = city
                 Saving:fileload()
             end,
-            city.Gobuttons
+            city.Gobuttons,
+            city.x + 208,
+            city.y + 228,
+            Go,
+            Go_Hot
         )
     end
 end
@@ -64,16 +68,22 @@ function WorldmapUI:draw()
     for i, city in ipairs(Cities) do
         if city.isopen then
             local x, y = cam:cameraCoords(city.x, city.y)
-            city.Go.bx = x + 205
-            city.Go.by = y + 226
+            city.Go.bx = x + 208
+            city.Go.by = y + 228
             pagex = x
             pagey = y - 100
             headx = x + 16
             heady = y - 84
+            tankx = x + 34
+            tanky = y + 223
 
             love.graphics.draw(city_page, pagex, pagey)
+            love.graphics.setColor(0,0,0)
             love.graphics.setFont(Rheadfont)
             love.graphics.print(city.name, headx, heady)
+            love.graphics.setFont(Rtextfont)
+            love.graphics.print(tostring(table.getn(city.tankstock)), tankx, tanky)
+            love.graphics.setColor(1,1,1)
             city.Gobuttons:use()
 
         end

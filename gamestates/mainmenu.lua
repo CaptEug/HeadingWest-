@@ -40,6 +40,8 @@ function MainMenu:init()
     FILE1 = buttons.newPicButton(
         Stalin,
         function()
+            MMbuttons.isopen = true
+            Lbuttons.isopen = false
             Filenumber=1
             Gamestate.switch(Worldmap)
         end,
@@ -49,6 +51,8 @@ function MainMenu:init()
     FILE2 = buttons.newPicButton(
         Khrushchev,
         function()
+            MMbuttons.isopen = true
+            Lbuttons.isopen = false
             Filenumber=2
             Gamestate.switch(Worldmap)
         end,
@@ -58,6 +62,8 @@ function MainMenu:init()
     FILE3 = buttons.newPicButton(
         Brezhnev,
         function()
+            MMbuttons.isopen = true
+            Lbuttons.isopen = false
             Filenumber=3
             Gamestate.switch(Worldmap)
         end,
