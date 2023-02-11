@@ -1,8 +1,6 @@
 WorldmapUI = {}
 
 function WorldmapUI:load()
-    Year = 1946
-
     Wbuttons = buttons.new()
     Settings = buttons.newToolButton(
         Gear,
@@ -15,7 +13,6 @@ function WorldmapUI:load()
     )
 
     Cbuttons = buttons.new()
-
     for i, city in ipairs(Cities) do
         city.isopen = false
         city.Gobuttons = buttons.new()

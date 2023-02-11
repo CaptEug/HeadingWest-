@@ -211,7 +211,7 @@ function TankDesigner:update(dt)
             TankSpawner:testspawn(CurrentPlace)
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
         else
-            
+  
         end
     end
 end
@@ -222,12 +222,16 @@ function TankDesigner:draw()
     TankPresent = CurrentPlace.tanklist[CurrentPlace.tankindex]
 
         if CurrentPlace.opendesigner then
+            local steel_cost = TankPresent.steel_cost + TankGear.armor.steel_cost + TankGear.aim.steel_cost + TankGear.ammo.steel_cost + TankGear.mob.steel_cost
+            local oil_cost = TankPresent.oil_cost + TankGear.armor.oil_cost + TankGear.aim.oil_cost + TankGear.ammo.oil_cost + TankGear.mob.oil_cost
             love.graphics.draw(factory_screen, ww/2 - 320, wh/2 - 240)
             love.graphics.setFont(Rbuttonfont)
             love.graphics.print(CurrentPlace.name, ww/2 - 320 + 40, wh/2 - 240)
             love.graphics.setFont(Rtextfont)
             love.graphics.setColor(0,179/255,0)
             love.graphics.print(TankPresent.name, ww/2 - 320 + 40 + 6, wh/2 - 240 + 64 + 6)
+            love.graphics.print(steel_cost, ww/2 - 320 + 40 + 246, wh/2 - 240 + 64 + 6)
+            love.graphics.print(oil_cost, ww/2 - 320 + 40 + 246, wh/2 - 240 + 64 + 26)
             love.graphics.setColor(1,1,1)
             love.graphics.draw(TankPresent.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
 

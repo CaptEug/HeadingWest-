@@ -6,6 +6,10 @@ require 'Data/CityData'
 require 'Data/TankData'
 
 function Worldmap:init()
+    Year = 1946
+    Steel = 10000
+    Oil = 10000
+
     CityData:load()
     TankData:load()
     WorldmapUI:load()
