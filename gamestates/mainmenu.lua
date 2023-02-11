@@ -98,8 +98,8 @@ function MainMenu:update(dt)
     BackL.bx = ww / 2
     BackL.by = wh *(12 / 13)
 
-    if cam.scale > 2 then
-        cam:zoomTo(2)
+    if cam.scale > 4 then
+        cam:zoomTo(4)
     end
     if cam.scale < wh / Worldh then
         cam:zoomTo(wh / Worldh)

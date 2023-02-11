@@ -148,7 +148,6 @@ function buttons:use()
             button.Hot = cmx>=x-button.w/(2*cam.scale) and cmx<=x+button.w/(2*cam.scale) and cmy>=y-button.h/(2*cam.scale) and cmy<=y+button.h/(2*cam.scale)
             button.last = button.now
             if button.Hot then
-                scale = 1.2
                 Cursor = handcursor
             end
             button.now = love.mouse.isDown(1)

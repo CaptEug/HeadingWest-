@@ -57,7 +57,10 @@ end
 
 function WorldmapUI:draw()
     cam:attach()
+    if cam.scale >= 2 then
         Cbuttons:use()
+    end
+        
     cam:detach()
 
     Wbuttons:use()
@@ -69,13 +72,13 @@ function WorldmapUI:draw()
         if city.isopen then
             local x, y = cam:cameraCoords(city.x, city.y)
             city.Go.bx = x + 208
-            city.Go.by = y + 228
+            city.Go.by = y + 328
             pagex = x
-            pagey = y - 100
+            pagey = y
             headx = x + 16
-            heady = y - 84
+            heady = y + 16
             tankx = x + 34
-            tanky = y + 223
+            tanky = y + 323
 
             love.graphics.draw(city_page, pagex, pagey)
             love.graphics.setColor(0,0,0)

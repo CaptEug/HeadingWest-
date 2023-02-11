@@ -12,10 +12,10 @@ function CityData:load()
     }
     --Cities
     UVZ = {
-        x = 1000,
-        y = 500,
+        x = 1280,
+        y = 555,
         name = 'Uralvagonzavod',
-        icon = UVZ_Icon,
+        icon = City_normal,
         state ='Captured',
         map = 3,
         tanklist = {},
@@ -26,10 +26,10 @@ function CityData:load()
     table.insert(Cities, UVZ)
 
     Berlin = {
-        x = 500,
-        y = 500,
+        x = 1035,
+        y = 605,
         name = 'Berlin',
-        icon = Berlin_icon,
+        icon = City_capital,
         state ='Battlefield',
         map = 1,
         tankstock = {}
