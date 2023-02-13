@@ -59,9 +59,10 @@ function buttons.newToolButton(picture, fn, buttons, bx, by, picturepressed, pic
     return instance
 end
 
-function buttons.newCamButton(picture, fn, buttons, bx, by)
+function buttons.newCamButton(picture, fn, buttons, bx, by, pictureHot)
     local instance = {
         type = 3,
+        pic = picture,
         picture = picture,
         fn = fn,
         w = picture:getWidth(),
@@ -69,14 +70,15 @@ function buttons.newCamButton(picture, fn, buttons, bx, by)
         bx = bx or picture:getWidth() / 2,
         by = by or picture:getHeight() / 2,
         now = true,
-        last = true
+        last = true,
+        pictureHot = pictureHot
     }
     table.insert(buttons, instance)
     return instance
 end
 
 function buttons:use()
-    local ratio = love.graphics.getWidth() / 1536
+    local ratio = love.graphics.getWidth() / 1890
     local mx, my = love.mouse.getPosition()
     local cmx, cmy = cam:mousePosition()
 
@@ -149,13 +151,16 @@ function buttons:use()
             button.last = button.now
             if button.Hot then
                 Cursor = handcursor
+                button.pic = button.pictureHot
+            else
+                button.pic = button.picture
             end
             button.now = love.mouse.isDown(1)
             if button.now and not button.last and button.Hot then
                 button.fn()
             end
             love.graphics.setColor(unpack(ButtonColor))
-            love.graphics.draw(button.picture, x, y, 0, scale/cam.scale, scale/cam.scale, button.w/2, button.h/2)
+            love.graphics.draw(button.pic, x, y, 0, scale/cam.scale, scale/cam.scale, button.w/2, button.h/2)
         end
     end
     love.graphics.setColor(1, 1, 1)

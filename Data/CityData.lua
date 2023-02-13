@@ -11,12 +11,29 @@ function CityData:load()
         {love.audio.newSource('Assets/audio/music/KINO/Кино - Красно-желтые дни.mp3', 'stream')}
     }
     --Cities
+    --USSR
+    Moskva = {
+        x = 1160,
+        y = 580,
+        country = {USSR_flag},
+        name = 'Moskva',
+        type = 'Capital',
+        factory = false,
+        labtory = true,
+        state ='Peace',
+        map = 2,
+        tankstock = {}
+    }
+    table.insert(Cities, Moskva)
     UVZ = {
         x = 1280,
         y = 555,
+        country = {USSR_flag},
         name = 'Uralvagonzavod',
-        icon = City_normal,
-        state ='Captured',
+        type = 'Normal',
+        factory = true,
+        labtory = false,
+        state ='Peace',
         map = 3,
         tanklist = {},
         tankstock = {},
@@ -25,11 +42,15 @@ function CityData:load()
     }
     table.insert(Cities, UVZ)
 
+    --German
     Berlin = {
         x = 1035,
         y = 605,
+        country = {USSR_flag, US_flag, UK_flag, FR_flag},
         name = 'Berlin',
-        icon = City_capital,
+        type = 'Capital',
+        factory = false,
+        labtory = true,
         state ='Battlefield',
         map = 1,
         tankstock = {}

@@ -16,9 +16,15 @@ function WorldmapUI:load()
     for i, city in ipairs(Cities) do
         city.isopen = false
         city.Gobuttons = buttons.new()
+        local pic = City_normal
+        local pic_Hot = City_normal_Hot
+        if city.type == 'Capital' then
+             pic = City_capital
+             pic_Hot = City_capital_Hot
+        end
 
         local City = buttons.newCamButton(
-            city.icon,
+            pic,
             function ()
                 if city.isopen then
                     city.isopen = false
@@ -28,7 +34,8 @@ function WorldmapUI:load()
             end,
             Cbuttons,
             city.x,
-            city.y
+            city.y,
+            pic_Hot
         )
 
         city.Go = buttons.newToolButton(
@@ -41,7 +48,7 @@ function WorldmapUI:load()
             end,
             city.Gobuttons,
             city.x + 208,
-            city.y + 228,
+            city.y + 328,
             Go,
             Go_Hot
         )
@@ -64,28 +71,29 @@ function WorldmapUI:draw()
     
     love.graphics.setFont(Rtitlefont)
     love.graphics.print(tostring(math.floor(Year)), love.graphics.getWidth() / 2 - Rtitlefont:getWidth(tostring(math.floor(Year))) / 2, 0)
-    
-    for i, city in ipairs(Cities) do
-        if city.isopen then
-            local x, y = cam:cameraCoords(city.x, city.y)
-            city.Go.bx = x + 208
-            city.Go.by = y + 328
-            pagex = x
-            pagey = y
-            headx = x + 16
-            heady = y + 16
-            tankx = x + 34
-            tanky = y + 323
 
-            love.graphics.draw(city_page, pagex, pagey)
-            love.graphics.setColor(0,0,0)
-            love.graphics.setFont(Rheadfont)
-            love.graphics.print(city.name, headx, heady)
-            love.graphics.setFont(Rtextfont)
-            love.graphics.print(tostring(table.getn(city.tankstock)), tankx, tanky)
-            love.graphics.setColor(1,1,1)
-            city.Gobuttons:use()
-
+    if cam.scale >= 2 then
+        for i, city in ipairs(Cities) do
+            if city.isopen then
+                local x, y = cam:cameraCoords(city.x - 25, city.y - 25)
+                city.Go.bx = x + 208
+                city.Go.by = y + 328
+                local headx = x + 16
+                local heady = y + 16
+                local tankx = x + 34
+                local tanky = y + 323
+                love.graphics.draw(city_page, x, y)
+                for i, flag in ipairs(city.country) do
+                    love.graphics.draw(flag, x + 210 + 28 - 28*i , y + 9)
+                end
+                love.graphics.setColor(0,0,0)
+                love.graphics.setFont(Rheadfont)
+                love.graphics.print(city.name, headx, heady)
+                love.graphics.setFont(Rtextfont)
+                love.graphics.print(tostring(table.getn(city.tankstock)), tankx, tanky)
+                love.graphics.setColor(1,1,1)
+                city.Gobuttons:use()
+            end
         end
     end
 end

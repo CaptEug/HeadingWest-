@@ -26,8 +26,10 @@ function ingameUI:load()
         Facbutton
     )
 
-    if CurrentPlace.state == 'Captured' then
-        TankDesigner:load()
+    if CurrentPlace.state == 'Peace' then
+        if CurrentPlace.factory == true then
+            TankDesigner:load()
+        end
     end
     if CurrentPlace.state == 'Battlefield' then
 
@@ -35,8 +37,10 @@ function ingameUI:load()
 end
 
 function ingameUI:update(dt)
-    if CurrentPlace.state == 'Captured' then
-        TankDesigner:update(dt)
+    if CurrentPlace.state == 'Peace' then
+        if CurrentPlace.factory == true then
+            TankDesigner:update(dt)
+        end
     end
     if CurrentPlace.state == 'Battlefield' then
         
@@ -45,9 +49,11 @@ end
 
 function ingameUI:draw()
     DefButtons:use()
-    if CurrentPlace.state == 'Captured' then
-        Facbutton:use()
-        TankDesigner:draw()
+    if CurrentPlace.state == 'Peace' then
+        if CurrentPlace.factory == true then
+            Facbutton:use()
+            TankDesigner:draw()
+        end
     end
     if CurrentPlace.state == 'Battlefield' then
         
