@@ -289,6 +289,7 @@ function Buildtank()
         length=TankPresent.length,
         hull_image = TankPresent.hull_image,
         turret_image = TankPresent.turret_image,
+        turret_offset=TankPresent.turret_offset,
         armor = TankGear.armor,
         aim = TankGear.aim,
         ammo = TankGear.ammo,
