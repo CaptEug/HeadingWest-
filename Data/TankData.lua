@@ -22,6 +22,13 @@ T72B_hull = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_hull.png')
     T72B_kontakt5_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt5_line.png')
     T72B_kontakt5_turret = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt5_turret.png')
     T72B_kontakt5_hull = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt5_hull.png')
+--Leopard2A4
+Leopard2A4_line=love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_line.png')
+Leopard2A4_turret=love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_Turret.png')
+Leopard2A4_hull=love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_Hull.png')
+    --accessory
+    Leopard2A4_turret_ExtraArmor1_line=love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_Turret_ExtraArmor1_line.png')
+    Leopard2A4_turret_ExtraArmor1=love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_Turret_ExtraArmor1.png')
 
 function TankData:load()
     Blank_Gear = {name = 'Blank', steel_cost = 0, oil_cost = 0, line_image = Blank_line, turret_image = Blank_line, hull_image = Blank_line}
@@ -93,4 +100,36 @@ function TankData:load()
         buildtime = 3
     }
     table.insert(UVZ.tanklist, T72B)
+
+    Leopard2A4={
+        name = 'Leopard2A4',
+        width = 64,
+        length = 127,
+        weight = 44.5,
+        steel_cost = 8,
+        oil_cost = 3,
+        line_image = Leopard2A4_line,
+        turret_image = Leopard2A4_turret,
+        hull_image = Leopard2A4_hull,
+        accessories = {
+            --armor
+            {
+                {name = 'ExArmor1', steel_cost = 1, oil_cost = 0, line_image = Leopard2A4_turret_ExtraArmor1_line, turret_image = Leopard2A4_turret_ExtraArmor1, hull_image = Blank_line,tag = 'Armor'},
+            },
+            --aim
+            {
+
+            },
+            --ammo
+            {
+                {name = 'DM53', steel_cost = 0, oil_cost = 0, line_image = Blank_line, tag = 'Ammo'},
+            },
+            --mob
+            {
+                {name = 'V_84', steel_cost = 0, oil_cost = 0, line_image = Blank_line, hp = 780, tag = 'Mob' },
+            }
+        },
+        buildtime = 3
+    }
+    table.insert(UVZ.tanklist, Leopard2A4)
 end
