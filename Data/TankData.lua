@@ -52,7 +52,7 @@ function TankData:load()
             },
             --mob
             {
-                {name = 'V12_diesel', steel_cost = 0, oil_cost = 0, line_image = Blank_line, hp = 780, tag = 'Mob' }
+                {name = 'V_84', steel_cost = 0, oil_cost = 0, line_image = Blank_line, hp = 780, tag = 'Mob' }
             }
         },
         buildtime = 2
@@ -86,8 +86,8 @@ function TankData:load()
             },
             --mob
             {
-                {name = 'V12_diesel', steel_cost = 0, oil_cost = 0, line_image = Blank_line, hp = 780, tag = 'Mob' },
-                {name = 'V_92S2F', steel_cost = 2, oil_cost = 1, line_image = Blank_line, hp = 1130, tag = 'Mob' }
+                {name = 'V_84', steel_cost = 0, oil_cost = 0, line_image = Blank_line, hp = 780, tag = 'Mob' },
+                {name = 'V_92', steel_cost = 2, oil_cost = 1, line_image = Blank_line, hp = 1130, tag = 'Mob' }
             }
         },
         buildtime = 3
