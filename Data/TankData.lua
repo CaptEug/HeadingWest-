@@ -114,6 +114,7 @@ function TankData:load()
         accessories = {
             --armor
             {
+                {name = 'BASE_ARMOR', steel_cost = 0, oil_cost = 0, line_image = Blank_line, turret_image = Blank_line, hull_image = Blank_line, tag = 'Armor'},
                 {name = 'ExArmor1', steel_cost = 1, oil_cost = 0, line_image = Leopard2A4_turret_ExtraArmor1_line, turret_image = Leopard2A4_turret_ExtraArmor1, hull_image = Blank_line,tag = 'Armor'},
             },
             --aim
