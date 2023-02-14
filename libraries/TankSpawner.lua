@@ -49,6 +49,7 @@ function TankSpawner:draw(place)
         love.graphics.draw(tank.hull_image, 100 + 100*i, 100)
         love.graphics.draw(tank.armor.hull_image, 100 + 100*i, 100)
         love.graphics.draw(tank.turret_image, 100 + 100*i, 100)
+        love.graphics.draw(tank.aim.turret_image, 100 + 100*i, 100)
         love.graphics.draw(tank.armor.turret_image, 100 + 100*i, 100)
     end
 end
@@ -121,6 +122,7 @@ function TankSpawner:testdraw(place)
         love.graphics.draw(tank.hull_image, x, y, a, 1, 1, ox, oy)
         love.graphics.draw(tank.armor.hull_image, x, y, a, 1, 1, ox, oy)
         love.graphics.draw(tank.turret_image, x, y, a, 1, 1, ox, oy)
+        love.graphics.draw(tank.aim.turret_image, x, y, a, 1, 1, ox, oy)
         love.graphics.draw(tank.armor.turret_image, x, y, a, 1, 1, ox, oy)
         end
     end
