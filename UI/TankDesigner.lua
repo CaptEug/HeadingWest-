@@ -76,7 +76,6 @@ function TankDesigner:load()
                         EquipmentSelectHot,
                         EquipmentSelectHot
                     )
-                    equipment.use = false
                     end
                 end
             end

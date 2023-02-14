@@ -40,20 +40,6 @@ function TankColliders(place)
     Dx=Dx+1
 end
 
-function TankSpawner:draw(place)
-    --[[for i,t in ipairs(Exsistank) do
-        love.graphics.draw(t.hull_image)
-        love.graphics.draw(t.turret_image)
-    end]]
-    for i, tank in ipairs(place.tankstock) do
-        love.graphics.draw(tank.hull_image, 100 + 100*i, 100)
-        love.graphics.draw(tank.armor.hull_image, 100 + 100*i, 100)
-        love.graphics.draw(tank.turret_image, 100 + 100*i, 100)
-        love.graphics.draw(tank.aim.turret_image, 100 + 100*i, 100)
-        love.graphics.draw(tank.armor.turret_image, 100 + 100*i, 100)
-    end
-end
-
 function TankSpawner:update()
     
 end

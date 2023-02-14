@@ -88,6 +88,7 @@ function TankData:load()
         accessories = {
             --armor
             {
+                {name = 'BASE_ARMOR', steel_cost = 0, oil_cost = 0, line_image = Blank_line, turret_image = Blank_line, hull_image = Blank_line, tag = 'Armor'},
                 {name = 'Kontakt_1', steel_cost = 1, oil_cost = 0, line_image = T72B_kontakt1_line, turret_image = T72B_kontakt1_turret, hull_image = T72B_kontakt1_hull, tag = 'Armor'},
                 {name = 'Kontakt_5', steel_cost = 2, oil_cost = 0, line_image = T72B_kontakt5_line, turret_image = T72B_kontakt5_turret, hull_image = T72B_kontakt5_hull, tag = 'Armor'},
             },
@@ -123,10 +124,12 @@ function TankData:load()
         accessories = {
             --armor
             {
+                {name = 'BASE_ARMOR', steel_cost = 0, oil_cost = 0, line_image = Blank_line, turret_image = Blank_line, hull_image = Blank_line, tag = 'Armor'},
                 {name = 'Kontakt_5', steel_cost = 2, oil_cost = 0, line_image = T90_kontakt5_line, turret_image = T90_kontakt5_turret, hull_image = T72B_kontakt5_hull, tag = 'Armor'},
             },
             --aim
             {
+                {name = 'BASIC_OPTICS', steel_cost = 1, oil_cost = 0, line_image = Blank_line, turret_image = Blank_line, tag = 'Aim'},
                 {name = 'Curtain', steel_cost = 1, oil_cost = 0, line_image = T90_curtain_line, turret_image = T90_curtain_turret, tag = 'Aim'}
             },
             --ammo
