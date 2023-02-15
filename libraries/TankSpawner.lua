@@ -4,6 +4,7 @@ TurretColliders={}
 Number=1
 Portnumber=1
 Port_isavailable=true
+TankPanelopen = false
 
 UvzSlotInfo={
     {x=12,y=48,available=true},
@@ -25,10 +26,6 @@ UvzSlotInfo={
 }
 SlotSequence={}
 
-function TankSpawner:loadTank()
-    
-end
-
 function TankSpawner:spawn(place)
     --table.insert(Exsistank,TankFunctions:newtank())
     TankColliders()
@@ -40,14 +37,29 @@ function TankColliders(place)
     Dx=Dx+1
 end
 
-function TankSpawner:update()
-    
+--[[function TankSpawner:load()
+    --add tankinfopanel button
+    for i,tank in ipairs(CurrentPlace.tankstock) do
+        tank.Infobutton = buttons.new()
+        local button = buttons.newCamButton(
+            invisible_button,
+            function ()
+                TankPanelopen = true
+                TankInfoPanel(tank)
+            end,
+            tank.Infobutton
+        )
+    end
 end
 
-function TankSpawner:load()
-    world:addCollisionClass('tankhull')
-    world:addCollisionClass('tankturret',{ignores={'tankhull'}})
-end
+function TankSpawner:update()
+    --tankbutton pos update
+    for i, tank in ipairs(CurrentPlace.tankstock) do
+        for i, button in ipairs(tank.Infobutton) do
+            button.x, button.y = tank.hullcollider:getPosition()
+        end
+    end
+end]]
 
 function TankSpawner:slotOperate()
     for i,SlotNumber in ipairs(UvzSlotInfo) do
@@ -84,6 +96,7 @@ function TankSpawner:findspwanlocation(place)
 end
 
 function TankSpawner:testspawn(place)
+    --spawn collider
     local x,y,port_isavailable,n=TankSpawner:findspwanlocation(place)
     if port_isavailable==true then
         local w,h=place.tankstock[Number].width,place.tankstock[Number].length
@@ -121,5 +134,9 @@ end
 TankFunctions={}
 
 function TankFunctions:move()
+    
+end
+
+function TankInfoPanel(tank)
     
 end

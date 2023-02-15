@@ -94,7 +94,6 @@ function love.load()
     world = wf.newWorld(0, 0)
     particleworld = wf.newWorld(0, 0)
     tanks_table = Tanks.new()
-    TankSpawner:load()
     
     addCollisionClass()
 
@@ -161,4 +160,5 @@ function addCollisionClass()
     world:addCollisionClass('Amour')
     world:addCollisionClass('Wall')
     world:addCollisionClass('Explosion')
+    world:addCollisionClass('tankhull')
 end
