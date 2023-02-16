@@ -72,7 +72,7 @@ function TankData:load()
                 {name = 'V_84', steel_cost = 0, oil_cost = 0, line_image = Blank_line, hp = 780, tag = 'Mob' }
             }
         },
-        buildtime = 2
+        buildtime = 20
     }
     table.insert(UVZ.tanklist, T72A)
 
