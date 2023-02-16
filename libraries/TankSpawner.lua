@@ -1,8 +1,5 @@
 TankSpawner={}
-HullColliders={}
-TurretColliders={}
 SlotSequence={}
-Number=1
 Portnumber=1
 Port_isavailable=true
 TankPanelopen = false
