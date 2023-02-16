@@ -104,10 +104,31 @@ function TankSpawner:new_tank(place,new_tankdata)
         local tank={}
         tank.collider=tank_collider
         tank.data=new_tankdata
+        tank.functions={}
+
+        tank.functions.move=function (i)
+            if love.keyboard.isDown('g') then
+                Exsistank[i].collider:setLinearVelocity(10, 10)
+                Exsistank[i].collider:setAngularVelocity(10)
+            end
+
+            if love.keyboard.isDown('h') then
+                Exsistank[i].collider:setLinearVelocity(0, 0)
+                Exsistank[i].collider:setAngularVelocity(0)
+            end
+
+        end
+
         table.insert(Exsistank,tank)
 
         Uvz_SlotInfo[n].available=true
         table.remove(SlotSequence,1)
+    end
+end
+
+function TankSpawner:update(dt)
+    for i, tank in ipairs(Exsistank) do
+        tank.functions.move(i)
     end
 end
 
