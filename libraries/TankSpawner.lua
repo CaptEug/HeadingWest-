@@ -76,20 +76,6 @@ function TankSpawner:new_tank(place,n,new_tankdata)
     local w,h=new_tankdata.width,new_tankdata.length
     local tank_collider=world:newRectangleCollider(x,y,w,h)
     tank_collider:setCollisionClass('tankhull')
-        local tank={}
-        tank.collider=tank_collider
-        tank.data=new_tankdata
-        tank.functions = {}
-        tank.functions.move=function (i)
-            if love.keyboard.isDown('g') then
-                place.exsist_tank[i].collider:setLinearVelocity(10, 10)
-                place.exsist_tank[i].collider:setAngularVelocity(10)
-            end
-
-            if love.keyboard.isDown('h') then
-                place.exsist_tank[i].collider:setLinearVelocity(0, 0)
-                place.exsist_tank[i].collider:setAngularVelocity(0)
-            end
 
     local tank={}
     tank.collider=tank_collider
@@ -118,24 +104,13 @@ function TankSpawner:new_tank(place,n,new_tankdata)
             place.exsist_tank[i].collider:setLinearVelocity(0, 0)
             place.exsist_tank[i].collider:setAngularVelocity(0)
         end
-        tank.Infobuttons = buttons.new()
-        local tankbutton = buttons.newCampicButton(
-            Gear,
-            function ()
-                TankPanelopen = true
-                TankChoosen = tank
-            end,
-            tank.Infobuttons,
-            x,
-            y
-        )
 
     end
 
     table.insert(place.exsist_tank, tank)
     --Uvz_SlotInfo[n].available=true
     --table.remove(SlotSequence,1)
-end
+
 end
 
 function TankSpawner:update(dt)
