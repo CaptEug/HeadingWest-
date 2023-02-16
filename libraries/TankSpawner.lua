@@ -55,62 +55,46 @@ function TankSpawner:findspwanlocation(place)
     end
 end
 
-function TankSpawner:scan_slot(place)
-    local slot_available=true
-    local slot_number
-    for i, slot in ipairs(place.slot_info) do
-        if slot.available==true then
-            slot_available=true
-            slot_number=i
-            break
-        else
-            slot_available=false
-            slot_number=0
+function TankSpawner:new_tank(place,new_tankdata)
+    local x,y,port_isavailable,n=TankSpawner:findspwanlocation(place)
+    if port_isavailable==true then
+        local w,h=new_tankdata.width,new_tankdata.length
+        local tank_collider=world:newRectangleCollider(x,y,w,h)
+        tank_collider:setCollisionClass('tankhull')
+
+        local tank={}
+        tank.collider=tank_collider
+        tank.data=new_tankdata
+        tank.Infobuttons = buttons.new()
+        local tankbutton = buttons.newCamButton(
+            Gear,
+            function ()
+                TankPanelopen = true
+                TankChoosen(tank)
+            end,
+            tank.Infobuttons,
+            x,
+            y,
+            Gear
+        )
+        tank.functions = {}
+        tank.functions.move=function (i)
+            if love.keyboard.isDown('g') then
+                place.exsist_tank[i].collider:setLinearVelocity(10, 10)
+                place.exsist_tank[i].collider:setAngularVelocity(10)
+            end
+
+            if love.keyboard.isDown('h') then
+                place.exsist_tank[i].collider:setLinearVelocity(0, 0)
+                place.exsist_tank[i].collider:setAngularVelocity(0)
+            end
+
         end
+
+        table.insert(place.exsist_tank, tank)
+        Uvz_SlotInfo[n].available=true
+        table.remove(SlotSequence,1)
     end
-    return slot_available,slot_number
-end
-
-function TankSpawner:new_tank(place,n,new_tankdata)
-    local x,y=place.slot_info[n].x,place.slot_info[n].y
-    local w,h=new_tankdata.width,new_tankdata.length
-    local tank_collider=world:newRectangleCollider(x,y,w,h)
-    tank_collider:setCollisionClass('tankhull')
-
-    local tank={}
-    tank.collider=tank_collider
-    tank.data=new_tankdata
-    tank.Infobuttons = buttons.new()
-    local tankbutton = buttons.newCamButton(
-        Gear,
-        function ()
-            TankPanelopen = true
-            TankChoosen(tank)
-        end,
-        tank.Infobuttons,
-        x,
-        y,
-        Gear
-    )
-    tank.functions = {}
-    tank.functions.move=
-    function (i)
-        if love.keyboard.isDown('g') then
-            place.exsist_tank[i].collider:setLinearVelocity(10, 10)
-            place.exsist_tank[i].collider:setAngularVelocity(10)
-        end
-
-        if love.keyboard.isDown('h') then
-            place.exsist_tank[i].collider:setLinearVelocity(0, 0)
-            place.exsist_tank[i].collider:setAngularVelocity(0)
-        end
-
-    end
-
-    table.insert(place.exsist_tank, tank)
-    --Uvz_SlotInfo[n].available=true
-    --table.remove(SlotSequence,1)
-
 end
 
 function TankSpawner:update(dt)

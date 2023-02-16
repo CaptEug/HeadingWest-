@@ -38,25 +38,7 @@ function CityData:load()
         tanklist = {},
         exsist_tank={},
         building_slot = 16,
-        songlist = TestSonglist,
-        slot_info={
-            {x=112,y=48,available=true},
-            {x=112,y=48+256*1,available=true},
-            {x=112,y=48+256*2,available=true},
-            {x=112,y=48+256*3,available=true},
-            {x=112,y=48+256*4,available=true},
-            {x=112,y=48+256*5,available=true},
-            {x=112,y=48+256*6,available=true},
-            {x=112,y=48+256*7,available=true},
-            {x=112+544,y=48,available=true},
-            {x=112+544,y=48+256*1,available=true},
-            {x=112+544,y=48+256*2,available=true},
-            {x=112+544,y=48+256*3,available=true},
-            {x=112+544,y=48+256*4,available=true},
-            {x=112+544,y=48+256*5,available=true},
-            {x=112+544,y=48+256*6,available=true},
-            {x=112+544,y=48+256*7,available=true},
-        }
+        songlist = TestSonglist
     }
     table.insert(Cities, UVZ)
 

@@ -202,20 +202,12 @@ function TankDesigner:update(dt)
 
     --tank production process
     for i, tank in ipairs(CurrentPlace.ProductionQueue) do
-        if  i<=16 then
-            tank.buildtime = tank.buildtime - dt
-            if tank.buildtime <= 0 then
-                local slot_number
-                for j, slot in ipairs(CurrentPlace.slot_info) do
-                    if slot.available==false then
-                        slot_number=j
-                        break
-                    end
-                end
-                TankSpawner:new_tank(CurrentPlace, slot_number,table.remove(CurrentPlace.ProductionQueue,i))
-                CurrentPlace.slot_info[slot_number].available=true  
-                CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1  
-            end
+        tank.buildtime = tank.buildtime - dt
+        if tank.buildtime <= 0 and Port_isavailable then
+            TankSpawner:new_tank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
+            CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
+        else
+  
         end
     end
 end
@@ -302,9 +294,6 @@ function Buildtank()
         fixedbuildtime = TankPresent.buildtime
     }
     table.insert(CurrentPlace.ProductionQueue, 1, instance)
-    local slot_available,slot_number=TankSpawner:scan_slot(CurrentPlace)
-    if  #CurrentPlace.ProductionQueue<=CurrentPlace.building_slot then
-        CurrentPlace.slot_info[slot_number].available=false
-    end
+    TankSpawner:slotOperate()
     CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
 end
