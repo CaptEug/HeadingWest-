@@ -1,6 +1,5 @@
 Structure = {}
 Obstacles = {}
-Exsistank={}
 
 require 'libraries.TankSpawner'
 
