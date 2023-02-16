@@ -2,7 +2,6 @@ Saving={}
 Loading=true
 
 function Saving:createsave(filenum)
-    local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
     local filedata={}
     filedata.filenumber=filenum
@@ -10,11 +9,10 @@ function Saving:createsave(filenum)
     filedata.ay=1600
     filedata.angle=0
    
-    love.filesystem.write(file[number], table.show(filedata,'Data'))
+    love.filesystem.write(file[filenum], table.show(filedata,'Data'))
 end
 
 function Saving:filesave (filenum)
-    local number=filenum
     local file={"file1.lua","file2.lua","file3.lua"}
     local filedata={}
     local ax, ay, angle = tanks_table:getdata(tank1)
@@ -24,7 +22,7 @@ function Saving:filesave (filenum)
     filedata.ay=ay
     filedata.angle=angle
 
-    love.filesystem.write(file[number], table.show(filedata,'Data'))
+    love.filesystem.write(file[filenum], table.show(filedata,'Data'))
 end
 
 function Saving:fileload ()
