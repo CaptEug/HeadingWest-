@@ -36,30 +36,6 @@ function TankSpawner:load_collider(place)
     
 end
 
---[[function TankSpawner:load()
-    --add tankinfopanel button
-    for i,tank in ipairs(CurrentPlace.tankstock) do
-        tank.Infobutton = buttons.new()
-        local button = buttons.newCamButton(
-            invisible_button,
-            function ()
-                TankPanelopen = true
-                TankInfoPanel(tank)
-            end,
-            tank.Infobutton
-        )
-    end
-end
-
-function TankSpawner:update()
-    --tankbutton pos update
-    for i, tank in ipairs(CurrentPlace.tankstock) do
-        for i, button in ipairs(tank.Infobutton) do
-            button.x, button.y = tank.hullcollider:getPosition()
-        end
-    end
-end]]
-
 function TankSpawner:slotOperate()
     for i,SlotNumber in ipairs(Uvz_SlotInfo) do
         if SlotNumber.available==true then
@@ -84,7 +60,6 @@ function TankSpawner:slotOperate()
 end
 
 function TankSpawner:findspwanlocation(place)
-    
     local port_isavailable=true
     local building_slot=place.building_slot
     local n=SlotSequence[1]
@@ -154,9 +129,5 @@ end
 TankFunctions={}
 
 function TankFunctions:move()
-    
-end
-
-function TankInfoPanel(tank)
     
 end

@@ -144,7 +144,7 @@ function TankDesigner:load()
             ww/2 - 320 + 224,
             wh/2 - 240 + 390
         )
-    
+
     Build = buttons.newToolButton(
         Build_icon,
         function ()
