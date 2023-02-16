@@ -20,7 +20,7 @@ function ingame:init()
     local map=Maps[MapNumber]
     loadMap(map)
     love.graphics.draw(love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_hull.png'))
-    --TankSpawner:load_collider(CurrentPlace)
+    TankSpawner:load_collider(CurrentPlace)
     ingameUI:load()
 
     --[[psystem = love.graphics.newParticleSystem(PlaneIcon, 32)

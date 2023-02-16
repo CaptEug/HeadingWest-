@@ -28,13 +28,15 @@ Uvz_SlotInfo={
 
 function TankSpawner:load_collider(place)
 
-    Exsistank={}
-    for i, tank in ipairs(place) do
+    Exsistank={} 
+    
+    --[[for i, tank in ipairs(place) do
         local tank_collider=world:newBSGRectangleCollider(tank.x,tank.y,tank.width,tank.length)
         tank_collider:setAngle(tank.angle)
         tank_collider:setCollisionClass('tank_hull')
         table.insert(HullColliders,tank_collider)
-    end
+    end]]
+    
 end
 
 --[[function TankSpawner:load()
