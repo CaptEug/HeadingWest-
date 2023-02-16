@@ -71,6 +71,8 @@ factory_screen = love.graphics.newImage('Assets/pictures/factory_screen.png')
 city_page = love.graphics.newImage('Assets/pictures/Citypage.png')
 production_box = love.graphics.newImage('Assets/pictures/Pbox.png')
 tank_info_panel = love.graphics.newImage('Assets/pictures/TankInfoPanel.png')
+crew_icon = love.graphics.newImage('Assets/pictures/Icons/crew_member.png')
+injured_crew_icon = love.graphics.newImage('Assets/pictures/Icons/crew_member_injured.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')

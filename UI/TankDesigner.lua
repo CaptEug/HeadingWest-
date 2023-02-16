@@ -229,7 +229,8 @@ function TankDesigner:draw()
             love.graphics.print(steel_cost, ww/2 - 320 + 40 + 246, wh/2 - 240 + 64 + 6)
             love.graphics.print(oil_cost, ww/2 - 320 + 40 + 246, wh/2 - 240 + 64 + 26)
             love.graphics.setColor(1,1,1)
-            love.graphics.draw(TankPresent.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankPresent.hull_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankPresent.turret_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
 
             if TankPresent.accessories then
                 for i, accessory in ipairs(TankPresent.accessories) do
@@ -251,11 +252,11 @@ function TankDesigner:draw()
                 end
             end
 
-            love.graphics.draw(TankGear.armor.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankGear.armor.hull_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankGear.armor.turret_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankGear.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            love.graphics.draw(TankGear.ammo.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankGear.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-                  
+
             for i, tank in ipairs(CurrentPlace.ProductionQueue) do
                 love.graphics.draw(production_box,ww/2 - 320 + 452, wh/2 - 240 + 62 + 28*i)
                 love.graphics.setColor(0,179/255,0)
@@ -263,7 +264,7 @@ function TankDesigner:draw()
                 love.graphics.rectangle('fill', ww/2 - 320 + 456, wh/2 - 240 + 80 + 28*i, 132 - (132*tank.buildtime/tank.fixedbuildtime), 4)
                 love.graphics.setColor(1,1,1)
             end
-            
+
             CurrentPlace.Fbuttons:use()
 
         end
@@ -283,8 +284,11 @@ function Buildtank()
         name = TankPresent.name,
         width=TankPresent.width,
         length=TankPresent.length,
+        crew=TankPresent.crew,
         hull_image = TankPresent.hull_image,
+        hull_image_line = TankPresent.hull_image_line,
         turret_image = TankPresent.turret_image,
+        turret_image_line = TankPresent.turret_image_line,
         turret_offset=TankPresent.turret_offset,
         armor = TankGear.armor,
         aim = TankGear.aim,

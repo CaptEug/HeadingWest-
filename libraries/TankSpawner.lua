@@ -65,18 +65,6 @@ function TankSpawner:new_tank(place,new_tankdata)
         local tank={}
         tank.collider=tank_collider
         tank.data=new_tankdata
-        tank.Infobuttons = buttons.new()
-        local tankbutton = buttons.newCamButton(
-            Gear,
-            function ()
-                TankPanelopen = true
-                TankChoosen(tank)
-            end,
-            tank.Infobuttons,
-            x,
-            y,
-            Gear
-        )
         tank.functions = {}
         tank.functions.move=function (i)
             if love.keyboard.isDown('g') then
@@ -90,6 +78,17 @@ function TankSpawner:new_tank(place,new_tankdata)
             end
 
         end
+        tank.Infobuttons = buttons.new()
+        local tankbutton = buttons.newCampicButton(
+            Gear,
+            function ()
+                TankPanelopen = true
+                TankChoosen = tank
+            end,
+            tank.Infobuttons,
+            x,
+            y
+        )
 
         table.insert(place.exsist_tank, tank)
         Uvz_SlotInfo[n].available=true
