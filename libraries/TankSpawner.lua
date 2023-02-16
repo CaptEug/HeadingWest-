@@ -1,40 +1,38 @@
 TankSpawner={}
 HullColliders={}
 TurretColliders={}
+SlotSequence={}
 Number=1
 Portnumber=1
 Port_isavailable=true
 TankPanelopen = false
 
 UvzSlotInfo={
-    {x=12,y=48,available=true},
-    {x=12,y=48+256*1,available=true},
-    {x=12,y=48+256*2,available=true},
-    {x=12,y=48+256*3,available=true},
-    {x=12,y=48+256*4,available=true},
-    {x=12,y=48+256*5,available=true},
-    {x=12,y=48+256*6,available=true},
-    {x=12,y=48+256*7,available=true},
-    {x=12+544,y=48,available=true},
-    {x=12+544,y=48+256*1,available=true},
-    {x=12+544,y=48+256*2,available=true},
-    {x=12+544,y=48+256*3,available=true},
-    {x=12+544,y=48+256*4,available=true},
-    {x=12+544,y=48+256*5,available=true},
-    {x=12+544,y=48+256*6,available=true},
-    {x=12+544,y=48+256*7,available=true},
+    {x=112,y=48,available=true},
+    {x=112,y=48+256*1,available=true},
+    {x=112,y=48+256*2,available=true},
+    {x=112,y=48+256*3,available=true},
+    {x=112,y=48+256*4,available=true},
+    {x=112,y=48+256*5,available=true},
+    {x=112,y=48+256*6,available=true},
+    {x=112,y=48+256*7,available=true},
+    {x=112+544,y=48,available=true},
+    {x=112+544,y=48+256*1,available=true},
+    {x=112+544,y=48+256*2,available=true},
+    {x=112+544,y=48+256*3,available=true},
+    {x=112+544,y=48+256*4,available=true},
+    {x=112+544,y=48+256*5,available=true},
+    {x=112+544,y=48+256*6,available=true},
+    {x=112+544,y=48+256*7,available=true},
 }
-SlotSequence={}
 
-function TankSpawner:spawn(place)
-    --table.insert(Exsistank,TankFunctions:newtank())
-    TankColliders()
-end
-
-function TankColliders(place)
-    table.insert(TurretCollider,world:newRectangleCollider(100 + 100*Dx, 100,100,100))
-    local turretcollider={}
-    Dx=Dx+1
+function TankSpawner:load_collider(place)
+    for i, tank in ipairs(place) do
+        local tank_collider=world:newBSGRectangleCollider(tank.x,tank.y,tank.width,tank.length)
+        tank_collider:setAngle(tank.angle)
+        tank_collider:setCollisionClass('tank_hull')
+        table.insert(HullColliders,tank_collider)
+    end
 end
 
 --[[function TankSpawner:load()
@@ -95,16 +93,14 @@ function TankSpawner:findspwanlocation(place)
     end
 end
 
-function TankSpawner:testspawn(place)
-    --spawn collider
+function TankSpawner:new_tank(place,new_tankdata)
     local x,y,port_isavailable,n=TankSpawner:findspwanlocation(place)
     if port_isavailable==true then
-        local w,h=place.tankstock[Number].width,place.tankstock[Number].length
-        local hullcollider=world:newRectangleCollider(x+100*Dx , y,w,h)
+        local w,h=new_tankdata.width,new_tankdata.length
+        local tank_collider=world:newRectangleCollider(x,y,w,h)
 
-        hullcollider:setCollisionClass('tankhull')
-        table.insert(HullColliders,hullcollider)
-        Number=Number+1
+        tank_collider:setCollisionClass('tankhull')
+        table.insert(HullColliders,tank_collider)
         UvzSlotInfo[n].available=true
         table.remove(SlotSequence,1)
     end
