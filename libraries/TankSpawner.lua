@@ -120,10 +120,7 @@ function TankSpawner:draw_tank()
         local x,y=tank.collider:getPosition()
         local a=tank.collider:getAngle()
         local offset_x=tank.data.hull_image:getWidth()/2
-        local offset_y=tank.data.hull_image:getHeight()/2
-        if tank.data.turret_offset~=0 then
-            y=y-tank.data.turret_offset
-        end
+        local offset_y=tank.data.hull_image:getHeight()/2+tank.data.turret_offset
 
         love.graphics.draw(tank.data.hull_image,x,y,a,1,1,offset_x,offset_y)
         love.graphics.draw(tank.data.armor.hull_image,x,y,a,1,1,offset_x,offset_y)
