@@ -2,7 +2,6 @@ TankSpawner={}
 SlotSequence={}
 Portnumber=1
 Port_isavailable=true
-TankPanelopen = false
 
 Uvz_SlotInfo={
     {x=112,y=48,available=true},
@@ -22,19 +21,6 @@ Uvz_SlotInfo={
     {x=112+544,y=48+256*6,available=true},
     {x=112+544,y=48+256*7,available=true},
 }
-
-function TankSpawner:load_collider(place)
-
-    Exsistank=place.exsist_tank
-    
-    --[[for i, tank in ipairs(place) do
-        local tank_collider=world:newBSGRectangleCollider(tank.x,tank.y,tank.width,tank.length)
-        tank_collider:setAngle(tank.angle)
-        tank_collider:setCollisionClass('tank_hull')
-        table.insert(HullColliders,tank_collider)
-    end]]
-    
-end
 
 function TankSpawner:slotOperate()
     for i,SlotNumber in ipairs(Uvz_SlotInfo) do
@@ -79,36 +65,46 @@ function TankSpawner:new_tank(place,new_tankdata)
         local tank={}
         tank.collider=tank_collider
         tank.data=new_tankdata
-        tank.functions={}
-
+        tank.Infobuttons = buttons.new()
+        local tankbutton = buttons.newCamButton(
+            Gear,
+            function ()
+                TankPanelopen = true
+                TankChoosen(tank)
+            end,
+            tank.Infobuttons,
+            x,
+            y,
+            Gear
+        )
+        tank.functions = {}
         tank.functions.move=function (i)
             if love.keyboard.isDown('g') then
-                Exsistank[i].collider:setLinearVelocity(10, 10)
-                Exsistank[i].collider:setAngularVelocity(10)
+                place.exsist_tank[i].collider:setLinearVelocity(10, 10)
+                place.exsist_tank[i].collider:setAngularVelocity(10)
             end
 
             if love.keyboard.isDown('h') then
-                Exsistank[i].collider:setLinearVelocity(0, 0)
-                Exsistank[i].collider:setAngularVelocity(0)
+                place.exsist_tank[i].collider:setLinearVelocity(0, 0)
+                place.exsist_tank[i].collider:setAngularVelocity(0)
             end
 
         end
 
-        table.insert(Exsistank,tank)
-        place.exsist_tank=Exsistank
+        table.insert(place.exsist_tank, tank)
         Uvz_SlotInfo[n].available=true
         table.remove(SlotSequence,1)
     end
 end
 
 function TankSpawner:update(dt)
-    for i, tank in ipairs(Exsistank) do
+    for i, tank in ipairs(CurrentPlace.exsist_tank) do
         tank.functions.move(i)
     end
 end
 
 function TankSpawner:draw_tank()
-    for i, tank in ipairs(Exsistank) do
+    for i, tank in ipairs(CurrentPlace.exsist_tank) do
         if tank.collider==nil then
             return nil
         end

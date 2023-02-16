@@ -1,7 +1,9 @@
 ingameUI={}
 require 'UI/TankDesigner'
+require 'UI/TankInfoPanel'
 
 function ingameUI:load()
+    TankInfoPanel:load()
     --buttons in captured
     CurrentPlace.Tbuttons = buttons.new()
     DefButtons = buttons.new() 
@@ -38,6 +40,8 @@ function ingameUI:load()
 end
 
 function ingameUI:update(dt)
+    TankInfoPanel:update(dt)
+
     if CurrentPlace.state == 'Peace' then
         if CurrentPlace.factory == true then
             TankDesigner:update(dt)
@@ -49,6 +53,7 @@ function ingameUI:update(dt)
 end
 
 function ingameUI:draw()
+    TankInfoPanel:draw()
     DefButtons:use()
     if CurrentPlace.state == 'Peace' then
         if CurrentPlace.factory == true then
@@ -59,6 +64,7 @@ function ingameUI:draw()
     if CurrentPlace.state == 'Battlefield' then
         
     end
+    
 end
 
 --[[function drawtanklist()
