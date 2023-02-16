@@ -7,7 +7,7 @@ Portnumber=1
 Port_isavailable=true
 TankPanelopen = false
 
-UvzSlotInfo={
+Uvz_SlotInfo={
     {x=112,y=48,available=true},
     {x=112,y=48+256*1,available=true},
     {x=112,y=48+256*2,available=true},
@@ -60,7 +60,7 @@ function TankSpawner:update()
 end]]
 
 function TankSpawner:slotOperate()
-    for i,SlotNumber in ipairs(UvzSlotInfo) do
+    for i,SlotNumber in ipairs(Uvz_SlotInfo) do
         if SlotNumber.available==true then
             Portnumber=i
             --port_isavailable=true
@@ -88,7 +88,7 @@ function TankSpawner:findspwanlocation(place)
     local building_slot=place.building_slot
     local n=SlotSequence[1]
     if SlotSequence[1] ~=nil then
-        local x,y=UvzSlotInfo[n].x,UvzSlotInfo[n].y
+        local x,y=Uvz_SlotInfo[n].x,Uvz_SlotInfo[n].y
         return x,y,port_isavailable,n
     end
 end
@@ -101,7 +101,7 @@ function TankSpawner:new_tank(place,new_tankdata)
 
         tank_collider:setCollisionClass('tankhull')
         table.insert(HullColliders,tank_collider)
-        UvzSlotInfo[n].available=true
+        Uvz_SlotInfo[n].available=true
         table.remove(SlotSequence,1)
     end
 end
