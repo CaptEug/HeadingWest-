@@ -22,7 +22,7 @@ function CityData:load()
         labtory = true,
         state ='Peace',
         map = 2,
-        tankstock = {}
+        exsist_tank={}
     }
     table.insert(Cities, Moskva)
     UVZ = {
@@ -36,7 +36,7 @@ function CityData:load()
         state ='Peace',
         map = 3,
         tanklist = {},
-        tankstock = {},
+        exsist_tank={},
         building_slot = 16,
         songlist = TestSonglist
     }
@@ -53,7 +53,7 @@ function CityData:load()
         labtory = true,
         state ='Battlefield',
         map = 1,
-        tankstock = {}
+        exsist_tank={}
     }
     table.insert(Cities, Berlin)
 

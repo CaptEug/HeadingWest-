@@ -25,7 +25,7 @@ Uvz_SlotInfo={
 
 function TankSpawner:load_collider(place)
 
-    Exsistank={} 
+    Exsistank=place.exsist_tank
     
     --[[for i, tank in ipairs(place) do
         local tank_collider=world:newBSGRectangleCollider(tank.x,tank.y,tank.width,tank.length)
@@ -95,7 +95,7 @@ function TankSpawner:new_tank(place,new_tankdata)
         end
 
         table.insert(Exsistank,tank)
-
+        place.exsist_tank=Exsistank
         Uvz_SlotInfo[n].available=true
         table.remove(SlotSequence,1)
     end
