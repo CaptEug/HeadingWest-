@@ -3,6 +3,7 @@ require 'UI/TankDesigner'
 
 function ingameUI:load()
     --buttons in captured
+    CurrentPlace.Exsistanks = {}
     CurrentPlace.Tbuttons = buttons.new()
     DefButtons = buttons.new() 
     RadioStation = buttons.newToolButton(

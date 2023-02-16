@@ -1,4 +1,5 @@
 TankInfoPanel = {}
+TankPanelopen = false
 
 function TankInfoPanel:load()
     --add tankinfopanel button
@@ -8,7 +9,7 @@ function TankInfoPanel:load()
             invisible_button,
             function ()
                 TankPanelopen = true
-                TankInfoPanel(tank)
+                TankInfoPanel:draw(tank)
             end,
             tank.Infobutton
         )
@@ -24,6 +25,12 @@ function TankInfoPanel:update()
     end
 end
 
-function TankInfoPanel:draw()
-    
+function TankInfoPanel:draw(tank)
+    if TankPanelopen then
+        love.graphics.draw(tank_info_panel, 0, ww - 288)
+    end
+
+    for i,tank in ipairs(CurrentPlace.tankstock) do
+        tank.Infobutton:use()
+    end
 end
