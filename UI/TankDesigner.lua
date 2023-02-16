@@ -205,7 +205,6 @@ function TankDesigner:update(dt)
         tank.buildtime = tank.buildtime - dt
         if tank.buildtime <= 0 and Port_isavailable then
             --ADDtank()
-            table.insert(CurrentPlace.tankstock,CurrentPlace.ProductionQueue[i])
             TankSpawner:new_tank(CurrentPlace,CurrentPlace.ProductionQueue[i])
             table.remove(CurrentPlace.ProductionQueue,i)
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
