@@ -98,32 +98,37 @@ function TankSpawner:new_tank(place,new_tankdata)
     if port_isavailable==true then
         local w,h=new_tankdata.width,new_tankdata.length
         local tank_collider=world:newRectangleCollider(x,y,w,h)
-
         tank_collider:setCollisionClass('tankhull')
-        table.insert(HullColliders,tank_collider)
+
+        local tank={}
+        tank.collider=tank_collider
+        tank.data=new_tankdata
+        table.insert(Exsistank,tank)
+
         Uvz_SlotInfo[n].available=true
         table.remove(SlotSequence,1)
     end
 end
 
-function TankSpawner:testdraw(place)
-    for i,tank in ipairs(place.tankstock) do
-        if HullColliders[i]~=nil then
-        local x,y=HullColliders[i]:getPosition()
-        local a=HullColliders[i]:getAngle()
-        local ox=tank.hull_image:getWidth()/2
-        local oy=tank.hull_image:getHeight()/2
-        
-        if tank.turret_offset~=0 then
-            y=y-tank.turret_offset
+function TankSpawner:draw_tank()
+    for i, tank in ipairs(Exsistank) do
+        if tank.collider==nil then
+            return nil
         end
 
-        love.graphics.draw(tank.hull_image, x, y, a, 1, 1, ox, oy)
-        love.graphics.draw(tank.armor.hull_image, x, y, a, 1, 1, ox, oy)
-        love.graphics.draw(tank.turret_image, x, y, a, 1, 1, ox, oy)
-        love.graphics.draw(tank.aim.turret_image, x, y, a, 1, 1, ox, oy)
-        love.graphics.draw(tank.armor.turret_image, x, y, a, 1, 1, ox, oy)
+        local x,y=tank.collider:getPosition()
+        local a=tank.collider:getAngle()
+        local offset_x=tank.data.hull_image:getWidth()/2
+        local offset_y=tank.data.hull_image:getHeight()/2
+        if tank.data.turret_offset~=0 then
+            y=y-tank.data.turret_offset
         end
+
+        love.graphics.draw(tank.data.hull_image,x,y,a,1,1,offset_x,offset_y)
+        love.graphics.draw(tank.data.armor.hull_image,x,y,a,1,1,offset_x,offset_y)
+        love.graphics.draw(tank.data.turret_image,x,y,a,1,1,offset_x,offset_y)
+        love.graphics.draw(tank.data.aim.turret_image,x,y,a,1,1,offset_x,offset_y)
+        love.graphics.draw(tank.data.armor.turret_image,x,y,a,1,1,offset_x,offset_y)
     end
 end
 
