@@ -324,7 +324,7 @@ function TankData:load()
                 }
             }
         },
-        buildtime = 10
+        buildtime = 20
     }
     table.insert(UVZ.tanklist, Leopard2A4)
 end

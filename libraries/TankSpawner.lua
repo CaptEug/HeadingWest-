@@ -19,7 +19,7 @@ Uvz_SlotInfo={
 }
 
 function TankSpawner:scan_slot(place)
-    local slot_number
+    local slot_number=1
     for i, slot in ipairs(Uvz_SlotInfo) do
         if slot.available==false then
             slot_number=i
