@@ -107,7 +107,7 @@ function TankData:load()
                 }
             }
         },
-        buildtime = 20
+        buildtime = 2
     }
     table.insert(UVZ.tanklist, T72A)
 
@@ -324,7 +324,7 @@ function TankData:load()
                 }
             }
         },
-        buildtime = 3
+        buildtime = 10
     }
     table.insert(UVZ.tanklist, Leopard2A4)
 end
