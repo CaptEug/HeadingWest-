@@ -1,19 +1,6 @@
 TankSpawner={}
 Slot_full=true
 
-function TankSpawner:scan_slot(place)
-    local slot_number=1
-    for i, slot in ipairs(place.slot_info) do
-        if slot.available==false then
-            slot_number=i
-            break
-        else
-
-        end
-    end
-    return place.slot_info[slot_number].x,place.slot_info[slot_number].y,slot_number
-end
-
 function TankSpawner:slot_distribution(place)
 
     Slot_full=true
