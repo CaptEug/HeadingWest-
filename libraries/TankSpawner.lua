@@ -20,7 +20,7 @@ return selected_slot
 end
 
 function TankSpawner:new_tank(place,new_tankdata)    
-    local x,y,slot_number=place.slot_info[new_tankdata.selected_slot].x,place.slot_info[new_tankdata.selected_slot].y,new_tankdata.selected_slot
+    local x,y=place.slot_info[new_tankdata.selected_slot].x,place.slot_info[new_tankdata.selected_slot].y
 
     local w,h=new_tankdata.width,new_tankdata.length
     local tank_collider=world:newRectangleCollider(x,y,w,h)
@@ -55,7 +55,7 @@ function TankSpawner:new_tank(place,new_tankdata)
     )
 
     table.insert(place.exsist_tank, tank)
-    place.slot_info[slot_number].available=true
+    place.slot_info[new_tankdata.selected_slot].available=true
 end
 
 function TankSpawner:update(dt)
