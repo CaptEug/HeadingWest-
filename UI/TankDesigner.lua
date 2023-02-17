@@ -205,7 +205,7 @@ function TankDesigner:update(dt)
         if i>=#CurrentPlace.ProductionQueue-16 then
             tank.buildtime = tank.buildtime - dt
         end
-        if tank.buildtime <= 0 and Port_isavailable then
+        if tank.buildtime <= 0 then
             TankSpawner:new_tank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
         else

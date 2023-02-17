@@ -1,8 +1,4 @@
 TankSpawner={}
-SlotSequence={}
-Portnumber=1
-Port_isavailable=true
-
 Uvz_SlotInfo={
     {x=112,y=48,available=true},
     {x=112,y=48+256*1,available=true},
@@ -81,8 +77,6 @@ function TankSpawner:new_tank(place,new_tankdata)
 
         table.insert(place.exsist_tank, tank)
         Uvz_SlotInfo[slot_number].available=true
-        --table.remove(SlotSequence,1)
-
 end
 
 function TankSpawner:update(dt)
