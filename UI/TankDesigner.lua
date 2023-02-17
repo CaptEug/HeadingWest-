@@ -303,6 +303,5 @@ function Buildtank()
         selected_slot=TankSpawner:slot_distribution(CurrentPlace)
     }
     table.insert(CurrentPlace.ProductionQueue, 1, instance)
-    --TankSpawner:slot_distribution(CurrentPlace)
     CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
 end
