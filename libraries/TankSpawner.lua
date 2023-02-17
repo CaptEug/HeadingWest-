@@ -1,19 +1,18 @@
 TankSpawner={}
-Slot_full=true
 
 function TankSpawner:slot_distribution(place)
 
-    Slot_full=true
+    local slot_full=true
     local selected_slot
     for i, slot in ipairs(place.slot_info) do
         if slot.available==true then
             slot.available=false
             selected_slot=i
-            Slot_full=false
+            slot_full=false
             break
         end
     end
-    if Slot_full==true then
+    if slot_full==true then
         selected_slot=0
     end
 
