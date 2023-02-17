@@ -202,8 +202,10 @@ function TankDesigner:update(dt)
 
     --tank production process
     for i, tank in ipairs(CurrentPlace.ProductionQueue) do
-        if i>=#CurrentPlace.ProductionQueue-16 then
+        if tank.selected_slot~=0 then
             tank.buildtime = tank.buildtime - dt
+        else
+            tank.selected_slot=TankSpawner:slot_distribution(CurrentPlace)
         end
         if tank.buildtime <= 0 then
             TankSpawner:new_tank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
@@ -297,9 +299,10 @@ function Buildtank()
         ammo = TankGear.ammo,
         mob = TankGear.mob,
         buildtime = TankPresent.buildtime,
-        fixedbuildtime = TankPresent.buildtime
+        fixedbuildtime = TankPresent.buildtime,
+        selected_slot=TankSpawner:slot_distribution(CurrentPlace)
     }
     table.insert(CurrentPlace.ProductionQueue, 1, instance)
-    TankSpawner:slot_distribution(CurrentPlace)
+    --TankSpawner:slot_distribution(CurrentPlace)
     CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
 end

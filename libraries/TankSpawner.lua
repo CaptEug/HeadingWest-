@@ -1,4 +1,5 @@
 TankSpawner={}
+Slot_full=true
 
 function TankSpawner:scan_slot(place)
     local slot_number=1
@@ -14,51 +15,61 @@ function TankSpawner:scan_slot(place)
 end
 
 function TankSpawner:slot_distribution(place)
+
+    Slot_full=true
+    local selected_slot
     for i, slot in ipairs(place.slot_info) do
         if slot.available==true then
             slot.available=false
+            selected_slot=i
+            Slot_full=false
             break
         end
     end
+    if Slot_full==true then
+        selected_slot=0
+    end
+
+return selected_slot
 end
 
-function TankSpawner:new_tank(place,new_tankdata)
-    local x,y,slot_number=TankSpawner:scan_slot(place)
+function TankSpawner:new_tank(place,new_tankdata)    
+    local x,y,slot_number=place.slot_info[new_tankdata.selected_slot].x,place.slot_info[new_tankdata.selected_slot].y,new_tankdata.selected_slot
 
-        local w,h=new_tankdata.width,new_tankdata.length
-        local tank_collider=world:newRectangleCollider(x,y,w,h)
-        tank_collider:setCollisionClass('tankhull')
+    local w,h=new_tankdata.width,new_tankdata.length
+    local tank_collider=world:newRectangleCollider(x,y,w,h)
+    tank_collider:setCollisionClass('tankhull')
 
-        local tank={}
-        tank.collider=tank_collider
-        tank.data=new_tankdata
-        tank.functions = {}
-        tank.functions.move=function (i)
-            if love.keyboard.isDown('g') then
-                place.exsist_tank[i].collider:setLinearVelocity(10, 10)
-                place.exsist_tank[i].collider:setAngularVelocity(10)
-            end
-
-            if love.keyboard.isDown('h') then
-                place.exsist_tank[i].collider:setLinearVelocity(0, 0)
-                place.exsist_tank[i].collider:setAngularVelocity(0)
-            end
-
+    local tank={}
+    tank.collider=tank_collider
+    tank.data=new_tankdata
+    tank.functions = {}
+    tank.functions.move=function (i)
+        if love.keyboard.isDown('g') then
+            place.exsist_tank[i].collider:setLinearVelocity(10, 10)
+            place.exsist_tank[i].collider:setAngularVelocity(10)
         end
-        tank.Infobuttons = buttons.new()
-        local tankbutton = buttons.newCampicButton(
-            Gear,
-            function ()
-                TankPanelopen = true
-                TankChoosen = tank
-            end,
-            tank.Infobuttons,
-            x,
-            y
-        )
 
-        table.insert(place.exsist_tank, tank)
-        place.slot_info[slot_number].available=true
+        if love.keyboard.isDown('h') then
+            place.exsist_tank[i].collider:setLinearVelocity(0, 0)
+            place.exsist_tank[i].collider:setAngularVelocity(0)
+        end
+
+    end
+    tank.Infobuttons = buttons.new()
+    local tankbutton = buttons.newCampicButton(
+        Gear,
+        function ()
+            TankPanelopen = true
+            TankChoosen = tank
+        end,
+        tank.Infobuttons,
+        x,
+        y
+    )
+
+    table.insert(place.exsist_tank, tank)
+    place.slot_info[slot_number].available=true
 end
 
 function TankSpawner:update(dt)
