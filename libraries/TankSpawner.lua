@@ -22,42 +22,31 @@ Uvz_SlotInfo={
     {x=112+544,y=48+256*7,available=true},
 }
 
-function TankSpawner:slotOperate()
-    for i,SlotNumber in ipairs(Uvz_SlotInfo) do
-        if SlotNumber.available==true then
-            Portnumber=i
-            --port_isavailable=true
-            table.insert(SlotSequence,Portnumber)
-            SlotNumber.available=false
+function TankSpawner:scan_slot(place)
+    local slot_number
+    for i, slot in ipairs(Uvz_SlotInfo) do
+        if slot.available==false then
+            slot_number=i
             break
-        --[[else if CurrentPlace.ProductionNumber> CurrentPlace.building_slot then
-            local minimum_time_number=0
-                for i, tank in ipairs(CurrentPlace.ProductionQueue) do
-                    if minimum_time_number>tank.buildtime then
-                        minimum_time_number=tank.buildtime
-                    end
-                    if i>17 then
-                        break
-                    end
-                end
-            end]]
+        else
+
+        end
+    end
+    return Uvz_SlotInfo[slot_number].x,Uvz_SlotInfo[slot_number].y,slot_number
+end
+
+function TankSpawner:slot_distribution()
+    for i, slot in ipairs(Uvz_SlotInfo) do
+        if slot.available==true then
+            slot.available=false
+            break
         end
     end
 end
 
-function TankSpawner:findspwanlocation(place)
-    local port_isavailable=true
-    local building_slot=place.building_slot
-    local n=SlotSequence[1]
-    if SlotSequence[1] ~=nil then
-        local x,y=Uvz_SlotInfo[n].x,Uvz_SlotInfo[n].y
-        return x,y,port_isavailable,n
-    end
-end
-
 function TankSpawner:new_tank(place,new_tankdata)
-    local x,y,port_isavailable,n=TankSpawner:findspwanlocation(place)
-    if port_isavailable==true then
+    local x,y,slot_number=TankSpawner:scan_slot(place)
+
         local w,h=new_tankdata.width,new_tankdata.length
         local tank_collider=world:newRectangleCollider(x,y,w,h)
         tank_collider:setCollisionClass('tankhull')
@@ -91,9 +80,9 @@ function TankSpawner:new_tank(place,new_tankdata)
         )
 
         table.insert(place.exsist_tank, tank)
-        Uvz_SlotInfo[n].available=true
-        table.remove(SlotSequence,1)
-    end
+        Uvz_SlotInfo[slot_number].available=true
+        --table.remove(SlotSequence,1)
+
 end
 
 function TankSpawner:update(dt)

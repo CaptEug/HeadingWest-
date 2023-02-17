@@ -107,7 +107,7 @@ function TankData:load()
                 }
             }
         },
-        buildtime = 2
+        buildtime = 20
     }
     table.insert(UVZ.tanklist, T72A)
 
