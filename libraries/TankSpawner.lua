@@ -1,26 +1,8 @@
 TankSpawner={}
-Uvz_SlotInfo={
-    {x=112,y=48,available=true},
-    {x=112,y=48+256*1,available=true},
-    {x=112,y=48+256*2,available=true},
-    {x=112,y=48+256*3,available=true},
-    {x=112,y=48+256*4,available=true},
-    {x=112,y=48+256*5,available=true},
-    {x=112,y=48+256*6,available=true},
-    {x=112,y=48+256*7,available=true},
-    {x=112+544,y=48,available=true},
-    {x=112+544,y=48+256*1,available=true},
-    {x=112+544,y=48+256*2,available=true},
-    {x=112+544,y=48+256*3,available=true},
-    {x=112+544,y=48+256*4,available=true},
-    {x=112+544,y=48+256*5,available=true},
-    {x=112+544,y=48+256*6,available=true},
-    {x=112+544,y=48+256*7,available=true},
-}
 
 function TankSpawner:scan_slot(place)
     local slot_number=1
-    for i, slot in ipairs(Uvz_SlotInfo) do
+    for i, slot in ipairs(place.slot_info) do
         if slot.available==false then
             slot_number=i
             break
@@ -28,11 +10,11 @@ function TankSpawner:scan_slot(place)
 
         end
     end
-    return Uvz_SlotInfo[slot_number].x,Uvz_SlotInfo[slot_number].y,slot_number
+    return place.slot_info[slot_number].x,place.slot_info[slot_number].y,slot_number
 end
 
-function TankSpawner:slot_distribution()
-    for i, slot in ipairs(Uvz_SlotInfo) do
+function TankSpawner:slot_distribution(place)
+    for i, slot in ipairs(place.slot_info) do
         if slot.available==true then
             slot.available=false
             break
@@ -76,7 +58,7 @@ function TankSpawner:new_tank(place,new_tankdata)
         )
 
         table.insert(place.exsist_tank, tank)
-        Uvz_SlotInfo[slot_number].available=true
+        place.slot_info[slot_number].available=true
 end
 
 function TankSpawner:update(dt)
