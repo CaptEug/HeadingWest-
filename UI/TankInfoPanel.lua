@@ -47,6 +47,7 @@ function TankInfoPanel:draw()
         love.graphics.setFont(Rtextfont)
         love.graphics.setColor(0,179/255,0)
         love.graphics.print(TankChoosen.data.name, ww - 288 + 4, wh/2 - 286 + 4)
+        love.graphics.print(tostring(TankChoosen.collider:getVelocity())'km/h', ww - 288 + 4, wh/2 - 286 + 284)
         love.graphics.setColor(1,1,1)
         while n < TankChoosen.data.crew do
             love.graphics.draw(crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*n, wh/2)
