@@ -14,11 +14,41 @@ function TankInfoPanel:load()
         PanelButtons
     )
 
+    ManulControl = buttons.newToolButton(
+        ManulControl_icon,
+        function ()
+            
+        end,
+        PanelButtons,
+        ww - 288 + 40,
+        wh/2 - 286 + 538,
+        ManulControlOn_icon,
+        ManulControlOn_icon,
+        ManulControlOn_icon
+    )
+
+    SetCommander = buttons.newToolButton(
+        SetCommander_icon,
+        function ()
+            
+        end,
+        PanelButtons,
+        ww - 288 + 40,
+        wh/2 - 286 + 484,
+        SetCommanderOn_icon,
+        SetCommanderOn_icon,
+        SetCommanderOn_icon
+    )
+
 end
 
 function TankInfoPanel:update(dt)
     ClosePanel.bx = ww - 17
     ClosePanel.by = wh/2 - 269
+    ManulControl.bx = ww - 288 + 40
+    ManulControl.by = wh/2 - 286 + 538
+    SetCommander.bx = ww - 288 + 40
+    SetCommander.by = wh/2 - 286 + 484
     --tankbutton pos update
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         for i, button in ipairs(tank.Infobuttons) do
@@ -47,7 +77,7 @@ function TankInfoPanel:draw()
         love.graphics.setFont(Rtextfont)
         love.graphics.setColor(0,179/255,0)
         love.graphics.print(TankChoosen.data.name, ww - 288 + 4, wh/2 - 286 + 4)
-        love.graphics.print(tostring(TankChoosen.collider:getVelocity())'km/h', ww - 288 + 4, wh/2 - 286 + 284)
+        love.graphics.print('Speed: '..TankChoosen.collider:getLinearVelocity()..' km/h', ww - 288 + 4, wh/2 - 286 + 268)
         love.graphics.setColor(1,1,1)
         while n < TankChoosen.data.crew do
             love.graphics.draw(crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*n, wh/2)

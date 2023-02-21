@@ -35,7 +35,6 @@ function ingame:update(dt)
     particleworld:update(dt)
     tanks_table:update(dt)
     Ammo.update(dt)
-    Airstrike.update(dt)
     TankSpawner:update(dt)
     --psystem:update(dt)
     
@@ -44,9 +43,6 @@ function ingame:update(dt)
     end
     if cam.scale < 0.2 then
         cam:zoomTo(0.2)
-    end
-    if love.mouse.isDown(1) and love.mouse.getCursor() == bombcursor then
-        Bombing(dt)
     end
 end
 

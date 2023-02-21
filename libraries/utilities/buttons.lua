@@ -165,7 +165,11 @@ function buttons:use()
             end
             if button.now and not button.last and button.Hot then
                 button.fn()
-                button.state = 'On'
+                if button.state == 'On' then
+                    button.state = 'Off'
+                else
+                    button.state = 'On'
+                end
             end
             if button.state == 'Off' and not button.Hot then
                 button.pic = button.picture
