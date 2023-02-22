@@ -29,18 +29,7 @@ function TankSpawner:new_tank(place,new_tankdata)
     tank.collider=tank_collider
     tank.data=new_tankdata
     tank.functions = {}
-    tank.functions.move=function (i)
-        if love.keyboard.isDown('g') then
-            place.exsist_tank[i].collider:setLinearVelocity(10, 10)
-            place.exsist_tank[i].collider:setAngularVelocity(10)
-        end
-
-        if love.keyboard.isDown('h') then
-            place.exsist_tank[i].collider:setLinearVelocity(0, 0)
-            place.exsist_tank[i].collider:setAngularVelocity(0)
-        end
-
-    end
+    tank.functions.move = AutoControlfunction
     tank.Infobuttons = buttons.new()
     local tankbutton = buttons.newCampicButton(
         Gear,

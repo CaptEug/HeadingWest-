@@ -18,7 +18,7 @@ function TankInfoPanel:load()
         ManulControl_icon,
         function ()
             local tank = TankChoosen.collider:getObject()
-            table.insert(tank.functions, ManulControlfunction)
+            tank.functions.move = ManulControlfunction
         end,
         PanelButtons,
         ww - 288 + 40,
@@ -88,14 +88,18 @@ function TankInfoPanel:draw()
     end
 end
 
-ManulControlfunction = function ()
+AutoControlfunction = function (i)
+    
+end
+
+ManulControlfunction = function (i)
     if love.keyboard.isDown('g') then
-        TankChoosen.collider:setLinearVelocity(10, 10)
-        TankChoosen.collider:setAngularVelocity(10)
+        CurrentPlace.exsist_tank[i].collider:setLinearVelocity(10, 10)
+        CurrentPlace.exsist_tank[i].collider:setAngularVelocity(10)
     end
 
     if love.keyboard.isDown('h') then
-        TankChoosen.collider:setLinearVelocity(0, 0)
-        TankChoosen.collider:setAngularVelocity(0)
+        CurrentPlace.exsist_tank[i].collider:setLinearVelocity(0, 0)
+        CurrentPlace.exsist_tank[i].collider:setAngularVelocity(0)
     end
 end
