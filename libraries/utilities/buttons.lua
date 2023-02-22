@@ -54,14 +54,14 @@ function buttons.newCampicButton(picture, fn, buttons, bx, by)
     return instance
 end
 
-function buttons.newToolButton(picture, fn, buttons, bx, by, picturepressed, pictureHot, pictureOn)
+function buttons.newToolButton(picture, fn, buttons, bx, by, pictureHot, picturepressed, pictureOn)
     local instance = {
         type = 2,
         state = 'Off',
         pic = picture,
         picture = picture,
-        picturepressed = picturepressed or picture,
         pictureHot = pictureHot or picture,
+        picturepressed = picturepressed or picture,
         pictureOn = pictureOn or picture,
         fn = fn,
         w = picture:getWidth(),

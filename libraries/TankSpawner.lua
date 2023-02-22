@@ -22,11 +22,9 @@ end
 function TankSpawner:new_tank(place,new_tankdata)    
     local x,y=place.slot_info[new_tankdata.selected_slot].x,place.slot_info[new_tankdata.selected_slot].y
     local w,h=new_tankdata.width,new_tankdata.length
-    local tank_collider=world:newRectangleCollider(x,y,w,h)
-    tank_collider:setCollisionClass('tankhull')
-
-    local tank={}
-    tank.collider=tank_collider
+    local tank = {}
+    tank.collider = world:newRectangleCollider(x,y,w,h)
+    tank.collider:setCollisionClass('tankhull')
     tank.data=new_tankdata
     tank.functions = {}
     tank.functions.move = AutoControlfunction

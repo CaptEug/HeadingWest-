@@ -17,13 +17,15 @@ function TankInfoPanel:load()
     ManulControl = buttons.newToolButton(
         ManulControl_icon,
         function ()
-            local tank = TankChoosen.collider:getObject()
-            tank.functions.move = ManulControlfunction
+            if TankChoosen.functions.move ~= ManulControlfunction then
+                TankChoosen.functions.move = ManulControlfunction
+            else
+                TankChoosen.functions.move = AutoControlfunction
+            end 
         end,
         PanelButtons,
         ww - 288 + 40,
         wh/2 - 286 + 538,
-        ManulControlOn_icon,
         ManulControlOn_icon,
         ManulControlOn_icon
     )
@@ -36,7 +38,6 @@ function TankInfoPanel:load()
         PanelButtons,
         ww - 288 + 40,
         wh/2 - 286 + 484,
-        SetCommanderOn_icon,
         SetCommanderOn_icon,
         SetCommanderOn_icon
     )
@@ -85,6 +86,9 @@ function TankInfoPanel:draw()
             n = n + 1
         end
         PanelButtons:use()
+        if TankChoosen.functions.move == ManulControlfunction then
+            love.graphics.draw(ManulControlOn_icon, ww - 288 + 10, wh/2 - 286 + 515)
+        end
     end
 end
 

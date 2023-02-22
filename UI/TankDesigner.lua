@@ -73,7 +73,6 @@ function TankDesigner:load()
                         accessory.Abuttons,
                         ww/2 - 320 + 386,
                         wh/2 - 240 + 46 + 46*i,
-                        EquipmentSelectHot,
                         EquipmentSelectHot
                     )
                     end
@@ -153,6 +152,7 @@ function TankDesigner:load()
         CurrentPlace.Fbuttons,
         ww/2 - 320 + 405,
         wh/2 - 240 + 390,
+        Build_icon,
         Build_Hot
     )
 
