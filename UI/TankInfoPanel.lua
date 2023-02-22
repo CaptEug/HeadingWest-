@@ -17,7 +17,8 @@ function TankInfoPanel:load()
     ManulControl = buttons.newToolButton(
         ManulControl_icon,
         function ()
-            
+            local tank = TankChoosen.collider:getObject()
+            table.insert(tank.functions, ManulControlfunction)
         end,
         PanelButtons,
         ww - 288 + 40,
@@ -84,5 +85,17 @@ function TankInfoPanel:draw()
             n = n + 1
         end
         PanelButtons:use()
+    end
+end
+
+ManulControlfunction = function ()
+    if love.keyboard.isDown('g') then
+        TankChoosen.collider:setLinearVelocity(10, 10)
+        TankChoosen.collider:setAngularVelocity(10)
+    end
+
+    if love.keyboard.isDown('h') then
+        TankChoosen.collider:setLinearVelocity(0, 0)
+        TankChoosen.collider:setAngularVelocity(0)
     end
 end
