@@ -25,9 +25,7 @@ function TankInfoPanel:load()
         end,
         PanelButtons,
         ww - 288 + 40,
-        wh/2 - 286 + 538,
-        ManulControlOn_icon,
-        ManulControlOn_icon
+        wh/2 - 286 + 538
     )
 
     SetCommander = buttons.newToolButton(
@@ -37,9 +35,7 @@ function TankInfoPanel:load()
         end,
         PanelButtons,
         ww - 288 + 40,
-        wh/2 - 286 + 484,
-        SetCommanderOn_icon,
-        SetCommanderOn_icon
+        wh/2 - 286 + 484
     )
 
 end
