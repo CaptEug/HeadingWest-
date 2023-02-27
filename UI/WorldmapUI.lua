@@ -61,7 +61,7 @@ end
 
 function WorldmapUI:draw()
     cam:attach()
-    if cam.scale >= 2 then
+    if cam.scale >= 1.5 then
         Cbuttons:use()
     end
         
@@ -72,7 +72,7 @@ function WorldmapUI:draw()
     love.graphics.setFont(Rtitlefont)
     love.graphics.print(tostring(math.floor(Year)), love.graphics.getWidth() / 2 - Rtitlefont:getWidth(tostring(math.floor(Year))) / 2, 0)
 
-    if cam.scale >= 2 then
+    if cam.scale >= 1.5 then
         for i, city in ipairs(Cities) do
             if city.isopen then
                 local x, y = cam:cameraCoords(city.x - 25, city.y - 25)

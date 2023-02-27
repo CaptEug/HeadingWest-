@@ -25,12 +25,16 @@ function TankSpawner:new_tank(place,new_tankdata)
     local tank = {}
     tank.collider = world:newRectangleCollider(x,y,w,h)
     tank.collider:setCollisionClass('tankhull')
-    tank.data=new_tankdata
+    tank.data = new_tankdata
     tank.functions = {}
     tank.functions.move = AutoControlfunction
+    tank.status = {}
+    if tank.data.armor.type == 'ERA' then
+        table.insert(tank.status, ERA_icon)
+    end
     tank.Infobuttons = buttons.new()
     local tankbutton = buttons.newCampicButton(
-        Gear,
+        invisible_button,
         function ()
             TankPanelopen = true
             TankChoosen = tank
@@ -68,10 +72,4 @@ function TankSpawner:draw_tank()
         love.graphics.draw(tank.data.aim.turret_image,x,y,a,1,1,offset_x,offset_y)
         love.graphics.draw(tank.data.armor.turret_image,x,y,a,1,1,offset_x,offset_y)
     end
-end
-
-TankFunctions={}
-
-function TankFunctions:move()
-    
 end

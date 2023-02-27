@@ -74,7 +74,8 @@ function TankData:load()
                     hull_image_line = Blank_line,
                     turret_image = T72A_smokegernade_turret,
                     turret_image_line = T72A_smokegernade_turret_line,
-                    tag = 'Armor'
+                    tag = 'Armor',
+                    type = 'Coposit'
                 },
                 {
                     name = 'Kontakt_1',
@@ -84,7 +85,11 @@ function TankData:load()
                     hull_image_line = T72A_kontakt1_hull_line,
                     turret_image = T72A_kontakt1_turret,
                     turret_image_line = T72A_kontakt1_turret_line,
-                    tag = 'Armor'
+                    tag = 'Armor',
+                    type = 'ERA',
+                    ERAtimes = 3,
+                    KE = 0,
+                    CE = 400
                 },
             },
             --aim
@@ -135,7 +140,8 @@ function TankData:load()
                     hull_image_line = Blank_line,
                     turret_image = Blank_line,
                     turret_image_line = Blank_line,
-                    tag = 'Armor'
+                    tag = 'Armor',
+                    type = 'Coposit'
                 },
                 {
                     name = 'Kontakt_1',
@@ -145,7 +151,11 @@ function TankData:load()
                     hull_image_line = T72B_kontakt1_hull_line,
                     turret_image = T72B_kontakt1_turret,
                     turret_image_line = T72B_kontakt1_turret_line,
-                    tag = 'Armor'
+                    tag = 'Armor',
+                    type = 'ERA',
+                    ERAtimes = 3,
+                    KE = 0,
+                    CE = 400
                 },
                 {
                     name = 'Kontakt_5',
@@ -155,7 +165,11 @@ function TankData:load()
                     hull_image_line = T72B_kontakt5_hull_line,
                     turret_image = T72B_kontakt5_turret,
                     turret_image_line = T72B_kontakt5_turret_line,
-                    tag = 'Armor'
+                    tag = 'Armor',
+                    type = 'ERA',
+                    ERAtimes = 4,
+                    KE = 120,
+                    CE = 400
                 },
             },
             --aim
@@ -215,7 +229,8 @@ function TankData:load()
                     hull_image_line = Blank_line,
                     turret_image = Blank_line,
                     turret_image_line = Blank_line,
-                    tag = 'Armor'
+                    tag = 'Armor',
+                    type = 'Coposit'
                 },
                 {
                     name = 'Kontakt_5',
@@ -225,7 +240,11 @@ function TankData:load()
                     hull_image_line = T90_kontakt5_hull_line,
                     turret_image = T90_kontakt5_turret,
                     turret_image_line = T90_kontakt5_turret_line,
-                    tag = 'Armor'
+                    tag = 'Armor',
+                    type = 'ERA',
+                    ERAtimes = 4,
+                    KE = 120,
+                    CE = 400
                 },
             },
             --aim
@@ -291,7 +310,8 @@ function TankData:load()
                     hull_image_line = Blank_line,
                     turret_image = Blank_line,
                     turret_image_line = Blank_line,
-                    tag = 'Armor'
+                    tag = 'Armor',
+                    type = 'Coposit'
                 },
                 {
                     name = 'ExArmor1',
@@ -301,7 +321,10 @@ function TankData:load()
                     hull_image_line = Blank_line,
                     turret_image = Leopard2A4_ExtraArmor1_turret,
                     turret_image_line = Leopard2A4_ExtraArmor1_turret_line,
-                    tag = 'Armor'
+                    tag = 'Armor',
+                    type = 'NERA',
+                    KE = 200,
+                    CE = 600
                 },
             },
             --aim
@@ -328,3 +351,4 @@ function TankData:load()
     }
     table.insert(UVZ.tanklist, Leopard2A4)
 end
+

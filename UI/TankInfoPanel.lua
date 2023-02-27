@@ -82,6 +82,10 @@ function TankInfoPanel:draw()
             n = n + 1
         end
         PanelButtons:use()
+        --tank status update
+        for i, pic in ipairs(TankChoosen.status) do
+            love.graphics.draw(pic, ww - 288 + 16, wh/2 - 286 + 48*i)
+        end
         if TankChoosen.functions.move == ManulControlfunction then
             love.graphics.draw(ManulControlOn_icon, ww - 288 + 10, wh/2 - 286 + 515)
         end
