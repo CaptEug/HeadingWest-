@@ -294,6 +294,7 @@ function Buildtank()
         turret_image = TankPresent.turret_image,
         turret_image_line = TankPresent.turret_image_line,
         turret_offset=TankPresent.turret_offset,
+        turret_angle = 0,
         armor = TankGear.armor,
         aim = TankGear.aim,
         ammo = TankGear.ammo,

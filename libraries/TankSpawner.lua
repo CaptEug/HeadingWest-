@@ -51,7 +51,7 @@ end
 
 function TankSpawner:update(dt)
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        tank.functions.move(i)
+        tank.functions.move(i,dt)
     end
 end
 
@@ -68,8 +68,8 @@ function TankSpawner:draw_tank()
 
         love.graphics.draw(tank.data.hull_image,x,y,a,1,1,offset_x,offset_y)
         love.graphics.draw(tank.data.armor.hull_image,x,y,a,1,1,offset_x,offset_y)
-        love.graphics.draw(tank.data.turret_image,x,y,a,1,1,offset_x,offset_y)
-        love.graphics.draw(tank.data.aim.turret_image,x,y,a,1,1,offset_x,offset_y)
-        love.graphics.draw(tank.data.armor.turret_image,x,y,a,1,1,offset_x,offset_y)
+        love.graphics.draw(tank.data.turret_image,x,y,a+tank.data.turret_angle,1,1,offset_x,offset_y)
+        love.graphics.draw(tank.data.aim.turret_image,x,y,a+tank.data.turret_angle,1,1,offset_x,offset_y)
+        love.graphics.draw(tank.data.armor.turret_image,x,y,a+tank.data.turret_angle,1,1,offset_x,offset_y)
     end
 end
