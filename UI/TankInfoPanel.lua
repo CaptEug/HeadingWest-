@@ -112,10 +112,10 @@ ManulControlfunction = function (i,dt)
         CurrentPlace.exsist_tank[i].collider:applyForce(-fx, -fy)
     end
     if love.keyboard.isDown('left') then
-        CurrentPlace.exsist_tank[i].collider:applyTorque(-hp/2)
+        CurrentPlace.exsist_tank[i].collider:applyTorque(-200*hp)
     end
     if love.keyboard.isDown('right') then
-        CurrentPlace.exsist_tank[i].collider:applyTorque(hp/2)
+        CurrentPlace.exsist_tank[i].collider:applyTorque(200*hp)
     end
 
     if angle_to_mouse <= 0 then

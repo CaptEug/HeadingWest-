@@ -26,7 +26,6 @@ function TankSpawner:new_tank(place,new_tankdata)
     tank.collider = world:newRectangleCollider(x,y,w,h)
     tank.collider:setCollisionClass('tankhull')
     tank.collider:setMass(new_tankdata.weight)
-    tank.collider:setInertia(new_tankdata.weight)
     tank.collider:setLinearDamping(5)
     tank.collider:setAngularDamping(5)
     tank.data = new_tankdata
