@@ -210,7 +210,7 @@ function TankData:load()
         width = 64,
         length = 127,
         turret_offset=0,
-        weight = 44.5,
+        weight = 46,
         crew = 3,
         steel_cost = 7,
         oil_cost = 3,
