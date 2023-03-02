@@ -286,9 +286,10 @@ end
 function Buildtank()
     local instance = {
         name = TankPresent.name,
-        width=TankPresent.width,
-        length=TankPresent.length,
-        crew=TankPresent.crew,
+        width = TankPresent.width,
+        length = TankPresent.length,
+        weight = TankPresent.weight,
+        crew = TankPresent.crew,
         hull_image = TankPresent.hull_image,
         hull_image_line = TankPresent.hull_image_line,
         turret_image = TankPresent.turret_image,
