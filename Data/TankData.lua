@@ -291,7 +291,7 @@ function TankData:load()
         width = 64,
         length = 134,
         turret_offset=10,
-        weight = 44.5,
+        weight = 60,
         crew = 4,
         steel_cost = 8,
         oil_cost = 3,
@@ -338,11 +338,11 @@ function TankData:load()
             --mob
             {
                 {
-                    name = 'V_92',
+                    name = 'MB_873',
                     steel_cost = 2,
                     oil_cost = 1,
                     line_image = Blank_line,
-                    hp = 1130,
+                    hp = 1500,
                     tag = 'Mob'
                 }
             }
