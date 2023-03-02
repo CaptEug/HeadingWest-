@@ -290,6 +290,8 @@ function Buildtank()
         length = TankPresent.length,
         weight = TankPresent.weight,
         crew = TankPresent.crew,
+        max_f_speed = TankPresent.max_f_speed,
+        max_r_speed = TankPresent.max_r_speed,
         hull_image = TankPresent.hull_image,
         hull_image_line = TankPresent.hull_image_line,
         turret_image = TankPresent.turret_image,

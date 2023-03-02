@@ -75,7 +75,7 @@ function TankInfoPanel:draw()
         love.graphics.setFont(Rtextfont)
         love.graphics.setColor(0,179/255,0)
         love.graphics.print(TankChoosen.data.name, ww - 288 + 4, wh/2 - 286 + 4)
-        love.graphics.print('Speed: '..TankChoosen.collider:getLinearVelocity()..' km/h', ww - 288 + 4, wh/2 - 286 + 268)
+        love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.collider:getLinearVelocity()/math.cos(a - 0.5*math.pi)/5)..' km/h', ww - 288 + 4, wh/2 - 286 + 268)
         love.graphics.setColor(1,1,1)
         while n < TankChoosen.data.crew do
             love.graphics.draw(crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*n, wh/2)
@@ -100,6 +100,9 @@ ManulControlfunction = function (i,dt)
     local hp = CurrentPlace.exsist_tank[i].data.mob.hp
     local fx = 50*hp*math.cos(CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi)
     local fy = 50*hp*math.sin(CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi)
+    local max_f = 5*CurrentPlace.exsist_tank[i].data.max_f_speed
+    local max_r = 5*CurrentPlace.exsist_tank[i].data.max_r_speed
+    local speed = CurrentPlace.exsist_tank[i].collider:getLinearVelocity()/math.cos(CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi)
     local ta = CurrentPlace.exsist_tank[i].data.turret_angle + CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi
     local mx, my = cam:mousePosition()
     local tx, ty = CurrentPlace.exsist_tank[i].collider:getPosition()
@@ -116,6 +119,13 @@ ManulControlfunction = function (i,dt)
     end
     if love.keyboard.isDown('right') then
         CurrentPlace.exsist_tank[i].collider:applyTorque(200*hp)
+    end
+
+    if speed >= max_f then
+        CurrentPlace.exsist_tank[i].collider:setLinearVelocity(max_f*math.cos(CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi), max_f*math.sin(CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi)) 
+    end
+    if speed <= max_r then
+        CurrentPlace.exsist_tank[i].collider:setLinearVelocity(max_r*math.cos(CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi), max_r*math.sin(CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi)) 
     end
 
     if angle_to_mouse <= 0 then
