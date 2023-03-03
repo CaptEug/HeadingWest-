@@ -65,14 +65,15 @@ function TankSpawner:draw_tank()
 
         local x,y=tank.collider:getPosition()
         local a=tank.collider:getAngle()
-        local offset_x=tank.data.hull_image:getWidth()/2
-        local turret_offset_y=tank.data.hull_image:getHeight()/2+tank.data.hull_offset
-        local hull_offset_y=tank.data.hull_image:getHeight()/2+tank.data.hull_offset
 
-        love.graphics.draw(tank.data.hull_image,x,y,a,1,1,offset_x,hull_offset_y)
-        love.graphics.draw(tank.data.armor.hull_image,x,y,a,1,1,offset_x,hull_offset_y)
-        love.graphics.draw(tank.data.turret_image,x,y,a+tank.data.turret_angle,1,1,offset_x,turret_offset_y)
-        love.graphics.draw(tank.data.aim.turret_image,x,y,a+tank.data.turret_angle,1,1,offset_x,turret_offset_y)
-        love.graphics.draw(tank.data.armor.turret_image,x,y,a+tank.data.turret_angle,1,1,offset_x,turret_offset_y)
+        y=y-tank.data.hull_offset*math.cos(a)
+        x=x+tank.data.hull_offset*math.sin(a)
+
+
+        love.graphics.draw(tank.data.hull_image,x,y,a,1,1,144,144)
+        love.graphics.draw(tank.data.armor.hull_image,x,y,a,1,1,144,144)
+        love.graphics.draw(tank.data.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
+        love.graphics.draw(tank.data.aim.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
+        love.graphics.draw(tank.data.armor.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
     end
 end

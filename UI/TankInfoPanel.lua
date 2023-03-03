@@ -63,15 +63,17 @@ function TankInfoPanel:draw()
     cam:detach()
     if TankPanelopen then
         local a=TankChoosen.collider:getAngle()
-        local offset_x=TankChoosen.data.hull_image:getWidth()/2
-        local offset_y=TankChoosen.data.hull_image:getHeight()/2+TankChoosen.data.hull_offset
         local n = 0
+
+        wh=wh-TankChoosen.data.hull_offset*math.cos(a)
+        ww=ww+TankChoosen.data.hull_offset*math.sin(a)
+        
         love.graphics.draw(tank_info_panel, ww - 288, wh/2 - 286)
-        love.graphics.draw(TankChoosen.data.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, offset_x, offset_y)
-        love.graphics.draw(TankChoosen.data.armor.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, offset_x, offset_y)
-        love.graphics.draw(TankChoosen.data.turret_image_line, ww - 144, wh/2 - 142, a+TankChoosen.data.turret_angle, 1, 1, offset_x, offset_y)
-        love.graphics.draw(TankChoosen.data.aim.line_image, ww - 144, wh/2 - 142, a+TankChoosen.data.turret_angle, 1, 1, offset_x, offset_y)
-        love.graphics.draw(TankChoosen.data.armor.turret_image_line, ww - 144, wh/2 - 142, a+TankChoosen.data.turret_angle, 1, 1, offset_x, offset_y)
+        love.graphics.draw(TankChoosen.data.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.data.armor.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.data.turret_image_line, ww - 144, wh/2 - 142, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.data.aim.line_image, ww - 144, wh/2 - 142, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.data.armor.turret_image_line, ww - 144, wh/2 - 142, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
         love.graphics.setFont(Rtextfont)
         love.graphics.setColor(0,179/255,0)
         love.graphics.print(TankChoosen.data.name, ww - 288 + 4, wh/2 - 286 + 4)
@@ -106,7 +108,6 @@ ManulControlfunction = function (i,dt)
     local ta = CurrentPlace.exsist_tank[i].data.turret_angle + CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi
     local mx, my = cam:mousePosition()
     local tx, ty = CurrentPlace.exsist_tank[i].collider:getPosition()
-    ty=ty
     local angle_to_mouse = math.atan2(my - ty, mx - tx)
 
     if love.keyboard.isDown('up') and speed <= max_f then
