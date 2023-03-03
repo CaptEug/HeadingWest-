@@ -183,12 +183,14 @@ function TankDesigner:update(dt)
     Next.by = wh/2 - 240 + 331
     Previous.bx = ww/2 - 320 + 56
     Previous.by = wh/2 - 240 + 331
-    Armor.bx = ww/2 - 320 + 80
+    Armor.bx = ww/2 - 320 + 72
     Armor.by = wh/2 - 240 + 390
-    Aiming.bx = ww/2 - 320 + 128
+    Aiming.bx = ww/2 - 320 + 126
     Aiming.by = wh/2 - 240 + 390
-    Mobility.bx = ww/2 - 320 + 176
+    Mobility.bx = ww/2 - 320 + 180
     Mobility.by = wh/2 - 240 + 390
+    Ammunition.bx = ww/2 - 320 + 234
+    Ammunition.by = wh/2 - 240 + 390
     Build.bx = ww/2 - 320 + 405
     Build.by = wh/2 - 240 + 390
     Delete.bx = ww/2 - 320 + 567
@@ -316,6 +318,8 @@ function TankDesigner:draw()
                 love.graphics.setColor(1,1,1)
             end
 
+            
+
             love.graphics.draw(TankPresent.equipment.armor.hull_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankPresent.equipment.armor.turret_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankPresent.equipment.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
@@ -330,7 +334,18 @@ function TankDesigner:draw()
             end
 
             CurrentPlace.Fbuttons:use()
-
+            if CurrentPlace.Pageshown == 'Armor' then
+                love.graphics.draw(Armor_Hot, ww/2 - 320 + 46, wh/2 - 240 + 356)
+            end
+            if CurrentPlace.Pageshown == 'Aim' then
+                love.graphics.draw(Aiming_Hot, ww/2 - 320 + 100, wh/2 - 240 + 356)
+            end
+            if CurrentPlace.Pageshown == 'Mob' then
+                love.graphics.draw(Mobility_Hot, ww/2 - 320 + 154, wh/2 - 240 + 356)
+            end
+            if CurrentPlace.Pageshown == 'Ammo' then
+                love.graphics.draw(Ammo_Hot, ww/2 - 320 + 208, wh/2 - 240 + 356)
+            end
         end
 end
 
