@@ -4,6 +4,7 @@ function TankDesigner:load()
     CurrentPlace.opendesigner = false
     CurrentPlace.Fbuttons = buttons.new()
     CurrentPlace.tankindex = 1
+    CurrentPlace.Pageshown = 'Armor'
     CurrentPlace.ProductionQueue = {}
     CurrentPlace.ProductionNumber = 0
     --load buttons
@@ -112,14 +113,7 @@ function TankDesigner:load()
         Armor = buttons.newToolButton(
             Armor_icon,
             function ()
-                CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
-                for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
-                    if i == 1 and accessory.isopen == false then
-                        accessory.isopen = true
-                    else
-                        accessory.isopen = false
-                    end
-                end
+                CurrentPlace.Pageshown = 'Armor'
             end,
             CurrentPlace.Fbuttons,
             ww/2 - 320 + 80,
@@ -129,14 +123,7 @@ function TankDesigner:load()
         Aiming = buttons.newToolButton(
             Aiming_icon,
             function ()
-                CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
-                for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
-                    if i == 2 and accessory.isopen == false then
-                        accessory.isopen = true
-                    else
-                        accessory.isopen = false
-                    end
-                end
+                CurrentPlace.Pageshown = 'Aim'
             end,
             CurrentPlace.Fbuttons,
             ww/2 - 320 + 128,
@@ -146,14 +133,7 @@ function TankDesigner:load()
         Mobility = buttons.newToolButton(
             Mobility_icon,
             function ()
-                CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
-                for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
-                    if i == 3 and accessory.isopen == false then
-                        accessory.isopen = true
-                    else
-                        accessory.isopen = false
-                    end
-                end
+                CurrentPlace.Pageshown = 'Mob'
             end,
             CurrentPlace.Fbuttons,
             ww/2 - 320 + 176,
@@ -163,10 +143,7 @@ function TankDesigner:load()
         Ammunition = buttons.newToolButton(
             Ammo_icon,
             function ()
-                for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
-                    accessory.isopen = false
-                end
-                CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = true
+                CurrentPlace.Pageshown = 'Ammo'
             end,
             CurrentPlace.Fbuttons,
             ww/2 - 320 + 224,
@@ -226,7 +203,45 @@ function TankDesigner:update(dt)
             end
         end
     end
-
+    --pageshown detection
+    local n = 0
+    n = math.floor(n + 0.1*dt)
+    if CurrentPlace.Pageshown == 'Armor' then
+        CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
+        for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
+            if i == 1 then
+                accessory.isopen = true
+            else
+                accessory.isopen = false
+            end
+        end
+    end
+    if CurrentPlace.Pageshown == 'Aim' then
+        CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
+        for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
+            if i == 2 then
+                accessory.isopen = true
+            else
+                accessory.isopen = false
+            end
+        end
+    end
+    if CurrentPlace.Pageshown == 'Mob' then
+        CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
+        for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
+            if i == 3 then
+                accessory.isopen = true
+            else
+                accessory.isopen = false
+            end
+        end
+    end
+    if CurrentPlace.Pageshown == 'Ammo' then
+        for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
+            accessory.isopen = false
+        end
+        CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = true
+    end
     --tank production process
     for i, tank in ipairs(CurrentPlace.ProductionQueue) do
         if tank.selected_slot~=0 then
