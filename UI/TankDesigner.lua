@@ -348,7 +348,7 @@ function Buildtank()
         hull_image_line = TankPresent.hull_image_line,
         turret_image = TankPresent.turret_image,
         turret_image_line = TankPresent.turret_image_line,
-        turret_offset=TankPresent.turret_offset,
+        hull_offset=TankPresent.hull_offset,
         turret_angle = 0,
         armor = TankPresent.equipment.armor,
         aim = TankPresent.equipment.aim,

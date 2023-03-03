@@ -64,7 +64,7 @@ function TankInfoPanel:draw()
     if TankPanelopen then
         local a=TankChoosen.collider:getAngle()
         local offset_x=TankChoosen.data.hull_image:getWidth()/2
-        local offset_y=TankChoosen.data.hull_image:getHeight()/2+TankChoosen.data.turret_offset
+        local offset_y=TankChoosen.data.hull_image:getHeight()/2+TankChoosen.data.hull_offset
         local n = 0
         love.graphics.draw(tank_info_panel, ww - 288, wh/2 - 286)
         love.graphics.draw(TankChoosen.data.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, offset_x, offset_y)
@@ -106,6 +106,7 @@ ManulControlfunction = function (i,dt)
     local ta = CurrentPlace.exsist_tank[i].data.turret_angle + CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi
     local mx, my = cam:mousePosition()
     local tx, ty = CurrentPlace.exsist_tank[i].collider:getPosition()
+    ty=ty
     local angle_to_mouse = math.atan2(my - ty, mx - tx)
 
     if love.keyboard.isDown('up') and speed <= max_f then
