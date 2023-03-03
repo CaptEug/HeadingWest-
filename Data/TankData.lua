@@ -61,7 +61,11 @@ function TankData:load()
         max_r_speed = -4,
         steel_cost = 7,
         oil_cost = 3,
-        ammorack = 40,
+        ammorack_size = 40,
+        ammunition = {
+            {name = '3bm22', type = 'APFSDS'},
+            {name = '3of26', type = 'HE'}
+        },
         hull_image = T72A_hull,
         hull_image_line = T72A_hull_line,
         turret_image = T72A_turret,
@@ -99,10 +103,6 @@ function TankData:load()
             {
 
             },
-            --ammo
-            {
-            
-            },
             --mob
             {
                 {
@@ -130,7 +130,10 @@ function TankData:load()
         max_r_speed = -4,
         steel_cost = 8,
         oil_cost = 3,
-        ammorack = 40,
+        ammorack_size = 40,
+        ammunition = {
+            {name = '3bm42', type = 'APFSDS'}
+        },
         hull_image = T72B_hull,
         hull_image_line = T72B_hull_line,
         turret_image = T72B_turret,
@@ -182,11 +185,6 @@ function TankData:load()
             {
 
             },
-            --ammo
-            {
-                {name = '3BM22', steel_cost = 0, oil_cost = 0, tag = 'Ammo'},
-                {name = '3BM42', steel_cost = 1, oil_cost = 0, tag = 'Ammo'},
-            },
             --mob
             {
                 {
@@ -222,7 +220,10 @@ function TankData:load()
         max_r_speed = -4,
         steel_cost = 7,
         oil_cost = 3,
-        ammorack = 40,
+        ammorack_size = 40,
+        ammunition = {
+            {name = '3bm42', type = 'APFSDS'}
+        },
         hull_image = T90_hull,
         hull_image_line = T90_hull_line,
         turret_image = T90_turret,
@@ -275,10 +276,6 @@ function TankData:load()
                     tag = 'Aim'
                 }
             },
-            --ammo
-            {
-                {name = '3BM42', steel_cost = 1, oil_cost = 0, line_image = Blank_line, tag = 'Ammo'}
-            },
             --mob
             {
                 {
@@ -306,7 +303,10 @@ function TankData:load()
         max_r_speed = -20,
         steel_cost = 8,
         oil_cost = 3,
-        ammorack = 40,
+        ammorack_size = 40,
+        ammunition = {
+            {name = 'dm23', type = 'APFSDS'}
+        },
         hull_image = Leopard2A4_hull,
         hull_image_line = Leopard2A4_hull_line,
         turret_image = Leopard2A4_turret,
@@ -342,10 +342,6 @@ function TankData:load()
             --aim
             {
 
-            },
-            --ammo
-            {
-                {name = 'DM53', steel_cost = 0, oil_cost = 0, tag = 'Ammo'},
             },
             --mob
             {

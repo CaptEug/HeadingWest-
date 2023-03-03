@@ -1,7 +1,6 @@
 TankSpawner={}
 
 function TankSpawner:slot_distribution(place)
-
     local slot_full=true
     local selected_slot
     for i, slot in ipairs(place.slot_info) do
@@ -19,7 +18,7 @@ function TankSpawner:slot_distribution(place)
 return selected_slot
 end
 
-function TankSpawner:new_tank(place,new_tankdata)    
+function TankSpawner:new_tank(place,new_tankdata)
     local x,y=place.slot_info[new_tankdata.selected_slot].x,place.slot_info[new_tankdata.selected_slot].y
     local w,h=new_tankdata.width,new_tankdata.length
     local tank = {}

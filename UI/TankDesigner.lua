@@ -49,8 +49,10 @@ function TankDesigner:load()
             tank.equipment = {}
             tank.equipment.armor = tank.accessories[1][1] or Blank_Gear
             tank.equipment.aim = tank.accessories[2][1] or Blank_Gear
-            tank.equipment.ammo = tank.accessories[3][1] or Blank_Gear
-            tank.equipment.mob = tank.accessories[4][1] or Blank_Gear
+            tank.equipment.mob = tank.accessories[3][1] or Blank_Gear
+            tank.ammorack = {}
+            tank.ammunition.Abuttons = buttons.new()
+            tank.ammunition.isopen = false
             if tank.accessories then
                 for i, accessory in ipairs(tank.accessories) do
                     accessory.Abuttons = buttons.new()
@@ -65,9 +67,6 @@ function TankDesigner:load()
                             if equipment.tag == 'Aim' then
                                 tank.equipment.aim = equipment
                             end
-                            if equipment.tag == 'Ammo' then
-                                tank.equipment.ammo = equipment
-                            end
                             if equipment.tag == 'Mob' then
                                 tank.equipment.mob = equipment
                             end
@@ -80,11 +79,40 @@ function TankDesigner:load()
                     end
                 end
             end
+            --ammo system
+            for i, ammo in ipairs(tank.ammunition) do
+               ammo.add = buttons.newToolButton(
+                    plus_icon,
+                    function ()
+                        if table.getn(tank.ammorack) < tank.ammorack_size then
+                            table.insert(tank.ammorack, ammo)
+                        end
+                    end,
+                    tank.ammunition.Abuttons,
+                    ww/2 - 320 + 429,
+                    wh/2 - 240 + 56 + 46*i
+               )
+               ammo.remove = buttons.newToolButton(
+                    minus_icon,
+                    function ()
+                        for i, bullet in ipairs(tank.ammorack) do
+                            if bullet.name == ammo.name then
+                                table.remove(tank.ammorack, i)
+                                break
+                            end
+                        end
+                    end,
+                    tank.ammunition.Abuttons,
+                    ww/2 - 320 + 407,
+                    wh/2 - 240 + 56 + 46*i
+               )
+            end
         end
 
         Armor = buttons.newToolButton(
             Armor_icon,
             function ()
+                CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
                 for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
                     if i == 1 and accessory.isopen == false then
                         accessory.isopen = true
@@ -101,6 +129,7 @@ function TankDesigner:load()
         Aiming = buttons.newToolButton(
             Aiming_icon,
             function ()
+                CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
                 for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
                     if i == 2 and accessory.isopen == false then
                         accessory.isopen = true
@@ -114,9 +143,10 @@ function TankDesigner:load()
             wh/2 - 240 + 390
         )
 
-        Ammunition = buttons.newToolButton(
-            Ammo_icon,
+        Mobility = buttons.newToolButton(
+            Mobility_icon,
             function ()
+                CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
                 for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
                     if i == 3 and accessory.isopen == false then
                         accessory.isopen = true
@@ -130,16 +160,13 @@ function TankDesigner:load()
             wh/2 - 240 + 390
         )
 
-        Mobility = buttons.newToolButton(
-            Mobility_icon,
+        Ammunition = buttons.newToolButton(
+            Ammo_icon,
             function ()
                 for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
-                    if i == 4 and accessory.isopen == false then
-                        accessory.isopen = true
-                    else
-                        accessory.isopen = false
-                    end
+                    accessory.isopen = false
                 end
+                CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = true
             end,
             CurrentPlace.Fbuttons,
             ww/2 - 320 + 224,
@@ -183,9 +210,7 @@ function TankDesigner:update(dt)
     Armor.by = wh/2 - 240 + 390
     Aiming.bx = ww/2 - 320 + 128
     Aiming.by = wh/2 - 240 + 390
-    Ammunition.bx = ww/2 - 320 + 176
-    Ammunition.by = wh/2 - 240 + 390
-    Mobility.bx = ww/2 - 320 + 224
+    Mobility.bx = ww/2 - 320 + 176
     Mobility.by = wh/2 - 240 + 390
     Build.bx = ww/2 - 320 + 405
     Build.by = wh/2 - 240 + 390
@@ -224,8 +249,8 @@ function TankDesigner:draw()
     TankPresent = CurrentPlace.tanklist[CurrentPlace.tankindex]
 
         if CurrentPlace.opendesigner then
-            local steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.ammo.steel_cost + TankPresent.equipment.mob.steel_cost
-            local oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.ammo.oil_cost + TankPresent.equipment.mob.oil_cost
+            local steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.mob.steel_cost
+            local oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.mob.oil_cost
             love.graphics.draw(factory_screen, ww/2 - 320, wh/2 - 240)
             love.graphics.setFont(Rbuttonfont)
             love.graphics.print(CurrentPlace.name, ww/2 - 320 + 40, wh/2 - 240)
@@ -246,7 +271,7 @@ function TankDesigner:draw()
                             love.graphics.setFont(Rtextfont)
                             love.graphics.setColor(0,179/255,0)
                             love.graphics.print(equipment.name, ww/2 - 320 + 336, wh/2 - 240 + 24 + 46*i)
-                            if equipment == TankPresent.equipment.armor or equipment == TankPresent.equipment.aim or equipment == TankPresent.equipment.ammo or equipment == TankPresent.equipment.mob then
+                            if equipment == TankPresent.equipment.armor or equipment == TankPresent.equipment.aim or equipment == TankPresent.equipment.mob then
                                 love.graphics.setColor(0,179/255,0)
                                 love.graphics.rectangle("fill", ww/2 - 320 + 332, wh/2 - 240 + 24 + 46*i, 108, 44)
                                 love.graphics.setColor(34/255,32/255,52/255)
@@ -256,6 +281,24 @@ function TankDesigner:draw()
                         end
                     end
                 end
+            end
+
+            if TankPresent.ammunition.isopen then
+                TankPresent.ammunition.Abuttons:use()
+                love.graphics.setColor(0,179/255,0)
+                love.graphics.print('Rounds:'..table.getn(TankPresent.ammorack)..'/'..TankPresent.ammorack_size, ww/2 - 320 + 328 + 6, wh/2 - 240 + 64 + 6)
+                
+                for i, ammo in ipairs(TankPresent.ammunition) do
+                    local n = 0
+                    for i, bullet in ipairs(TankPresent.ammorack) do
+                        if bullet.name == ammo.name then
+                            n = n + 1
+                        end
+                    end
+                    love.graphics.print(ammo.name, ww/2 - 320 + 328 + 6, wh/2 - 240 + 46 + 46*i)
+                    love.graphics.print(n, ww/2 - 320 + 328 + 6, wh/2 - 240 + 56 + 46*i)
+                end
+                love.graphics.setColor(1,1,1)
             end
 
             love.graphics.draw(TankPresent.equipment.armor.hull_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
@@ -294,7 +337,6 @@ function Buildtank()
         turret_angle = 0,
         armor = TankPresent.equipment.armor,
         aim = TankPresent.equipment.aim,
-        ammo = TankPresent.equipment.ammo,
         mob = TankPresent.equipment.mob,
         buildtime = TankPresent.buildtime,
         fixedbuildtime = TankPresent.buildtime,
