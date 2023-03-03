@@ -6,8 +6,7 @@ function TankDesigner:load()
     CurrentPlace.tankindex = 1
     CurrentPlace.ProductionQueue = {}
     CurrentPlace.ProductionNumber = 0
-    ResetGear()
-    
+    --load buttons
         Close = buttons.newToolButton(
             Close_icon,
             function ()
@@ -26,7 +25,6 @@ function TankDesigner:load()
                 else
                     CurrentPlace.tankindex = 1
                 end
-                ResetGear()
             end,
             CurrentPlace.Fbuttons,
             ww/2 - 320 + 311,
@@ -41,7 +39,6 @@ function TankDesigner:load()
                 else
                     CurrentPlace.tankindex = table.getn(CurrentPlace.tanklist)
                 end
-                ResetGear()
             end,
             CurrentPlace.Fbuttons,
             ww/2 - 320 + 56,
@@ -49,6 +46,11 @@ function TankDesigner:load()
         )
 
         for i, tank in ipairs(CurrentPlace.tanklist) do
+            tank.equipment = {}
+            tank.equipment.armor = tank.accessories[1][1] or Blank_Gear
+            tank.equipment.aim = tank.accessories[2][1] or Blank_Gear
+            tank.equipment.ammo = tank.accessories[3][1] or Blank_Gear
+            tank.equipment.mob = tank.accessories[4][1] or Blank_Gear
             if tank.accessories then
                 for i, accessory in ipairs(tank.accessories) do
                     accessory.Abuttons = buttons.new()
@@ -58,16 +60,16 @@ function TankDesigner:load()
                         EquipmentSelect,
                         function ()
                             if equipment.tag == 'Armor' then
-                                TankGear.armor = equipment
+                                tank.equipment.armor = equipment
                             end
                             if equipment.tag == 'Aim' then
-                                TankGear.aim = equipment
+                                tank.equipment.aim = equipment
                             end
                             if equipment.tag == 'Ammo' then
-                                TankGear.ammo = equipment
+                                tank.equipment.ammo = equipment
                             end
                             if equipment.tag == 'Mob' then
-                                TankGear.mob = equipment
+                                tank.equipment.mob = equipment
                             end
                         end,
                         accessory.Abuttons,
@@ -222,8 +224,8 @@ function TankDesigner:draw()
     TankPresent = CurrentPlace.tanklist[CurrentPlace.tankindex]
 
         if CurrentPlace.opendesigner then
-            local steel_cost = TankPresent.steel_cost + TankGear.armor.steel_cost + TankGear.aim.steel_cost + TankGear.ammo.steel_cost + TankGear.mob.steel_cost
-            local oil_cost = TankPresent.oil_cost + TankGear.armor.oil_cost + TankGear.aim.oil_cost + TankGear.ammo.oil_cost + TankGear.mob.oil_cost
+            local steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.ammo.steel_cost + TankPresent.equipment.mob.steel_cost
+            local oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.ammo.oil_cost + TankPresent.equipment.mob.oil_cost
             love.graphics.draw(factory_screen, ww/2 - 320, wh/2 - 240)
             love.graphics.setFont(Rbuttonfont)
             love.graphics.print(CurrentPlace.name, ww/2 - 320 + 40, wh/2 - 240)
@@ -244,7 +246,7 @@ function TankDesigner:draw()
                             love.graphics.setFont(Rtextfont)
                             love.graphics.setColor(0,179/255,0)
                             love.graphics.print(equipment.name, ww/2 - 320 + 336, wh/2 - 240 + 24 + 46*i)
-                            if equipment == TankGear.armor or equipment == TankGear.aim or equipment == TankGear.ammo or equipment == TankGear.mob then
+                            if equipment == TankPresent.equipment.armor or equipment == TankPresent.equipment.aim or equipment == TankPresent.equipment.ammo or equipment == TankPresent.equipment.mob then
                                 love.graphics.setColor(0,179/255,0)
                                 love.graphics.rectangle("fill", ww/2 - 320 + 332, wh/2 - 240 + 24 + 46*i, 108, 44)
                                 love.graphics.setColor(34/255,32/255,52/255)
@@ -256,10 +258,10 @@ function TankDesigner:draw()
                 end
             end
 
-            love.graphics.draw(TankGear.armor.hull_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            love.graphics.draw(TankGear.armor.turret_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            love.graphics.draw(TankGear.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            love.graphics.draw(TankGear.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankPresent.equipment.armor.hull_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankPresent.equipment.armor.turret_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankPresent.equipment.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankPresent.equipment.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
 
             for i, tank in ipairs(CurrentPlace.ProductionQueue) do
                 love.graphics.draw(production_box,ww/2 - 320 + 452, wh/2 - 240 + 62 + 28*i)
@@ -274,15 +276,6 @@ function TankDesigner:draw()
         end
 end
 
-function ResetGear()
-    TankGear = {
-        armor = CurrentPlace.tanklist[CurrentPlace.tankindex].accessories[1][1] or Blank_Gear,
-        aim = CurrentPlace.tanklist[CurrentPlace.tankindex].accessories[2][1] or Blank_Gear,
-        ammo = CurrentPlace.tanklist[CurrentPlace.tankindex].accessories[3][1] or Blank_Gear,
-        mob = CurrentPlace.tanklist[CurrentPlace.tankindex].accessories[4][1] or Blank_Gear
-    }
-end
-
 function Buildtank()
     local instance = {
         name = TankPresent.name,
@@ -290,6 +283,7 @@ function Buildtank()
         length = TankPresent.length,
         weight = TankPresent.weight,
         crew = TankPresent.crew,
+        ammorack = TankPresent.ammorack,
         max_f_speed = TankPresent.max_f_speed,
         max_r_speed = TankPresent.max_r_speed,
         hull_image = TankPresent.hull_image,
@@ -298,10 +292,10 @@ function Buildtank()
         turret_image_line = TankPresent.turret_image_line,
         turret_offset=TankPresent.turret_offset,
         turret_angle = 0,
-        armor = TankGear.armor,
-        aim = TankGear.aim,
-        ammo = TankGear.ammo,
-        mob = TankGear.mob,
+        armor = TankPresent.equipment.armor,
+        aim = TankPresent.equipment.aim,
+        ammo = TankPresent.equipment.ammo,
+        mob = TankPresent.equipment.mob,
         buildtime = TankPresent.buildtime,
         fixedbuildtime = TankPresent.buildtime,
         selected_slot=TankSpawner:slot_distribution(CurrentPlace)
