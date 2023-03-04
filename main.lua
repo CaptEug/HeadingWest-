@@ -10,10 +10,12 @@ require 'libraries/utilities/buttons'
 require 'libraries.Ammo'
 require 'libraries/Airstrike'
 require 'libraries.TankSpawner'
+require 'libraries/Tankfunctions'
 require 'Saving'
 require 'libraries.Mapdrawer'
 require 'libraries/utilities/destroyAll'
 require 'libraries/utilities/show'
+require 'libraries/utilities/copytable'
 
 --Gamestates required
 require 'gamestates/MainMenu'
@@ -83,6 +85,10 @@ injured_crew_icon = love.graphics.newImage('Assets/pictures/Icons/crew_member_in
 ERA_icon = love.graphics.newImage('Assets/pictures/Icons/ERA.png')
 Immobilized_icon = love.graphics.newImage('Assets/pictures/Icons/Immobilized.png')
 Onfire_icon = love.graphics.newImage('Assets/pictures/Icons/Onfire!.png')
+AP_icon = love.graphics.newImage('Assets/pictures/Icons/AP.png')
+HE_icon = love.graphics.newImage('Assets/pictures/Icons/HE.png')
+HEAT_icon = love.graphics.newImage('Assets/pictures/Icons/HEAT.png')
+APFSDS_icon = love.graphics.newImage('Assets/pictures/Icons/APFSDS.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')

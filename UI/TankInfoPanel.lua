@@ -5,6 +5,7 @@ function TankInfoPanel:load()
     --add tankinfopanel button
     TankPanelopen = false
     TankChoosen = {}
+    Rounds = {}
     PanelButtons = buttons.new()
     ClosePanel = buttons.newToolButton(
         ClosePanel_icon,
@@ -64,10 +65,22 @@ function TankInfoPanel:draw()
     if TankPanelopen then
         local a=TankChoosen.collider:getAngle()
         local n = 0
+        local i = 0
+        local apfsds = 0
+        local he = 0
+        local heat = 0
+        for i, ammo in ipairs(TankChoosen.data.ammorack) do
+            if ammo.type == 'APFSDS' then
+                apfsds = apfsds + 1
+            end
+            if ammo.type == 'HE' then
+                he = he + 1
+            end
+            if ammo.type == 'HEAT' then
+                heat = heat + 1
+            end
+        end
 
-        wh=wh-TankChoosen.data.hull_offset*math.cos(a)
-        ww=ww+TankChoosen.data.hull_offset*math.sin(a)
-        
         love.graphics.draw(tank_info_panel, ww - 288, wh/2 - 286)
         love.graphics.draw(TankChoosen.data.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, 144, 144)
         love.graphics.draw(TankChoosen.data.armor.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, 144, 144)
@@ -78,11 +91,23 @@ function TankInfoPanel:draw()
         love.graphics.setColor(0,179/255,0)
         love.graphics.print(TankChoosen.data.name, ww - 288 + 4, wh/2 - 286 + 4)
         love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.collider:getLinearVelocity()/math.cos(a - 0.5*math.pi)/5)..' km/h', ww - 288 + 4, wh/2 - 286 + 268)
+        if apfsds ~= 0 then
+            i = i + 1
+            love.graphics.draw(APFSDS_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
+            love.graphics.print(apfsds, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
+        end
+        if he ~= 0 then
+            i = i + 1
+            love.graphics.draw(HE_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
+            love.graphics.print(he, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
+        end
         love.graphics.setColor(1,1,1)
+
         while n < TankChoosen.data.crew do
             love.graphics.draw(crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*n, wh/2)
             n = n + 1
         end
+
         PanelButtons:use()
         --tank status update
         for i, pic in ipairs(TankChoosen.status) do
@@ -90,60 +115,6 @@ function TankInfoPanel:draw()
         end
         if TankChoosen.functions.move == ManulControlfunction then
             love.graphics.draw(ManulControlOn_icon, ww - 288 + 10, wh/2 - 286 + 515)
-        end
-    end
-end
-
-AutoControlfunction = function (i,dt)
-    
-end
-
-ManulControlfunction = function (i,dt)
-    local hp = 50*CurrentPlace.exsist_tank[i].data.mob.hp*0.745
-    local fx = hp*math.cos(CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi)
-    local fy = hp*math.sin(CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi)
-    local max_f = CurrentPlace.exsist_tank[i].data.max_f_speed
-    local max_r = CurrentPlace.exsist_tank[i].data.max_r_speed
-    local speed = CurrentPlace.exsist_tank[i].collider:getLinearVelocity()/math.cos(CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi)/5
-    local ta = CurrentPlace.exsist_tank[i].data.turret_angle + CurrentPlace.exsist_tank[i].collider:getAngle() - 0.5*math.pi
-    local mx, my = cam:mousePosition()
-    local tx, ty = CurrentPlace.exsist_tank[i].collider:getPosition()
-    local angle_to_mouse = math.atan2(my - ty, mx - tx)
-
-    if love.keyboard.isDown('up') and speed <= max_f then
-        CurrentPlace.exsist_tank[i].collider:applyForce(fx, fy)
-    end
-    if love.keyboard.isDown('down') and speed >= max_r then
-        CurrentPlace.exsist_tank[i].collider:applyForce(-fx, -fy)
-    end
-    if love.keyboard.isDown('left') then
-        CurrentPlace.exsist_tank[i].collider:applyTorque(-5*hp)
-    end
-    if love.keyboard.isDown('right') then
-        CurrentPlace.exsist_tank[i].collider:applyTorque(5*hp)
-    end
-
-    if angle_to_mouse <= 0 then
-        angle_to_mouse = angle_to_mouse + math.pi*2
-    end
-    while ta > 2*math.pi do
-        ta = ta - 2*math.pi
-    end
-    while ta < 0 do
-        ta = ta + 2*math.pi
-    end
-    if ta > angle_to_mouse then
-        if ta - angle_to_mouse <= math.pi then
-            CurrentPlace.exsist_tank[i].data.turret_angle = CurrentPlace.exsist_tank[i].data.turret_angle - 0.5*dt
-        else
-            CurrentPlace.exsist_tank[i].data.turret_angle = CurrentPlace.exsist_tank[i].data.turret_angle + 0.5*dt
-        end
-    end
-    if ta < angle_to_mouse then
-        if angle_to_mouse - ta <= math.pi then
-            CurrentPlace.exsist_tank[i].data.turret_angle = CurrentPlace.exsist_tank[i].data.turret_angle + 0.5*dt
-        else
-            CurrentPlace.exsist_tank[i].data.turret_angle = CurrentPlace.exsist_tank[i].data.turret_angle - 0.5*dt
         end
     end
 end
