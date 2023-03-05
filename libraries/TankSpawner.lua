@@ -68,7 +68,7 @@ function TankSpawner:draw_tank()
         end
 
         local x,y=tank.image_location.x,tank.image_location.y
-        local a=tank.collider:getAngle()
+        local a=tank.location.hull_angle
 
         love.graphics.draw(tank.data.hull_image,x,y,a,1,1,144,144)
         love.graphics.draw(tank.data.armor.hull_image,x,y,a,1,1,144,144)
