@@ -28,8 +28,11 @@ function TankSpawner:new_tank(place,new_tankdata)
     tank.collider:setLinearDamping(5)
     tank.collider:setAngularDamping(5)
     tank.data = new_tankdata
+    tank.image_location={}
+    tank.location={}
     tank.functions = {}
     tank.functions.move = AutoControlfunction
+    tank.functions.update=TankUpdate
     tank.status = {}
     if tank.data.armor.type == 'ERA' then
         table.insert(tank.status, ERA_icon)
@@ -54,6 +57,7 @@ end
 function TankSpawner:update(dt)
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         tank.functions.move(tank,dt)
+        tank.functions.update(tank)
     end
 end
 
@@ -63,12 +67,8 @@ function TankSpawner:draw_tank()
             return nil
         end
 
-        local x,y=tank.collider:getPosition()
+        local x,y=tank.image_location.x,tank.image_location.y
         local a=tank.collider:getAngle()
-
-        y=y-tank.data.hull_offset*math.cos(a)
-        x=x+tank.data.hull_offset*math.sin(a)
-
 
         love.graphics.draw(tank.data.hull_image,x,y,a,1,1,144,144)
         love.graphics.draw(tank.data.armor.hull_image,x,y,a,1,1,144,144)

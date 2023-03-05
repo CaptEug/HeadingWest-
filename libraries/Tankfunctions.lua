@@ -11,10 +11,8 @@ ManulControlfunction = function (tank,dt)
     local speed = tank.collider:getLinearVelocity()/math.cos(tank.collider:getAngle() - 0.5*math.pi)/5
     local ta = tank.data.turret_angle + tank.collider:getAngle() - 0.5*math.pi
     local mx, my = cam:mousePosition()
-    local tx, ty = tank.collider:getPosition()
+    local tx, ty = tank.location.x,tank.location.y
     local angle_to_mouse = math.atan2(my - ty, mx - tx)
-
-    --tank.location.x=CurrentPlace
 
     if love.keyboard.isDown('up') and speed <= max_f then
         tank.collider:applyForce(fx, fy)
@@ -52,4 +50,12 @@ ManulControlfunction = function (tank,dt)
             tank.data.turret_angle = tank.data.turret_angle - 0.5*dt
         end
     end
+end
+
+TankUpdate=function (tank)
+    local x,y=tank.collider:getPosition()
+    local hull_angle=tank.collider:getAngle()
+    tank.location={x=x,y=y}
+    tank.location.angle=hull_angle
+    tank.image_location.x,tank.image_location.y=x+tank.data.hull_offset*math.sin(hull_angle),y-tank.data.hull_offset*math.cos(hull_angle)
 end
