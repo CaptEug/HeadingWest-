@@ -48,9 +48,11 @@ end
 
 function Ammo:test_shoot(shell_type,shell_table,tank)
     local angle=tank.location.hull_angle
+    local impulse=10
+    local damege=100
 
-    local ix, iy = math.cos(angle) * 10,
-                   math.sin(angle) * 10
+    local ix, iy = math.cos(angle) * impulse,
+                   math.sin(angle) * impulse
     local shell = world:newCircleCollider(tank.location.x, tank.location.y, 10)
     table.insert(shell_table, shell)
     shell:setCollisionClass(shell_type)
@@ -59,7 +61,7 @@ function Ammo:test_shoot(shell_type,shell_table,tank)
     shell:setMass(1)
     shell:applyLinearImpulse(ix, iy)
     
-    shell.damage = 100
+    shell.damage = damege
     shell.ax = ix
     shell.ay = iy
     shell.angle = angle
