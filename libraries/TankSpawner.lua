@@ -53,7 +53,7 @@ end
 
 function TankSpawner:update(dt)
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        tank.functions.move(i,dt)
+        tank.functions.move(tank,dt)
     end
 end
 
