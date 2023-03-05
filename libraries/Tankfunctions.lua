@@ -4,8 +4,8 @@ end
 
 ManulControlfunction = function (tank,dt)
     local hp = 50*tank.data.mob.hp*0.745
-    local fx = hp*math.cos(tank.collider:getAngle() - 0.5*math.pi)
-    local fy = hp*math.sin(tank.collider:getAngle() - 0.5*math.pi)
+    local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
+    local fy = hp*math.sin(tank.location.hull_angle - 0.5*math.pi)
     local max_f = tank.data.max_f_speed
     local max_r = tank.data.max_r_speed
     local speed = tank.collider:getLinearVelocity()/math.cos(tank.collider:getAngle() - 0.5*math.pi)/5
