@@ -46,6 +46,31 @@ function Ammo:shoot(shell_name,shell_type,shell_table,entity)
     table.insert(APCBCtrails, shell.trail)
 end
 
+function Ammo:test_shoot(shell_type,shell_table,tank)
+    local angle=tank.location.hull_angle
+
+    local ix, iy = math.cos(angle) * 10,
+                   math.sin(angle) * 10
+    local shell = world:newCircleCollider(tank.location.x, tank.location.y, 10)
+    table.insert(shell_table, shell)
+    shell:setCollisionClass(shell_type)
+    shell:setRestitution(0.5)
+    shell:setLinearDamping(0.01)
+    shell:setMass(1)
+    shell:applyLinearImpulse(ix, iy)
+    
+    shell.damage = 100
+    shell.ax = ix
+    shell.ay = iy
+    shell.angle = angle
+    shell.isflying = true
+    shell.life = 10
+    shell.hitTimes = 0
+    shell.trail = {}
+    
+    table.insert(APCBCtrails, shell.trail)
+end
+
 function Ammo.update(dt)
     for i, shell in ipairs(APCBC) do
         shell.life = shell.life - dt

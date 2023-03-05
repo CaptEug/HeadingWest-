@@ -50,6 +50,10 @@ ManulControlfunction = function (tank,dt)
             tank.data.turret_angle = tank.data.turret_angle - 0.5*dt
         end
     end
+
+    if love.mouse.isDown(1) then
+        Ammo:test_shoot('APCBC',APCBC,tank)
+    end
 end
 
 TankUpdate=function (tank)
