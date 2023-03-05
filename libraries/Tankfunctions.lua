@@ -56,6 +56,6 @@ TankUpdate=function (tank)
     local x,y=tank.collider:getPosition()
     local hull_angle=tank.collider:getAngle()
     tank.location={x=x,y=y}
-    tank.location.angle=hull_angle
+    tank.location.hull_angle=hull_angle
     tank.image_location.x,tank.image_location.y=x+tank.data.hull_offset*math.sin(hull_angle),y-tank.data.hull_offset*math.cos(hull_angle)
 end
