@@ -7,8 +7,10 @@ test_shell=
     data = 
     {
         penetation=652;
-        damage=2
+        damage=2;
+        ricochetAngle=80
     };
+    angle=0
 }
 
 
@@ -33,7 +35,7 @@ function DamageAssessment:armorSideCaculate(ammunition,tank)
     local dy=test_shell.collider.y-tank.location.y
     local absAngle=math.atan2(dy,dx)
     local hitArmorType='right'
-    local relativeAngle=ammunition.angle-tank.location.angle
+    local relativeAngle=self:relativeAngleCaculate()
 
     if -math.pi/4<absAngle<math.pi/4 then
         hitArmorType='right'
@@ -58,6 +60,24 @@ function DamageAssessment:armorSideCaculate(ammunition,tank)
 
 end
 
+function DamageAssessment:relativeAngleCaculate(side,shellAngle,tankAngle)
+    
+    local relativeAngle=0
+    local dAngle=tankAngle-shellAngle
+
+    if side=='front' then
+        relativeAngle=dAngle
+    elseif side=='right' then
+        relativeAngle=math.pi/2-dAngle
+    elseif side=='back' then
+        relativeAngle=dAngle-math.pi/2
+    else
+        relativeAngle=-dAngle
+    end
+
+    return relativeAngle
+end
+
 function DamageAssessment:probabilityCaculate(penetration,angle,armorData)
     local penetrated=false
     local hitPart=math.random()
@@ -79,19 +99,99 @@ function DamageAssessment:probabilityCaculate(penetration,angle,armorData)
         penetrated=true
     end
 
+    if armor=='track'and penetrated==true then
+        self:partDamaged('track')
+    end
+
     return penetrated
 end
 
---[[tank.armor.front = 
-{   
-    turret=0.4;
-    upperHull=0.3;
-    lowerHull=0.2；
-    track=0.1;
-    thickness = 
+function DamageAssessment:partDamaged(part,tank)
+
+    if part=='track' then
+        tank.status.stuck=true
+    elseif part=='ammorack' then
+        tank.status.headless=true
+    elseif part=='fuel' then
+        tank.status.fired=true
+    end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+--testDataStructure
+
+--[[tank.status=
+{
+    stuck=false;
+    headless=false;
+    fired=false;
+    dead=false;
+    manualControlled=false;
+
+}
+]]
+
+--[[tank.armor=
+{
+    front = 
     {   
-        upperHull=200;
-        lowerHull=60;
-        Turret=600
+        turret=0.4;
+        upperHull=0.3;
+        lowerHull=0.2；
+        track=0.1;
+        thickness= 
+        {   
+            upperHull=200;
+            lowerHull=60;
+            Turret=600;
+            track=20
+        }
+    };
+    right=
+    {
+        turret=0.2;
+        hull=0.6;
+        track=0.2;
+        thickness=
+        {
+            turret=200;
+            hull=60;
+            track=20
+        }
+    };
+    left=
+    {
+        turret=0.2;
+        hull=0.6;
+        track=0.2;
+        thickness=
+        {
+            turret=200;
+            hull=60;
+            track=20
+        }
+    };
+    back=
+    {
+        turret=0.4;
+        hull=0.5;
+        track=0.1;
+        thickness=
+        {
+            turret=80;
+            hull=30;
+            track=20
+        }
     }
-}--]]
+]--]]
