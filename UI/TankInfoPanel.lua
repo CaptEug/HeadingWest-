@@ -91,6 +91,9 @@ function TankInfoPanel:draw()
         love.graphics.setColor(0,179/255,0)
         love.graphics.print(TankChoosen.data.name, ww - 288 + 4, wh/2 - 286 + 4)
         love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.collider:getLinearVelocity()/math.cos(a - 0.5*math.pi)/5)..' km/h', ww - 288 + 4, wh/2 - 286 + 268)
+        if TankChoosen.data.reload_timer >= 0 then
+            love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.data.reload_timer)..'s', ww - 288 + 144, wh/2 - 286 + 268)
+        end
         if apfsds ~= 0 then
             i = i + 1
             love.graphics.draw(APFSDS_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)

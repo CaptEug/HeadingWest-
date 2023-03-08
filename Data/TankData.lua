@@ -55,16 +55,18 @@ function TankData:load()
         width = 64,
         length = 127,
         hull_offset=0,
+        gun_offset = 109,
         weight = 41.5,
         crew = 3,
         max_f_speed = 60,
         max_r_speed = -4,
         steel_cost = 7,
         oil_cost = 3,
+        reload_time = 7,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm22', type = 'APFSDS'},
-            {name = '3of26', type = 'HE'}
+            {name = '3bm22', type = 'APFSDS', velocity = 1700, mass = 1},
+            {name = '3of26', type = 'HE', velocity = 1200, mass = 1}
         },
         hull_image = T72A_hull,
         hull_image_line = T72A_hull_line,
@@ -124,12 +126,14 @@ function TankData:load()
         width = 64,
         length = 127,
         hull_offset=0,
+        gun_offset = 109,
         weight = 44.5,
         crew = 3,
         max_f_speed = 60,
         max_r_speed = -4,
         steel_cost = 8,
         oil_cost = 3,
+        reload_time = 7,
         ammorack_size = 40,
         ammunition = {
             {name = '3bm42', type = 'APFSDS'}
@@ -214,12 +218,14 @@ function TankData:load()
         width = 64,
         length = 127,
         hull_offset=0,
+        gun_offset = 109,
         weight = 46,
         crew = 3,
         max_f_speed = 60,
         max_r_speed = -4,
         steel_cost = 7,
         oil_cost = 3,
+        reload_time = 7,
         ammorack_size = 40,
         ammunition = {
             {name = '3bm42', type = 'APFSDS'}
@@ -303,6 +309,7 @@ function TankData:load()
         max_r_speed = -20,
         steel_cost = 8,
         oil_cost = 3,
+        reload_time = 6,
         ammorack_size = 40,
         ammunition = {
             {name = 'dm23', type = 'APFSDS'}
