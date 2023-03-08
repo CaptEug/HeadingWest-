@@ -13,4 +13,5 @@ Shoot = function (tank)
     shell.isflying = true
     shell.life = 10
     table.insert(TankProjectiles, shell)
+    table.remove(tank.data.ammorack, 1)
 end
