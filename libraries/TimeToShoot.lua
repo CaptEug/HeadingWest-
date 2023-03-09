@@ -11,7 +11,7 @@ function Shoot(tank)
     local round = tank.data.ammorack[1]
     local ix, iy = math.cos(tank.location.hull_angle+tank.data.turret_angle-math.pi/2) * round.velocity,
                    math.sin(tank.location.hull_angle+tank.data.turret_angle-math.pi/2) * round.velocity
-    local shell = world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 5)
+    local shell = world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 1)
     shell:setCollisionClass(round.type)
     shell:setBullet(true)
     shell:setRestitution(0.5)
@@ -60,32 +60,52 @@ function TankProjectiles:update(dt)
             Datapool.hitArmorside = hitArmorside
 
             local ricochet = false
-            local ra = 80*0.017
+            local ra = 80*0.0174533
             local vx, vy = shell:getLinearVelocity()
             local vangle = math.atan2(vy, vx)
             local impact_angle = 0
             local dangle = Target.location.hull_angle - vangle
-
+            if dangle < 0 then
+                dangle = dangle + 2*math.pi
+            end
+            if dangle > 2*math.pi then
+                dangle = dangle - 2*math.pi
+            end
             if hitArmorside == 'front' then
-                impact_angle = dangle
+                if dangle < math.pi/2 then
+                    impact_angle = math.pi/2 - dangle
+                else
+                    impact_angle = dangle - math.pi/2
+                end
             elseif hitArmorside == 'right' then
-                impact_angle = math.pi/2-dangle
+                if dangle < math.pi then
+                    impact_angle = dangle
+                else
+                    impact_angle = 2*math.pi - dangle
+                end
             elseif hitArmorside == 'back' then
-                impact_angle = dangle-math.pi/2
+                if dangle > math.pi*3/2 then
+                    impact_angle = dangle - math.pi*3/2
+                else
+                    impact_angle = math.pi*3/2 - dangle
+                end
             elseif hitArmorside == 'left' then
-                impact_angle = -dangle
+                if dangle < math.pi then
+                    impact_angle = math.pi - dangle
+                else
+                    impact_angle = dangle - math.pi
+                end
             end
             Datapool.impact_angle = impact_angle
 
             if impact_angle < ra then
                 shell:destroy()
                 table.remove(self, i)
+                ricochet = false
             else
                 ricochet = true
-                Datapool.ricochet = ricochet
-                return ricochet
             end
-
+            Datapool.ricochet = ricochet
             
         end
 
@@ -98,11 +118,14 @@ end
 
 function TankProjectiles:draw()
     --log
-    love.graphics.print('diagonal = '..string.format("%.1f",Datapool.diagonal),0,30)
+    love.graphics.setColor(1,1,0)
     love.graphics.print('absangle = '..string.format("%.1f",Datapool.absAngle),0,50)
     love.graphics.print('hitArmorside = '..Datapool.hitArmorside,0,70)
     love.graphics.print('impact angle = '..string.format("%.1f",Datapool.impact_angle),0,90)
     if Datapool.ricochet then
         love.graphics.print('Ricochet!',0,110)
+    else
+        love.graphics.print('Penetrate!',0,110)
     end
+    love.graphics.setColor(1,1,1)
 end
