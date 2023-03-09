@@ -64,5 +64,5 @@ function ingameUI:draw()
     if CurrentPlace.state == 'Battlefield' then
         
     end
-    
+    TankProjectiles:draw()
 end
