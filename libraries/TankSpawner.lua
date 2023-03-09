@@ -29,6 +29,7 @@ function TankSpawner:new_tank(place,new_tankdata)
     tank.collider:setLinearDamping(5)
     tank.collider:setAngularDamping(5)
     tank.data = new_tankdata
+    tank.velocity={}
     tank.location={}
     tank.image_location={}
     tank.gun_location={}

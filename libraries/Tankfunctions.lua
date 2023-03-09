@@ -7,8 +7,8 @@ ManulControlfunction = function (tank,dt)
     local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
     local fy = hp*math.sin(tank.location.hull_angle - 0.5*math.pi)
     local max_f = tank.data.max_f_speed
-    local max_r = tank.data.max_r_speed
-    local speed = tank.collider:getLinearVelocity()/math.cos(tank.location.hull_angle - 0.5*math.pi)/5
+    local max_r = math.abs(tank.data.max_r_speed)
+    local speed = tank.velocity.v/5
     local mx, my = cam:mousePosition()
     local isaim = AimCheck(tank, mx, my, dt)
 
@@ -16,7 +16,7 @@ ManulControlfunction = function (tank,dt)
     if love.keyboard.isDown('up') and speed <= max_f then
         tank.collider:applyForce(fx, fy)
     end
-    if love.keyboard.isDown('down') and speed >= max_r then
+    if love.keyboard.isDown('down') and speed <= max_r then
         tank.collider:applyForce(-fx, -fy)
     end
     if love.keyboard.isDown('left') then
@@ -36,6 +36,8 @@ end
 TankUpdate=function (tank,dt)
     local x,y=tank.collider:getPosition()
     local hull_angle=tank.collider:getAngle()
+    local vx, vy = tank.collider:getLinearVelocity()
+    tank.velocity={vx=vx,vy=vy,v=math.sqrt(vx^2+vy^2)}
     tank.location={x=x,y=y}
     tank.location.hull_angle=hull_angle
     tank.image_location.x,tank.image_location.y=x+tank.data.hull_offset*math.sin(hull_angle),y-tank.data.hull_offset*math.cos(hull_angle)

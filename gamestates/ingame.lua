@@ -37,6 +37,7 @@ function ingame:update(dt)
     tanks_table:update(dt)
     Ammo.update(dt)
     TankSpawner:update(dt)
+    TankProjectiles:update(dt)
     --psystem:update(dt)
     
     if cam.scale > 2 then

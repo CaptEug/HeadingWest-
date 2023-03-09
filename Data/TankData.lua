@@ -65,8 +65,8 @@ function TankData:load()
         reload_time = 7,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm22', type = 'APFSDS', velocity = 1700, mass = 1},
-            {name = '3of26', type = 'HE', velocity = 1200, mass = 1}
+            {name = '3bm22', type = 'APFSDS', velocity = 1700, mass = 1, pen = 425},
+            {name = '3of26', type = 'HE', velocity = 1200, mass = 1, pen = 65}
         },
         hull_image = T72A_hull,
         hull_image_line = T72A_hull_line,
