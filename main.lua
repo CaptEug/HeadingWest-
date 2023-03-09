@@ -173,8 +173,10 @@ end
 
 function addCollisionClass()
     world:addCollisionClass('APCBC')
+    world:addCollisionClass('HE')
     world:addCollisionClass('HEAT')
     world:addCollisionClass('APDS')
+    world:addCollisionClass('APFSDS')
     world:addCollisionClass('Amour')
     world:addCollisionClass('Wall')
     world:addCollisionClass('Explosion')

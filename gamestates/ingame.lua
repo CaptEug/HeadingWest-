@@ -2,6 +2,7 @@ ingame = {}
 ingame = Gamestate.new()
 require "entity_test.tanks_new"
 require 'UI.ingameUI'
+require 'libraries/TimeToShoot'
 function ingame:init()
     Gbuttons = buttons.new()
     Settings = buttons.newToolButton(

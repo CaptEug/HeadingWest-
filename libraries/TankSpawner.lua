@@ -24,12 +24,14 @@ function TankSpawner:new_tank(place,new_tankdata)
     local tank = {}
     tank.collider = world:newRectangleCollider(x,y,w,h)
     tank.collider:setCollisionClass('tankhull')
+    tank.collider:setObject(tank)
     tank.collider:setMass(new_tankdata.weight)
     tank.collider:setLinearDamping(5)
     tank.collider:setAngularDamping(5)
     tank.data = new_tankdata
-    tank.image_location={}
     tank.location={}
+    tank.image_location={}
+    tank.gun_location={}
     tank.functions = {}
     tank.functions.move = AutoControlfunction
     tank.functions.update=TankUpdate
@@ -56,7 +58,7 @@ end
 
 function TankSpawner:update(dt)
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        tank.functions.update(tank)
+        tank.functions.update(tank,dt)
         tank.functions.move(tank,dt) 
     end
 end
