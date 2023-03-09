@@ -8,54 +8,44 @@ test_shell=
     {
         penetation=652;
         damage=2;
-        ricochetAngle=80
+        ricochetAngle=80;
+        weight=1.6;
     };
     angle=0
 }
-
-
-function DamageAssessment:damageCaculate(ammunition,tank)
     
-    local shellAngle=test_shell.collider:getAngle()
-    local shellPenetration=test_shell.data.penetation
-    local tankAngle=tank.location.angle
-    local hitArmorType=self:armorSideCaculate(ammunition,tank)
-    local damage=test_shell.data.damage
-    
-        
-    return damage
-end
-    
-    
-function DamageAssessment:armorSideCaculate(ammunition,tank)
+function DamageAssessment:armorTypeCaculate(ammunition,tank)
     
     local ricochet=false
     local penetrated=false
-    local dx=test_shell.collider.x-tank.location.x
-    local dy=test_shell.collider.y-tank.location.y
-    local absAngle=math.atan2(dy,dx)
+    local dx=ammunition.collider.x-tank.location.x
+    local dy=ammunition.collider.y-tank.location.y
+    local absAngle=math.atan(dy,dx)-tank.location.hull_angle
     local hitArmorType='right'
-    local relativeAngle=self:relativeAngleCaculate()
+    local tankAngleData=tank.data.angleAssess
 
-    if -math.pi/4<absAngle<math.pi/4 then
+
+    if tankAngleData.NE<absAngle<-tankAngleData.NE then
         hitArmorType='right'
-    elseif math.pi/4<=absAngle<math.pi/4*3 then
+    elseif tankAngleData.NE<absAngle<tankAngleData.NW then
         hitArmorType='front'
-    elseif math.pi/4*3<=absAngle<-math.pi/4*3 then
+    elseif tankAngleData.NW<=absAngle<-tankAngleData.NW then
         hitArmorType='left'
     else
         hitArmorType='back'
     end
+
+    local relativeAngle=self:relativeAngleCaculate(hitArmorType,ammunition.angle,tank.location.hull_angle)
     
-    if relativeAngle>test_shell.data.ricochetAngle then
+    if relativeAngle>ammunition.data.ricochetAngle then
         ricochet=true
         return ricochet
     end
 
-    penetrated=self:probabilityCaculate(test_shell.data.penetation,relativeAngle,tank.armor[hitArmorType])
+    penetrated=self:probabilityCaculate(ammunition.data.penetation,relativeAngle,tank.armor[hitArmorType])
         
     if penetrated==true then
-        tank.hp=tank.hp-self:damageCaculate(ammunition,tank)
+        self:damageCaculate(tank.armor[hitArmorType].parts)
     end
 
 end
@@ -79,6 +69,7 @@ function DamageAssessment:relativeAngleCaculate(side,shellAngle,tankAngle)
 end
 
 function DamageAssessment:probabilityCaculate(penetration,angle,armorData)
+    
     local penetrated=false
     local hitPart=math.random()
     local armor='turret'
@@ -106,21 +97,48 @@ function DamageAssessment:probabilityCaculate(penetration,angle,armorData)
     return penetrated
 end
 
+function DamageAssessment:damageCaculate(partData)
+    
+    local hitPart=math.random()
+    local part='engine'
+
+    if hitPart<partData.ammorack then
+        part='ammorack'
+    elseif hitPart<partData.ammorack+partData.fuel then
+        part='fuel'
+    elseif hitPart<partData.ammorack+partData.fuel+partData.engine then
+        part='engine'
+    else
+        part='none'
+    end
+
+    self:partDamaged(part)
+
+end
+
 function DamageAssessment:partDamaged(part,tank)
 
-    if part=='track' then
+    if part=='track' or 'engine' then
         tank.status.stuck=true
     elseif part=='ammorack' then
         tank.status.headless=true
     elseif part=='fuel' then
         tank.status.fired=true
+    else
+        
     end
 end
 
 
 
 
-
+--[[tank.data.angleAssess=
+{
+    NE=math.pi/4;
+    SE=-math.pi/4;
+    NW=math.pi/4*3;
+    SW=-math.pi/4*3
+}
 
 
 
@@ -156,6 +174,12 @@ end
             lowerHull=60;
             Turret=600;
             track=20
+        };
+        parts=
+        {
+            ammorack=0.1;
+            fuel=0.2;
+            engine=0.2;
         }
     };
     right=
@@ -168,6 +192,12 @@ end
             turret=200;
             hull=60;
             track=20
+        };
+        parts=
+        {
+            ammorack=0.1;
+            fuel=0.1;
+            engine=0.1;
         }
     };
     left=
@@ -180,6 +210,12 @@ end
             turret=200;
             hull=60;
             track=20
+        };
+        parts=
+        {
+            ammorack=0.1;
+            fuel=0.1;
+            engine=0.1;
         }
     };
     back=
@@ -192,6 +228,12 @@ end
             turret=80;
             hull=30;
             track=20
+        };
+        parts=
+        {
+            ammorack=0.1;
+            fuel=0.1;
+            engine=0.3;
         }
     }
 ]--]]
