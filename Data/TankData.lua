@@ -65,8 +65,17 @@ function TankData:load()
         reload_time = 1,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm22', type = 'APFSDS', velocity = 1700, mass = 0.1, pen = 425},
-            {name = '3of26', type = 'HE', velocity = 1200, mass = 1, pen = 65}
+            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
+            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 1200, mass = 1, pen = 65}
+        },
+        armorthickness = {
+            front = {hull = {310, 450}, turret = {450, 550}},
+            side = {hull = {80, 80}, turret = {300, 300}},
+            back = {hull = {50, 50}, turret = {70, 70}}
+        },
+        innerstructure = {
+            front = {htl = 0.7, ammo = 0.3, engine = 0.5, fuel = 0.5},
+            side = {htl = 0.85}
         },
         hull_image = T72A_hull,
         hull_image_line = T72A_hull_line,
@@ -136,7 +145,7 @@ function TankData:load()
         reload_time = 7,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm42', type = 'APFSDS'}
+            
         },
         hull_image = T72B_hull,
         hull_image_line = T72B_hull_line,
@@ -228,7 +237,7 @@ function TankData:load()
         reload_time = 7,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm42', type = 'APFSDS'}
+            
         },
         hull_image = T90_hull,
         hull_image_line = T90_hull_line,
@@ -312,7 +321,7 @@ function TankData:load()
         reload_time = 6,
         ammorack_size = 40,
         ammunition = {
-            {name = 'dm23', type = 'APFSDS'}
+            
         },
         hull_image = Leopard2A4_hull,
         hull_image_line = Leopard2A4_hull_line,
