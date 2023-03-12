@@ -43,6 +43,10 @@ function TankProjectiles:update(dt)
             local Target = collision_data.collider:getObject()
             local ricochet, hitArmorside, angle = RicochetCheck(shell, Target)
             local ispen = false
+
+            if Target.status.era[1] then
+                Target.data.armor.life = Target.data.armor.life - 1
+            end
             
             if not ricochet then
                 ispen = PenCheck(shell, Target, hitArmorside, angle)
@@ -167,7 +171,9 @@ function PenCheck(shell, Target, hitArmorside, angle)
     local pen = shell.pen
     local pentype = shell.pentype
     local armorpart = {}
+    local erapart = {}
     local armorthickness = 0
+    local erathickness = 0
     local cosFi = math.cos(angle)
     local hitpos = math.random()
     local hitpart = 'none'
@@ -175,36 +181,60 @@ function PenCheck(shell, Target, hitArmorside, angle)
     if hitArmorside == 'front' then
         if hitpos < Target.data.innerstructure.front.htl then
             armorpart = Target.data.armorthickness.front.hull
+            if Target.status.era[1] then
+                erapart = Target.data.armor.armorthickness.front.hull
+            end
             hitpart = 'Hull'
         else
             armorpart = Target.data.armorthickness.front.turret
+            if Target.status.era[1] then
+                erapart = Target.data.armor.armorthickness.front.turret
+            end
             hitpart = 'Turret'
         end
     elseif hitArmorside == 'Left' or 'Right' then
         if hitpos < Target.data.innerstructure.side.htl then
             armorpart = Target.data.armorthickness.side.hull
+            if Target.status.era[1] then
+                erapart = Target.data.armor.armorthickness.side.hull
+            end
             hitpart = 'Hull'
         else
             armorpart = Target.data.armorthickness.side.turret
+            if Target.status.era[1] then
+                erapart = Target.data.armor.armorthickness.side.turret
+            end
             hitpart = 'Turret'
         end
     else
         if hitpos < Target.data.innerstructure.front.htl then
             armorpart = Target.data.armorthickness.back.hull
+            if Target.status.era[1] then
+                erapart = Target.data.armor.armorthickness.back.hull
+            end
             hitpart = 'Hull'
         else
             armorpart = Target.data.armorthickness.back.turret
+            if Target.status.era[1] then
+                erapart = Target.data.armor.armorthickness.back.turret
+            end
             hitpart = 'Turret'
         end
     end
 
     if pentype == 'KE' then
         armorthickness = armorpart[1]
+        if Target.status.era[1] then
+            erathickness = erapart[1]
+        end
     elseif pentype == 'CE' then
         armorthickness = armorpart[2]
+        if Target.status.era[1] then
+            erathickness = erapart[2]
+        end
     end
 
-    local effective_thickness = armorthickness/cosFi
+    local effective_thickness = armorthickness/cosFi + erathickness
 
     if pen > effective_thickness then
         penetration = true

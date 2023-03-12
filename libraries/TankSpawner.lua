@@ -26,6 +26,7 @@ function TankSpawner:new_tank(place,new_tankdata)
     tank.collider:setCollisionClass('tankhull')
     tank.collider:setObject(tank)
     tank.collider:setMass(new_tankdata.weight)
+    tank.collider:setRestitution(0.1)
     tank.collider:setLinearDamping(5)
     tank.collider:setAngularDamping(5)
     tank.data = new_tankdata
@@ -35,10 +36,14 @@ function TankSpawner:new_tank(place,new_tankdata)
     tank.gun_location={}
     tank.functions = {}
     tank.functions.move = AutoControlfunction
-    tank.functions.update=TankUpdate
-    tank.status = {}
+    tank.status = {
+        dead = {false},
+        onfire = {false, Onfire_icon},
+        Immobilized = {false, Immobilized_icon},
+        era = {false, ERA_icon}
+    }
     if tank.data.armor.type == 'ERA' then
-        table.insert(tank.status, ERA_icon)
+        tank.status.era[1] = true
     end
     tank.Infobuttons = buttons.new()
     local tankbutton = buttons.newCampicButton(
@@ -59,8 +64,9 @@ end
 
 function TankSpawner:update(dt)
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        tank.functions.update(tank,dt)
-        tank.functions.move(tank,dt) 
+        TankUpdate(tank,dt)
+        StatusCheck(tank)
+        tank.functions.move(tank,dt)  
     end
 end
 

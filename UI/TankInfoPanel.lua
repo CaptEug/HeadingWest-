@@ -107,6 +107,11 @@ function TankInfoPanel:draw()
             love.graphics.draw(HE_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
             love.graphics.print(he, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
         end
+        if heat ~= 0 then
+            i = i + 1
+            love.graphics.draw(HEAT_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
+            love.graphics.print(heat, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
+        end
         love.graphics.setColor(1,1,1)
 
         while n < TankChoosen.data.crew do
@@ -116,9 +121,17 @@ function TankInfoPanel:draw()
 
         PanelButtons:use()
         --tank status update
-        for i, pic in ipairs(TankChoosen.status) do
-            love.graphics.draw(pic, ww - 288 + 16, wh/2 - 286 + 48*i)
+        local s = 1
+        
+        if TankChoosen.status.era[1] then
+            love.graphics.draw(TankChoosen.status.era[2], ww - 288 + 16, wh/2 - 286 + 48*s)
+            s = s + 1
         end
+        if TankChoosen.status.onfire[1] then
+            love.graphics.draw(TankChoosen.status.onfire[2], ww - 288 + 16, wh/2 - 286 + 48*s)
+            s = s + 1
+        end
+        
         if TankChoosen.functions.move == ManulControlfunction then
             love.graphics.draw(ManulControlOn_icon, ww - 288 + 10, wh/2 - 286 + 515)
         end

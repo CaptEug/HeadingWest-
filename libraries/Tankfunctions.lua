@@ -46,12 +46,16 @@ TankUpdate=function (tank,dt)
     tank.data.reload_timer = tank.data.reload_timer - dt
 end
 
-StatusChecker=function (tankStatus)
-    
-    if tankStatus.dead==true then
-        
+StatusCheck=function (tank)
+    if tank.status.era[1] then
+        if tank.data.armor.life <= 0 then
+            tank.data.armor.hull_image = Blank_line
+            tank.data.armor.turret_image = Blank_line
+            tank.data.armor.hull_image_line = Blank_line
+            tank.data.armor.turret_image_line = Blank_line
+            tank.status.era[1] = false
+        end
     end
-    
 end
 
 AimCheck = function (tank, x, y, dt)

@@ -371,7 +371,7 @@ function Buildtank()
         hull_offset = TankPresent.hull_offset,
         gun_offset = TankPresent.gun_offset,
         turret_angle = 0,
-        armor = TankPresent.equipment.armor,
+        armor = copytable(TankPresent.equipment.armor),
         aim = TankPresent.equipment.aim,
         mob = TankPresent.equipment.mob,
         buildtime = TankPresent.buildtime,

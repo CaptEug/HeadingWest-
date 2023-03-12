@@ -65,8 +65,9 @@ function TankData:load()
         reload_time = 1,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
-            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 1200, mass = 1, pen = 65}
+            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.01, pen = 425},
+            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.01, pen = 65},
+            {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.01, pen = 550}
         },
         armorthickness = {
             front = {hull = {310, 450}, turret = {450, 550}},
@@ -88,6 +89,11 @@ function TankData:load()
                     name = 'BASE_ARMOR',
                     steel_cost = 0,
                     oil_cost = 0,
+                    armorthickness = {
+                        front = {hull = {0, 0}, turret = {0, 0}},
+                        side = {hull = {0, 0}, turret = {0, 0}},
+                        back = {hull = {0, 0}, turret = {0, 0}}
+                    },
                     hull_image = Blank_line,
                     hull_image_line = Blank_line,
                     turret_image = T72A_smokegernade_turret,
@@ -99,13 +105,18 @@ function TankData:load()
                     name = 'Kontakt_1',
                     steel_cost = 1,
                     oil_cost = 0,
+                    armorthickness = {
+                        front = {hull = {5, 300}, turret = {5, 300}},
+                        side = {hull = {5, 300}, turret = {5, 300}},
+                        back = {hull = {0, 0}, turret = {0, 0}}
+                    },
                     hull_image = T72A_kontakt1_hull,
                     hull_image_line = T72A_kontakt1_hull_line,
                     turret_image = T72A_kontakt1_turret,
                     turret_image_line = T72A_kontakt1_turret_line,
                     tag = 'Armor',
                     type = 'ERA',
-                    ERAtimes = 3,
+                    life = 3,
                     KE = 0,
                     CE = 400
                 },
@@ -175,7 +186,7 @@ function TankData:load()
                     turret_image_line = T72B_kontakt1_turret_line,
                     tag = 'Armor',
                     type = 'ERA',
-                    ERAtimes = 3,
+                    life = 3,
                     KE = 0,
                     CE = 400
                 },
@@ -189,7 +200,7 @@ function TankData:load()
                     turret_image_line = T72B_kontakt5_turret_line,
                     tag = 'Armor',
                     type = 'ERA',
-                    ERAtimes = 4,
+                    life = 4,
                     KE = 120,
                     CE = 400
                 },
@@ -267,7 +278,7 @@ function TankData:load()
                     turret_image_line = T90_kontakt5_turret_line,
                     tag = 'Armor',
                     type = 'ERA',
-                    ERAtimes = 4,
+                    life = 4,
                     KE = 120,
                     CE = 400
                 },
