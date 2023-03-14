@@ -7,7 +7,9 @@ Datapool = {
     hitpos = 0,
     hitpart = 'none',
     effective_thickness = 0,
-    penetration = false
+    penetration = false,
+    hitmodule = {},
+    crewknockout = 0
 }
 
 function Shoot(tank)
@@ -43,17 +45,21 @@ function TankProjectiles:update(dt)
             local Target = collision_data.collider:getObject()
             local ricochet, hitArmorside, angle = RicochetCheck(shell, Target)
             local ispen = false
+            local penpart = 'none'
 
             if Target.status.era[1] then
                 Target.data.armor.life = Target.data.armor.life - 1
             end
             
             if not ricochet then
-                ispen = PenCheck(shell, Target, hitArmorside, angle)
+                ispen, penpart = PenCheck(shell, Target, hitArmorside, angle)
                 shell:destroy()
                 table.remove(self, i)
             end
             
+            if ispen then
+                DamageCheck(shell, Target, penpart)
+            end
             
         end
 
@@ -78,6 +84,10 @@ function TankProjectiles:draw()
         love.graphics.print('effective_thickness = '..string.format("%.2f",Datapool.effective_thickness)..'mm',0,170)
         if Datapool.penetration then
             love.graphics.print('Penetrate!',0,190)
+            for i, m in ipairs(Datapool.hitmodule) do
+                love.graphics.print('Hit '..m,-100+100*i,210)
+            end
+            love.graphics.print(Datapool.crewknockout..' crews were konckout',0,230)
         else
             love.graphics.print('NONE Penetration!',0,190)
         end
@@ -179,7 +189,7 @@ function PenCheck(shell, Target, hitArmorside, angle)
     local hitpart = 'none'
     
     if hitArmorside == 'front' then
-        if hitpos < Target.data.innerstructure.front.htl then
+        if hitpos < Target.data.innerstructure.frontl then
             armorpart = Target.data.armorthickness.front.hull
             if Target.status.era[1] then
                 erapart = Target.data.armor.armorthickness.front.hull
@@ -193,7 +203,7 @@ function PenCheck(shell, Target, hitArmorside, angle)
             hitpart = 'Turret'
         end
     elseif hitArmorside == 'Left' or 'Right' then
-        if hitpos < Target.data.innerstructure.side.htl then
+        if hitpos < Target.data.innerstructure.sidel then
             armorpart = Target.data.armorthickness.side.hull
             if Target.status.era[1] then
                 erapart = Target.data.armor.armorthickness.side.hull
@@ -207,7 +217,7 @@ function PenCheck(shell, Target, hitArmorside, angle)
             hitpart = 'Turret'
         end
     else
-        if hitpos < Target.data.innerstructure.front.htl then
+        if hitpos < Target.data.innerstructure.frontl then
             armorpart = Target.data.armorthickness.back.hull
             if Target.status.era[1] then
                 erapart = Target.data.armor.armorthickness.back.hull
@@ -247,5 +257,51 @@ function PenCheck(shell, Target, hitArmorside, angle)
     Datapool.effective_thickness = effective_thickness
     Datapool.penetration = penetration
 
-    return penetration
+    return penetration, hitpart
+end
+
+function DamageCheck(shell, Target, penpart)
+    local crew, ammo, engine, fuel = 0, 0, 0, 0
+    while #Datapool.hitmodule > 0 do
+        table.remove(Datapool.hitmodule, 1)
+    end
+    Datapool.crewknockout = 0
+
+    if penpart == 'Hull' then
+        crew = Target.data.innerstructure.hull.crew
+        ammo = Target.data.innerstructure.hull.ammo
+        engine = Target.data.innerstructure.hull.engine
+        fuel = Target.data.innerstructure.hull.fuel
+    elseif penpart == 'Turret' then
+        crew = Target.data.innerstructure.turret.crew
+        ammo = Target.data.innerstructure.turret.ammo
+        engine = Target.data.innerstructure.turret.engine
+        fuel = Target.data.innerstructure.turret.fuel
+    end
+
+    if math.random() <= ammo then
+        Target.data.survivor = 0
+        table.insert(Datapool.hitmodule, 'ammorack')
+    else
+        if math.random() <= crew then
+            Target.data.survivor = Target.data.survivor - 1
+            Datapool.crewknockout = 1
+            if math.random() <= crew/2 then
+                Target.data.survivor = Target.data.survivor - 1
+                Datapool.crewknockout = 2
+                if math.random() <= crew/4 then
+                    Target.data.survivor = Target.data.survivor - 1
+                    Datapool.crewknockout = 3
+                end
+            end
+        end
+        if math.random() <= engine then
+            Target.status.Immobilized[1] = true
+            table.insert(Datapool.hitmodule, 'engine')
+        end
+        if math.random() <= fuel then
+            Target.status.onfire[1] = true
+            table.insert(Datapool.hitmodule, 'fuel tank')
+        end
+    end
 end

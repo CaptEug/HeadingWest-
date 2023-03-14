@@ -356,6 +356,7 @@ function Buildtank()
         length = TankPresent.length,
         weight = TankPresent.weight,
         crew = TankPresent.crew,
+        survivor = TankPresent.crew,
         reload_time = TankPresent.reload_time,
         reload_timer = TankPresent.reload_time,
         ammorack_size = TankPresent.ammorack_size,

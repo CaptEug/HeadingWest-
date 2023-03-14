@@ -75,8 +75,10 @@ function TankData:load()
             back = {hull = {50, 50}, turret = {70, 70}}
         },
         innerstructure = {
-            front = {htl = 0.7, ammo = 0.3, engine = 0.5, fuel = 0.5},
-            side = {htl = 0.85}
+            frontl = 0.7,
+            sidel = 0.85,
+            hull = {crew = 0.6, ammo = 0.5, engine = 0.5, fuel = 0.4},
+            turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = T72A_hull,
         hull_image_line = T72A_hull_line,

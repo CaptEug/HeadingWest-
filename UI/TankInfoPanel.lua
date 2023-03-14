@@ -65,6 +65,7 @@ function TankInfoPanel:draw()
     if TankPanelopen then
         local a=TankChoosen.collider:getAngle()
         local n = 0
+        local m = 0
         local i = 0
         local apfsds = 0
         local he = 0
@@ -115,8 +116,12 @@ function TankInfoPanel:draw()
         love.graphics.setColor(1,1,1)
 
         while n < TankChoosen.data.crew do
-            love.graphics.draw(crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*n, wh/2)
+            love.graphics.draw(injured_crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*n, wh/2)
             n = n + 1
+        end
+        while m < TankChoosen.data.survivor do
+            love.graphics.draw(crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*m, wh/2)
+            m = m + 1
         end
 
         PanelButtons:use()
@@ -129,6 +134,10 @@ function TankInfoPanel:draw()
         end
         if TankChoosen.status.onfire[1] then
             love.graphics.draw(TankChoosen.status.onfire[2], ww - 288 + 16, wh/2 - 286 + 48*s)
+            s = s + 1
+        end
+        if TankChoosen.status.Immobilized[1] then
+            love.graphics.draw(TankChoosen.status.Immobilized[2], ww - 288 + 16, wh/2 - 286 + 48*s)
             s = s + 1
         end
         
