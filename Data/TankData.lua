@@ -65,9 +65,9 @@ function TankData:load()
         reload_time = 1,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.01, pen = 425},
-            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.01, pen = 65},
-            {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.01, pen = 550}
+            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
+            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65},
+            {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
         },
         armorthickness = {
             front = {hull = {310, 450}, turret = {450, 550}},

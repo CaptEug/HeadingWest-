@@ -54,6 +54,7 @@ function ingame:draw()
         TankSpawner:draw_tank()
         world:draw()
         particleworld:draw()
+        Shelltrails:draw()
     cam:detach()
 
 

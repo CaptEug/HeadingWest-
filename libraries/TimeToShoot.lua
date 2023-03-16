@@ -9,12 +9,13 @@ Datapool = {
     hitmodule = {},
     crewknockout = 0
 }
+Shelltrails = {}
 
 function Shoot(tank)
     local round = tank.data.ammorack[1]
     local ix, iy = math.cos(tank.location.hull_angle+tank.data.turret_angle-math.pi/2) * round.velocity,
                    math.sin(tank.location.hull_angle+tank.data.turret_angle-math.pi/2) * round.velocity
-    local shell = world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 1)
+    local shell = world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 2)
     shell:setCollisionClass(round.type)
     shell:setBullet(true)
     shell:setRestitution(0.5)
@@ -25,6 +26,8 @@ function Shoot(tank)
     shell.type = round.type
     shell.pen = round.pen
     shell.pentype = round.pentype
+    shell.trail = {}
+    table.insert(Shelltrails, shell.trail)
     table.insert(TankProjectiles, shell)
     table.remove(tank.data.ammorack, 1)
 end
@@ -32,10 +35,14 @@ end
 function TankProjectiles:update(dt)
     for i, shell in ipairs(self) do
         shell.life = shell.life - dt
+        local sx, sy = shell:getPosition()
+        table.insert (shell.trail, 1, sy)
+	    table.insert (shell.trail, 1, sx)
 
         if shell:enter('Wall') then
             shell:destroy()
             table.remove(self, i)
+            table.remove(Shelltrails, i)
         end
 
         if shell:enter('tankhull') then
@@ -52,6 +59,7 @@ function TankProjectiles:update(dt)
                 ispen = PenCheck(shell, Target, hitPart, hitArmorside, angle)
                 shell:destroy()
                 table.remove(self, i)
+                table.remove(Shelltrails, i)
             end
             
             if ispen then
@@ -63,6 +71,26 @@ function TankProjectiles:update(dt)
         if shell.life <= 0 then
             shell:destroy()
             table.remove(self, i)
+            table.remove(Shelltrails, i)
+        end
+    end
+
+    --trail
+    for i, trail in ipairs(Shelltrails) do
+        local trailTimer = 0
+        if #trail > 2 then
+            trailTimer = trailTimer + dt
+            while trailTimer > 0.01 do
+                trailTimer = trailTimer - 0.01
+                -- remove two last coordinates:
+                trail[#trail] = nil
+                trail[#trail] = nil
+            end
+        end
+        if #trail > 5*2 then
+            for i = #trail, 5*2+1, -1 do -- backwards
+                trail[i] = nil
+            end
         end
     end
 end
@@ -87,8 +115,22 @@ function TankProjectiles:draw()
             love.graphics.print('NONE Penetration!',0,130)
         end
     end
-    
     love.graphics.setColor(1,1,1)
+end
+
+function Shelltrails:draw()
+    for i, trail in ipairs(self) do
+        for i = #trail-1, 3, -2 do -- backwards for color trail
+            local c = (#trail-(i+1))/#trail
+            local w = 4*c
+            love.graphics.setLineWidth (w)
+            love.graphics.setColor (1,0,0,c)
+            love.graphics.line (trail[i-2], trail[i-1], trail[i], trail[i+1])
+            love.graphics.circle ('fill', trail[i], trail[i+1], w/2)
+            love.graphics.setLineWidth (1)
+            love.graphics.setColor (1,1,1)
+        end
+    end
 end
 
 function RicochetCheck(shell, Target)
