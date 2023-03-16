@@ -1,11 +1,9 @@
 TankProjectiles = {}
 Datapool = {
-    position_angle = 0,
+    hitPart = 'none',
     hitArmorside = 'none',
     impact_angle = 0,
     ricochet = false,
-    hitpos = 0,
-    hitpart = 'none',
     effective_thickness = 0,
     penetration = false,
     hitmodule = {},
@@ -43,22 +41,21 @@ function TankProjectiles:update(dt)
         if shell:enter('tankhull') then
             local collision_data = shell:getEnterCollisionData('tankhull')
             local Target = collision_data.collider:getObject()
-            local ricochet, hitArmorside, angle = RicochetCheck(shell, Target)
+            local ricochet, hitPart, hitArmorside, angle = RicochetCheck(shell, Target)
             local ispen = false
-            local penpart = 'none'
 
             if Target.status.era[1] then
                 Target.data.armor.life = Target.data.armor.life - 1
             end
             
             if not ricochet then
-                ispen, penpart = PenCheck(shell, Target, hitArmorside, angle)
+                ispen = PenCheck(shell, Target, hitPart, hitArmorside, angle)
                 shell:destroy()
                 table.remove(self, i)
             end
             
             if ispen then
-                DamageCheck(shell, Target, penpart)
+                DamageCheck(shell, Target, hitPart)
             end
             
         end
@@ -73,23 +70,21 @@ end
 function TankProjectiles:draw()
     --log
     love.graphics.setColor(1,1,0)
-    love.graphics.print('position angle = '..string.format("%.2f",Datapool.position_angle),0,50)
+    love.graphics.print('hitPart = '..Datapool.hitPart,0,50)
     love.graphics.print('hitArmorside = '..Datapool.hitArmorside,0,70)
     love.graphics.print('impact angle = '..string.format("%.2f",Datapool.impact_angle),0,90)
     if Datapool.ricochet then
         love.graphics.print('Ricochet!',0,110)
     else
-        love.graphics.print('hitpos = '..string.format("%.2f",Datapool.hitpos),0,130)
-        love.graphics.print('hitpart = '..Datapool.hitpart,0,150)
-        love.graphics.print('effective_thickness = '..string.format("%.2f",Datapool.effective_thickness)..'mm',0,170)
+        love.graphics.print('effective_thickness = '..string.format("%.2f",Datapool.effective_thickness)..'mm',0,110)
         if Datapool.penetration then
-            love.graphics.print('Penetrate!',0,190)
+            love.graphics.print('Penetrate!',0,130)
             for i, m in ipairs(Datapool.hitmodule) do
-                love.graphics.print('Hit '..m,-100+100*i,210)
+                love.graphics.print('Hit '..m,-100+100*i,150)
             end
-            love.graphics.print(Datapool.crewknockout..' crews were konckout',0,230)
+            love.graphics.print(Datapool.crewknockout..' crews were konckout',0,170)
         else
-            love.graphics.print('NONE Penetration!',0,190)
+            love.graphics.print('NONE Penetration!',0,130)
         end
     end
     
@@ -99,84 +94,113 @@ end
 function RicochetCheck(shell, Target)
     --position_angle acquire and armor side check
     local x, y = shell:getPosition()
-    local position_angle = Target.location.hull_angle-math.atan2(y-Target.location.y, x-Target.location.x)
-    local diagonal = math.atan2(Target.data.length, Target.data.width)
+    local vx, vy = shell:getLinearVelocity()
+    local hitvalue = math.random()
+    local hitPart = 'none'
     local hitArmorside = 'none'
-
-    if position_angle < 0 then
-        position_angle = position_angle + 2*math.pi
-    end
-    if position_angle > 2*math.pi then
-        position_angle = position_angle - 2*math.pi
-    end
-    
-    if position_angle > 2*math.pi-diagonal or position_angle < diagonal then
-        hitArmorside = 'right'
-    elseif position_angle > diagonal and position_angle < math.pi-diagonal then
-        hitArmorside = 'front'
-    elseif position_angle > math.pi-diagonal and position_angle < math.pi+diagonal then
-        hitArmorside = 'left'
-    else
-        hitArmorside = 'back'
-    end
-
-    Datapool.position_angle = position_angle
-    Datapool.hitArmorside = hitArmorside
-
-    --impact_angle acquire and ricochet check
     local ricochet = false
     local ra = 80*0.0174533
-    local vx, vy = shell:getLinearVelocity()
     local vangle = math.atan2(vy, vx)
     local impact_angle = 0
-    local dangle = Target.location.hull_angle - vangle
-
+    local dangle = 0
     if dangle < 0 then
         dangle = dangle + 2*math.pi
     end
     if dangle > 2*math.pi then
         dangle = dangle - 2*math.pi
     end
-    
-    if hitArmorside == 'front' then
-        if dangle < math.pi/2 then
-            impact_angle = math.pi/2 - dangle
-        else
-            impact_angle = dangle - math.pi/2
+
+    if hitvalue < Target.data.innerstructure.htl then
+        local position_angle = Target.location.hull_angle-math.atan2(y-Target.location.y, x-Target.location.x)
+        if position_angle < 0 then
+            position_angle = position_angle + 2*math.pi
         end
-    elseif hitArmorside == 'right' then
-        if dangle < math.pi then
-            impact_angle = dangle
-        else
-            impact_angle = 2*math.pi - dangle
+        if position_angle > 2*math.pi then
+            position_angle = position_angle - 2*math.pi
         end
-    elseif hitArmorside == 'back' then
-        if dangle > math.pi*3/2 then
-            impact_angle = dangle - math.pi*3/2
+        local diagonal = 0
+        local dangle = Target.location.hull_angle - vangle
+        hitPart = 'Hull'
+        diagonal = math.atan2(Target.data.length, Target.data.width)
+        if position_angle > 2*math.pi-diagonal or position_angle < diagonal then
+            hitArmorside = 'right'
+            if dangle < math.pi then
+                impact_angle = dangle
+            else
+                impact_angle = 2*math.pi - dangle
+            end
+        elseif position_angle > diagonal and position_angle < math.pi-diagonal then
+            hitArmorside = 'front'
+            if dangle < math.pi/2 then
+                impact_angle = math.pi/2 - dangle
+            else
+                impact_angle = dangle - math.pi/2
+            end
+        elseif position_angle > math.pi-diagonal and position_angle < math.pi+diagonal then
+            hitArmorside = 'left'
+            if dangle < math.pi then
+                impact_angle = math.pi - dangle
+            else
+                impact_angle = dangle - math.pi
+            end
         else
-            impact_angle = math.pi*3/2 - dangle
+            hitArmorside = 'back'
+            if dangle > math.pi*3/2 then
+                impact_angle = dangle - math.pi*3/2
+            else
+                impact_angle = math.pi*3/2 - dangle
+            end
         end
-    elseif hitArmorside == 'left' then
-        if dangle < math.pi then
-            impact_angle = math.pi - dangle
+    else
+        hitPart = 'Turret'
+        dangle = Target.location.hull_angle + Target.data.turret_angle - vangle
+        if dangle > math.pi*7/4 or dangle < math.pi/4 then
+            hitArmorside = 'right'
+            if dangle < math.pi then
+                impact_angle = dangle
+            else
+                impact_angle = 2*math.pi - dangle
+            end
+        elseif dangle > math.pi/4 and dangle < math.pi*3/4 then
+            hitArmorside = 'front'
+            if dangle < math.pi/2 then
+                impact_angle = math.pi/2 - dangle
+            else
+                impact_angle = dangle - math.pi/2
+            end
+        elseif dangle > math.pi*3/4 and dangle < math.pi*5/4 then
+            hitArmorside = 'left'
+            if dangle < math.pi then
+                impact_angle = math.pi - dangle
+            else
+                impact_angle = dangle - math.pi
+            end
         else
-            impact_angle = dangle - math.pi
+            hitArmorside = 'back'
+            if dangle > math.pi*3/2 then
+                impact_angle = dangle - math.pi*3/2
+            else
+                impact_angle = math.pi*3/2 - dangle
+            end
         end
     end
-    
+
+    --impact_angle acquire and ricochet check
     if impact_angle < ra then
         ricochet = false
     else
         ricochet = true
     end
 
+    Datapool.hitPart = hitPart
+    Datapool.hitArmorside = hitArmorside
     Datapool.impact_angle = impact_angle
     Datapool.ricochet = ricochet
 
-    return ricochet, hitArmorside, impact_angle
+    return ricochet, hitPart, hitArmorside, impact_angle
 end
 
-function PenCheck(shell, Target, hitArmorside, angle)
+function PenCheck(shell, Target, hitPart, hitArmorside, angle)
     local penetration = false
     local pen = shell.pen
     local pentype = shell.pentype
@@ -185,53 +209,43 @@ function PenCheck(shell, Target, hitArmorside, angle)
     local armorthickness = 0
     local erathickness = 0
     local cosFi = math.cos(angle)
-    local hitpos = math.random()
-    local hitpart = 'none'
     
-    if hitArmorside == 'front' then
-        if hitpos < Target.data.innerstructure.frontl then
+    if hitPart == 'Hull' then
+        if hitArmorside == 'front' then
             armorpart = Target.data.armorthickness.front.hull
             if Target.status.era[1] then
                 erapart = Target.data.armor.armorthickness.front.hull
             end
-            hitpart = 'Hull'
+        elseif hitArmorside == 'Left' or 'Right' then
+            armorpart = Target.data.armorthickness.side.hull
+                if Target.status.era[1] then
+                    erapart = Target.data.armor.armorthickness.side.hull
+                end
         else
+            armorpart = Target.data.armorthickness.back.hull
+                if Target.status.era[1] then
+                    erapart = Target.data.armor.armorthickness.back.hull
+                end
+        end
+    elseif hitPart == 'Turret' then
+        if hitArmorside == 'front' then
             armorpart = Target.data.armorthickness.front.turret
             if Target.status.era[1] then
                 erapart = Target.data.armor.armorthickness.front.turret
             end
-            hitpart = 'Turret'
-        end
-    elseif hitArmorside == 'Left' or 'Right' then
-        if hitpos < Target.data.innerstructure.sidel then
-            armorpart = Target.data.armorthickness.side.hull
-            if Target.status.era[1] then
-                erapart = Target.data.armor.armorthickness.side.hull
-            end
-            hitpart = 'Hull'
-        else
+        elseif hitArmorside == 'Left' or 'Right' then
             armorpart = Target.data.armorthickness.side.turret
-            if Target.status.era[1] then
-                erapart = Target.data.armor.armorthickness.side.turret
-            end
-            hitpart = 'Turret'
-        end
-    else
-        if hitpos < Target.data.innerstructure.frontl then
-            armorpart = Target.data.armorthickness.back.hull
-            if Target.status.era[1] then
-                erapart = Target.data.armor.armorthickness.back.hull
-            end
-            hitpart = 'Hull'
+                if Target.status.era[1] then
+                    erapart = Target.data.armor.armorthickness.side.turret
+                end
         else
             armorpart = Target.data.armorthickness.back.turret
-            if Target.status.era[1] then
-                erapart = Target.data.armor.armorthickness.back.turret
-            end
-            hitpart = 'Turret'
+                if Target.status.era[1] then
+                    erapart = Target.data.armor.armorthickness.back.turret
+                end
         end
     end
-
+    
     if pentype == 'KE' then
         armorthickness = armorpart[1]
         if Target.status.era[1] then
@@ -252,12 +266,10 @@ function PenCheck(shell, Target, hitArmorside, angle)
         penetration = false
     end
 
-    Datapool.hitpos = hitpos
-    Datapool.hitpart = hitpart
     Datapool.effective_thickness = effective_thickness
     Datapool.penetration = penetration
 
-    return penetration, hitpart
+    return penetration
 end
 
 function DamageCheck(shell, Target, penpart)
