@@ -254,36 +254,36 @@ function PenCheck(shell, Target, hitPart, hitArmorside, angle)
     
     if hitPart == 'Hull' then
         if hitArmorside == 'front' then
-            armorpart = Target.data.armorthickness.front.hull
+            armorpart = Target.data.armorthickness.hull.front
             if Target.status.era[1] then
-                erapart = Target.data.armor.armorthickness.front.hull
+                erapart = Target.data.armor.armorthickness.hull.front
             end
         elseif hitArmorside == 'Left' or 'Right' then
-            armorpart = Target.data.armorthickness.side.hull
+            armorpart = Target.data.armorthickness.hull.side
                 if Target.status.era[1] then
-                    erapart = Target.data.armor.armorthickness.side.hull
+                    erapart = Target.data.armor.armorthickness.hull.side
                 end
         else
-            armorpart = Target.data.armorthickness.back.hull
+            armorpart = Target.data.armorthickness.hull.back
                 if Target.status.era[1] then
-                    erapart = Target.data.armor.armorthickness.back.hull
+                    erapart = Target.data.armor.armorthickness.hull.back
                 end
         end
     elseif hitPart == 'Turret' then
         if hitArmorside == 'front' then
-            armorpart = Target.data.armorthickness.front.turret
+            armorpart = Target.data.armorthickness.turret.front
             if Target.status.era[1] then
-                erapart = Target.data.armor.armorthickness.front.turret
+                erapart = Target.data.armor.armorthickness.turret.front
             end
         elseif hitArmorside == 'Left' or 'Right' then
-            armorpart = Target.data.armorthickness.side.turret
+            armorpart = Target.data.armorthickness.turret.side
                 if Target.status.era[1] then
-                    erapart = Target.data.armor.armorthickness.side.turret
+                    erapart = Target.data.armor.armorthickness.turret.side
                 end
         else
-            armorpart = Target.data.armorthickness.back.turret
+            armorpart = Target.data.armorthickness.turret.back
                 if Target.status.era[1] then
-                    erapart = Target.data.armor.armorthickness.back.turret
+                    erapart = Target.data.armor.armorthickness.turret.back
                 end
         end
     end

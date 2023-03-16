@@ -70,9 +70,8 @@ function TankData:load()
             {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
         },
         armorthickness = {
-            front = {hull = {310, 450}, turret = {450, 550}},
-            side = {hull = {80, 80}, turret = {300, 300}},
-            back = {hull = {50, 50}, turret = {70, 70}}
+            hull = {front = {310, 450}, side = {80, 80}, back = {50, 50}},
+            turret = {front = {450, 550}, side = {300, 300}, back = {70, 70}}
         },
         innerstructure = {
             htl = 0.7,
@@ -91,9 +90,8 @@ function TankData:load()
                     steel_cost = 0,
                     oil_cost = 0,
                     armorthickness = {
-                        front = {hull = {0, 0}, turret = {0, 0}},
-                        side = {hull = {0, 0}, turret = {0, 0}},
-                        back = {hull = {0, 0}, turret = {0, 0}}
+                        hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
+                        turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
                     },
                     hull_image = Blank_line,
                     hull_image_line = Blank_line,
@@ -107,9 +105,8 @@ function TankData:load()
                     steel_cost = 1,
                     oil_cost = 0,
                     armorthickness = {
-                        front = {hull = {5, 300}, turret = {5, 300}},
-                        side = {hull = {5, 300}, turret = {5, 300}},
-                        back = {hull = {0, 0}, turret = {0, 0}}
+                        hull = {front = {5, 400}, side = {5, 400}, back = {0, 0}},
+                        turret = {front = {5, 400}, side = {5, 400}, back = {0, 0}}
                     },
                     hull_image = T72A_kontakt1_hull,
                     hull_image_line = T72A_kontakt1_hull_line,
