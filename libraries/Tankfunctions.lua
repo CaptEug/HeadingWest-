@@ -56,6 +56,10 @@ StatusCheck=function (tank)
             tank.status.era[1] = false
         end
     end
+
+    if tank.data.survivor <= 0 then
+        
+    end
 end
 
 AimCheck = function (tank, x, y, dt)

@@ -144,13 +144,6 @@ function RicochetCheck(shell, Target)
     local ra = 80*0.0174533
     local vangle = math.atan2(vy, vx)
     local impact_angle = 0
-    local dangle = 0
-    if dangle < 0 then
-        dangle = dangle + 2*math.pi
-    end
-    if dangle > 2*math.pi then
-        dangle = dangle - 2*math.pi
-    end
 
     if hitvalue < Target.data.innerstructure.htl then
         local position_angle = Target.location.hull_angle-math.atan2(y-Target.location.y, x-Target.location.x)
@@ -162,31 +155,37 @@ function RicochetCheck(shell, Target)
         end
         local diagonal = 0
         local dangle = Target.location.hull_angle - vangle
+        if dangle < 0 then
+            dangle = dangle + 2*math.pi
+        end
+        if dangle > 2*math.pi then
+            dangle = dangle - 2*math.pi
+        end
         hitPart = 'Hull'
         diagonal = math.atan2(Target.data.length, Target.data.width)
         if position_angle > 2*math.pi-diagonal or position_angle < diagonal then
-            hitArmorside = 'right'
+            hitArmorside = 'Right'
             if dangle < math.pi then
                 impact_angle = dangle
             else
                 impact_angle = 2*math.pi - dangle
             end
         elseif position_angle > diagonal and position_angle < math.pi-diagonal then
-            hitArmorside = 'front'
+            hitArmorside = 'Front'
             if dangle < math.pi/2 then
                 impact_angle = math.pi/2 - dangle
             else
                 impact_angle = dangle - math.pi/2
             end
         elseif position_angle > math.pi-diagonal and position_angle < math.pi+diagonal then
-            hitArmorside = 'left'
+            hitArmorside = 'Left'
             if dangle < math.pi then
                 impact_angle = math.pi - dangle
             else
                 impact_angle = dangle - math.pi
             end
         else
-            hitArmorside = 'back'
+            hitArmorside = 'Back'
             if dangle > math.pi*3/2 then
                 impact_angle = dangle - math.pi*3/2
             else
@@ -195,30 +194,36 @@ function RicochetCheck(shell, Target)
         end
     else
         hitPart = 'Turret'
-        dangle = Target.location.hull_angle + Target.data.turret_angle - vangle
+        local dangle = Target.location.hull_angle + Target.data.turret_angle - vangle
+        if dangle < 0 then
+            dangle = dangle + 2*math.pi
+        end
+        if dangle > 2*math.pi then
+            dangle = dangle - 2*math.pi
+        end
         if dangle > math.pi*7/4 or dangle < math.pi/4 then
-            hitArmorside = 'right'
+            hitArmorside = 'Right'
             if dangle < math.pi then
                 impact_angle = dangle
             else
                 impact_angle = 2*math.pi - dangle
             end
         elseif dangle > math.pi/4 and dangle < math.pi*3/4 then
-            hitArmorside = 'front'
+            hitArmorside = 'Front'
             if dangle < math.pi/2 then
                 impact_angle = math.pi/2 - dangle
             else
                 impact_angle = dangle - math.pi/2
             end
         elseif dangle > math.pi*3/4 and dangle < math.pi*5/4 then
-            hitArmorside = 'left'
+            hitArmorside = 'Left'
             if dangle < math.pi then
                 impact_angle = math.pi - dangle
             else
                 impact_angle = dangle - math.pi
             end
         else
-            hitArmorside = 'back'
+            hitArmorside = 'Back'
             if dangle > math.pi*3/2 then
                 impact_angle = dangle - math.pi*3/2
             else
@@ -258,12 +263,12 @@ function PenCheck(shell, Target, hitPart, hitArmorside, angle)
             if Target.status.era[1] then
                 erapart = Target.data.armor.armorthickness.hull.front
             end
-        elseif hitArmorside == 'Left' or 'Right' then
+        elseif hitArmorside == 'Left' or hitArmorside == 'Right' then
             armorpart = Target.data.armorthickness.hull.side
                 if Target.status.era[1] then
                     erapart = Target.data.armor.armorthickness.hull.side
                 end
-        else
+        elseif hitArmorside == 'Back' then
             armorpart = Target.data.armorthickness.hull.back
                 if Target.status.era[1] then
                     erapart = Target.data.armor.armorthickness.hull.back
@@ -275,12 +280,12 @@ function PenCheck(shell, Target, hitPart, hitArmorside, angle)
             if Target.status.era[1] then
                 erapart = Target.data.armor.armorthickness.turret.front
             end
-        elseif hitArmorside == 'Left' or 'Right' then
+        elseif hitArmorside == 'Left' or hitArmorside == 'Right' then
             armorpart = Target.data.armorthickness.turret.side
                 if Target.status.era[1] then
                     erapart = Target.data.armor.armorthickness.turret.side
                 end
-        else
+        elseif hitArmorside == 'Back' then
             armorpart = Target.data.armorthickness.turret.back
                 if Target.status.era[1] then
                     erapart = Target.data.armor.armorthickness.turret.back
@@ -337,18 +342,7 @@ function DamageCheck(shell, Target, penpart)
         Target.data.survivor = 0
         table.insert(Datapool.hitmodule, 'ammorack')
     else
-        if math.random() <= crew then
-            Target.data.survivor = Target.data.survivor - 1
-            Datapool.crewknockout = 1
-            if math.random() <= crew/2 then
-                Target.data.survivor = Target.data.survivor - 1
-                Datapool.crewknockout = 2
-                if math.random() <= crew/4 then
-                    Target.data.survivor = Target.data.survivor - 1
-                    Datapool.crewknockout = 3
-                end
-            end
-        end
+        Killcrew(Target, crew)
         if math.random() <= engine then
             Target.status.Immobilized[1] = true
             table.insert(Datapool.hitmodule, 'engine')
@@ -357,5 +351,14 @@ function DamageCheck(shell, Target, penpart)
             Target.status.onfire[1] = true
             table.insert(Datapool.hitmodule, 'fuel tank')
         end
+    end
+end
+
+function Killcrew(tank, rate)
+    local crew = tank.data.crew
+    if math.random() <= rate and tank.data.survivor >= 0 then
+        tank.data.survivor = tank.data.survivor - 1
+        Datapool.crewknockout = Datapool.crewknockout + 1
+        Killcrew(tank, rate/2)
     end
 end
