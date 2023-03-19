@@ -258,7 +258,7 @@ function PenCheck(shell, Target, hitPart, hitArmorside, angle)
     local cosFi = math.cos(angle)
     
     if hitPart == 'Hull' then
-        if hitArmorside == 'front' then
+        if hitArmorside == 'Front' then
             armorpart = Target.data.armorthickness.hull.front
             if Target.status.era[1] then
                 erapart = Target.data.armor.armorthickness.hull.front
@@ -275,7 +275,7 @@ function PenCheck(shell, Target, hitPart, hitArmorside, angle)
                 end
         end
     elseif hitPart == 'Turret' then
-        if hitArmorside == 'front' then
+        if hitArmorside == 'Front' then
             armorpart = Target.data.armorthickness.turret.front
             if Target.status.era[1] then
                 erapart = Target.data.armor.armorthickness.turret.front

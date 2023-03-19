@@ -114,9 +114,7 @@ function TankData:load()
                     turret_image_line = T72A_kontakt1_turret_line,
                     tag = 'Armor',
                     type = 'ERA',
-                    life = 3,
-                    KE = 0,
-                    CE = 400
+                    life = 3
                 },
             },
             --aim
@@ -154,7 +152,16 @@ function TankData:load()
         reload_time = 7,
         ammorack_size = 40,
         ammunition = {
-            
+            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425}
+        },
+        armorthickness = {
+            hull = {front = {500, 600}, side = {80, 80}, back = {50, 50}},
+            turret = {front = {600, 700}, side = {350, 375}, back = {70, 70}}
+        },
+        innerstructure = {
+            htl = 0.7,
+            hull = {crew = 0.6, ammo = 0.5, engine = 0.5, fuel = 0.4},
+            turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = T72B_hull,
         hull_image_line = T72B_hull_line,
@@ -167,6 +174,10 @@ function TankData:load()
                     name = 'BASE_ARMOR',
                     steel_cost = 0,
                     oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
+                        turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
+                    },
                     hull_image = Blank_line,
                     hull_image_line = Blank_line,
                     turret_image = Blank_line,
@@ -178,29 +189,33 @@ function TankData:load()
                     name = 'Kontakt_1',
                     steel_cost = 1,
                     oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {5, 400}, side = {5, 400}, back = {0, 0}},
+                        turret = {front = {5, 400}, side = {5, 400}, back = {0, 0}}
+                    },
                     hull_image = T72B_kontakt1_hull,
                     hull_image_line = T72B_kontakt1_hull_line,
                     turret_image = T72B_kontakt1_turret,
                     turret_image_line = T72B_kontakt1_turret_line,
                     tag = 'Armor',
                     type = 'ERA',
-                    life = 3,
-                    KE = 0,
-                    CE = 400
+                    life = 3
                 },
                 {
                     name = 'Kontakt_5',
                     steel_cost = 2,
                     oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {120, 450}, side = {120, 450}, back = {0, 0}},
+                        turret = {front = {120, 450}, side = {120, 450}, back = {0, 0}}
+                    },
                     hull_image = T72B_kontakt5_hull,
                     hull_image_line = T72B_kontakt5_hull_line,
                     turret_image = T72B_kontakt5_turret,
                     turret_image_line = T72B_kontakt5_turret_line,
                     tag = 'Armor',
                     type = 'ERA',
-                    life = 4,
-                    KE = 120,
-                    CE = 400
+                    life = 4
                 },
             },
             --aim
@@ -248,6 +263,15 @@ function TankData:load()
         ammunition = {
             
         },
+        armorthickness = {
+            hull = {front = {500, 600}, side = {80, 80}, back = {50, 50}},
+            turret = {front = {625, 725}, side = {200, 200}, back = {50, 50}}
+        },
+        innerstructure = {
+            htl = 0.7,
+            hull = {crew = 0.6, ammo = 0.5, engine = 0.5, fuel = 0.4},
+            turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
+        },
         hull_image = T90_hull,
         hull_image_line = T90_hull_line,
         turret_image = T90_turret,
@@ -259,6 +283,10 @@ function TankData:load()
                     name = 'BASE_ARMOR',
                     steel_cost = 0,
                     oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
+                        turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
+                    },
                     hull_image = Blank_line,
                     hull_image_line = Blank_line,
                     turret_image = Blank_line,
@@ -270,15 +298,17 @@ function TankData:load()
                     name = 'Kontakt_5',
                     steel_cost = 2,
                     oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {120, 450}, side = {120, 450}, back = {0, 0}},
+                        turret = {front = {120, 450}, side = {120, 450}, back = {0, 0}}
+                    },
                     hull_image = T90_kontakt5_hull,
                     hull_image_line = T90_kontakt5_hull_line,
                     turret_image = T90_kontakt5_turret,
                     turret_image_line = T90_kontakt5_turret_line,
                     tag = 'Armor',
                     type = 'ERA',
-                    life = 4,
-                    KE = 120,
-                    CE = 400
+                    life = 4
                 },
             },
             --aim
@@ -332,6 +362,9 @@ function TankData:load()
         ammunition = {
             
         },
+        armorthickness = {
+             
+        },
         hull_image = Leopard2A4_hull,
         hull_image_line = Leopard2A4_hull_line,
         turret_image = Leopard2A4_turret,
@@ -343,6 +376,10 @@ function TankData:load()
                     name = 'BASE_ARMOR',
                     steel_cost = 0,
                     oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
+                        turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
+                    },
                     hull_image = Blank_line,
                     hull_image_line = Blank_line,
                     turret_image = Blank_line,
@@ -359,9 +396,7 @@ function TankData:load()
                     turret_image = Leopard2A4_ExtraArmor1_turret,
                     turret_image_line = Leopard2A4_ExtraArmor1_turret_line,
                     tag = 'Armor',
-                    type = 'NERA',
-                    KE = 200,
-                    CE = 600
+                    type = 'NERA'
                 },
             },
             --aim

@@ -46,7 +46,7 @@ TankUpdate=function (tank,dt)
     tank.data.reload_timer = tank.data.reload_timer - dt
 end
 
-StatusCheck=function (tank)
+StatusCheck=function (tank, i)
     if tank.status.era[1] then
         if tank.data.armor.life <= 0 then
             tank.data.armor.hull_image = Blank_line
@@ -58,7 +58,8 @@ StatusCheck=function (tank)
     end
 
     if tank.data.survivor <= 0 then
-        
+        TankDead(tank)
+        table.insert(CurrentPlace.broken_tank, table.remove(CurrentPlace.exsist_tank, i))
     end
 end
 
@@ -96,3 +97,7 @@ AimCheck = function (tank, x, y, dt)
     end
     return isaim
 end
+
+function TankDead(tank)
+    
+end 
