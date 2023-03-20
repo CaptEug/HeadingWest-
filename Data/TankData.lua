@@ -75,7 +75,7 @@ function TankData:load()
         },
         innerstructure = {
             htl = 0.7,
-            hull = {crew = 0.6, ammo = 0.5, engine = 0.5, fuel = 0.4},
+            hull = {crew = 0.7, ammo = 0.5, engine = 0.5, fuel = 0.4},
             turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = T72A_hull,
@@ -160,7 +160,7 @@ function TankData:load()
         },
         innerstructure = {
             htl = 0.7,
-            hull = {crew = 0.6, ammo = 0.5, engine = 0.5, fuel = 0.4},
+            hull = {crew = 0.7, ammo = 0.5, engine = 0.5, fuel = 0.4},
             turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = T72B_hull,
@@ -269,7 +269,7 @@ function TankData:load()
         },
         innerstructure = {
             htl = 0.7,
-            hull = {crew = 0.6, ammo = 0.5, engine = 0.5, fuel = 0.4},
+            hull = {crew = 0.7, ammo = 0.5, engine = 0.5, fuel = 0.4},
             turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = T90_hull,

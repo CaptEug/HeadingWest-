@@ -7,6 +7,7 @@ end
 
 function Pause:init()
     Pbuttons = buttons.new()
+    Pbuttonsforingame = buttons.new()
     Continue = buttons.newButton(
         "Continue",
         function()
@@ -18,25 +19,24 @@ function Pause:init()
     BacktoMMenu = buttons.newButton(
         "MainMenu",
         function()
-            if self.from~= Worldmap then
+            if self.from ~= Worldmap then
                 Saving:filesave(Filenumber)
             end
             Worldmap:init()
             Gamestate.switch(MainMenu)
-
         end,
         Pbuttons
     )
 
-    Save = buttons.newButton(
-        "Save",
+    BacktoWMenu = buttons.newButton(
+        "Worldmap",
         function()
-            if self.from~= Worldmap then
-                Saving:filesave(Filenumber)
-            end
+            Worldmap:init()
+            Gamestate.switch(Worldmap)
         end,
-        Pbuttons
+        Pbuttonsforingame
     )
+
     Settings_button = buttons.newButton(
         "Settings",
         function()
@@ -49,14 +49,14 @@ end
 
 function Pause:update(dt)
     local ww, wh = love.graphics.getDimensions()
-    Continue.bx = ww / 2
-    Continue.by = wh / 2
-    BacktoMMenu.bx = ww / 2
-    BacktoMMenu.by = wh * 3 / 5
-    Save.bx=ww/2
-    Save.by=wh* 7 / 10
+    Continue.bx = ww/2
+    Continue.by = wh * 3/8
+    BacktoMMenu.bx = ww/2
+    BacktoMMenu.by = wh * 4/8
     Settings_button.bx=ww/2
-    Settings_button.by=wh*4/5
+    Settings_button.by=wh* 5/8
+    BacktoWMenu.bx = ww / 2
+    BacktoWMenu.by = wh * 6/8
 end
 
 function Pause:draw()
@@ -66,6 +66,10 @@ function Pause:draw()
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("PAUSE", love.graphics.getWidth() /2 - Rtitlefont:getWidth("PAUSE") / 2, love.graphics.getHeight() / 13)
     Pbuttons:use()
+    if self.from == ingame then
+        Pbuttonsforingame:use()
+    end
+    love.graphics.setFont(Rtextfont)
 end
 
 function love.keypressed(key)

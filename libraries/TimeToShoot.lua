@@ -356,9 +356,9 @@ end
 
 function Killcrew(tank, rate)
     local crew = tank.data.crew
-    if math.random() <= rate and tank.data.survivor >= 0 then
+    if math.random() <= rate and tank.data.survivor > 0 then
         tank.data.survivor = tank.data.survivor - 1
         Datapool.crewknockout = Datapool.crewknockout + 1
-        Killcrew(tank, rate/2)
+        Killcrew(tank, rate)
     end
 end
