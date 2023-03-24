@@ -8,7 +8,9 @@ require 'Data/TankData'
 function Worldmap:init()
     Year = 1946
     Steel = 10000
+    SteelProduction = 0
     Oil = 10000
+    OilProduction = 0
 
     CityData:load()
     TankData:load()
