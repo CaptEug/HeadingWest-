@@ -352,6 +352,7 @@ end
 
 function Buildtank()
     local instance = {
+        number = tostring(math.random(000,999)),
         name = TankPresent.name,
         width = TankPresent.width,
         length = TankPresent.length,

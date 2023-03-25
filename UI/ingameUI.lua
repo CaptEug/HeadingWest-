@@ -1,6 +1,7 @@
 ingameUI={}
 require 'UI/TankDesigner'
 require 'UI/TankInfoPanel'
+require 'UI/ArmyEditor'
 
 function ingameUI:load()
     TankInfoPanel:load()
@@ -16,6 +17,19 @@ function ingameUI:load()
         ww - 16,
         wh - 16
     )
+    ArmyEditor_button = buttons.newToolButton(
+        ArmyEditor_icon,
+        function ()
+            if CurrentPlace.openarmyeditor then
+                CurrentPlace.openarmyeditor = false
+            else
+                CurrentPlace.openarmyeditor = true
+            end
+        end,
+        DefButtons,
+        48
+    )
+
     Facbutton = buttons.new()
     FacDesigner = buttons.newToolButton(
         Tankdesigner_icon,
@@ -55,6 +69,7 @@ end
 function ingameUI:draw()
     TankInfoPanel:draw()
     DefButtons:use()
+    ArmyEditor:draw()
     if CurrentPlace.state == 'Peace' then
         if CurrentPlace.factory == true then
             Facbutton:use()

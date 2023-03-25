@@ -90,7 +90,7 @@ function TankInfoPanel:draw()
         love.graphics.draw(TankChoosen.data.armor.turret_image_line, ww - 144, wh/2 - 142, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
         love.graphics.setFont(Rtextfont)
         love.graphics.setColor(0,179/255,0)
-        love.graphics.print(TankChoosen.data.name, ww - 288 + 4, wh/2 - 286 + 4)
+        love.graphics.print(TankChoosen.data.name..' No.'..TankChoosen.data.number, ww - 288 + 4, wh/2 - 286 + 4)
         love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', ww - 288 + 4, wh/2 - 286 + 268)
         if TankChoosen.data.reload_timer >= 0 then
             love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.data.reload_timer)..' s', ww - 288 + 144, wh/2 - 286 + 268)
