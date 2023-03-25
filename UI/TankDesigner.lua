@@ -24,7 +24,7 @@ function TankDesigner:load()
         Next = buttons.newToolButton(
             rightArrow,
             function ()
-                if CurrentPlace.tankindex < table.getn(CurrentPlace.tanklist) then
+                if CurrentPlace.tankindex < #CurrentPlace.tanklist then
                     CurrentPlace.tankindex = CurrentPlace.tankindex + 1
                 else
                     CurrentPlace.tankindex = 1
@@ -41,7 +41,7 @@ function TankDesigner:load()
                 if CurrentPlace.tankindex > 1 then
                     CurrentPlace.tankindex = CurrentPlace.tankindex - 1
                 else
-                    CurrentPlace.tankindex = table.getn(CurrentPlace.tanklist)
+                    CurrentPlace.tankindex = #CurrentPlace.tanklist
                 end
             end,
             CurrentPlace.Fbuttons,
