@@ -26,11 +26,11 @@ function CityData:load()
         broken_tank={}
     }
     table.insert(Cities, Moskva)
-    UVZ = {
+    Nizhny_Tagil = {
         x = 1280,
         y = 555,
         country = {USSR_flag},
-        name = 'Uralvagonzavod',
+        name = 'Nizhny Tagil',
         type = 'Normal',
         factory = true,
         labtory = false,
@@ -60,7 +60,7 @@ function CityData:load()
             {x=112+544,y=48+256*7,available=true},
         }
     }
-    table.insert(Cities, UVZ)
+    table.insert(Cities, Nizhny_Tagil)
 
     --German
     Berlin = {

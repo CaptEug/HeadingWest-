@@ -135,7 +135,7 @@ function TankData:load()
         },
         buildtime = 2
     }
-    table.insert(UVZ.tanklist, T72A)
+    table.insert(Nizhny_Tagil.tanklist, T72A)
 
     T72B = {
         name = 'T-72b',
@@ -244,7 +244,7 @@ function TankData:load()
         },
         buildtime = 3
     }
-    table.insert(UVZ.tanklist, T72B)
+    table.insert(Nizhny_Tagil.tanklist, T72B)
 
     T90 = {
         name = 'T-90',
@@ -344,7 +344,7 @@ function TankData:load()
         },
         buildtime = 3
     }
-    table.insert(UVZ.tanklist, T90)
+    table.insert(Nizhny_Tagil.tanklist, T90)
 
     Leopard2A4={
         name = 'Leopard2A4',
@@ -417,6 +417,6 @@ function TankData:load()
         },
         buildtime = 10
     }
-    table.insert(UVZ.tanklist, Leopard2A4)
+    table.insert(Nizhny_Tagil.tanklist, Leopard2A4)
 end
 
