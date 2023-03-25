@@ -7,6 +7,9 @@ function TankDesigner:load()
     CurrentPlace.Pageshown = 'Armor'
     CurrentPlace.ProductionQueue = {}
     CurrentPlace.ProductionNumber = 0
+    Tank_steel_cost = 0
+    Tank_oil_cost = 0
+
     --load buttons
         Close = buttons.newToolButton(
             Close_icon,
@@ -206,8 +209,6 @@ function TankDesigner:update(dt)
         end
     end
     --pageshown detection
-    local n = 0
-    n = math.floor(n + 0.1*dt)
     if CurrentPlace.Pageshown == 'Armor' then
         CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
         for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
@@ -266,16 +267,16 @@ function TankDesigner:draw()
     TankPresent = CurrentPlace.tanklist[CurrentPlace.tankindex]
 
         if CurrentPlace.opendesigner then
-            local steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.mob.steel_cost
-            local oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.mob.oil_cost
+            Tank_steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.mob.steel_cost
+            Tank_oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.mob.oil_cost
             love.graphics.draw(factory_screen, ww/2 - 320, wh/2 - 240)
             love.graphics.setFont(Rbuttonfont)
             love.graphics.print(CurrentPlace.name, ww/2 - 320 + 40, wh/2 - 240)
             love.graphics.setFont(Rtextfont)
             love.graphics.setColor(0,179/255,0)
             love.graphics.print(TankPresent.name, ww/2 - 320 + 40 + 6, wh/2 - 240 + 64 + 6)
-            love.graphics.print(steel_cost, ww/2 - 320 + 40 + 246, wh/2 - 240 + 64 + 6)
-            love.graphics.print(oil_cost, ww/2 - 320 + 40 + 246, wh/2 - 240 + 64 + 26)
+            love.graphics.print(Tank_steel_cost, ww/2 - 320 + 40 + 246, wh/2 - 240 + 64 + 6)
+            love.graphics.print(Tank_oil_cost, ww/2 - 320 + 40 + 246, wh/2 - 240 + 64 + 26)
             love.graphics.setColor(1,1,1)
             love.graphics.draw(TankPresent.hull_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankPresent.turret_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
@@ -379,6 +380,8 @@ function Buildtank()
         fixedbuildtime = TankPresent.buildtime,
         selected_slot=TankSpawner:slot_distribution(CurrentPlace)
     }
+    Steel = Steel - Tank_steel_cost
+    Oil = Steel - Tank_oil_cost
     table.insert(CurrentPlace.ProductionQueue, 1, instance)
     CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
 end
