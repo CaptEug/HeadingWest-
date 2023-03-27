@@ -4,7 +4,7 @@ function ArmyEditor:load()
     CurrentPlace.openarmyeditor = false
     CurrentPlace.AEbuttons = buttons.new()
     DivisionNum = 1
-    DivisionHight = 100
+    
     --load buttons
     New_Division = buttons.newToolButton(
         plus_icon,
@@ -19,8 +19,6 @@ end
 
 function ArmyEditor:update(dt)
     --button pos update
-    New_Division.bx = ww/2 - 200
-    New_Division.by = wh/2 - 280
 
 end
 
@@ -29,50 +27,60 @@ function ArmyEditor:draw()
         love.graphics.draw(ArmyEditor_screen, ww/2 - 200, wh/2 - 280)
         love.graphics.setColor(0,0,0)
         love.graphics.setFont(Rheadfont)
-        love.graphics.print('Militry in '..CurrentPlace.name, ww/2 - 200 + 40, wh/2 - 280 + 40)
+        love.graphics.print('Army in '..CurrentPlace.name, ww/2 - 200 + 32, wh/2 - 280 + 40)
         love.graphics.setFont(Rtextfont)
 
+        DivisionHight = 72
+
         for i, division in ipairs(CurrentPlace.Army) do
-            love.graphics.setColor(0.3,0.3,0.3)
-            love.graphics.print('new regiment', ww/2 - 200 + 20, wh/2 - 280 + 20 + DivisionHight)
             love.graphics.setColor(0,0,0)
             love.graphics.setFont(Rheadfont)
-            love.graphics.print(division.name, ww/2 - 200 + 20, wh/2 - 280 + DivisionHight)
+            love.graphics.print(division.name, ww/2 - 200 + 32, wh/2 - 280 + DivisionHight)
             love.graphics.setFont(Rtextfont)
 
-            division.delete.bx = ww/2 - 200 + 120
+            division.rgtHight = 10
+            division.delete.bx = ww/2 - 200 + 32
             division.delete.by = wh/2 - 280 + DivisionHight
-            division.New_Regiment.bx = ww/2 - 200 + 120
-            division.New_Regiment.by = wh/2 - 280 + 20 + DivisionHight
-            division.DButtons:use()
-            division.rgtHight = 0
 
             for n, regiment in ipairs(division) do
-                love.graphics.setColor(0.3,0.3,0.3)
-                love.graphics.print('new company', ww/2 - 200 + 128, wh/2 - 280 + 20 + DivisionHight + 20*n + division.rgtHight)
                 love.graphics.setColor(0,0,0)
-                love.graphics.print(regiment.name, ww/2 - 200 + 20, wh/2 - 280 + 20 + DivisionHight + 20*n + division.rgtHight)
+                love.graphics.print(regiment.name, ww/2 - 200 + 48, wh/2 - 280 + DivisionHight + 20*n + division.rgtHight)
                 
-                regiment.delete.bx = ww/2 - 200 + 20
-                regiment.delete.by = wh/2 - 280 + 20 + DivisionHight + 20*n + division.rgtHight
-                regiment.New_Company.bx = ww/2 - 200 + 200
-                regiment.New_Company.by = wh/2 - 280 + 20 + DivisionHight + 20*n + division.rgtHight
-                regiment.RButtons:use()
+                regiment.delete.bx = ww/2 - 200 + 48
+                regiment.delete.by = wh/2 - 280 + DivisionHight + 20*n + division.rgtHight
 
                 for m, company in ipairs(regiment) do
                     love.graphics.setColor(0,0,0)
-                    love.graphics.print(company.name, ww/2 - 200 + 128, wh/2 - 280 + 20 + DivisionHight + 20*n + division.rgtHight + 20*m)
+                    love.graphics.print(company.name, ww/2 - 200 + 148, wh/2 - 280 - 20 + DivisionHight + 20*n + division.rgtHight + 20*m)
+                
                 end
 
-                division.rgtHight = division.rgtHight + 20 * #regiment
+                love.graphics.setColor(0.5,0.5,0.5)
+                love.graphics.print('comp.', ww/2 - 200 + 148, wh/2 - 280 + DivisionHight + 20*n + division.rgtHight + 20*#regiment)
+                regiment.New_Company.bx = ww/2 - 200 + 148
+                regiment.New_Company.by = wh/2 - 280 + DivisionHight + 20*n + division.rgtHight + 20*#regiment
+                regiment.RButtons:use()
+
+                division.rgtHight = division.rgtHight + 6 + 20 * #regiment
             end
 
-            if i < #CurrentPlace.Army then
-                DivisionHight = DivisionHight + 64 + 20 * #division + division.rgtHight
-            else
-                DivisionHight = 96
-            end
+            love.graphics.setColor(0.5,0.5,0.5)
+            love.graphics.print('rgt.', ww/2 - 200 + 48, wh/2 - 280 + 20 + DivisionHight + 20*#division + division.rgtHight)
+            division.New_Regiment.bx = ww/2 - 200 + 48
+            division.New_Regiment.by = wh/2 - 280 + 20 + DivisionHight + 20*#division + division.rgtHight
+            love.graphics.setColor(0,0,0)
+            love.graphics.rectangle("fill", ww/2 - 200 + 32, wh/2 - 280 + 40 + DivisionHight + 20*#division + division.rgtHight, 338, 2)
+            division.DButtons:use()
+            
+            DivisionHight = DivisionHight + 44 + 20 * #division + division.rgtHight
         end
+
+        love.graphics.setColor(0.5,0.5,0.5)
+        love.graphics.setFont(Rheadfont)
+        love.graphics.print('div.', ww/2 - 200 + 32, wh/2 - 280 + DivisionHight)
+        love.graphics.setFont(Rtextfont)
+        New_Division.bx = ww/2 - 200 + 32
+        New_Division.by = wh/2 - 280 + DivisionHight
         CurrentPlace.AEbuttons:use()
 
     end
