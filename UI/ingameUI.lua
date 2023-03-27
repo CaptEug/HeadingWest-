@@ -5,6 +5,7 @@ require 'UI/ArmyEditor'
 
 function ingameUI:load()
     TankInfoPanel:load()
+    ArmyEditor:load()
     --buttons in captured
     CurrentPlace.Tbuttons = buttons.new()
     DefButtons = buttons.new() 
@@ -55,7 +56,7 @@ end
 
 function ingameUI:update(dt)
     TankInfoPanel:update(dt)
-
+    ArmyEditor:update(dt)
     if CurrentPlace.state == 'Peace' then
         if CurrentPlace.factory == true then
             TankDesigner:update(dt)

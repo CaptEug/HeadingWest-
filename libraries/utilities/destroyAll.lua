@@ -21,10 +21,18 @@ function colliderTableDestroy(tableList)
 end
 
 -- Used for tables of standard non-collider tables
-function removeTable(tableList)
+function emptyTable(tableList)
     local i = #tableList
     while i > 0 do
         table.remove(tableList, i)
         i = i - 1
+    end
+end
+
+function removeTable(tableList, target)
+    for i, value in ipairs(tableList) do
+        if value == target then
+            table.remove(tableList, i)
+        end
     end
 end
