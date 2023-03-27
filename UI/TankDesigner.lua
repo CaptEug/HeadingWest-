@@ -278,8 +278,6 @@ function TankDesigner:draw()
             love.graphics.print(Tank_steel_cost, ww/2 - 320 + 40 + 246, wh/2 - 240 + 64 + 6)
             love.graphics.print(Tank_oil_cost, ww/2 - 320 + 40 + 246, wh/2 - 240 + 64 + 26)
             love.graphics.setColor(1,1,1)
-            love.graphics.draw(TankPresent.hull_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
-            love.graphics.draw(TankPresent.turret_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
 
             if TankPresent.accessories then
                 for i, accessory in ipairs(TankPresent.accessories) do
@@ -320,8 +318,9 @@ function TankDesigner:draw()
             end
 
             
-
+            love.graphics.draw(TankPresent.hull_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankPresent.equipment.armor.hull_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
+            love.graphics.draw(TankPresent.turret_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankPresent.equipment.armor.turret_image_line, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankPresent.equipment.aim.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)
             love.graphics.draw(TankPresent.equipment.mob.line_image, ww/2 - 320 + 40, wh/2 - 240 + 64)

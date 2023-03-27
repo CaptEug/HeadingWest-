@@ -23,6 +23,7 @@ function CityData:load()
         state ='Peace',
         map = 2,
         exsist_tank={},
+        Army = {},
         broken_tank={}
     }
     table.insert(Cities, Moskva)
@@ -38,6 +39,7 @@ function CityData:load()
         map = 3,
         tanklist = {},
         exsist_tank={},
+        Army = {},
         broken_tank={},
         building_slot = 16,
         songlist = TestSonglist,
@@ -74,6 +76,7 @@ function CityData:load()
         state ='Battlefield',
         map = 1,
         exsist_tank={},
+        Army = {},
         broken_tank={}
     }
     table.insert(Cities, Berlin)
