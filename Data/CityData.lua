@@ -84,12 +84,12 @@ function CityData:load()
 end
 
 function CityData:playRadio(songlist)
-    local songindex = math.random(0, table.getn(songlist)-1)
+    local songindex = math.random(0, #songlist-1)
     if love.audio.getActiveSourceCount( ) then
         love.audio.stop()
     end
     if love.audio.getActiveSourceCount( ) == 0 then
-        if songindex < table.getn(songlist) then 
+        if songindex < #songlist then 
             songindex = songindex + 1
             love.audio.play(songlist[songindex])
         end

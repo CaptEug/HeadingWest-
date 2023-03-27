@@ -27,7 +27,7 @@ ManulControlfunction = function (tank,dt)
     end
 
     
-    if love.mouse.isDown(1) and table.getn(tank.data.ammorack) > 0 and isaim and tank.data.reload_timer <= 0 then
+    if love.mouse.isDown(1) and #tank.data.ammorack > 0 and isaim and tank.data.reload_timer <= 0 then
         Shoot(tank)
         tank.data.reload_timer = tank.data.reload_time
     end
