@@ -88,7 +88,7 @@ function TankDesigner:load()
                ammo.add = buttons.newToolButton(
                     plus_icon,
                     function ()
-                        if table.getn(tank.ammorack) < tank.ammorack_size then
+                        if #tank.ammorack < tank.ammorack_size then
                             table.insert(tank.ammorack, ammo)
                         end
                     end,
@@ -304,7 +304,7 @@ function TankDesigner:draw()
             if TankPresent.ammunition.isopen then
                 TankPresent.ammunition.Abuttons:use()
                 love.graphics.setColor(0,179/255,0)
-                love.graphics.print('Rounds:'..table.getn(TankPresent.ammorack)..'/'..TankPresent.ammorack_size, ww/2 - 320 + 328 + 6, wh/2 - 240 + 64 + 6)
+                love.graphics.print('Rounds:'..#TankPresent.ammorack..'/'..TankPresent.ammorack_size, ww/2 - 320 + 328 + 6, wh/2 - 240 + 64 + 6)
                 
                 for i, ammo in ipairs(TankPresent.ammunition) do
                     local n = 0

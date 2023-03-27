@@ -95,7 +95,7 @@ function WorldmapUI:draw()
                 love.graphics.setFont(Rheadfont)
                 love.graphics.print(city.name, headx, heady)
                 love.graphics.setFont(Rtextfont)
-                love.graphics.print(tostring(table.getn(city.exsist_tank)), tankx, tanky)
+                love.graphics.print(tostring(#city.exsist_tank), tankx, tanky)
                 love.graphics.setColor(1,1,1)
                 city.Gobuttons:use()
             end
