@@ -98,3 +98,17 @@ function Saving:load_settings()
         love.window.setMode(Setting_data.ww,Setting_data.wh,Setting_data.flags)
     end
 end
+
+--[[
+    file1=
+    {
+        AllExistTanks={
+            UVZ={};
+            Berlin={};
+            ...
+        };
+        Resources={};
+
+    }
+
+]]
