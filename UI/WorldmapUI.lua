@@ -71,10 +71,10 @@ function WorldmapUI:draw()
     
     love.graphics.setFont(Rtextfont)
     love.graphics.draw(Steel_icon)
-    love.graphics.print(Steel, 32)
+    love.graphics.print(tostring(Steel), 32)
     love.graphics.print('+'..SteelProduction, 32, 16)
     love.graphics.draw(Oil_icon, 0, 32)
-    love.graphics.print(Oil, 32, 32)
+    love.graphics.print(tostring(Oil), 32, 32)
     love.graphics.print('+'..OilProduction, 32, 48)
 
     if cam.scale >= 1.5 then
