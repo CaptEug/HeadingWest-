@@ -7,7 +7,7 @@ function ArmyEditor:load()
     
     --load buttons
     New_Division = buttons.newToolButton(
-        plus_icon,
+        greyplus_icon,
         function ()
             NewDivision('division#'..tostring(DivisionNum))
             DivisionNum = DivisionNum + 1
@@ -35,39 +35,52 @@ function ArmyEditor:draw()
         for i, division in ipairs(CurrentPlace.Army) do
             love.graphics.setColor(0,0,0)
             love.graphics.setFont(Rheadfont)
-            love.graphics.print(division.name, ww/2 - 200 + 32, wh/2 - 280 + DivisionHight)
+            love.graphics.print(division.name, ww/2 - 200 + 48, wh/2 - 280 + DivisionHight)
             love.graphics.setFont(Rtextfont)
 
             division.rgtHight = 10
-            division.delete.bx = ww/2 - 200 + 32
-            division.delete.by = wh/2 - 280 + DivisionHight
+            division.delete.bx = ww/2 - 200 + 38
+            division.delete.by = wh/2 - 280 + 14 + DivisionHight
 
             for n, regiment in ipairs(division) do
                 love.graphics.setColor(0,0,0)
-                love.graphics.print(regiment.name, ww/2 - 200 + 48, wh/2 - 280 + DivisionHight + 20*n + division.rgtHight)
+                love.graphics.print(regiment.name, ww/2 - 200 + 54, wh/2 - 280 + DivisionHight + 20*n + division.rgtHight)
                 
-                regiment.delete.bx = ww/2 - 200 + 48
-                regiment.delete.by = wh/2 - 280 + DivisionHight + 20*n + division.rgtHight
+                regiment.compHight = 0
+                regiment.delete.bx = ww/2 - 200 + 44
+                regiment.delete.by = wh/2 - 280 + 6 + DivisionHight + 20*n + division.rgtHight
 
                 for m, company in ipairs(regiment) do
                     love.graphics.setColor(0,0,0)
-                    love.graphics.print(company.name, ww/2 - 200 + 148, wh/2 - 280 - 20 + DivisionHight + 20*n + division.rgtHight + 20*m)
-                
+                    love.graphics.print(company.name, ww/2 - 200 + 154, wh/2 - 280 - 20 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight)
+                    company.CButtons:use()
+
+                    company.delete.bx = ww/2 - 200 + 144
+                    company.delete.by = wh/2 - 280 - 20 + 6 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight
+                    
+                    --[[for i, unit in ipairs(company) do
+                        if unit.type == 'tank' then
+                            love.graphics.draw(tank_icon)
+                        end
+                        love.graphics.print(unit.name..unit.number)
+                    end]]
+
+                    regiment.compHight = regiment.compHight + 20 * #company
                 end
 
                 love.graphics.setColor(0.5,0.5,0.5)
                 love.graphics.print('comp.', ww/2 - 200 + 148, wh/2 - 280 + DivisionHight + 20*n + division.rgtHight + 20*#regiment)
-                regiment.New_Company.bx = ww/2 - 200 + 148
-                regiment.New_Company.by = wh/2 - 280 + DivisionHight + 20*n + division.rgtHight + 20*#regiment
+                regiment.New_Company.bx = ww/2 - 200 + 189
+                regiment.New_Company.by = wh/2 - 280 + 6 + DivisionHight + 20*n + division.rgtHight + 20*#regiment
                 regiment.RButtons:use()
 
-                division.rgtHight = division.rgtHight + 6 + 20 * #regiment
+                division.rgtHight = division.rgtHight + 6 + 20 * #regiment + regiment.compHight
             end
 
             love.graphics.setColor(0.5,0.5,0.5)
             love.graphics.print('rgt.', ww/2 - 200 + 48, wh/2 - 280 + 20 + DivisionHight + 20*#division + division.rgtHight)
-            division.New_Regiment.bx = ww/2 - 200 + 48
-            division.New_Regiment.by = wh/2 - 280 + 20 + DivisionHight + 20*#division + division.rgtHight
+            division.New_Regiment.bx = ww/2 - 200 + 80
+            division.New_Regiment.by = wh/2 - 280 + 26 + DivisionHight + 20*#division + division.rgtHight
             love.graphics.setColor(0,0,0)
             love.graphics.rectangle("fill", ww/2 - 200 + 32, wh/2 - 280 + 40 + DivisionHight + 20*#division + division.rgtHight, 338, 2)
             division.DButtons:use()
@@ -79,8 +92,8 @@ function ArmyEditor:draw()
         love.graphics.setFont(Rheadfont)
         love.graphics.print('div.', ww/2 - 200 + 32, wh/2 - 280 + DivisionHight)
         love.graphics.setFont(Rtextfont)
-        New_Division.bx = ww/2 - 200 + 32
-        New_Division.by = wh/2 - 280 + DivisionHight
+        New_Division.bx = ww/2 - 200 + 76
+        New_Division.by = wh/2 - 280 + 14 + DivisionHight
         CurrentPlace.AEbuttons:use()
 
     end
@@ -91,14 +104,14 @@ function NewDivision(name)
     instance.name = name
     instance.DButtons = buttons.new()
     instance.delete = buttons.newToolButton(
-        minus_icon,
+        greyminus_icon,
         function ()
             removeTable(CurrentPlace.Army, instance)
         end,
         instance.DButtons
     )
     instance.New_Regiment = buttons.newToolButton(
-        plus_icon,
+        greyplus_icon,
         function ()
             NewRegiment(instance)
         end,
@@ -113,14 +126,14 @@ function NewRegiment(division)
     instance.type = 'tank'
     instance.RButtons = buttons.new()
     instance.delete = buttons.newToolButton(
-        minus_icon,
+        greyminus_icon,
         function ()
             removeTable(division, instance)
         end,
         instance.RButtons
     )
     instance.New_Company = buttons.newToolButton(
-        plus_icon,
+        greyplus_icon,
         function ()
             NewCompany(instance)
         end,
@@ -134,7 +147,7 @@ function NewCompany(regiment)
     instance.name = 'company#'
     instance.CButtons = buttons.new()
     instance.delete = buttons.newToolButton(
-        minus_icon,
+        greyminus_icon,
         function ()
             removeTable(regiment, instance)
         end,
