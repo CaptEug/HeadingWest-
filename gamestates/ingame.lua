@@ -51,7 +51,6 @@ end
 function ingame:draw()
     cam:attach()
         drawMap()
-        TankSpawner:draw_tank()
         world:draw()
         particleworld:draw()
         Shelltrails:draw()

@@ -12,17 +12,18 @@ ManulControlfunction = function (tank,dt)
     local mx, my = cam:mousePosition()
     local isaim = AimCheck(tank, mx, my, dt)
 
+    cam:lookAt(tank.location.x, tank.location.y)
 
-    if love.keyboard.isDown('up') and speed <= max_f then
+    if love.keyboard.isDown('w') and speed <= max_f then
         tank.collider:applyForce(fx, fy)
     end
-    if love.keyboard.isDown('down') and speed <= max_r then
+    if love.keyboard.isDown('s') and speed <= max_r then
         tank.collider:applyForce(-fx, -fy)
     end
-    if love.keyboard.isDown('left') then
+    if love.keyboard.isDown('a') then
         tank.collider:applyTorque(-5*hp)
     end
-    if love.keyboard.isDown('right') then
+    if love.keyboard.isDown('d') then
         tank.collider:applyTorque(5*hp)
     end
 
@@ -33,7 +34,11 @@ ManulControlfunction = function (tank,dt)
     end
 end
 
-TankUpdate=function (tank,dt)
+FortifyControlfunction = function (tank,dt)
+    
+end
+
+TankUpdate = function (tank,dt)
     local x,y=tank.collider:getPosition()
     local hull_angle=tank.collider:getAngle()
     local vx, vy = tank.collider:getLinearVelocity()
@@ -46,7 +51,7 @@ TankUpdate=function (tank,dt)
     tank.data.reload_timer = tank.data.reload_timer - dt
 end
 
-StatusCheck=function (tank, i)
+StatusCheck = function (tank, i)
     if tank.status.era[1] then
         if tank.data.armor.life <= 0 then
             tank.data.armor.hull_image = Blank_line

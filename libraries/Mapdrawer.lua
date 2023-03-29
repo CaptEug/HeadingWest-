@@ -51,6 +51,7 @@ function drawMap()
     end
 
     tanks_table:draw()
+    TankSpawner:draw_tank()
     Ammo.draw()
     DrawCollider()
 

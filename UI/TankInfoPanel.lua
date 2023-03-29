@@ -18,11 +18,16 @@ function TankInfoPanel:load()
     ManulControl = buttons.newToolButton(
         ManulControl_icon,
         function ()
+            for i, tank in ipairs(CurrentPlace.exsist_tank) do
+                if tank ~= TankChoosen and tank.functions.move == ManulControlfunction then
+                    tank.functions.move = AutoControlfunction
+                end
+            end
             if TankChoosen.functions.move ~= ManulControlfunction then
                 TankChoosen.functions.move = ManulControlfunction
             else
                 TankChoosen.functions.move = AutoControlfunction
-            end 
+            end
         end,
         PanelButtons,
         ww - 288 + 40,
@@ -39,6 +44,19 @@ function TankInfoPanel:load()
         wh/2 - 286 + 484
     )
 
+    Fortify = buttons.newToolButton(
+        Fortify_icon,
+        function ()
+            if TankChoosen.functions.move ~= FortifyControlfunction then
+                TankChoosen.functions.move = FortifyControlfunction
+            else
+                TankChoosen.functions.move = AutoControlfunction
+            end
+        end,
+        PanelButtons,
+        ww - 288 + 108,
+        wh/2 - 286 + 484
+    )
 end
 
 function TankInfoPanel:update(dt)
@@ -48,6 +66,8 @@ function TankInfoPanel:update(dt)
     ManulControl.by = wh/2 - 286 + 538
     SetCommander.bx = ww - 288 + 40
     SetCommander.by = wh/2 - 286 + 484
+    Fortify.bx = ww - 288 + 108
+    Fortify.by = wh/2 - 286 + 484
     --tankbutton pos update
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         for i, button in ipairs(tank.Infobuttons) do
@@ -143,6 +163,9 @@ function TankInfoPanel:draw()
         
         if TankChoosen.functions.move == ManulControlfunction then
             love.graphics.draw(ManulControlOn_icon, ww - 288 + 10, wh/2 - 286 + 515)
+        end
+        if TankChoosen.functions.move == FortifyControlfunction then
+            love.graphics.draw(FortifyOn_icon, ww - 288 + 78, wh/2 - 286 + 461)
         end
     end
 end
