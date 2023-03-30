@@ -1,3 +1,5 @@
+--This is a pixel game
+love.graphics.setDefaultFilter('nearest', 'nearest')
 --files required
 Camera = require 'libraries.utilities.camera'
 cam = Camera()
