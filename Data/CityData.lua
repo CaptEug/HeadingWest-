@@ -63,7 +63,21 @@ function CityData:load()
         }
     }
     table.insert(Cities, Nizhny_Tagil)
-
+    Baku = {
+        x = 1220,
+        y = 700,
+        country = {USSR_flag},
+        name = 'Baku',
+        type = 'Normal',
+        factory = false,
+        labtory = true,
+        state ='Peace',
+        map = 2,
+        exsist_tank={},
+        Army = {},
+        broken_tank={}
+    }
+    table.insert(Cities, Baku)
     --German
     Berlin = {
         x = 1035,
