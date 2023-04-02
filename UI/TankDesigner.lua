@@ -378,7 +378,7 @@ function Buildtank()
         mob = TankPresent.equipment.mob,
         buildtime = TankPresent.buildtime,
         fixedbuildtime = TankPresent.buildtime,
-        selected_slot=TankSpawner:slot_distribution(CurrentPlace)
+        selected_slot = TankSpawner:slot_distribution(CurrentPlace)
     }
     Steel = Steel - Tank_steel_cost
     Oil = Steel - Tank_oil_cost
