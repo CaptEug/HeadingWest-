@@ -42,6 +42,7 @@ function TankSpawner:new_tank(place,new_tankdata)
         Immobilized = {false, Immobilized_icon},
         era = {false, ERA_icon}
     }
+    tank.incomp = false
     tank.compCom = false
     if tank.data.armor.type == 'ERA' then
         tank.status.era[1] = true
