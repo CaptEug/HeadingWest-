@@ -3,11 +3,17 @@ Loading=true
 
 function Saving:createsave(filenum)
     local file={"file1.lua","file2.lua","file3.lua"}
+    SteelProduction=0
+    OilProduction=0
     local filedata={}
     filedata.filenumber=filenum
     filedata.ax=200
     filedata.ay=1600
     filedata.angle=0
+    filedata.Steel = 10000
+    filedata.SteelProduction = 0
+    filedata.Oil = 10000
+    filedata.OilProduction = 0
    
     love.filesystem.write(file[filenum], table.show(filedata,'Data'))
 end
@@ -21,6 +27,10 @@ function Saving:filesave (filenum)
     filedata.ax=ax
     filedata.ay=ay
     filedata.angle=angle
+    filedata.Steel = Steel
+    filedata.SteelProduction = SteelProduction
+    filedata.Oil = Oil
+    filedata.OilProduction = OilProduction
 
     love.filesystem.write(file[filenum], table.show(filedata,'Data'))
 end

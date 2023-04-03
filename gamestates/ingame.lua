@@ -15,8 +15,8 @@ function ingame:init()
         wh - 16
     )
 
-    Saving:getdata(Filenumber)
-    Data()
+    --[[Saving:getdata(Filenumber)
+    Data()]]
 
     local map=Maps[MapNumber]
     loadMap(map)
