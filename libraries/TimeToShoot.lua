@@ -98,6 +98,7 @@ end
 function TankProjectiles:draw()
     --log
     love.graphics.setColor(1,1,0)
+    love.graphics.setFont(Rtextfont)
     love.graphics.print('hitPart = '..Datapool.hitPart,0,50)
     love.graphics.print('hitArmorside = '..Datapool.hitArmorside,0,70)
     love.graphics.print('impact angle = '..string.format("%.2f",Datapool.impact_angle),0,90)

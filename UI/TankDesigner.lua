@@ -381,7 +381,7 @@ function Buildtank()
         selected_slot = TankSpawner:slot_distribution(CurrentPlace)
     }
     Steel = Steel - Tank_steel_cost
-    Oil = Steel - Tank_oil_cost
+    Oil = Oil - Tank_oil_cost
     table.insert(CurrentPlace.ProductionQueue, 1, instance)
     CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
 end

@@ -22,7 +22,6 @@ function Pause:init()
             if self.from ~= Worldmap then
                 Saving:filesave(Filenumber)
             end
-            Worldmap:init()
             Gamestate.switch(MainMenu)
         end,
         Pbuttons
@@ -31,7 +30,6 @@ function Pause:init()
     BacktoWMenu = buttons.newButton(
         "Worldmap",
         function()
-            Worldmap:init()
             Gamestate.switch(Worldmap)
         end,
         Pbuttonsforingame

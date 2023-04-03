@@ -80,6 +80,8 @@ Delete_icon = love.graphics.newImage('Assets/pictures/buttons/Delete.png')
 EquipmentSelect = love.graphics.newImage('Assets/pictures/buttons/EquipmentSelect.png')
 EquipmentSelectHot = love.graphics.newImage('Assets/pictures/buttons/EquipmentSelectHot.png')
 invisible_button = love.graphics.newImage('Assets/pictures/buttons/Invisible_button.png')
+Edit_button = love.graphics.newImage('Assets/pictures/buttons/Edit.png')
+Done_button = love.graphics.newImage('Assets/pictures/buttons/Done.png')
 --UI
 Gear = love.graphics.newImage('Assets/pictures/icons/Gear.png')
 Tank_icon = love.graphics.newImage('Assets/pictures/Icons/Tank_icon.png')
