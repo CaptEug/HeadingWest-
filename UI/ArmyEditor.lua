@@ -24,11 +24,17 @@ end
 
 function ArmyEditor:draw()
     if CurrentPlace.openarmyeditor then
-        love.graphics.draw(ArmyEditor_screen, ww/2 - 200, wh/2 - 280)
+        love.graphics.draw(ArmyEditor_screenwlist, ww/2 - 200, wh/2 - 280)
         love.graphics.setColor(0,0,0)
         love.graphics.setFont(Rheadfont)
         love.graphics.print('Army in '..CurrentPlace.name, ww/2 - 200 + 32, wh/2 - 280 + 40)
         love.graphics.setFont(Rtextfont)
+        for i, tank in ipairs(CurrentPlace.exsist_tank) do
+            if not tank.incomp then
+                love.graphics.draw(Tank_icon,  ww/2 - 200 + 393, wh/2 - 280 + 24 + 20*i)
+                love.graphics.print(tank.data.name..' No.'..tank.data.number,  ww/2 - 200 + 415, wh/2 - 280 + 24 + 20*i)
+            end
+        end
 
         DivisionHight = 72
 

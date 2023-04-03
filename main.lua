@@ -82,11 +82,13 @@ EquipmentSelectHot = love.graphics.newImage('Assets/pictures/buttons/EquipmentSe
 invisible_button = love.graphics.newImage('Assets/pictures/buttons/Invisible_button.png')
 --UI
 Gear = love.graphics.newImage('Assets/pictures/icons/Gear.png')
+Tank_icon = love.graphics.newImage('Assets/pictures/Icons/Tank_icon.png')
 Tankdesigner_icon = love.graphics.newImage('Assets/pictures/icons/Tankdesigner.png')
 RadioStation_icon = love.graphics.newImage('Assets/pictures/icons/RadioStation.png')
 ArmyEditor_icon = love.graphics.newImage('Assets/pictures/Icons/ArmyEditor.png')
 factory_screen = love.graphics.newImage('Assets/pictures/factory_screen.png')
 ArmyEditor_screen = love.graphics.newImage('Assets/pictures/ArmyEditorScreen.png')
+ArmyEditor_screenwlist = love.graphics.newImage('Assets/pictures/ArmyEditorScreenwList.png')
 city_page = love.graphics.newImage('Assets/pictures/Citypage.png')
 production_box = love.graphics.newImage('Assets/pictures/Pbox.png')
 tank_info_panel = love.graphics.newImage('Assets/pictures/TankInfoPanel.png')
