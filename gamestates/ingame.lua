@@ -63,6 +63,17 @@ function ingame:update(dt)
             selection.endX = x
             selection.endY = y
         end
+        if selection.startX ~= selection.endX and selection.startY ~= selection.endY then
+            for i, tank in ipairs(CurrentPlace.exsist_tank) do
+                local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
+                if ((x > selection.startX and x < selection.endX) or (x < selection.startX and x > selection.endX)) and 
+                ((y > selection.startY and y < selection.endY) or (y < selection.startY and y > selection.endY)) then
+                    tank.picked = true
+                else
+                    tank.picked = false
+                end
+            end
+        end
     end
 end
 
