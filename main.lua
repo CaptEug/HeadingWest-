@@ -103,6 +103,8 @@ AP_icon = love.graphics.newImage('Assets/pictures/Icons/AP.png')
 HE_icon = love.graphics.newImage('Assets/pictures/Icons/HE.png')
 HEAT_icon = love.graphics.newImage('Assets/pictures/Icons/HEAT.png')
 APFSDS_icon = love.graphics.newImage('Assets/pictures/Icons/APFSDS.png')
+Picked_icon = love.graphics.newImage('Assets/pictures/Icons/Picked.png')
+Coms_icon = love.graphics.newImage('Assets/pictures/Icons/Coms.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')

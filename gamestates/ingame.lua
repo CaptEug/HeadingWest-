@@ -22,6 +22,9 @@ function ingame:init()
     loadMap(map)
     ingameUI:load()
 
+    selection = {}
+    selection.active = false
+
     --[[psystem = love.graphics.newParticleSystem(PlaneIcon, 32)
     psystem:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
 	psystem:setEmissionRate(5)
@@ -46,6 +49,21 @@ function ingame:update(dt)
     if cam.scale < 0.2 then
         cam:zoomTo(0.2)
     end
+    --mouse square selection
+    function love.mousepressed(x, y, button)
+        if button == 1 then
+            selection.active = true
+            selection.startX = x
+            selection.startY = y
+        end
+    end
+    function love.mousereleased(x, y, button)
+        if button == 1 then
+            selection.active = false
+            selection.endX = x
+            selection.endY = y
+        end
+    end
 end
 
 function ingame:draw()
@@ -55,11 +73,15 @@ function ingame:draw()
         particleworld:draw()
         Shelltrails:draw()
     cam:detach()
-
+    --draw selection
+    if selection.active then
+        love.graphics.setColor(0,179/255,0)
+        love.graphics.rectangle("line", selection.startX, selection.startY,
+        love.mouse.getX() - selection.startX, love.mouse.getY() - selection.startY)
+    end
 
     ingameUI:draw()
-
-    Gbuttons:use() 
+    Gbuttons:use()
 end
 
 function ingame:drawWithoutUI()

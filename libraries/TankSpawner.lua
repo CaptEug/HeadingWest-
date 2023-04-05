@@ -42,6 +42,7 @@ function TankSpawner:new_tank(place,new_tankdata)
         Immobilized = {false, Immobilized_icon},
         era = {false, ERA_icon}
     }
+    tank.picked = false
     tank.incomp = false
     tank.compCom = false
     if tank.data.armor.type == 'ERA' then
@@ -53,6 +54,12 @@ function TankSpawner:new_tank(place,new_tankdata)
         function ()
             TankPanelopen = true
             TankChoosen = tank
+            TankChoosen.picked = true
+            for i, tank in ipairs(CurrentPlace.exsist_tank) do
+                if tank ~= TankChoosen and tank.picked then
+                    tank.picked = false
+                end
+            end
         end,
         tank.Infobuttons,
         x,

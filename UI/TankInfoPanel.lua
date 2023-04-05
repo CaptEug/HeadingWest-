@@ -37,7 +37,12 @@ function TankInfoPanel:load()
     SetCommander = buttons.newToolButton(
         SetCommander_icon,
         function ()
-            
+            TankChoosen.compCom = true
+            for i, tank in ipairs(CurrentPlace.exsist_tank) do
+                if tank ~= TankChoosen and tank.compCom then
+                    tank.compCom = false
+                end
+            end
         end,
         PanelButtons,
         ww - 288 + 40,
@@ -82,26 +87,19 @@ function TankInfoPanel:draw()
         tank.Infobuttons:use()
     end
     cam:detach()
+    for i, tank in ipairs(CurrentPlace.exsist_tank) do
+        if tank.picked then
+            local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
+            love.graphics.draw(Picked_icon, x - 10, y + 32*cam.scale)
+        end
+        if tank.compCom then
+            local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
+            love.graphics.draw(Coms_icon, x - 10, y - 16*cam.scale)
+        end
+    end
     if TankPanelopen then
         local a=TankChoosen.collider:getAngle()
-        local n = 0
-        local m = 0
-        local i = 0
-        local apfsds = 0
-        local he = 0
-        local heat = 0
-        for i, ammo in ipairs(TankChoosen.data.ammorack) do
-            if ammo.type == 'APFSDS' then
-                apfsds = apfsds + 1
-            end
-            if ammo.type == 'HE' then
-                he = he + 1
-            end
-            if ammo.type == 'HEAT' then
-                heat = heat + 1
-            end
-        end
-
+        
         love.graphics.draw(tank_info_panel, ww - 288, wh/2 - 286)
         love.graphics.draw(TankChoosen.data.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, 144, 144)
         love.graphics.draw(TankChoosen.data.armor.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, 144, 144)
@@ -115,57 +113,90 @@ function TankInfoPanel:draw()
         if TankChoosen.data.reload_timer >= 0 then
             love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.data.reload_timer)..' s', ww - 288 + 144, wh/2 - 286 + 268)
         end
-        if #TankChoosen.data.ammorack == 0 then
-            love.graphics.print('NO AMMO', ww - 288 + 4, wh/2 - 286 + 390)
-        end
-        if apfsds ~= 0 then
-            i = i + 1
-            love.graphics.draw(APFSDS_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
-            love.graphics.print(apfsds, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
-        end
-        if he ~= 0 then
-            i = i + 1
-            love.graphics.draw(HE_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
-            love.graphics.print(he, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
-        end
-        if heat ~= 0 then
-            i = i + 1
-            love.graphics.draw(HEAT_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
-            love.graphics.print(heat, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
-        end
         love.graphics.setColor(1,1,1)
 
-        while n < TankChoosen.data.crew do
-            love.graphics.draw(injured_crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*n, wh/2)
-            n = n + 1
-        end
-        while m < TankChoosen.data.survivor do
-            love.graphics.draw(crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*m, wh/2)
-            m = m + 1
-        end
-
         PanelButtons:use()
-        --tank status update
-        local s = 1
-        
-        if TankChoosen.status.era[1] then
-            love.graphics.draw(TankChoosen.status.era[2], ww - 288 + 16, wh/2 - 286 + 48*s)
-            s = s + 1
+        TankCrewDraw()
+        TankAmmoDraw()
+        TankStateDraw()
+    end
+end
+
+function TankCrewDraw()
+    local n = 0
+    local m = 0
+
+    while n < TankChoosen.data.crew do
+        love.graphics.draw(injured_crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*n, wh/2)
+        n = n + 1
+    end
+    while m < TankChoosen.data.survivor do
+        love.graphics.draw(crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*m, wh/2)
+        m = m + 1
+    end
+end
+
+function TankAmmoDraw()
+    local i = 0
+    local apfsds = 0
+    local he = 0
+    local heat = 0
+    for i, ammo in ipairs(TankChoosen.data.ammorack) do
+        if ammo.type == 'APFSDS' then
+            apfsds = apfsds + 1
         end
-        if TankChoosen.status.onfire[1] then
-            love.graphics.draw(TankChoosen.status.onfire[2], ww - 288 + 16, wh/2 - 286 + 48*s)
-            s = s + 1
+        if ammo.type == 'HE' then
+            he = he + 1
         end
-        if TankChoosen.status.Immobilized[1] then
-            love.graphics.draw(TankChoosen.status.Immobilized[2], ww - 288 + 16, wh/2 - 286 + 48*s)
-            s = s + 1
+        if ammo.type == 'HEAT' then
+            heat = heat + 1
         end
-        
-        if TankChoosen.functions.move == ManulControlfunction then
-            love.graphics.draw(ManulControlOn_icon, ww - 288 + 10, wh/2 - 286 + 515)
-        end
-        if TankChoosen.functions.move == FortifyControlfunction then
-            love.graphics.draw(FortifyOn_icon, ww - 288 + 78, wh/2 - 286 + 461)
-        end
+    end
+    love.graphics.setColor(0,179/255,0)
+    if #TankChoosen.data.ammorack == 0 then
+        love.graphics.print('NO AMMO', ww - 288 + 4, wh/2 - 286 + 390)
+    end
+    if apfsds ~= 0 then
+        i = i + 1
+        love.graphics.draw(APFSDS_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
+        love.graphics.print(apfsds, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
+    end
+    if he ~= 0 then
+        i = i + 1
+        love.graphics.draw(HE_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
+        love.graphics.print(he, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
+    end
+    if heat ~= 0 then
+        i = i + 1
+        love.graphics.draw(HEAT_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
+        love.graphics.print(heat, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
+    end
+    love.graphics.setColor(1,1,1)
+end
+
+function TankStateDraw()
+    --tank status update
+    local s = 1
+    if TankChoosen.status.era[1] then
+        love.graphics.draw(TankChoosen.status.era[2], ww - 288 + 16, wh/2 - 286 + 48*s)
+        s = s + 1
+    end
+    if TankChoosen.status.onfire[1] then
+        love.graphics.draw(TankChoosen.status.onfire[2], ww - 288 + 16, wh/2 - 286 + 48*s)
+        s = s + 1
+    end
+    if TankChoosen.status.Immobilized[1] then
+        love.graphics.draw(TankChoosen.status.Immobilized[2], ww - 288 + 16, wh/2 - 286 + 48*s)
+        s = s + 1
+    end
+    
+    if TankChoosen.functions.move == ManulControlfunction then
+        love.graphics.draw(ManulControlOn_icon, ww - 288 + 10, wh/2 - 286 + 515)
+    end
+    if TankChoosen.functions.move == FortifyControlfunction then
+        love.graphics.draw(FortifyOn_icon, ww - 288 + 78, wh/2 - 286 + 461)
+    end
+    if TankChoosen.compCom then
+        love.graphics.draw(SetCommanderOn_icon, ww - 288 + 10, wh/2 - 286 + 461)
     end
 end
