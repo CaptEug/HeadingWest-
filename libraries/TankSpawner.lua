@@ -93,5 +93,11 @@ function TankSpawner:draw_tank()
         love.graphics.draw(tank.data.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
         love.graphics.draw(tank.data.aim.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
         love.graphics.draw(tank.data.armor.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
+        
+        --decide cursor
+        if tank.functions.move == ManulControlfunction then
+            Cursor = sightcursor
+            Cursormode = 'firing'
+        end
     end
 end

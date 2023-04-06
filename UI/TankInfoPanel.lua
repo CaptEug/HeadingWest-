@@ -88,18 +88,19 @@ function TankInfoPanel:draw()
     end
     cam:detach()
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        if tank.picked then
-            local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
-            love.graphics.draw(Picked_icon, x - 10, y + 32*cam.scale)
-        end
         if tank.compCom then
             local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
             love.graphics.draw(Coms_icon, x - 10, y - 16*cam.scale)
         end
+        if tank.picked then
+            local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
+            love.graphics.draw(Picked_icon, x - 10, y  + 32*cam.scale)
+        end
     end
     if TankPanelopen then
         local a=TankChoosen.collider:getAngle()
-        
+        local x,y = cam:cameraCoords(TankChoosen.location.x, TankChoosen.location.y)
+        love.graphics.draw(Choosen_icon, x - 10, y + 32*cam.scale)
         love.graphics.draw(tank_info_panel, ww - 288, wh/2 - 286)
         love.graphics.draw(TankChoosen.data.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, 144, 144)
         love.graphics.draw(TankChoosen.data.armor.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, 144, 144)

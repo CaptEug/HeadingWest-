@@ -37,12 +37,9 @@ function ingame:update(dt)
     ingameUI:update(dt)
     world:update(dt)
     particleworld:update(dt)
-    tanks_table:update(dt)
-    Ammo.update(dt)
     TankSpawner:update(dt)
     TankProjectiles:update(dt)
-    --psystem:update(dt)
-    
+    --cam contral
     if cam.scale > 2 then
         cam:zoomTo(2)
     end
@@ -51,14 +48,14 @@ function ingame:update(dt)
     end
     --mouse square selection
     function love.mousepressed(x, y, button)
-        if button == 1 then
+        if button == 1 and Cursormode == 'normal' then
             selection.active = true
             selection.startX = x
             selection.startY = y
         end
     end
     function love.mousereleased(x, y, button)
-        if button == 1 then
+        if button == 1 and selection.active then
             selection.active = false
             selection.endX = x
             selection.endY = y
@@ -85,7 +82,7 @@ function ingame:draw()
         Shelltrails:draw()
     cam:detach()
     --draw selection
-    if selection.active then
+    if selection.active and Cursormode == 'normal' then
         love.graphics.setColor(0,179/255,0)
         love.graphics.rectangle("line", selection.startX, selection.startY,
         love.mouse.getX() - selection.startX, love.mouse.getY() - selection.startY)
