@@ -129,8 +129,8 @@ function TankDesigner:load()
             end,
             TankDesigner.window,
             CurrentPlace.Fbuttons,
-            0 + 80,
-            0 + 390
+            0 + 72,
+            0 + 391
         )
 
         Aiming = buttons.newWindowToolButton(
@@ -140,8 +140,8 @@ function TankDesigner:load()
             end,
             TankDesigner.window,
             CurrentPlace.Fbuttons,
-            0 + 128,
-            0 + 390
+            0 + 126,
+            0 + 391
         )
 
         Mobility = buttons.newWindowToolButton(
@@ -151,8 +151,8 @@ function TankDesigner:load()
             end,
             TankDesigner.window,
             CurrentPlace.Fbuttons,
-            0 + 176,
-            0 + 390
+            0 + 180,
+            0 + 391
         )
 
         Ammunition = buttons.newWindowToolButton(
@@ -162,8 +162,8 @@ function TankDesigner:load()
             end,
             TankDesigner.window,
             CurrentPlace.Fbuttons,
-            0 + 224,
-            0 + 390
+            0 + 234,
+            0 + 391
         )
 
     Build = buttons.newWindowToolButton(
@@ -174,7 +174,7 @@ function TankDesigner:load()
         TankDesigner.window,
         CurrentPlace.Fbuttons,
         0 + 405,
-        0 + 390,
+        0 + 391,
         Build_icon,
         Build_Hot
     )
