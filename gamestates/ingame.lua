@@ -46,8 +46,9 @@ function ingame:update(dt)
     if cam.scale < 0.2 then
         cam:zoomTo(0.2)
     end
-    --mouse square selection
+    --mouse input
     function love.mousepressed(x, y, button)
+        TDmousepressed(x, y, button)
         if button == 1 and Cursormode == 'normal' then
             selection.active = true
             selection.startX = x
@@ -55,6 +56,7 @@ function ingame:update(dt)
         end
     end
     function love.mousereleased(x, y, button)
+        TDmousereleased(x, y, button)
         if button == 1 and selection.active then
             selection.active = false
             selection.endX = x
@@ -71,6 +73,9 @@ function ingame:update(dt)
                 end
             end
         end
+    end
+    function love.mousemoved(x, y, dx, dy)
+        TDmousemoved(x, y, dx, dy)
     end
 end
 
