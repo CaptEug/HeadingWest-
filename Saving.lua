@@ -21,12 +21,9 @@ end
 function Saving:filesave (filenum)
     local file={"file1.lua","file2.lua","file3.lua"}
     local filedata={}
-    local ax, ay, angle = tanks_table:getdata(tank1)
     filedata.filenumber=Filenumber
     filedata.MapNumber=MapNumber
-    filedata.ax=ax
-    filedata.ay=ay
-    filedata.angle=angle
+    
     filedata.Steel = Steel
     filedata.SteelProduction = SteelProduction
     filedata.Oil = Oil

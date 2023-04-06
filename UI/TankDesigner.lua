@@ -2,7 +2,7 @@ TankDesigner = {}
 
 function TankDesigner:load()
     TDscreen = love.graphics.newCanvas(640, 480)
-    TankDesigner.window = {x = 0, y = 64, w = 640, h = 64}
+    TankDesigner.window = {x = 0, y = 32, w = 640, h = 64}
     TankDesigner.dragging = false
     CurrentPlace.opendesigner = false
     CurrentPlace.Fbuttons = buttons.new()
@@ -379,6 +379,7 @@ function TDmousepressed(x, y, button)
     -- Check if the mouse is inside the TDscreen.window
     if x >= TankDesigner.window.x and x <= TankDesigner.window.x + TankDesigner.window.w and
      y >= TankDesigner.window.y and y <= TankDesigner.window.y + TankDesigner.window.h then
+        Cursormode = 'dragging'
         TankDesigner.dragging = true
        -- Calculate the offset between the mouse position and the TDscreen.window position
        TankDesigner.offsetX = x - TankDesigner.window.x

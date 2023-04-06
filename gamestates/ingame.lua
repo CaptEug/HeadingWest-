@@ -48,7 +48,15 @@ function ingame:update(dt)
     end
     --mouse input
     function love.mousepressed(x, y, button)
-        TDmousepressed(x, y, button)
+        if CurrentPlace.opendesigner then
+            TDmousepressed(x, y, button)
+        end
+        if CurrentPlace.openarmyeditor then
+            AEmousepressed(x, y, button)
+        end
+        if TankPanelopen then
+            TPmousepressed(x, y, button)
+        end
         if button == 1 and Cursormode == 'normal' then
             selection.active = true
             selection.startX = x
@@ -56,7 +64,15 @@ function ingame:update(dt)
         end
     end
     function love.mousereleased(x, y, button)
-        TDmousereleased(x, y, button)
+        if CurrentPlace.opendesigner then
+            TDmousereleased(x, y, button)
+        end
+        if CurrentPlace.openarmyeditor then
+            AEmousereleased(x, y, button)
+        end
+        if TankPanelopen then
+            TPmousereleased(x, y, button)
+        end
         if button == 1 and selection.active then
             selection.active = false
             selection.endX = x
@@ -75,7 +91,15 @@ function ingame:update(dt)
         end
     end
     function love.mousemoved(x, y, dx, dy)
-        TDmousemoved(x, y, dx, dy)
+        if CurrentPlace.opendesigner then
+            TDmousemoved(x, y, dx, dy)
+        end
+        if CurrentPlace.openarmyeditor then
+            AEmousemoved(x, y, dx, dy)
+        end
+        if TankPanelopen then
+            TPmousemoved(x, y, dx, dy)
+        end
     end
 end
 
