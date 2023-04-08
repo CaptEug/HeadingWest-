@@ -42,6 +42,8 @@ function TankSpawner:new_tank(place,new_tankdata)
         Immobilized = {false, Immobilized_icon},
         era = {false, ERA_icon}
     }
+    tank.isfiring = false
+    tank.firing_timer = 0
     tank.picked = false
     tank.incomp = false
     tank.compCom = false
@@ -90,7 +92,8 @@ function TankSpawner:draw_tank()
 
         love.graphics.draw(tank.data.hull_image,x,y,a,1,1,144,144)
         love.graphics.draw(tank.data.armor.hull_image,x,y,a,1,1,144,144)
-        love.graphics.draw(tank.data.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
+        --love.graphics.draw(tank.data.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
+        tank.data.turret_anime:draw(tank.data.anime_sheet,x,y,a+tank.data.turret_angle,1,1,144,144)
         love.graphics.draw(tank.data.aim.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
         love.graphics.draw(tank.data.armor.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
         
@@ -99,5 +102,41 @@ function TankSpawner:draw_tank()
             Cursor = sightcursor
             Cursormode = 'firing'
         end
+    end
+end
+
+TankUpdate = function (tank,dt)
+    local x,y=tank.collider:getPosition()
+    local hull_angle=tank.collider:getAngle()
+    local vx, vy = tank.collider:getLinearVelocity()
+    tank.velocity={vx=vx,vy=vy,v=math.sqrt(vx^2+vy^2)}
+    tank.location={x=x,y=y}
+    tank.location.hull_angle=hull_angle
+    tank.image_location.x,tank.image_location.y=x+tank.data.hull_offset*math.sin(hull_angle),y-tank.data.hull_offset*math.cos(hull_angle)
+    tank.gun_location.x,tank.gun_location.y = x+(tank.data.hull_offset+tank.data.gun_offset)*math.sin(hull_angle+tank.data.turret_angle),
+                                              y-(tank.data.hull_offset+tank.data.gun_offset)*math.cos(tank.data.turret_angle+hull_angle)
+    tank.data.reload_timer = tank.data.reload_timer - dt
+    --ainme update
+    tank.firing_timer = tank.firing_timer - dt
+    if tank.firing_timer <= 0 then
+        tank.data.turret_anime:gotoFrame(1)
+    end
+    tank.data.turret_anime:update(dt)
+end
+
+StatusCheck = function (tank, i)
+    if tank.status.era[1] then
+        if tank.data.armor.life <= 0 then
+            tank.data.armor.hull_image = Blank_line
+            tank.data.armor.turret_image = Blank_line
+            tank.data.armor.hull_image_line = Blank_line
+            tank.data.armor.turret_image_line = Blank_line
+            tank.status.era[1] = false
+        end
+    end
+
+    if tank.data.survivor <= 0 then
+        TankDead(tank)
+        table.insert(CurrentPlace.broken_tank, table.remove(CurrentPlace.exsist_tank, i))
     end
 end

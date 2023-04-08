@@ -6,6 +6,7 @@ cam = Camera()
 Gamestate = require "libraries.utilities.gamestate"
 sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
+anim8 = require 'libraries/utilities/anim8'
 require 'libraries/utilities/CGplayer'
 require 'libraries/shaders'
 require 'libraries/utilities/buttons'
