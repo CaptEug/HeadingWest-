@@ -20,7 +20,7 @@ function Pause:init()
         "MainMenu",
         function()
             if self.from ~= Worldmap then
-                Saving:filesave(Filenumber)
+                NewSaving:Save(Filenumber)
             end
             Gamestate.switch(MainMenu)
         end,

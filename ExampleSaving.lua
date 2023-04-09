@@ -1,7 +1,7 @@
 
  FileData = {
 
-    Filenumber = 1;
+    FileNumber = 1;
 
     Resources = {
         Oil = 10000;

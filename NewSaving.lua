@@ -6,7 +6,7 @@ NewSaving = {
 
 function NewSaving:CreateFile(Number)
 
-    love.filesystem.write("file"..tostring(Number)..".lua",TableToString(FileData,"FileData"))
+    love.filesystem.write("file"..tostring(Number)..".lua",TableToString(FileData,"SaveData"))
 
 end
 
@@ -14,12 +14,46 @@ function NewSaving:LoadFile(Number)
     
     local filename = "file"..tostring(Number)..".lua"
 
-    if love.filesystem.getInfo("filetest.lua")==nil then
-        --NewSaving:CreateFile(Number)
+    if love.filesystem.getInfo(filename)==nil then
+        NewSaving:CreateFile(Number)
     end
 
-    SaveData = love.filesystem.load("filetest.lua")
+    SaveData = love.filesystem.load(filename)
     SaveData()
+end
+
+function NewSaving:LoadResource()
+
+    local Resources = SaveData.Resources
+    OilProduction = Resources.OilProduction
+    Oil = Resources.Oil
+    SteelProduction = Resources.SteelProduction
+    Steel = Resources.Steel
+
+end
+
+function NewSaving:Save(Number)
+
+    local filename = "file"..tostring(Number)..".lua"
+
+    local filedata ={}
+
+    filedata.Resources={
+        Oil = Oil;
+        OilProduction = OilProduction;
+        Steel = Steel;
+        SteelProduction = SteelProduction;
+    }
+
+    filedata.FileNumber = Filenumber
+
+    filedata.EventProgress = {
+        Progress = 1 
+    }
+
+    --filedata.ExistTanks = CurrentPlace.exsist_tank
+
+    love.filesystem.write(filename,TableToString(filedata,"SaveData"))
 end
 
 function NewSaving:CreateSettings()

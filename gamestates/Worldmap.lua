@@ -8,15 +8,9 @@ require 'Data/TankData'
 function Worldmap:init()
     Year = 1946
 
-    Saving:getdata(Filenumber)
-    Data()
-
     NewSaving:LoadFile(Filenumber)
-    
-    OilProduction = Data.OilProduction
-    Oil = SaveData.Resources.Oil
-    SteelProduction = Data.SteelProduction
-    Steel = Data.Steel
+    NewSaving:LoadResource()
+
 
     CityData:load()
     TankData:load()
