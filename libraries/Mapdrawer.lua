@@ -28,7 +28,7 @@ function loadMap(mapName)
     end
 
     LoadTank()
-    tank1 = tanks_table:newtank("Assets/tanks/german/MAUS/MAUS.txt", Data.ax , Data.ay, Data.angle)
+    --tank1 = tanks_table:newtank("Assets/tanks/german/MAUS/MAUS.txt", Data.ax , Data.ay, Data.angle)
     --tank2 = tanks_table:newtank("Assets/tanks/usa/M48A1/M48A1.txt", 1000 , 1000, 0)
     --tank3 = tanks_table:newtank("Assets/tanks/soviet/T-5455/T-54.txt", 1500 , 1500, 0)
     --tank4 = tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)

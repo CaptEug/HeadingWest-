@@ -4,12 +4,14 @@ Worldmap = Gamestate.new()
 require 'UI/WorldmapUI'
 require 'Data/CityData'
 require 'Data/TankData'
+require "NewSaving"
 
 function Worldmap:init()
     Year = 1946
 
     Saving:getdata(Filenumber)
     Data()
+    love.filesystem.write("filetest.lua",TableToString(FileData,"FileData"))
     
     OilProduction = Data.OilProduction
     Oil = Data.Oil
