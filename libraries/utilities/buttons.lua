@@ -115,7 +115,7 @@ function buttons:use()
             if button.Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
                 Cursor = handcursor
-                Cursurmode = 'button'
+                Cursormode = 'button'
             end
             button.now = love.mouse.isDown(1)
             if button.now and not button.last and button.Hot then
@@ -132,6 +132,7 @@ function buttons:use()
             if button.Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
                 Cursor = handcursor
+                Cursormode = 'button'
             end
             button.now = love.mouse.isDown(1)
             if button.now and not button.last and button.Hot then
@@ -148,6 +149,7 @@ function buttons:use()
             button.now = love.mouse.isDown(1)
             if button.Hot then
                 Cursor = handcursor
+                Cursormode = 'button'
                 button.pic = button.pictureHot
             else
                 button.pic = button.picture
@@ -179,6 +181,7 @@ function buttons:use()
             button.now = love.mouse.isDown(1)
             if button.Hot then
                 Cursor = handcursor
+                Cursormode = 'button'
                 button.pic = button.pictureHot
             else
                 button.pic = button.picture
@@ -210,6 +213,7 @@ function buttons:use()
             button.last = button.now
             if button.Hot then
                 Cursor = handcursor
+                Cursormode = 'button'
                 button.pic = button.pictureHot
             else
                 button.pic = button.picture
