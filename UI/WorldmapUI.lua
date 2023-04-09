@@ -44,7 +44,8 @@ function WorldmapUI:load()
                 MapNumber = city.map
                 Map_type = city.type
                 CurrentPlace = city
-                Saving:fileload()
+                ingame:init()
+                Gamestate.switch(ingame)
             end,
             city.Gobuttons,
             city.x + 208,
