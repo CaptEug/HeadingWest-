@@ -22,25 +22,10 @@ function buttons.newButton(text, fn, buttons, bx, by)
     return instance
 end
 
-function buttons.newPicButton(picture, fn, buttons, bx, by)
-    local instance = {
-        type = 1,
-        picture = picture,
-        fn = fn,
-        w = picture:getWidth(),
-        h = picture:getHeight(),
-        bx = bx or picture:getWidth() / 2,
-        by = by or picture:getHeight() / 2,
-        now = true,
-        last = true
-    }
-    table.insert(buttons, instance)
-    return instance
-end
 
 function buttons.newCampicButton(picture, fn, buttons, bx, by)
     local instance = {
-        type = 1.5,
+        type = 1,
         picture = picture,
         fn = fn,
         w = picture:getWidth(),
@@ -77,7 +62,7 @@ end
 
 function buttons.newWindowToolButton(picture, fn, window, buttons, bx, by, pictureHot, picturepressed, pictureOn)
     local instance = {
-        type = 2.5,
+        type = 3,
         state = 'Off',
         pic = picture,
         picture = picture,
@@ -99,7 +84,7 @@ end
 
 function buttons.newCamButton(picture, fn, buttons, bx, by, pictureHot)
     local instance = {
-        type = 3,
+        type = 4,
         pic = picture,
         picture = picture,
         fn = fn,
@@ -130,6 +115,7 @@ function buttons:use()
             if button.Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
                 Cursor = handcursor
+                Cursurmode = 'button'
             end
             button.now = love.mouse.isDown(1)
             if button.now and not button.last and button.Hot then
@@ -138,24 +124,8 @@ function buttons:use()
             love.graphics.setColor(unpack(ButtonColor))
             love.graphics.print(button.text, x, y)
         end
-        
-        if button.type == 1 then
-            local x, y = button.bx - button.w * ratio / 2, button.by - button.h * ratio / 2
-            button.Hot = mx>=x and mx<=x+button.w * ratio and my>=y and my<=y+button.h * ratio
-            button.last = button.now
-            if button.Hot then
-                ButtonColor ={1, 0.1, 0.1, 1}
-                Cursor = handcursor
-            end
-            button.now = love.mouse.isDown(1)
-            if button.now and not button.last and button.Hot then
-                button.fn()
-            end
-            love.graphics.setColor(unpack(ButtonColor))
-            love.graphics.draw(button.picture, x, y, 0, ratio)
-        end
 
-        if button.type == 1.5 then
+        if button.type == 1 then
             local x, y = button.bx - button.w * ratio / 2, button.by - button.h * ratio / 2
             button.Hot = cmx>=x and cmx<=x+button.w * ratio and cmy>=y and cmy<=y+button.h * ratio
             button.last = button.now
@@ -202,7 +172,7 @@ function buttons:use()
             love.graphics.draw(button.pic, x, y)
         end
 
-        if button.type == 2.5 then
+        if button.type == 3 then
             local x, y = button.bx - button.w / 2 + button.window.x, button.by - button.h / 2 + button.window.y
             button.Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
             button.last = button.now
@@ -233,7 +203,7 @@ function buttons:use()
             love.graphics.draw(button.pic, x - button.window.x, y - button.window.y)
         end
 
-        if button.type == 3 then
+        if button.type == 4 then
             local x, y = button.bx - button.w, button.by - button.h
             local scale = 1
             button.Hot = cmx>=x-button.w/(2*cam.scale) and cmx<=x+button.w/(2*cam.scale) and cmy>=y-button.h/(2*cam.scale) and cmy<=y+button.h/(2*cam.scale)

@@ -12,7 +12,6 @@ ManulControlfunction = function (tank,dt)
     local mx, my = cam:mousePosition()
     local isaim = AimCheck(tank, mx, my, dt)
 
-    TankChoosen = tank
     cam:lookAt(tank.location.x, tank.location.y)
     
     if love.keyboard.isDown('w') and speed <= max_f then
@@ -28,7 +27,7 @@ ManulControlfunction = function (tank,dt)
         tank.collider:applyTorque(5*hp)
     end
 
-    if love.mouse.isDown(1) and #tank.data.ammorack > 0 and isaim and tank.data.reload_timer <= 0 then
+    if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.data.ammorack > 0 and isaim and tank.data.reload_timer <= 0 then
         Shoot(tank)
         tank.firing_timer = 0.7
         tank.data.reload_timer = tank.data.reload_time
