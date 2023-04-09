@@ -138,7 +138,7 @@ function love.load()
     Cursor = pointcursor
     Cursormode = 'normal'
     love.mouse.setCursor(Cursor)
-    Saving:load_settings()
+    NewSaving:LoadSettings()
 end
 
 

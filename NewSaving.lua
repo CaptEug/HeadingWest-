@@ -89,7 +89,7 @@ function NewSaving:CreateSettings()
         minheight=1
     }
     
-    love.filesystem.write("SettingData.lua", table.show(filedata,'SettingData'))
+    love.filesystem.write("SettingData.lua", TableToString(filedata,'SettingData'))
 end
 
 function NewSaving:SaveSettings()
@@ -102,13 +102,13 @@ function NewSaving:SaveSettings()
         filedata.wh=wh
         filedata.flags=flags
     end
-    love.filesystem.write("SettingData.lua", table.show(filedata,'SettingData'))
+    love.filesystem.write("SettingData.lua", TableToString(filedata,'SettingData'))
 end
 
 function NewSaving:LoadSettings()
 
     if love.filesystem.getInfo("SettingData.lua")==nil then
-        Saving:CreateSettings()
+        NewSaving:CreateSettings()
     end
     SettingData=love.filesystem.load("SettingData.lua")
     SettingData()
@@ -137,10 +137,14 @@ function Convert(table,layer)
     for key, value in pairs(table) do
         
         local keyName = tostring(key)
-        local keyValue 
+        local keyValue = ""
         local convertedKey
         if type(value) ~= "table" then
-            keyValue = tostring(value)
+            if type(value) ~= "string" then
+                keyValue = tostring(value)
+            else
+                keyValue = "\""..value.."\""
+            end
             convertedKey = keyName.." = "..keyValue..";\n"
         else if type(value)~= "function" then
             layer = layer+1
