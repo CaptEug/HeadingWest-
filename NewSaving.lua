@@ -79,6 +79,10 @@ function NewSaving:LoadSettings()
 
 end
 
+---test convert
+---@param table table
+---@param tableName string
+---@return string
 function TableToString(table,tableName) --convert table to string (prototype)
 
     local str = tableName.." = {\n"..Convert(table,0).."};\n"
