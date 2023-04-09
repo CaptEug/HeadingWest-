@@ -6,7 +6,7 @@ NewSaving = {
 
 function NewSaving:CreateFile(Number)
 
-    love.filesystem.write("file"..tostring(Number)..".lua",TableToString(FileData))
+    love.filesystem.write("file"..tostring(Number)..".lua",TableToString(FileData,"FileData"))
 
 end
 
