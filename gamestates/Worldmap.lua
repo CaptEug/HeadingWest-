@@ -4,7 +4,6 @@ Worldmap = Gamestate.new()
 require 'UI/WorldmapUI'
 require 'Data/CityData'
 require 'Data/TankData'
-require "NewSaving"
 
 function Worldmap:init()
     Year = 1946

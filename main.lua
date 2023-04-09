@@ -19,6 +19,7 @@ require 'libraries.Mapdrawer'
 require 'libraries/utilities/destroyAll'
 require 'libraries/utilities/show'
 require 'libraries/utilities/copytable'
+require "NewSaving"
 
 --Gamestates required
 require 'gamestates/MainMenu'
