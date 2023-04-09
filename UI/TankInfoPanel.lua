@@ -3,19 +3,25 @@ TankInfoPanel = {}
 
 function TankInfoPanel:load()
     --add tankinfopanel button
+    TPscreen = love.graphics.newCanvas(288, 576)
+    TankInfoPanel.window = {x = ww - 288, y = wh/2 - 288, w = 288, h = 576}
+    TankInfoPanel.dragging = false
     TankPanelopen = false
     TankChoosen = {}
     Rounds = {}
     PanelButtons = buttons.new()
-    ClosePanel = buttons.newToolButton(
+    ClosePanel = buttons.newWindowToolButton(
         ClosePanel_icon,
         function ()
             TankPanelopen = false
         end,
-        PanelButtons
+        TankInfoPanel.window,
+        PanelButtons,
+        271,
+        16
     )
 
-    ManulControl = buttons.newToolButton(
+    ManulControl = buttons.newWindowToolButton(
         ManulControl_icon,
         function ()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
@@ -29,12 +35,13 @@ function TankInfoPanel:load()
                 TankChoosen.functions.move = AutoControlfunction
             end
         end,
+        TankInfoPanel.window,
         PanelButtons,
-        ww - 288 + 40,
-        wh/2 - 286 + 538
+        0 + 40,
+        0 + 542
     )
 
-    SetCommander = buttons.newToolButton(
+    SetCommander = buttons.newWindowToolButton(
         SetCommander_icon,
         function ()
             TankChoosen.compCom = true
@@ -44,35 +51,30 @@ function TankInfoPanel:load()
                 end
             end
         end,
+        TankInfoPanel.window,
         PanelButtons,
-        ww - 288 + 40,
-        wh/2 - 286 + 484
+        0 + 40,
+        0 + 488
     )
 
-    Fortify = buttons.newToolButton(
+    Fortify = buttons.newWindowToolButton(
         Fortify_icon,
         function ()
+            table.insert(CurrentPlace.Army[1][1][1], TankChoosen)
             if TankChoosen.functions.move ~= FortifyControlfunction then
                 TankChoosen.functions.move = FortifyControlfunction
             else
                 TankChoosen.functions.move = AutoControlfunction
             end
         end,
+        TankInfoPanel.window,
         PanelButtons,
-        ww - 288 + 108,
-        wh/2 - 286 + 484
+        0 + 108,
+        0 + 488
     )
 end
 
 function TankInfoPanel:update(dt)
-    ClosePanel.bx = ww - 17
-    ClosePanel.by = wh/2 - 269
-    ManulControl.bx = ww - 288 + 40
-    ManulControl.by = wh/2 - 286 + 538
-    SetCommander.bx = ww - 288 + 40
-    SetCommander.by = wh/2 - 286 + 484
-    Fortify.bx = ww - 288 + 108
-    Fortify.by = wh/2 - 286 + 484
     --tankbutton pos update
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         for i, button in ipairs(tank.Infobuttons) do
@@ -88,30 +90,32 @@ function TankInfoPanel:draw()
     end
     cam:detach()
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        if tank.picked then
-            local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
-            love.graphics.draw(Picked_icon, x - 10, y + 32*cam.scale)
-        end
         if tank.compCom then
             local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
             love.graphics.draw(Coms_icon, x - 10, y - 16*cam.scale)
         end
+        if tank.picked then
+            local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
+            love.graphics.draw(Picked_icon, x - 10, y  + 32*cam.scale)
+        end
     end
     if TankPanelopen then
         local a=TankChoosen.collider:getAngle()
-        
-        love.graphics.draw(tank_info_panel, ww - 288, wh/2 - 286)
-        love.graphics.draw(TankChoosen.data.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, 144, 144)
-        love.graphics.draw(TankChoosen.data.armor.hull_image_line, ww - 144, wh/2 - 142, a, 1, 1, 144, 144)
-        love.graphics.draw(TankChoosen.data.turret_image_line, ww - 144, wh/2 - 142, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
-        love.graphics.draw(TankChoosen.data.aim.line_image, ww - 144, wh/2 - 142, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
-        love.graphics.draw(TankChoosen.data.armor.turret_image_line, ww - 144, wh/2 - 142, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
+        local x,y = cam:cameraCoords(TankChoosen.location.x, TankChoosen.location.y)
+        love.graphics.draw(Choosen_icon, x - 10, y + 32*cam.scale)
+        love.graphics.setCanvas(TPscreen)
+        love.graphics.draw(tank_info_panel, 0, 0)
+        love.graphics.draw(TankChoosen.data.hull_image_line, 144, 144, a, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.data.armor.hull_image_line, 144, 144, a, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.data.turret_image_line, 144, 144, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.data.aim.line_image, 144, 144, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.data.armor.turret_image_line, 144, 144, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
         love.graphics.setFont(Rtextfont)
         love.graphics.setColor(0,179/255,0)
-        love.graphics.print(TankChoosen.data.name..' No.'..TankChoosen.data.number, ww - 288 + 4, wh/2 - 286 + 4)
-        love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', ww - 288 + 4, wh/2 - 286 + 268)
+        love.graphics.print(TankChoosen.data.name..' No.'..TankChoosen.data.number, 0 + 4, 0 + 4)
+        love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', 0 + 4, 0 + 268)
         if TankChoosen.data.reload_timer >= 0 then
-            love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.data.reload_timer)..' s', ww - 288 + 144, wh/2 - 286 + 268)
+            love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.data.reload_timer)..' s', 0 + 144, 0 + 268)
         end
         love.graphics.setColor(1,1,1)
 
@@ -119,6 +123,8 @@ function TankInfoPanel:draw()
         TankCrewDraw()
         TankAmmoDraw()
         TankStateDraw()
+        love.graphics.setCanvas()
+        love.graphics.draw(TPscreen, TankInfoPanel.window.x, TankInfoPanel.window.y)
     end
 end
 
@@ -127,11 +133,11 @@ function TankCrewDraw()
     local m = 0
 
     while n < TankChoosen.data.crew do
-        love.graphics.draw(injured_crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*n, wh/2)
+        love.graphics.draw(injured_crew_icon, 144 - 28*TankChoosen.data.crew/2 + 28*n, 288)
         n = n + 1
     end
     while m < TankChoosen.data.survivor do
-        love.graphics.draw(crew_icon, ww - 144 - 28*TankChoosen.data.crew/2 + 28*m, wh/2)
+        love.graphics.draw(crew_icon, 144 - 28*TankChoosen.data.crew/2 + 28*m, 288)
         m = m + 1
     end
 end
@@ -154,22 +160,22 @@ function TankAmmoDraw()
     end
     love.graphics.setColor(0,179/255,0)
     if #TankChoosen.data.ammorack == 0 then
-        love.graphics.print('NO AMMO', ww - 288 + 4, wh/2 - 286 + 390)
+        love.graphics.print('NO AMMO', 0 + 4, 0 + 390)
     end
     if apfsds ~= 0 then
         i = i + 1
-        love.graphics.draw(APFSDS_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
-        love.graphics.print(apfsds, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
+        love.graphics.draw(APFSDS_icon, 0 + 36*i - 20, 0 + 390)
+        love.graphics.print(apfsds, 0 + 36*i - 8, 0 + 411)
     end
     if he ~= 0 then
         i = i + 1
-        love.graphics.draw(HE_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
-        love.graphics.print(he, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
+        love.graphics.draw(HE_icon, 0 + 36*i - 20, 0 + 390)
+        love.graphics.print(he, 0 + 36*i - 8, 0 + 411)
     end
     if heat ~= 0 then
         i = i + 1
-        love.graphics.draw(HEAT_icon, ww - 288 + 36*i - 20, wh/2 - 286 + 390)
-        love.graphics.print(heat, ww - 288 + 36*i - 8, wh/2 - 286 + 411)
+        love.graphics.draw(HEAT_icon, 0 + 36*i - 20, 0 + 390)
+        love.graphics.print(heat, 0 + 36*i - 8, 0 + 411)
     end
     love.graphics.setColor(1,1,1)
 end
@@ -178,25 +184,51 @@ function TankStateDraw()
     --tank status update
     local s = 1
     if TankChoosen.status.era[1] then
-        love.graphics.draw(TankChoosen.status.era[2], ww - 288 + 16, wh/2 - 286 + 48*s)
+        love.graphics.draw(TankChoosen.status.era[2], 0 + 16, 0 + 48*s)
         s = s + 1
     end
     if TankChoosen.status.onfire[1] then
-        love.graphics.draw(TankChoosen.status.onfire[2], ww - 288 + 16, wh/2 - 286 + 48*s)
+        love.graphics.draw(TankChoosen.status.onfire[2], 0 + 16, 0 + 48*s)
         s = s + 1
     end
     if TankChoosen.status.Immobilized[1] then
-        love.graphics.draw(TankChoosen.status.Immobilized[2], ww - 288 + 16, wh/2 - 286 + 48*s)
+        love.graphics.draw(TankChoosen.status.Immobilized[2], 0 + 16, 0 + 48*s)
         s = s + 1
     end
     
     if TankChoosen.functions.move == ManulControlfunction then
-        love.graphics.draw(ManulControlOn_icon, ww - 288 + 10, wh/2 - 286 + 515)
+        love.graphics.draw(ManulControlOn_icon, 0 + 10, 0 + 519)
     end
     if TankChoosen.functions.move == FortifyControlfunction then
-        love.graphics.draw(FortifyOn_icon, ww - 288 + 78, wh/2 - 286 + 461)
+        love.graphics.draw(FortifyOn_icon, 0 + 78, 0 + 465)
     end
     if TankChoosen.compCom then
-        love.graphics.draw(SetCommanderOn_icon, ww - 288 + 10, wh/2 - 286 + 461)
+        love.graphics.draw(SetCommanderOn_icon, 0 + 10, 0 + 465)
+    end
+end
+
+--TPscreen.window draggie
+function TPmousepressed(x, y, button)
+    -- Check if the mouse is inside the TDscreen.window
+    if x >= TankInfoPanel.window.x and x <= TankInfoPanel.window.x + TankInfoPanel.window.w and
+     y >= TankInfoPanel.window.y and y <= TankInfoPanel.window.y + TankInfoPanel.window.h then
+        Cursormode = 'dragging'
+        TankInfoPanel.dragging = true
+       -- Calculate the offset between the mouse position and the TDscreen.window position
+       TankInfoPanel.offsetX = x - TankInfoPanel.window.x
+       TankInfoPanel.offsetY = y - TankInfoPanel.window.y
+    end
+end
+ 
+function TPmousereleased(x, y, button)
+    -- Stop dragging when the mouse is released
+    TankInfoPanel.dragging = false
+end
+ 
+function TPmousemoved(x, y, dx, dy)
+    -- Update the TDscreen.window position if the user is dragging it
+    if TankInfoPanel.dragging then
+        TankInfoPanel.window.x = x - TankInfoPanel.offsetX
+        TankInfoPanel.window.y = y - TankInfoPanel.offsetY
     end
 end

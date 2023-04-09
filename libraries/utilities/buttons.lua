@@ -75,6 +75,28 @@ function buttons.newToolButton(picture, fn, buttons, bx, by, pictureHot, picture
     return instance
 end
 
+function buttons.newWindowToolButton(picture, fn, window, buttons, bx, by, pictureHot, picturepressed, pictureOn)
+    local instance = {
+        type = 2.5,
+        state = 'Off',
+        pic = picture,
+        picture = picture,
+        pictureHot = pictureHot or picture,
+        picturepressed = picturepressed or picture,
+        pictureOn = pictureOn or picture,
+        fn = fn,
+        window = window,
+        w = picture:getWidth(),
+        h = picture:getHeight(),
+        bx = bx or picture:getWidth() / 2,
+        by = by or picture:getHeight() / 2,
+        now = true,
+        last = true
+    }
+    table.insert(buttons, instance)
+    return instance
+end
+
 function buttons.newCamButton(picture, fn, buttons, bx, by, pictureHot)
     local instance = {
         type = 3,
@@ -178,6 +200,37 @@ function buttons:use()
             end
             love.graphics.setColor(unpack(ButtonColor))
             love.graphics.draw(button.pic, x, y)
+        end
+
+        if button.type == 2.5 then
+            local x, y = button.bx - button.w / 2 + button.window.x, button.by - button.h / 2 + button.window.y
+            button.Hot = mx>=x and mx<=x+button.w and my>=y and my<=y+button.h
+            button.last = button.now
+            button.now = love.mouse.isDown(1)
+            if button.Hot then
+                Cursor = handcursor
+                button.pic = button.pictureHot
+            else
+                button.pic = button.picture
+            end
+            if button.now and button.Hot then
+                button.pic = button.picturepressed
+            end
+            if button.now and not button.last and button.Hot then
+                button.fn()
+                if button.state == 'On' then
+                    button.state = 'Off'
+                else
+                    button.state = 'On'
+                end
+            end
+            if button.state == 'Off' and not button.Hot then
+                button.pic = button.picture
+            elseif button.state == 'On' and not button.Hot then
+                button.pic = button.pictureOn
+            end
+            love.graphics.setColor(unpack(ButtonColor))
+            love.graphics.draw(button.pic, x - button.window.x, y - button.window.y)
         end
 
         if button.type == 3 then

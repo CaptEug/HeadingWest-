@@ -63,8 +63,7 @@ function WorldmapUI:draw()
     cam:attach()
     if cam.scale >= 1.5 then
         Cbuttons:use()
-    end
-        
+    end   
     cam:detach()
 
     Wbuttons:use()

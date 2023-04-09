@@ -37,28 +37,43 @@ function ingame:update(dt)
     ingameUI:update(dt)
     world:update(dt)
     particleworld:update(dt)
-    tanks_table:update(dt)
-    Ammo.update(dt)
     TankSpawner:update(dt)
     TankProjectiles:update(dt)
-    --psystem:update(dt)
-    
+    --cam contral
     if cam.scale > 2 then
         cam:zoomTo(2)
     end
     if cam.scale < 0.2 then
         cam:zoomTo(0.2)
     end
-    --mouse square selection
+    --mouse input
     function love.mousepressed(x, y, button)
-        if button == 1 then
+        if CurrentPlace.opendesigner then
+            TDmousepressed(x, y, button)
+        end
+        if CurrentPlace.openarmyeditor then
+            AEmousepressed(x, y, button)
+        end
+        if TankPanelopen then
+            TPmousepressed(x, y, button)
+        end
+        if button == 1 and Cursormode == 'normal' then
             selection.active = true
             selection.startX = x
             selection.startY = y
         end
     end
     function love.mousereleased(x, y, button)
-        if button == 1 then
+        if CurrentPlace.opendesigner then
+            TDmousereleased(x, y, button)
+        end
+        if CurrentPlace.openarmyeditor then
+            AEmousereleased(x, y, button)
+        end
+        if TankPanelopen then
+            TPmousereleased(x, y, button)
+        end
+        if button == 1 and selection.active then
             selection.active = false
             selection.endX = x
             selection.endY = y
@@ -75,6 +90,17 @@ function ingame:update(dt)
             end
         end
     end
+    function love.mousemoved(x, y, dx, dy)
+        if CurrentPlace.opendesigner then
+            TDmousemoved(x, y, dx, dy)
+        end
+        if CurrentPlace.openarmyeditor then
+            AEmousemoved(x, y, dx, dy)
+        end
+        if TankPanelopen then
+            TPmousemoved(x, y, dx, dy)
+        end
+    end
 end
 
 function ingame:draw()
@@ -85,7 +111,7 @@ function ingame:draw()
         Shelltrails:draw()
     cam:detach()
     --draw selection
-    if selection.active then
+    if selection.active and Cursormode == 'normal' then
         love.graphics.setColor(0,179/255,0)
         love.graphics.rectangle("line", selection.startX, selection.startY,
         love.mouse.getX() - selection.startX, love.mouse.getY() - selection.startY)

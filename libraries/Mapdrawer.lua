@@ -26,15 +26,6 @@ function loadMap(mapName)
             table.insert(Obstacles, Collider)
         end
     end
-
-    LoadTank()
-    --tank1 = tanks_table:newtank("Assets/tanks/german/MAUS/MAUS.txt", Data.ax , Data.ay, Data.angle)
-    --tank2 = tanks_table:newtank("Assets/tanks/usa/M48A1/M48A1.txt", 1000 , 1000, 0)
-    --tank3 = tanks_table:newtank("Assets/tanks/soviet/T-5455/T-54.txt", 1500 , 1500, 0)
-    --tank4 = tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)
-    --tanks_table:addai(tank1, keybroadcontrol)
-    --tanks_table:addai(tank2,poorai)
-    --tanks_table:addai(tank3,poorai)
 end
 
 function drawMap()
@@ -50,9 +41,7 @@ function drawMap()
         gameMap:drawLayer(gameMap.layers["Buildings"])
     end
 
-    tanks_table:draw()
     TankSpawner:draw_tank()
-    Ammo.draw()
     DrawCollider()
 
     if gameMap.layers["Ceiling"] then
@@ -83,18 +72,4 @@ function DrawCollider()
         local collider_angle = j:getAngle()
         love.graphics.draw(love.graphics.newImage(), collider_x,collider_y, collider_angle, 1, 1, j.width, j.height)
     end]]--
-end
-
-function LoadTank()
-    
-end
-
-function ADDtank()
-    local tankqueue=CurrentPlace.ProductionQueue
-    for i,t in ipairs(tankqueue) do
-        --tank1=tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)
-        tanks_table:newtank("Assets/tanks/soviet/T-72/T-72.txt", 2000 , 2000, 0)
-        --TankSpawner:spawn()
-        TankAdded=false
-    end
 end

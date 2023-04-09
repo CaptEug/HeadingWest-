@@ -21,18 +21,16 @@ function Worldmap:init()
     CityData:load()
     TankData:load()
     WorldmapUI:load()
-
 end
 
 function Worldmap:update(dt)
-
     WorldmapUI:update(dt)
     --secret map
     if love.keyboard.isDown('g') then
         MapNumber=2
         Saving:fileload()
     end
-    
+    --cam contral
     if cam.scale > 4 then
         cam:zoomTo(4)
     end

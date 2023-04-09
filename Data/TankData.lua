@@ -4,6 +4,7 @@ Blank_line = love.graphics.newImage('Assets/tanks/Blank_line.png')
 
 function TankData:load()
     Blank_Gear = {name = 'Blank', steel_cost = 0, oil_cost = 0, line_image = Blank_line, turret_image = Blank_line, hull_image = Blank_line}
+    Tank_Grid = anim8.newGrid(288, 288, 288*7, 288)
 
     T72A = {
         name = 'T-72a',
@@ -33,10 +34,11 @@ function TankData:load()
             hull = {crew = 0.7, ammo = 0.5, engine = 0.5, fuel = 0.4},
             turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
-        hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_hull.png'),
-        hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_Hull_line.png'),
-        turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_turret.png'),
-        turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_Turret_line.png'),
+        hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_hull.png'),
+        hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull_line.png'),
+        turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_turret.png'),
+        turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_line.png'),
+        anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
         accessories = {
             --armor
             {
@@ -50,8 +52,8 @@ function TankData:load()
                     },
                     hull_image = Blank_line,
                     hull_image_line = Blank_line,
-                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_smokegernade_turret.png'),
-                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_smokegernade_turret_line.png'),
+                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret.png'),
+                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret_line.png'),
                     tag = 'Armor',
                     type = 'Coposit'
                 },
@@ -63,10 +65,10 @@ function TankData:load()
                         hull = {front = {5, 400}, side = {5, 400}, back = {0, 0}},
                         turret = {front = {5, 400}, side = {5, 400}, back = {0, 0}}
                     },
-                    hull_image =love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_kontakt1_hull.png'),
-                    hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt1_hull_line.png'),
-                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_kontakt1_turret.png'),
-                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72A_kontakt1_turret_line.png'),
+                    hull_image =love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_hull.png'),
+                    hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_hull_line.png'),
+                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_turret.png'),
+                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_turret_line.png'),
                     tag = 'Armor',
                     type = 'ERA',
                     life = 3
@@ -118,10 +120,10 @@ function TankData:load()
             hull = {crew = 0.7, ammo = 0.5, engine = 0.5, fuel = 0.4},
             turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
-        hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_hull.png'),
-        hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_hull_line.png'),
-        turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_turret.png'),
-        turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_turret_line.png'),
+        hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_hull.png'),
+        hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_hull_line.png'),
+        turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_turret.png'),
+        turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_turret_line.png'),
         accessories = {
             --armor
             {
@@ -148,10 +150,10 @@ function TankData:load()
                         hull = {front = {5, 400}, side = {5, 400}, back = {0, 0}},
                         turret = {front = {5, 400}, side = {5, 400}, back = {0, 0}}
                     },
-                    hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt1_hull.png'),
-                    hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt1_hull_line.png'),
-                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt1_turret.png'),
-                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt1_turret_line.png'),
+                    hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_hull.png'),
+                    hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_hull_line.png'),
+                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_turret.png'),
+                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_turret_line.png'),
                     tag = 'Armor',
                     type = 'ERA',
                     life = 3
@@ -164,10 +166,10 @@ function TankData:load()
                         hull = {front = {120, 450}, side = {120, 450}, back = {0, 0}},
                         turret = {front = {120, 450}, side = {120, 450}, back = {0, 0}}
                     },
-                    hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt5_hull.png'),
-                    hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt5_hull_line.png'),
-                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt5_turret.png'),
-                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72/T72B_kontakt5_turret_line.png'),
+                    hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_hull.png'),
+                    hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_hull_line.png'),
+                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_turret.png'),
+                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_turret_line.png'),
                     tag = 'Armor',
                     type = 'ERA',
                     life = 4

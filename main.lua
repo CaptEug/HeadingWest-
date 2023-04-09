@@ -6,6 +6,7 @@ cam = Camera()
 Gamestate = require "libraries.utilities.gamestate"
 sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
+anim8 = require 'libraries/utilities/anim8'
 require 'libraries/utilities/CGplayer'
 require 'libraries/shaders'
 require 'libraries/utilities/buttons'
@@ -90,7 +91,7 @@ RadioStation_icon = love.graphics.newImage('Assets/pictures/icons/RadioStation.p
 ArmyEditor_icon = love.graphics.newImage('Assets/pictures/Icons/ArmyEditor.png')
 factory_screen = love.graphics.newImage('Assets/pictures/factory_screen.png')
 ArmyEditor_screen = love.graphics.newImage('Assets/pictures/ArmyEditorScreen.png')
-ArmyEditor_screenwlist = love.graphics.newImage('Assets/pictures/ArmyEditorScreenwList.png')
+ArmyEditor_list = love.graphics.newImage('Assets/pictures/ArmyEditorList.png')
 city_page = love.graphics.newImage('Assets/pictures/Citypage.png')
 production_box = love.graphics.newImage('Assets/pictures/Pbox.png')
 tank_info_panel = love.graphics.newImage('Assets/pictures/TankInfoPanel.png')
@@ -104,6 +105,7 @@ HE_icon = love.graphics.newImage('Assets/pictures/Icons/HE.png')
 HEAT_icon = love.graphics.newImage('Assets/pictures/Icons/HEAT.png')
 APFSDS_icon = love.graphics.newImage('Assets/pictures/Icons/APFSDS.png')
 Picked_icon = love.graphics.newImage('Assets/pictures/Icons/Picked.png')
+Choosen_icon = love.graphics.newImage('Assets/pictures/Icons/Choosen.png')
 Coms_icon = love.graphics.newImage('Assets/pictures/Icons/Coms.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
@@ -111,6 +113,7 @@ Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山
 --cursor
 pointcursor = love.mouse.newCursor('Assets/pictures/cursors/PointCursor.png', 0, 0)
 handcursor = love.mouse.newCursor('Assets/pictures/cursors/HandCursor.png', 7, 0)
+sightcursor = love.mouse.newCursor('Assets/pictures/cursors/SightCursor.png', 16, 16)
 --font
 Rtitlefont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 100)
 Rbuttonfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 50)
@@ -132,6 +135,7 @@ function love.load()
     addCollisionClass()
 
     Cursor = pointcursor
+    Cursormode = 'normal'
     love.mouse.setCursor(Cursor)
     Saving:load_settings()
 end
@@ -147,7 +151,9 @@ end
 
 function love.draw()
     --cg1:playCG()
+    --keep cursor 
     Cursor = pointcursor
+    Cursormode = 'normal'
 end
 
 
