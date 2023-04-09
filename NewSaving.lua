@@ -79,7 +79,7 @@ function NewSaving:LoadSettings()
 
 end
 
-function TableToString(table,tableName)
+function TableToString(table,tableName) --convert table to string (prototype)
 
     local str = tableName.." = {\n"..Convert(table,0).."};\n"
     return str
