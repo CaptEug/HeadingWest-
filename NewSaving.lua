@@ -22,7 +22,7 @@ function NewSaving:LoadFile(Number)
     SaveData()
 end
 
-function NewSaving:LoadResource()
+function NewSaving:LoadResource() --use this after LoadFile()
 
     local Resources = SaveData.Resources
     OilProduction = Resources.OilProduction
@@ -166,7 +166,3 @@ function Convert(table,layer)
     layer = layer - 1
     return str,layer
 end
-
-
-
-
