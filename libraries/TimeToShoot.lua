@@ -10,18 +10,20 @@ Datapool = {
     crewknockout = 0
 }
 Shelltrails = {}
+GunParticles = {}
 
 function Shoot(tank)
+    --shell collider
     local round = tank.data.ammorack[1]
-    local ix, iy = math.cos(tank.location.hull_angle+tank.data.turret_angle-math.pi/2) * round.velocity,
-                   math.sin(tank.location.hull_angle+tank.data.turret_angle-math.pi/2) * round.velocity
+    local ix, iy = math.cos(tank.location.hull_angle+tank.data.turret_angle-math.pi/2),
+                   math.sin(tank.location.hull_angle+tank.data.turret_angle-math.pi/2)
     local shell = world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 2)
     shell:setCollisionClass(round.type)
     shell:setBullet(true)
     shell:setRestitution(0.5)
     shell:setLinearDamping(0.01)
     shell:setMass(round.mass)
-    shell:applyLinearImpulse(ix, iy)
+    shell:applyLinearImpulse(ix*round.velocity, iy*round.velocity)
     shell.life = 5
     shell.type = round.type
     shell.pen = round.pen
@@ -96,30 +98,7 @@ function TankProjectiles:update(dt)
 end
 
 function TankProjectiles:draw()
-    --log
-    love.graphics.setColor(1,1,0)
-    love.graphics.setFont(Rtextfont)
-    love.graphics.print('hitPart = '..Datapool.hitPart,0,50)
-    love.graphics.print('hitArmorside = '..Datapool.hitArmorside,0,70)
-    love.graphics.print('impact angle = '..string.format("%.2f",Datapool.impact_angle),0,90)
-    if Datapool.ricochet then
-        love.graphics.print('Ricochet!',0,110)
-    else
-        love.graphics.print('effective_thickness = '..string.format("%.2f",Datapool.effective_thickness)..'mm',0,110)
-        if Datapool.penetration then
-            love.graphics.print('Penetrate!',0,130)
-            for i, m in ipairs(Datapool.hitmodule) do
-                love.graphics.print('Hit '..m,-100+100*i,150)
-            end
-            love.graphics.print(Datapool.crewknockout..' crews were konckout',0,170)
-        else
-            love.graphics.print('NONE Penetration!',0,130)
-        end
-    end
-    love.graphics.setColor(1,1,1)
-end
-
-function Shelltrails:draw()
+    --trail
     for i, trail in ipairs(self) do
         for i = #trail-1, 3, -2 do -- backwards for color trail
             local c = (#trail-(i+1))/#trail
@@ -132,6 +111,30 @@ function Shelltrails:draw()
             love.graphics.setColor (1,1,1)
         end
     end
+end
+
+function PenetrateLog()
+        --log
+        love.graphics.setColor(1,1,0)
+        love.graphics.setFont(Rtextfont)
+        love.graphics.print('hitPart = '..Datapool.hitPart,0,50)
+        love.graphics.print('hitArmorside = '..Datapool.hitArmorside,0,70)
+        love.graphics.print('impact angle = '..string.format("%.2f",Datapool.impact_angle),0,90)
+        if Datapool.ricochet then
+            love.graphics.print('Ricochet!',0,110)
+        else
+            love.graphics.print('effective_thickness = '..string.format("%.2f",Datapool.effective_thickness)..'mm',0,110)
+            if Datapool.penetration then
+                love.graphics.print('Penetrate!',0,130)
+                for i, m in ipairs(Datapool.hitmodule) do
+                    love.graphics.print('Hit '..m,-100+100*i,150)
+                end
+                love.graphics.print(Datapool.crewknockout..' crews were konckout',0,170)
+            else
+                love.graphics.print('NONE Penetration!',0,130)
+            end
+        end
+        love.graphics.setColor(1,1,1)
 end
 
 function RicochetCheck(shell, Target)

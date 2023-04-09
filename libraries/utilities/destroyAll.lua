@@ -1,11 +1,6 @@
 function destroyAll()
     colliderTableDestroy(Structure)
     colliderTableDestroy(Obstacles)
-    colliderTableDestroy(APCBC)
-    colliderTableDestroy(HEAT)
-    colliderTableDestroy(APDS)
-    colliderTableDestroy(Explosion)
-    tanks_table:destroytank()
 end
 
 -- Used for tables of colliders

@@ -2,7 +2,7 @@ Worldmap = {}
 Worldmap = Gamestate.new()
 
 require 'UI/WorldmapUI'
-require 'Data/CityData'
+require 'Data/Cities'
 require 'Data/TankData'
 
 function Worldmap:init()
@@ -11,8 +11,7 @@ function Worldmap:init()
     NewSaving:LoadFile(Filenumber)
     NewSaving:LoadResource()
 
-
-    CityData:load()
+    Cities:load()
     TankData:load()
     WorldmapUI:load()
 end

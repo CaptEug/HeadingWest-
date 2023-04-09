@@ -8,19 +8,17 @@ sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
 anim8 = require 'libraries/utilities/anim8'
 require 'libraries/utilities/CGplayer'
-require 'libraries/shaders'
 require 'libraries/utilities/buttons'
-require 'libraries.Ammo'
-require 'libraries/Airstrike'
-require 'libraries.TankSpawner'
-require 'libraries/Tankfunctions'
-require 'Saving'
-require 'libraries.Mapdrawer'
 require 'libraries/utilities/destroyAll'
 require 'libraries/utilities/show'
 require 'libraries/utilities/copytable'
-require "NewSaving"
 
+require 'libraries/Tankfunctions'
+require 'libraries.TankSpawner'
+require 'libraries.Mapdrawer'
+require 'libraries/shaders'
+
+require "NewSaving"
 --Gamestates required
 require 'gamestates/MainMenu'
 require 'gamestates/ingame'
@@ -134,12 +132,9 @@ function love.load()
     Gamestate.switch(MainMenu)
     world = wf.newWorld(0, 0)
     particleworld = wf.newWorld(0, 0)
-    tanks_table = Tanks.new()
     
     addCollisionClass()
 
-    Cursor = pointcursor
-    Cursormode = 'normal'
     love.mouse.setCursor(Cursor)
     NewSaving:LoadSettings()
 end

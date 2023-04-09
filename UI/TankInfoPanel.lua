@@ -89,6 +89,7 @@ function TankInfoPanel:draw()
         tank.Infobuttons:use()
     end
     cam:detach()
+    --tankinfo on map UI
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         if tank.compCom then
             local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
