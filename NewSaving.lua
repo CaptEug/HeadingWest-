@@ -14,12 +14,12 @@ function NewSaving:LoadFile(Number)
     
     local filename = "file"..tostring(Number)..".lua"
 
-    if love.filesystem.getInfo(filename)==nil then
-        NewSaving:CreateFile(Number)
+    if love.filesystem.getInfo("filetest.lua")==nil then
+        --NewSaving:CreateFile(Number)
     end
 
-    LoadedData = love.filesystem.load(Number)
-
+    SaveData = love.filesystem.load("filetest.lua")
+    SaveData()
 end
 
 function NewSaving:CreateSettings()
@@ -79,7 +79,7 @@ function NewSaving:LoadSettings()
 
 end
 
----test convert
+---TableToString
 ---@param table table
 ---@param tableName string
 ---@return string

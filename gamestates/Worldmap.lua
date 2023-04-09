@@ -10,10 +10,11 @@ function Worldmap:init()
 
     Saving:getdata(Filenumber)
     Data()
-    love.filesystem.write("filetest.lua",TableToString(FileData,"FileData"))
+
+    NewSaving:LoadFile(Filenumber)
     
     OilProduction = Data.OilProduction
-    Oil = Data.Oil
+    Oil = SaveData.Resources.Oil
     SteelProduction = Data.SteelProduction
     Steel = Data.Steel
 
