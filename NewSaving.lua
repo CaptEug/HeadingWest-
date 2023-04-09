@@ -36,6 +36,15 @@ function NewSaving:SaveTanks()
     
     local tankData = {}
 
+    for i, city in ipairs(Cities) do
+        local cityTanks = city.exsist_tank
+        for i, tank in ipairs(cityTanks) do
+            local location = {}
+            local status = {}
+            local name = {}
+        end
+    end
+
     return tankData
 end
 
