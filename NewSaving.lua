@@ -32,6 +32,13 @@ function NewSaving:LoadResource()
 
 end
 
+function NewSaving:SaveTanks()
+    
+    local tankData = {}
+
+    return tankData
+end
+
 function NewSaving:Save(Number)
 
     local filename = "file"..tostring(Number)..".lua"
@@ -51,7 +58,7 @@ function NewSaving:Save(Number)
         Progress = 1 
     }
 
-    --filedata.ExistTanks = CurrentPlace.exsist_tank
+    filedata.ExistTanks = self:SaveTanks()
 
     love.filesystem.write(filename,TableToString(filedata,"SaveData"))
 end
@@ -135,7 +142,7 @@ function Convert(table,layer)
         if type(value) ~= "table" then
             keyValue = tostring(value)
             convertedKey = keyName.." = "..keyValue..";\n"
-        else
+        else if type(value)~= "function" then
             layer = layer+1
             keyValue,layer = Convert(value,layer)
             convertedKey = keyName.." = {\n"..keyValue
@@ -143,6 +150,9 @@ function Convert(table,layer)
                 convertedKey = convertedKey.."    "
             end
             convertedKey = convertedKey.."};\n"
+            else
+
+            end
         end
         for i = 0, layer, 1 do
             convertedKey = "    "..convertedKey
