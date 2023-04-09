@@ -94,31 +94,24 @@ function Convert(table,layer)
         local keyName = tostring(key)
         local keyValue 
         local convertedKey
-
         if type(value) ~= "table" then
             keyValue = tostring(value)
             convertedKey = keyName.." = "..keyValue..";\n"
         else
-            layer=layer+1
+            layer = layer+1
             keyValue,layer = Convert(value,layer)
             convertedKey = keyName.." = {\n"..keyValue
             for i = 0, layer, 1 do
                 convertedKey = convertedKey.."    "
             end
             convertedKey = convertedKey.."};\n"
-
         end
-
         for i = 0, layer, 1 do
             convertedKey = "    "..convertedKey
         end
-
         str = str..convertedKey
-
     end
-
-    layer = layer -1
-
+    layer = layer - 1
     return str,layer
 end
 
