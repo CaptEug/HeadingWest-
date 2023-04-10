@@ -112,6 +112,7 @@ Coms_icon = love.graphics.newImage('Assets/pictures/Icons/Coms.png')
 --particles
 Smoke = love.graphics.newImage('Assets/pictures/particles/smoke.png')
 ExhaustGas = love.graphics.newImage('Assets/pictures/particles/exhaust_gas.png')
+Spark = love.graphics.newImage('Assets/pictures/particles/Spark.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')

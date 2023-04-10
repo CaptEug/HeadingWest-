@@ -61,6 +61,7 @@ function TankSpawner:new_tank(place,new_tankdata)
     tank.particles.enginesmoke:setSizes(0.4, 0.7, 1)
     tank.particles.enginesmoke:setLinearDamping(5)
 	tank.particles.enginesmoke:setColors(1, 1, 1, 1, 1, 1, 1, 0)
+
     tank.firing_timer = 0
     tank.picked = false
     tank.incomp = false
@@ -168,20 +169,22 @@ function TankParticleUpdate(dt)
                        math.sin(tank.location.hull_angle+tank.data.turret_angle-math.pi/2)
         local hx, hy = math.cos(tank.location.hull_angle+tank.data.exhaust_angle), math.sin(tank.location.hull_angle+tank.data.exhaust_angle)
         tank.particles.muzzlesmoke:setPosition(tank.gun_location.x, tank.gun_location.y)
-	    tank.particles.muzzlesmoke:setLinearAcceleration(150*ix+math.random(-30,30), 150*iy+math.random(-30,30)) -- Random movement in all directions.
+	    tank.particles.muzzlesmoke:setLinearAcceleration(150*ix+math.random(-30,30), 150*iy+math.random(-30,30))
         tank.particles.muzzlesmoke:update(dt)
+
         tank.particles.enginesmoke:setPosition(tank.exhaust_location.x, tank.exhaust_location.y)
         tank.particles.enginesmoke:setLinearAcceleration(100*hx+math.random(-50,50), 100*hy+math.random(-50,50))
         tank.particles.enginesmoke:update(dt)
     end
 end
 
-function TankParticlesDraw()
+function TankParticleDraw()
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         if tank.firing_timer > 0 and tank.firing_timer < 0.2 then
             tank.particles.muzzlesmoke:start()
         end
-        love.graphics.draw(tank.particles.muzzlesmoke)
+        love.graphics.draw(tank.particles.muzzleflame)
+        
         if tank.velocity.v > 5 or math.abs(tank.collider:getAngularVelocity()) > 0 then
             tank.particles.enginesmoke:setEmissionRate(50)
         else
