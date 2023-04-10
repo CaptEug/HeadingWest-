@@ -3,7 +3,6 @@ ingame = Gamestate.new()
 
 require 'UI.ingameUI'
 require 'libraries/TimeToShoot'
-require 'Data/Particles'
 function ingame:init()
     Gbuttons = buttons.new()
     Settings = buttons.newToolButton(
@@ -31,6 +30,7 @@ function ingame:update(dt)
     particleworld:update(dt)
     TankSpawner:update(dt)
     TankProjectiles:update(dt)
+    TankParticleUpdate(dt)
     --cam contral
     if cam.scale > 2 then
         cam:zoomTo(2)
@@ -101,7 +101,9 @@ function ingame:draw()
         world:draw()
         particleworld:draw()
         TankProjectiles:draw()
+        TankParticlesDraw()
     cam:detach()
+    
     --draw selection
     if selection.active and Cursormode == 'normal' then
         love.graphics.setColor(0,179/255,0)

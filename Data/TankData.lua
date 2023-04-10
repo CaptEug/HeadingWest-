@@ -12,6 +12,8 @@ function TankData:load()
         length = 127,
         hull_offset=0,
         gun_offset = 109,
+        exhaust_offset = {x = -34, y = -34},
+        exhaust_angle = math.pi,
         weight = 41.5,
         crew = 3,
         max_f_speed = 60,

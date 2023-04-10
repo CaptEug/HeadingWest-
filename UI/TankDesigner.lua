@@ -362,6 +362,8 @@ function Buildtank()
         turret_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         hull_offset = TankPresent.hull_offset,
         gun_offset = TankPresent.gun_offset,
+        exhaust_offset = TankPresent.exhaust_offset,
+        exhaust_angle = TankPresent.exhaust_angle,
         turret_angle = 0,
         armor = copytable(TankPresent.equipment.armor),
         aim = TankPresent.equipment.aim,
