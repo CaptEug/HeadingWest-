@@ -3,11 +3,11 @@ AutoControlfunction = function (i,dt)
 end
 
 ManulControlfunction = function (tank,dt)
-    local hp = 50*tank.data.mob.hp*0.745
+    local hp = 50*tank.mob.hp*0.745
     local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
     local fy = hp*math.sin(tank.location.hull_angle - 0.5*math.pi)
-    local max_f = tank.data.max_f_speed
-    local max_r = math.abs(tank.data.max_r_speed)
+    local max_f = tank.max_f_speed
+    local max_r = math.abs(tank.max_r_speed)
     local speed = tank.velocity.v/5
     local mx, my = cam:mousePosition()
     local isaim = AimCheck(tank, mx, my, dt)
@@ -27,10 +27,10 @@ ManulControlfunction = function (tank,dt)
         tank.collider:applyTorque(5*hp)
     end
 
-    if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.data.ammorack > 0 and isaim and tank.data.reload_timer <= 0 then
+    if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
         Shoot(tank)
         tank.firing_timer = 0.7
-        tank.data.reload_timer = tank.data.reload_time
+        tank.reload_timer = tank.reload_time
     end
 end
 
@@ -42,7 +42,7 @@ AimCheck = function (tank, x, y, dt)
     local isaim = false
     local tx, ty = tank.location.x,tank.location.y
     local angle_to_target = math.atan2(y - ty, x - tx)
-    local ta = tank.data.turret_angle + tank.location.hull_angle - 0.5*math.pi
+    local ta = tank.turret_angle + tank.location.hull_angle - 0.5*math.pi
 
     if angle_to_target <= 0 then
         angle_to_target = angle_to_target + math.pi*2
@@ -55,16 +55,16 @@ AimCheck = function (tank, x, y, dt)
     end
     if ta > angle_to_target then
         if ta - angle_to_target <= math.pi then
-            tank.data.turret_angle = tank.data.turret_angle - 0.5*dt
+            tank.turret_angle = tank.turret_angle - 0.5*dt
         else
-            tank.data.turret_angle = tank.data.turret_angle + 0.5*dt
+            tank.turret_angle = tank.turret_angle + 0.5*dt
         end
     end
     if ta < angle_to_target then
         if angle_to_target - ta <= math.pi then
-            tank.data.turret_angle = tank.data.turret_angle + 0.5*dt
+            tank.turret_angle = tank.turret_angle + 0.5*dt
         else
-            tank.data.turret_angle = tank.data.turret_angle - 0.5*dt
+            tank.turret_angle = tank.turret_angle - 0.5*dt
         end
     end
     if ta < angle_to_target + math.pi/36 and ta > angle_to_target - math.pi/36 then

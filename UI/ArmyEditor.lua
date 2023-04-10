@@ -90,7 +90,7 @@ function ArmyEditor:draw()
                         if unit.type == 'tank' then
                             love.graphics.draw(Tank_icon, 0 + 236, 0 - 20 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight)
                         end
-                        love.graphics.print(unit.data.name..' No.'..unit.data.number, 0 + 256, 0 - 40 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight + 20*i)
+                        love.graphics.print(unit.name..' No.'..unit.number, 0 + 256, 0 - 40 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight + 20*i)
                     end
 
                     regiment.compHight = regiment.compHight + 4 + 20 * #company
@@ -141,7 +141,7 @@ function ArmyEditor:draw()
                 if not tank.incomp then
                     love.graphics.setColor(0,0,0)
                     love.graphics.draw(Tank_icon,  ArmyEditor.window.x + 393, ArmyEditor.window.y + 24 + 20*i)
-                    love.graphics.print(tank.data.name..' No.'..tank.data.number, ArmyEditor.window.x + 415, ArmyEditor.window.y + 24 + 20*i)
+                    love.graphics.print(tank.name..' No.'..tank.number, ArmyEditor.window.x + 415, ArmyEditor.window.y + 24 + 20*i)
                     love.graphics.setColor(1,1,1)
                 end
             end

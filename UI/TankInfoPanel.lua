@@ -106,17 +106,17 @@ function TankInfoPanel:draw()
         love.graphics.draw(Choosen_icon, x - 10, y + 32*cam.scale)
         love.graphics.setCanvas(TPscreen)
         love.graphics.draw(tank_info_panel, 0, 0)
-        love.graphics.draw(TankChoosen.data.hull_image_line, 144, 144, a, 1, 1, 144, 144)
-        love.graphics.draw(TankChoosen.data.armor.hull_image_line, 144, 144, a, 1, 1, 144, 144)
-        love.graphics.draw(TankChoosen.data.turret_image_line, 144, 144, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
-        love.graphics.draw(TankChoosen.data.aim.line_image, 144, 144, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
-        love.graphics.draw(TankChoosen.data.armor.turret_image_line, 144, 144, a+TankChoosen.data.turret_angle, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.hull_image_line, 144, 144, a, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.armor.hull_image_line, 144, 144, a, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.turret_image_line, 144, 144, a+TankChoosen.turret_angle, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.aim.line_image, 144, 144, a+TankChoosen.turret_angle, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.armor.turret_image_line, 144, 144, a+TankChoosen.turret_angle, 1, 1, 144, 144)
         love.graphics.setFont(Rtextfont)
         love.graphics.setColor(0,179/255,0)
-        love.graphics.print(TankChoosen.data.name..' No.'..TankChoosen.data.number, 0 + 4, 0 + 4)
+        love.graphics.print(TankChoosen.name..' No.'..TankChoosen.number, 0 + 4, 0 + 4)
         love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', 0 + 4, 0 + 268)
-        if TankChoosen.data.reload_timer >= 0 then
-            love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.data.reload_timer)..' s', 0 + 144, 0 + 268)
+        if TankChoosen.reload_timer >= 0 then
+            love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s', 0 + 144, 0 + 268)
         end
         love.graphics.setColor(1,1,1)
 
@@ -133,12 +133,12 @@ function TankCrewDraw()
     local n = 0
     local m = 0
 
-    while n < TankChoosen.data.crew do
-        love.graphics.draw(injured_crew_icon, 144 - 28*TankChoosen.data.crew/2 + 28*n, 288)
+    while n < TankChoosen.crew do
+        love.graphics.draw(injured_crew_icon, 144 - 28*TankChoosen.crew/2 + 28*n, 288)
         n = n + 1
     end
-    while m < TankChoosen.data.survivor do
-        love.graphics.draw(crew_icon, 144 - 28*TankChoosen.data.crew/2 + 28*m, 288)
+    while m < TankChoosen.survivor do
+        love.graphics.draw(crew_icon, 144 - 28*TankChoosen.crew/2 + 28*m, 288)
         m = m + 1
     end
 end
@@ -148,7 +148,7 @@ function TankAmmoDraw()
     local apfsds = 0
     local he = 0
     local heat = 0
-    for i, ammo in ipairs(TankChoosen.data.ammorack) do
+    for i, ammo in ipairs(TankChoosen.ammorack) do
         if ammo.type == 'APFSDS' then
             apfsds = apfsds + 1
         end
@@ -160,7 +160,7 @@ function TankAmmoDraw()
         end
     end
     love.graphics.setColor(0,179/255,0)
-    if #TankChoosen.data.ammorack == 0 then
+    if #TankChoosen.ammorack == 0 then
         love.graphics.print('NO AMMO', 0 + 4, 0 + 390)
     end
     if apfsds ~= 0 then

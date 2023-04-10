@@ -22,7 +22,7 @@ function DamageAssessment:armorTypeCaculate(ammunition,tank)
     local dy=ammunition.collider.y-tank.location.y
     local absAngle=math.atan(dy,dx)-tank.location.hull_angle
     local hitArmorType='right'
-    local tankAngleData=tank.data.angleAssess
+    local tankAngleData=tank.angleAssess
 
 
     if tankAngleData.NE<absAngle<-tankAngleData.NE then
@@ -132,7 +132,7 @@ end
 
 
 
---[[tank.data.angleAssess=
+--[[tank.angleAssess=
 {
     NE=math.pi/4;
     SE=-math.pi/4;

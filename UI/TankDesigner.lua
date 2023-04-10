@@ -1,4 +1,5 @@
 TankDesigner = {}
+Tank = {}
 
 function TankDesigner:load()
     TDscreen = love.graphics.newCanvas(640, 480)
@@ -239,10 +240,10 @@ function TankDesigner:update(dt)
             tank.selected_slot=TankSpawner:slot_distribution(CurrentPlace)
         end
         if tank.buildtime <= 0 then
-            TankSpawner:new_tank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
+            TankSpawner:newtank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
-        else
-  
+            CurrentPlace.slot_info[tank.selected_slot].available=true
+            tank.selected_slot=nil
         end
     end
 end
@@ -338,7 +339,8 @@ function TankDesigner:draw()
 end
 
 function Buildtank()
-    local instance = {
+    local tank = {
+        selected_slot = TankSpawner:slot_distribution(CurrentPlace),
         number = tostring(math.random(000,999)),
         name = TankPresent.name,
         width = TankPresent.width,
@@ -370,11 +372,29 @@ function Buildtank()
         mob = TankPresent.equipment.mob,
         buildtime = TankPresent.buildtime,
         fixedbuildtime = TankPresent.buildtime,
-        selected_slot = TankSpawner:slot_distribution(CurrentPlace)
+        velocity={},
+        location={},
+        image_location={},
+        gun_location={},
+        exhaust_location={},
+        functions = {},
+        Infobuttons = {},
+        status = {
+            dead = {false},
+            onfire = {false, Onfire_icon},
+            Immobilized = {false, Immobilized_icon},
+            era = {false, ERA_icon}
+        },
+        firing_timer = 0,
+        picked = false,
+        incomp = false,
+        compCom = false
     }
     Steel = Steel - Tank_steel_cost
     Oil = Oil - Tank_oil_cost
-    table.insert(CurrentPlace.ProductionQueue, 1, instance)
+    setmetatable(tank, Tank)
+    Tank.__index = Tank
+    table.insert(CurrentPlace.ProductionQueue, 1, tank)
     CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
 end
 
