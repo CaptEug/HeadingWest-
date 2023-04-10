@@ -97,8 +97,7 @@ function TankProjectiles:update(dt)
     end
 end
 
-function TankProjectiles:draw()
-    --trail
+function Shelltrails:draw()
     for i, trail in ipairs(self) do
         for i = #trail-1, 3, -2 do -- backwards for color trail
             local c = (#trail-(i+1))/#trail

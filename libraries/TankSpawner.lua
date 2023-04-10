@@ -183,12 +183,11 @@ function TankParticleDraw()
         if tank.firing_timer > 0 and tank.firing_timer < 0.2 then
             tank.particles.muzzlesmoke:start()
         end
-        love.graphics.draw(tank.particles.muzzleflame)
-        
+        love.graphics.draw(tank.particles.muzzlesmoke)
+
         if tank.velocity.v > 5 or math.abs(tank.collider:getAngularVelocity()) > 0 then
             tank.particles.enginesmoke:setEmissionRate(50)
         else
-            
             tank.particles.enginesmoke:setEmissionRate(5)
         end
         love.graphics.draw(tank.particles.enginesmoke)
