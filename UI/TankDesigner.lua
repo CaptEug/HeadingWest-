@@ -1,5 +1,4 @@
 TankDesigner = {}
-Tank = {}
 
 function TankDesigner:load()
     TDscreen = love.graphics.newCanvas(640, 480)
@@ -337,6 +336,8 @@ function TankDesigner:draw()
             love.graphics.draw(TDscreen, TankDesigner.window.x, TankDesigner.window.y)
         end
 end
+
+
 
 function Buildtank()
     local tank = {

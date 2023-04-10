@@ -1,8 +1,10 @@
-AutoControlfunction = function (i,dt)
+Tank = {}
+
+AutoControlfunction = function(tank, dt)
     
 end
 
-ManulControlfunction = function (tank,dt)
+ManualControlfunction = function(tank, dt)
     local hp = 50*tank.mob.hp*0.745
     local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
     local fy = hp*math.sin(tank.location.hull_angle - 0.5*math.pi)
@@ -10,7 +12,7 @@ ManulControlfunction = function (tank,dt)
     local max_r = math.abs(tank.max_r_speed)
     local speed = tank.velocity.v/5
     local mx, my = cam:mousePosition()
-    local isaim = AimCheck(tank, mx, my, dt)
+    local isaim = tank:AimCheck(mx, my, dt)
 
     cam:lookAt(tank.location.x, tank.location.y)
     
@@ -34,15 +36,15 @@ ManulControlfunction = function (tank,dt)
     end
 end
 
-FortifyControlfunction = function (tank,dt)
+SetFortified = function(tank, dt)
     
 end
 
-AimCheck = function (tank, x, y, dt)
+function Tank:AimCheck(x, y, dt)
     local isaim = false
-    local tx, ty = tank.location.x,tank.location.y
+    local tx, ty = self.location.x,self.location.y
     local angle_to_target = math.atan2(y - ty, x - tx)
-    local ta = tank.turret_angle + tank.location.hull_angle - 0.5*math.pi
+    local ta = self.turret_angle + self.location.hull_angle - 0.5*math.pi
 
     if angle_to_target <= 0 then
         angle_to_target = angle_to_target + math.pi*2
@@ -55,16 +57,16 @@ AimCheck = function (tank, x, y, dt)
     end
     if ta > angle_to_target then
         if ta - angle_to_target <= math.pi then
-            tank.turret_angle = tank.turret_angle - 0.5*dt
+            self.turret_angle = self.turret_angle - 0.5*dt
         else
-            tank.turret_angle = tank.turret_angle + 0.5*dt
+            self.turret_angle = self.turret_angle + 0.5*dt
         end
     end
     if ta < angle_to_target then
         if angle_to_target - ta <= math.pi then
-            tank.turret_angle = tank.turret_angle + 0.5*dt
+            self.turret_angle = self.turret_angle + 0.5*dt
         else
-            tank.turret_angle = tank.turret_angle - 0.5*dt
+            self.turret_angle = self.turret_angle - 0.5*dt
         end
     end
     if ta < angle_to_target + math.pi/36 and ta > angle_to_target - math.pi/36 then
@@ -73,6 +75,104 @@ AimCheck = function (tank, x, y, dt)
     return isaim
 end
 
-function TankDead(tank)
+function Tank:CheckStatus(i)
+    if self.status.era[1] then
+        if self.armor.life <= 0 then
+            self.armor.hull_image = Blank_line
+            self.armor.turret_image = Blank_line
+            self.armor.hull_image_line = Blank_line
+            self.armor.turret_image_line = Blank_line
+            self.status.era[1] = false
+        end
+    end
+
+    if self.survivor <= 0 then
+        self:Dead()
+        table.insert(CurrentPlace.broken_tank, table.remove(CurrentPlace.exsist_tank, i))
+    end
+end
+
+function Tank:Dead()
     
-end 
+end
+
+function Tank:Update(dt)
+    local x,y = self.collider:getPosition()
+    local hull_angle = self.collider:getAngle()
+    local vx, vy = self.collider:getLinearVelocity()
+    self.velocity={vx=vx,vy=vy,v=math.sqrt(vx^2+vy^2)}
+    self.location={x=x,y=y}
+    self.location.hull_angle=hull_angle
+    self.image_location.x,self.image_location.y = x+self.hull_offset*math.sin(hull_angle),y-self.hull_offset*math.cos(hull_angle)
+    self.gun_location.x,self.gun_location.y = x+(self.hull_offset+self.gun_offset)*math.sin(hull_angle+self.turret_angle),
+                                              y-(self.hull_offset+self.gun_offset)*math.cos(self.turret_angle+hull_angle)
+    self.exhaust_location.x, self.exhaust_location.y = x+self.exhaust_offset.y*math.sin(hull_angle)+self.exhaust_offset.x*math.cos(hull_angle),
+                                                       y-self.exhaust_offset.y*math.cos(hull_angle)+self.exhaust_offset.x*math.sin(hull_angle)
+    self.reload_timer = self.reload_timer - dt
+    self.firing_timer = self.firing_timer - dt
+
+    --ainme update
+    if self.firing_timer <= 0 then
+        self.turret_anime:gotoFrame(1)
+    end
+    self.turret_anime:update(dt)
+end
+
+function Tank:Draw()
+    local x, y = self.image_location.x, self.image_location.y
+        local a = self.location.hull_angle
+        love.graphics.draw(self.hull_image,x,y,a,1,1,144,144)
+        love.graphics.draw(self.armor.hull_image,x,y,a,1,1,144,144)
+        self.turret_anime:draw(self.anime_sheet,x,y,a+self.turret_angle,1,1,144,144)
+        love.graphics.draw(self.aim.turret_image,x,y,a+self.turret_angle,1,1,144,144)
+        love.graphics.draw(self.armor.turret_image,x,y,a+self.turret_angle,1,1,144,144)
+end
+
+function Tank:CreatParticles()
+    self.particles = {
+        muzzlesmoke = love.graphics.newParticleSystem(Smoke),
+        enginesmoke = love.graphics.newParticleSystem(ExhaustGas)
+    }
+    self.particles.muzzlesmoke:setEmitterLifetime(1.5)
+    self.particles.muzzlesmoke:setParticleLifetime(2)
+	self.particles.muzzlesmoke:setEmissionRate(50)
+	self.particles.muzzlesmoke:setSizeVariation(1)
+    self.particles.muzzlesmoke:setSizes(0.2, 0.6, 1)
+    self.particles.muzzlesmoke:setLinearDamping(5)
+	self.particles.muzzlesmoke:setColors(1, 1, 1, 1, 1, 1, 1, 0)
+    self.particles.muzzlesmoke:stop()
+
+    self.particles.enginesmoke:setParticleLifetime(2)
+	self.particles.enginesmoke:setEmissionRate(5)
+	self.particles.enginesmoke:setSizeVariation(1)
+    self.particles.enginesmoke:setSizes(0.4, 0.7, 1)
+    self.particles.enginesmoke:setLinearDamping(5)
+	self.particles.enginesmoke:setColors(1, 1, 1, 1, 1, 1, 1, 0)
+end
+
+function Tank:ParticleUpdate(dt)
+    local ix, iy = math.cos(self.location.hull_angle+self.turret_angle-math.pi/2),
+                    math.sin(self.location.hull_angle+self.turret_angle-math.pi/2)
+    local hx, hy = math.cos(self.location.hull_angle+self.exhaust_angle), math.sin(self.location.hull_angle+self.exhaust_angle)
+    self.particles.muzzlesmoke:setPosition(self.gun_location.x, self.gun_location.y)
+	self.particles.muzzlesmoke:setLinearAcceleration(150*ix+math.random(-30,30), 150*iy+math.random(-30,30))
+    self.particles.muzzlesmoke:update(dt)
+
+    self.particles.enginesmoke:setPosition(self.exhaust_location.x, self.exhaust_location.y)
+    self.particles.enginesmoke:setLinearAcceleration(100*hx+math.random(-50,50), 100*hy+math.random(-50,50))
+    self.particles.enginesmoke:update(dt)
+end
+
+function Tank:ParticleDraw()
+    if self.firing_timer > 0 and self.firing_timer < 0.2 then
+        self.particles.muzzlesmoke:start()
+    end
+    love.graphics.draw(self.particles.muzzlesmoke)
+
+    if self.velocity.v > 5 or math.abs(self.collider:getAngularVelocity()) > 0 then
+        self.particles.enginesmoke:setEmissionRate(50)
+    else
+        self.particles.enginesmoke:setEmissionRate(5)
+    end
+    love.graphics.draw(self.particles.enginesmoke)
+end

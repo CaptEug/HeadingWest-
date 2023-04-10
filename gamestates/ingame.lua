@@ -2,6 +2,7 @@ ingame = {}
 ingame = Gamestate.new()
 
 require 'UI.ingameUI'
+require 'libraries/TankSpawner'
 require 'libraries/TimeToShoot'
 function ingame:init()
     Gbuttons = buttons.new()
@@ -30,7 +31,6 @@ function ingame:update(dt)
     particleworld:update(dt)
     TankSpawner:update(dt)
     TankProjectiles:update(dt)
-    TankParticleUpdate(dt)
     --cam contral
     if cam.scale > 2 then
         cam:zoomTo(2)
@@ -101,7 +101,6 @@ function ingame:draw()
         world:draw()
         particleworld:draw()
         Shelltrails:draw()
-        TankParticleDraw()
     cam:detach()
     
     --draw selection

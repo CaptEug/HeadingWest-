@@ -14,8 +14,7 @@ require 'libraries/utilities/show'
 require 'libraries/utilities/copytable'
 
 require 'libraries/Tankfunctions'
-require 'libraries.TankSpawner'
-require 'libraries.Mapdrawer'
+require 'libraries/Mapdrawer'
 require 'libraries/shaders'
 
 require "NewSaving"

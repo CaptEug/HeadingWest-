@@ -25,12 +25,12 @@ function TankInfoPanel:load()
         ManulControl_icon,
         function ()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
-                if tank ~= TankChoosen and tank.functions.move == ManulControlfunction then
+                if tank ~= TankChoosen and tank.functions.move == ManualControlfunction then
                     tank.functions.move = AutoControlfunction
                 end
             end
-            if TankChoosen.functions.move ~= ManulControlfunction then
-                TankChoosen.functions.move = ManulControlfunction
+            if TankChoosen.functions.move ~= ManualControlfunction then
+                TankChoosen.functions.move = ManualControlfunction
             else
                 TankChoosen.functions.move = AutoControlfunction
             end
@@ -60,9 +60,8 @@ function TankInfoPanel:load()
     Fortify = buttons.newWindowToolButton(
         Fortify_icon,
         function ()
-            table.insert(CurrentPlace.Army[1][1][1], TankChoosen)
-            if TankChoosen.functions.move ~= FortifyControlfunction then
-                TankChoosen.functions.move = FortifyControlfunction
+            if TankChoosen.functions.move ~= SetFortified then
+                TankChoosen.functions.move = SetFortified
             else
                 TankChoosen.functions.move = AutoControlfunction
             end
@@ -200,7 +199,7 @@ function TankStateDraw()
     if TankChoosen.functions.move == ManulControlfunction then
         love.graphics.draw(ManulControlOn_icon, 0 + 10, 0 + 519)
     end
-    if TankChoosen.functions.move == FortifyControlfunction then
+    if TankChoosen.functions.move == SetFortified then
         love.graphics.draw(FortifyOn_icon, 0 + 78, 0 + 465)
     end
     if TankChoosen.compCom then
