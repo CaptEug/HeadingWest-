@@ -28,12 +28,12 @@ function TankData:load()
             {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
         },
         armorthickness = {
-            hull = {front = {310, 450}, side = {80, 80}, back = {50, 50}},
-            turret = {front = {450, 550}, side = {300, 300}, back = {70, 70}}
+            hull = {front = {330, 450}, side = {80, 80}, back = {50, 50}},
+            turret = {front = {500, 550}, side = {300, 300}, back = {70, 70}}
         },
         innerstructure = {
             htl = 0.7,
-            hull = {crew = 0.7, ammo = 0.5, engine = 0.5, fuel = 0.4},
+            hull = {crew = 0.7, ammo = 0.5, engine = 0.3, fuel = 0.5},
             turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_hull.png'),
@@ -119,7 +119,7 @@ function TankData:load()
         },
         innerstructure = {
             htl = 0.7,
-            hull = {crew = 0.7, ammo = 0.5, engine = 0.5, fuel = 0.4},
+            hull = {crew = 0.7, ammo = 0.5, engine = 0.3, fuel = 0.5},
             turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_hull.png'),
@@ -228,7 +228,7 @@ function TankData:load()
         },
         innerstructure = {
             htl = 0.7,
-            hull = {crew = 0.7, ammo = 0.5, engine = 0.5, fuel = 0.4},
+            hull = {crew = 0.7, ammo = 0.5, engine = 0.3, fuel = 0.5},
             turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/T-90/T90_hull.png'),
@@ -305,7 +305,7 @@ function TankData:load()
     }
     table.insert(Nizhny_Tagil.tanklist, T90)
 
-    Leopard2A4={
+    Leopard2A4 = {
         name = 'Leopard2A4',
         width = 64,
         length = 134,
@@ -378,5 +378,75 @@ function TankData:load()
         buildtime = 10
     }
     table.insert(Nizhny_Tagil.tanklist, Leopard2A4)
+
+    M1 = {
+        name = 'M1',
+        width = 66,
+        length = 140,
+        hull_offset = 0,
+        gun_offset = 109,
+        exhaust_offset = {x = 0, y = -77},
+        exhaust_angle = math.pi*3/2,
+        weight = 55,
+        crew = 4,
+        max_f_speed = 72,
+        max_r_speed = 38,
+        steel_cost = 0,
+        oil_cost = 0,
+        reload_time = 6,
+        ammorack_size = 40,
+        ammunition = {
+            {name = 'M900', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 530},
+        },
+        armorthickness = {
+            hull = {front = {400, 750}, side = {60, 60}, back = {30, 30}},
+            turret = {front = {410, 800}, side = {200, 350}, back = {20, 20}}
+        },
+        innerstructure = {
+            htl = 0.6,
+            hull = {crew = 0.7, ammo = 0, engine = 0.4, fuel = 0.4},
+            turret = {crew = 0.8, ammo = 0.3, engine = 0, fuel = 0}
+        },
+        hull_image = love.graphics.newImage('Assets/tanks/usa/M1/M1_Hull.png'),
+        --hull_image_line = love.graphics.newImage(),
+        turret_image = love.graphics.newImage('Assets/tanks/usa/M1/M1_Turret.png'),
+        --turret_image_line = love.graphics.newImage(),
+        anime_sheet = love.graphics.newImage('Assets/tanks/usa/M1/M1_firingsprite.png'),
+        accessories = {
+            --armor
+            {
+                {
+                    name = 'BASE_ARMOR',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
+                        turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
+                    },
+                    hull_image = Blank_line,
+                    hull_image_line = Blank_line,
+                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret.png'),
+                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret_line.png'),
+                    tag = 'Armor',
+                    type = 'Coposit'
+                }
+            },
+            --aim
+            {
+
+            },
+            --mob
+            {
+                {
+                    name = 'Honeywell AGT1500',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    line_image = Blank_line,
+                    hp = 1500,
+                    tag = 'Mob'
+                }
+            }
+        }
+    }
 end
 

@@ -236,13 +236,13 @@ function TankDesigner:update(dt)
         if tank.selected_slot~=0 then
             tank.buildtime = tank.buildtime - dt
         else
-            tank.selected_slot=TankSpawner:slot_distribution(CurrentPlace)
+            tank.selected_slot = TankSpawner:slot_distribution(CurrentPlace)
         end
         if tank.buildtime <= 0 then
             TankSpawner:newtank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
-            CurrentPlace.slot_info[tank.selected_slot].available=true
-            tank.selected_slot=nil
+            CurrentPlace.slot_info[tank.selected_slot].available = true
+            tank.selected_slot = nil
         end
     end
 end
@@ -340,8 +340,10 @@ end
 
 
 function Buildtank()
+    local selected_slot = TankSpawner:slot_distribution(CurrentPlace)
     local tank = {
-        selected_slot = TankSpawner:slot_distribution(CurrentPlace),
+        selected_slot = selected_slot,
+        type = 'Friendly',
         number = tostring(math.random(000,999)),
         name = TankPresent.name,
         width = TankPresent.width,
@@ -373,11 +375,11 @@ function Buildtank()
         mob = TankPresent.equipment.mob,
         buildtime = TankPresent.buildtime,
         fixedbuildtime = TankPresent.buildtime,
-        velocity={},
-        location={},
-        image_location={},
-        gun_location={},
-        exhaust_location={},
+        velocity = {},
+        location = {x = CurrentPlace.slot_info[selected_slot].x, y = CurrentPlace.slot_info[selected_slot].y},
+        image_location = {},
+        gun_location = {},
+        exhaust_location = {},
         functions = {},
         Infobuttons = {},
         status = {
