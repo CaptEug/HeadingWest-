@@ -12,7 +12,7 @@ function ingameUI:load()
     RadioStation = buttons.newToolButton(
         RadioStation_icon,
         function ()
-            CityData:playRadio(CurrentPlace.songlist)
+            Cities:playRadio(CurrentPlace.songlist)
         end,
         DefButtons,
         ww - 16,
@@ -80,5 +80,5 @@ function ingameUI:draw()
     if CurrentPlace.state == 'Battlefield' then
         
     end
-    TankProjectiles:draw()
+    PenetrateLog()
 end

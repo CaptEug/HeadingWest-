@@ -239,10 +239,10 @@ function TankDesigner:update(dt)
             tank.selected_slot=TankSpawner:slot_distribution(CurrentPlace)
         end
         if tank.buildtime <= 0 then
-            TankSpawner:new_tank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
+            TankSpawner:newtank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
-        else
-  
+            CurrentPlace.slot_info[tank.selected_slot].available=true
+            tank.selected_slot=nil
         end
     end
 end
@@ -337,8 +337,11 @@ function TankDesigner:draw()
         end
 end
 
+
+
 function Buildtank()
-    local instance = {
+    local tank = {
+        selected_slot = TankSpawner:slot_distribution(CurrentPlace),
         number = tostring(math.random(000,999)),
         name = TankPresent.name,
         width = TankPresent.width,
@@ -362,17 +365,37 @@ function Buildtank()
         turret_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         hull_offset = TankPresent.hull_offset,
         gun_offset = TankPresent.gun_offset,
+        exhaust_offset = TankPresent.exhaust_offset,
+        exhaust_angle = TankPresent.exhaust_angle,
         turret_angle = 0,
         armor = copytable(TankPresent.equipment.armor),
         aim = TankPresent.equipment.aim,
         mob = TankPresent.equipment.mob,
         buildtime = TankPresent.buildtime,
         fixedbuildtime = TankPresent.buildtime,
-        selected_slot = TankSpawner:slot_distribution(CurrentPlace)
+        velocity={},
+        location={},
+        image_location={},
+        gun_location={},
+        exhaust_location={},
+        functions = {},
+        Infobuttons = {},
+        status = {
+            dead = {false},
+            onfire = {false, Onfire_icon},
+            Immobilized = {false, Immobilized_icon},
+            era = {false, ERA_icon}
+        },
+        firing_timer = 0,
+        picked = false,
+        incomp = false,
+        compCom = false
     }
     Steel = Steel - Tank_steel_cost
     Oil = Oil - Tank_oil_cost
-    table.insert(CurrentPlace.ProductionQueue, 1, instance)
+    setmetatable(tank, Tank)
+    Tank.__index = Tank
+    table.insert(CurrentPlace.ProductionQueue, 1, tank)
     CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
 end
 

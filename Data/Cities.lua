@@ -1,9 +1,7 @@
-CityData = {}
 Cities = {}
 Alltanks = {}
 
-
-function CityData:load()
+function Cities:load()
     --RadioList
     TestSonglist = {
         {love.audio.newSource('Assets/audio/music/KINO/Кино - Кукушка.mp3', 'stream')},
@@ -97,7 +95,7 @@ function CityData:load()
 
 end
 
-function CityData:playRadio(songlist)
+function Cities:playRadio(songlist)
     local songindex = math.random(0, #songlist-1)
     if love.audio.getActiveSourceCount( ) then
         love.audio.stop()

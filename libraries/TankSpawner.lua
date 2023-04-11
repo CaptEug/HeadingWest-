@@ -14,44 +14,19 @@ function TankSpawner:slot_distribution(place)
     if slot_full==true then
         selected_slot=0
     end
-
-return selected_slot
+    return selected_slot
 end
 
-function TankSpawner:new_tank(place,new_tankdata)
-    local x,y=place.slot_info[new_tankdata.selected_slot].x,place.slot_info[new_tankdata.selected_slot].y
-    local w,h=new_tankdata.width,new_tankdata.length
-    local tank = {}
-    tank.collider = world:newRectangleCollider(x,y,w,h)
+function TankSpawner:newtank(place,tank)
+    tank.collider = world:newRectangleCollider(place.slot_info[tank.selected_slot].x, place.slot_info[tank.selected_slot].y, tank.width, tank.length)
     tank.collider:setCollisionClass('tankhull')
     tank.collider:setObject(tank)
-    tank.collider:setMass(new_tankdata.weight)
+    tank.collider:setMass(tank.weight)
     tank.collider:setRestitution(0.1)
     tank.collider:setLinearDamping(5)
     tank.collider:setAngularDamping(5)
-    tank.data = new_tankdata
-    tank.velocity={}
-    tank.location={}
-    tank.image_location={}
-    tank.gun_location={}
-    tank.functions = {}
-    tank.functions.move = AutoControlfunction
-    tank.status = {
-        dead = {false},
-        onfire = {false, Onfire_icon},
-        Immobilized = {false, Immobilized_icon},
-        era = {false, ERA_icon}
-    }
-    tank.isfiring = false
-    tank.firing_timer = 0
-    tank.picked = false
-    tank.incomp = false
-    tank.compCom = false
-    if tank.data.armor.type == 'ERA' then
-        tank.status.era[1] = true
-    end
     tank.Infobuttons = buttons.new()
-    local tankbutton = buttons.newCampicButton(
+    buttons.newCampicButton(
         invisible_button,
         function ()
             TankPanelopen = true
@@ -63,20 +38,21 @@ function TankSpawner:new_tank(place,new_tankdata)
                 end
             end
         end,
-        tank.Infobuttons,
-        x,
-        y
+        tank.Infobuttons
     )
-
+    if tank.armor.type == 'ERA' then
+        tank.status.era[1] = true
+    end
+    tank.functions.move = AutoControlfunction
+    tank:CreatParticles()
     table.insert(place.exsist_tank, tank)
-    place.slot_info[new_tankdata.selected_slot].available=true
-    new_tankdata.selected_slot=nil
 end
 
 function TankSpawner:update(dt)
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        TankUpdate(tank,dt)
-        StatusCheck(tank,i)
+        tank:Update(dt)
+        tank:CheckStatus(i)
+        tank:ParticleUpdate(dt)
         tank.functions.move(tank,dt)
     end
 end
@@ -86,57 +62,12 @@ function TankSpawner:draw_tank()
         if tank.collider==nil then
             return nil
         end
-
-        local x,y=tank.image_location.x,tank.image_location.y
-        local a=tank.location.hull_angle
-
-        love.graphics.draw(tank.data.hull_image,x,y,a,1,1,144,144)
-        love.graphics.draw(tank.data.armor.hull_image,x,y,a,1,1,144,144)
-        --love.graphics.draw(tank.data.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
-        tank.data.turret_anime:draw(tank.data.anime_sheet,x,y,a+tank.data.turret_angle,1,1,144,144)
-        love.graphics.draw(tank.data.aim.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
-        love.graphics.draw(tank.data.armor.turret_image,x,y,a+tank.data.turret_angle,1,1,144,144)
-        
+        tank:Draw()
+        tank:ParticleDraw()
         --decide cursor
-        if tank.functions.move == ManulControlfunction then
+        if tank.functions.move == ManualControlfunction then
             Cursor = sightcursor
             Cursormode = 'firing'
         end
-    end
-end
-
-TankUpdate = function (tank,dt)
-    local x,y=tank.collider:getPosition()
-    local hull_angle=tank.collider:getAngle()
-    local vx, vy = tank.collider:getLinearVelocity()
-    tank.velocity={vx=vx,vy=vy,v=math.sqrt(vx^2+vy^2)}
-    tank.location={x=x,y=y}
-    tank.location.hull_angle=hull_angle
-    tank.image_location.x,tank.image_location.y=x+tank.data.hull_offset*math.sin(hull_angle),y-tank.data.hull_offset*math.cos(hull_angle)
-    tank.gun_location.x,tank.gun_location.y = x+(tank.data.hull_offset+tank.data.gun_offset)*math.sin(hull_angle+tank.data.turret_angle),
-                                              y-(tank.data.hull_offset+tank.data.gun_offset)*math.cos(tank.data.turret_angle+hull_angle)
-    tank.data.reload_timer = tank.data.reload_timer - dt
-    --ainme update
-    tank.firing_timer = tank.firing_timer - dt
-    if tank.firing_timer <= 0 then
-        tank.data.turret_anime:gotoFrame(1)
-    end
-    tank.data.turret_anime:update(dt)
-end
-
-StatusCheck = function (tank, i)
-    if tank.status.era[1] then
-        if tank.data.armor.life <= 0 then
-            tank.data.armor.hull_image = Blank_line
-            tank.data.armor.turret_image = Blank_line
-            tank.data.armor.hull_image_line = Blank_line
-            tank.data.armor.turret_image_line = Blank_line
-            tank.status.era[1] = false
-        end
-    end
-
-    if tank.data.survivor <= 0 then
-        TankDead(tank)
-        table.insert(CurrentPlace.broken_tank, table.remove(CurrentPlace.exsist_tank, i))
     end
 end

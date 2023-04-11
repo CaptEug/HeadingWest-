@@ -37,7 +37,7 @@ function MainMenu:init()
         MMbuttons
     )
 
-    FILE1 = buttons.newPicButton(
+    FILE1 = buttons.newToolButton(
         Stalin,
         function()
             MMbuttons.isopen = true
@@ -45,10 +45,12 @@ function MainMenu:init()
             Filenumber=1
             Gamestate.switch(Worldmap)
         end,
-        Lbuttons
+        Lbuttons,
+        0,0,
+        StalinRed
     )
 
-    FILE2 = buttons.newPicButton(
+    FILE2 = buttons.newToolButton(
         Khrushchev,
         function()
             MMbuttons.isopen = true
@@ -56,10 +58,12 @@ function MainMenu:init()
             Filenumber=2
             Gamestate.switch(Worldmap)
         end,
-        Lbuttons
+        Lbuttons,
+        0,0,
+        KhrushchevRed
     )
 
-    FILE3 = buttons.newPicButton(
+    FILE3 = buttons.newToolButton(
         Brezhnev,
         function()
             MMbuttons.isopen = true
@@ -67,7 +71,9 @@ function MainMenu:init()
             Filenumber=3
             Gamestate.switch(Worldmap)
         end,
-        Lbuttons
+        Lbuttons,
+        0,0,
+        BrezhnevRed
     )
 
     BackL = buttons.newButton(
@@ -125,6 +131,7 @@ function MainMenu:draw()
     end
 
     if Lbuttons.isopen then
+        love.graphics.setColor(1,1,1)
         love.graphics.setFont(Rtitlefont)
         love.graphics.print("SAVED FILES", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("SAVED FILES") / 2, 0)
         Lbuttons:use()

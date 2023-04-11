@@ -8,19 +8,16 @@ sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
 anim8 = require 'libraries/utilities/anim8'
 require 'libraries/utilities/CGplayer'
-require 'libraries/shaders'
 require 'libraries/utilities/buttons'
-require 'libraries.Ammo'
-require 'libraries/Airstrike'
-require 'libraries.TankSpawner'
-require 'libraries/Tankfunctions'
-require 'Saving'
-require 'libraries.Mapdrawer'
 require 'libraries/utilities/destroyAll'
 require 'libraries/utilities/show'
 require 'libraries/utilities/copytable'
-require "NewSaving"
 
+require 'libraries/Tankfunctions'
+require 'libraries/Mapdrawer'
+require 'libraries/shaders'
+
+require "NewSaving"
 --Gamestates required
 require 'gamestates/MainMenu'
 require 'gamestates/ingame'
@@ -42,8 +39,11 @@ FR_flag = love.graphics.newImage('Assets/countries/FR_Flag.png')
 PL_flag = love.graphics.newImage('Assets/countries/PL_Flag.png')
 --botton
 Stalin = love.graphics.newImage('Assets/pictures/Stalin.png')
+StalinRed = love.graphics.newImage('Assets/pictures/Stalin_red.png')
 Khrushchev = love.graphics.newImage('Assets/pictures/Khrushchev.png')
+KhrushchevRed = love.graphics.newImage('Assets/pictures/Khrushchev_red.png')
 Brezhnev = love.graphics.newImage('Assets/pictures/Brezhnev.png')
+BrezhnevRed = love.graphics.newImage('Assets/pictures/Brezhnev_red.png')
 City_capital = love.graphics.newImage('Assets/pictures/Icons/City_capital.png')
 City_capital_Hot = love.graphics.newImage('Assets/pictures/Icons/City_capital_Hot.png')
 City_normal = love.graphics.newImage('Assets/pictures/Icons/City_normal.png')
@@ -108,6 +108,10 @@ APFSDS_icon = love.graphics.newImage('Assets/pictures/Icons/APFSDS.png')
 Picked_icon = love.graphics.newImage('Assets/pictures/Icons/Picked.png')
 Choosen_icon = love.graphics.newImage('Assets/pictures/Icons/Choosen.png')
 Coms_icon = love.graphics.newImage('Assets/pictures/Icons/Coms.png')
+--particles
+Smoke = love.graphics.newImage('Assets/pictures/particles/smoke.png')
+ExhaustGas = love.graphics.newImage('Assets/pictures/particles/exhaust_gas.png')
+Spark = love.graphics.newImage('Assets/pictures/particles/Spark.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
@@ -131,12 +135,9 @@ function love.load()
     Gamestate.switch(MainMenu)
     world = wf.newWorld(0, 0)
     particleworld = wf.newWorld(0, 0)
-    tanks_table = Tanks.new()
     
     addCollisionClass()
 
-    Cursor = pointcursor
-    Cursormode = 'normal'
     love.mouse.setCursor(Cursor)
     NewSaving:LoadSettings()
 end

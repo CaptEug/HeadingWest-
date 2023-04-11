@@ -1,7 +1,8 @@
 ingame = {}
 ingame = Gamestate.new()
-require "entity_test.tanks_new"
+
 require 'UI.ingameUI'
+require 'libraries/TankSpawner'
 require 'libraries/TimeToShoot'
 function ingame:init()
     Gbuttons = buttons.new()
@@ -15,22 +16,13 @@ function ingame:init()
         wh - 16
     )
 
-    --[[Saving:getdata(Filenumber)
-    Data()]]
-
     local map=Maps[MapNumber]
     loadMap(map)
     ingameUI:load()
 
+    --square selection
     selection = {}
     selection.active = false
-
-    --[[psystem = love.graphics.newParticleSystem(PlaneIcon, 32)
-    psystem:setParticleLifetime(2, 5) -- Particles live at least 2s and at most 5s.
-	psystem:setEmissionRate(5)
-	psystem:setSizeVariation(1)
-	psystem:setLinearAcceleration(-20, -20, 20, 20) -- Random movement in all directions.
-	psystem:setColors(1, 1, 1, 1, 1, 1, 1, 0) -- Fade to transparency.]]
 end
 
 function ingame:update(dt)
@@ -110,6 +102,7 @@ function ingame:draw()
         particleworld:draw()
         Shelltrails:draw()
     cam:detach()
+    
     --draw selection
     if selection.active and Cursormode == 'normal' then
         love.graphics.setColor(0,179/255,0)
