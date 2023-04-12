@@ -61,7 +61,7 @@ end
 
 function Tank:AimCheck(x, y, dt)
     local isaim = false
-    local tx, ty = self.location.x,self.location.y
+    local tx, ty = self.image_location.x, self.image_location.y
     local angle_to_target = math.atan2(y - ty, x - tx)
     local ta = self.turret_angle + self.location.hull_angle - 0.5*math.pi
     local tspeed = self.turret_t_speed * math.pi/180
@@ -120,14 +120,14 @@ function Tank:Update(dt)
     local x,y = self.collider:getPosition()
     local hull_angle = self.collider:getAngle()
     local vx, vy = self.collider:getLinearVelocity()
-    self.velocity={vx=vx,vy=vy,v=math.sqrt(vx^2+vy^2)}
-    self.location={x=x,y=y}
-    self.location.hull_angle=hull_angle
-    self.image_location.x, self.image_location.y = x+self.hull_offset*math.sin(hull_angle),y-self.hull_offset*math.cos(hull_angle)
-    self.gun_location.x, self.gun_location.y = self.image_location.x+(self.hull_offset+self.gun_offset)*math.sin(hull_angle+self.turret_angle),
-    self.image_location.y-(self.hull_offset+self.gun_offset)*math.cos(self.turret_angle+hull_angle)
-    self.exhaust_location.x, self.exhaust_location.y = self.image_location.x+self.exhaust_offset.y*math.sin(hull_angle)+self.exhaust_offset.x*math.cos(hull_angle),
-                                                       self.image_location.y-self.exhaust_offset.y*math.cos(hull_angle)+self.exhaust_offset.x*math.sin(hull_angle)
+    self.velocity = {vx = vx, vy = vy, v = math.sqrt(vx^2 + vy^2)}
+    self.location = {x = x, y = y}
+    self.location.hull_angle = hull_angle
+    self.image_location.x, self.image_location.y = x + self.hull_offset*math.sin(hull_angle), y - self.hull_offset*math.cos(hull_angle)
+    self.gun_location.x, self.gun_location.y = self.image_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
+                                               self.image_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
+    self.exhaust_location.x, self.exhaust_location.y = self.image_location.x + self.exhaust_offset.y*math.sin(hull_angle) + self.exhaust_offset.x*math.cos(hull_angle),
+                                                       self.image_location.y - self.exhaust_offset.y*math.cos(hull_angle) + self.exhaust_offset.x*math.sin(hull_angle)
     self.reload_timer = self.reload_timer - dt
     self.firing_timer = self.firing_timer - dt
 
@@ -174,7 +174,8 @@ function Tank:ParticleUpdate(dt)
     local ix, iy = math.cos(self.location.hull_angle+self.turret_angle-math.pi/2),
                     math.sin(self.location.hull_angle+self.turret_angle-math.pi/2)
     local hx, hy = math.cos(self.location.hull_angle+self.exhaust_angle), math.sin(self.location.hull_angle+self.exhaust_angle)
-    self.particles.muzzlesmoke:setPosition(self.gun_location.x, self.gun_location.y)
+    self.particles.muzzlesmoke:setPosition(self.gun_location.x + 4*math.sin(self.location.hull_angle+self.turret_angle),
+                                           self.gun_location.y - 4*math.cos(self.location.hull_angle+self.turret_angle))
 	self.particles.muzzlesmoke:setLinearAcceleration(150*ix+math.random(-30,30), 150*iy+math.random(-30,30))
     self.particles.muzzlesmoke:update(dt)
 
