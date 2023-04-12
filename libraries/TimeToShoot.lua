@@ -118,7 +118,7 @@ function PenetrateLog()
         love.graphics.setFont(Rtextfont)
         love.graphics.print('hitPart = '..Datapool.hitPart,0,50)
         love.graphics.print('hitArmorside = '..Datapool.hitArmorside,0,70)
-        love.graphics.print('impact angle = '..string.format("%.2f",Datapool.impact_angle),0,90)
+        love.graphics.print('impact angle = '..string.format("%.2f",Datapool.impact_angle*180/math.pi)..' Degree',0,90)
         if Datapool.ricochet then
             love.graphics.print('Ricochet!',0,110)
         else
@@ -149,22 +149,22 @@ function RicochetCheck(shell, Target)
     local impact_angle = 0
 
     if hitvalue < Target.innerstructure.htl then
-        local position_angle = Target.location.hull_angle-math.atan2(y-Target.location.y, x-Target.location.x)
-        if position_angle < 0 then
+        hitPart = 'Hull'
+        local position_angle = Target.location.hull_angle - math.atan2(y-Target.location.y, x-Target.location.x)
+        while position_angle < 0 do
             position_angle = position_angle + 2*math.pi
         end
-        if position_angle > 2*math.pi then
+        while position_angle > 2*math.pi do
             position_angle = position_angle - 2*math.pi
         end
         local diagonal = 0
         local dangle = Target.location.hull_angle - vangle
-        if dangle < 0 then
+        while dangle < 0 do
             dangle = dangle + 2*math.pi
         end
-        if dangle > 2*math.pi then
+        while dangle > 2*math.pi do
             dangle = dangle - 2*math.pi
         end
-        hitPart = 'Hull'
         diagonal = math.atan2(Target.length, Target.width)
         if position_angle > 2*math.pi-diagonal or position_angle < diagonal then
             hitArmorside = 'Right'
@@ -198,10 +198,10 @@ function RicochetCheck(shell, Target)
     else
         hitPart = 'Turret'
         local dangle = Target.location.hull_angle + Target.turret_angle - vangle
-        if dangle < 0 then
+        while dangle < 0 do
             dangle = dangle + 2*math.pi
         end
-        if dangle > 2*math.pi then
+        while dangle > 2*math.pi do
             dangle = dangle - 2*math.pi
         end
         if dangle > math.pi*7/4 or dangle < math.pi/4 then
@@ -235,6 +235,13 @@ function RicochetCheck(shell, Target)
         end
     end
 
+    while impact_angle < 0 do
+        impact_angle = impact_angle + 2*math.pi
+    end
+    while impact_angle > 2*math.pi do
+        impact_angle = impact_angle - 2*math.pi
+    end
+
     --impact_angle acquire and ricochet check
     if impact_angle < ra then
         ricochet = false
@@ -259,7 +266,7 @@ function PenCheck(shell, Target, hitPart, hitArmorside, angle)
     local armorthickness = 0
     local erathickness = 0
     local cosFi = math.cos(angle)
-    
+
     if hitPart == 'Hull' then
         if hitArmorside == 'Front' then
             armorpart = Target.armorthickness.hull.front
@@ -295,7 +302,7 @@ function PenCheck(shell, Target, hitPart, hitArmorside, angle)
                 end
         end
     end
-    
+
     if pentype == 'KE' then
         armorthickness = armorpart[1]
         if Target.status.era[1] then
@@ -358,7 +365,6 @@ function DamageCheck(shell, Target, penpart)
 end
 
 function Killcrew(tank, rate)
-    local crew = tank.crew
     if math.random() <= rate and tank.survivor > 0 then
         tank.survivor = tank.survivor - 1
         Datapool.crewknockout = Datapool.crewknockout + 1

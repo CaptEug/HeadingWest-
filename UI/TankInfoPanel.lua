@@ -198,7 +198,7 @@ function TankStateDraw()
         s = s + 1
     end
     
-    if TankChoosen.functions.move == ManulControlfunction then
+    if TankChoosen.functions.move == ManualControlfunction then
         love.graphics.draw(ManulControlOn_icon, 0 + 10, 0 + 519)
     end
     if TankChoosen.functions.move == SetFortified then
