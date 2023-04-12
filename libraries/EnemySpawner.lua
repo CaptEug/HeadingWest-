@@ -22,6 +22,7 @@ function BuildEnemytank(place, tank, x, y)
         innerstructure = tank.innerstructure,
         max_f_speed = tank.max_f_speed,
         max_r_speed = tank.max_r_speed,
+        vision = tank.vision,
         hull_image = tank.hull_image,
         hull_image_line = tank.hull_image_line,
         turret_image = tank.turret_image,

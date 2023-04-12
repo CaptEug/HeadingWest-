@@ -66,10 +66,14 @@ function TankSpawner:draw_tank()
         end
         tank:Draw()
         tank:ParticleDraw()
+
         --decide cursor
         if tank.functions.move == ManualControlfunction then
             Cursor = sightcursor
             Cursormode = 'firing'
         end
+
+        --draw vision circle
+        love.graphics.circle("line", tank.location.x, tank.location.y, tank.vision)
     end
 end
