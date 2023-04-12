@@ -25,7 +25,7 @@ function ingame:init()
     selection = {}
     selection.active = false
 
-    BuildEnemytank(CurrentPlace, M1, 1000, 500)
+    BuildEnemytank(CurrentPlace, M1, 1500, 500)
 end
 
 function ingame:update(dt)

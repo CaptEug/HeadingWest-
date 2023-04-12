@@ -359,6 +359,7 @@ function Buildtank()
         innerstructure = TankPresent.innerstructure,
         max_f_speed = TankPresent.max_f_speed,
         max_r_speed = TankPresent.max_r_speed,
+        turret_t_speed = TankPresent.turret_t_speed,
         vision = TankPresent.vision,
         hull_image = TankPresent.hull_image,
         hull_image_line = TankPresent.hull_image_line,

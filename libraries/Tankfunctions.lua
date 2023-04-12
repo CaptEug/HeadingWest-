@@ -15,6 +15,11 @@ AutoControlfunction = function(tank, dt)
     end
     if alert then
         local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
+        if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
+            Shoot(tank)
+            tank.firing_timer = 0.7
+            tank.reload_timer = tank.reload_time
+        end
     end
 end
 
@@ -59,6 +64,7 @@ function Tank:AimCheck(x, y, dt)
     local tx, ty = self.location.x,self.location.y
     local angle_to_target = math.atan2(y - ty, x - tx)
     local ta = self.turret_angle + self.location.hull_angle - 0.5*math.pi
+    local tspeed = self.turret_t_speed * math.pi/180
 
     if angle_to_target <= 0 then
         angle_to_target = angle_to_target + math.pi*2
@@ -71,16 +77,16 @@ function Tank:AimCheck(x, y, dt)
     end
     if ta > angle_to_target then
         if ta - angle_to_target <= math.pi then
-            self.turret_angle = self.turret_angle - 0.5*dt
+            self.turret_angle = self.turret_angle - tspeed*dt
         else
-            self.turret_angle = self.turret_angle + 0.5*dt
+            self.turret_angle = self.turret_angle + tspeed*dt
         end
     end
     if ta < angle_to_target then
         if angle_to_target - ta <= math.pi then
-            self.turret_angle = self.turret_angle + 0.5*dt
+            self.turret_angle = self.turret_angle + tspeed*dt
         else
-            self.turret_angle = self.turret_angle - 0.5*dt
+            self.turret_angle = self.turret_angle - tspeed*dt
         end
     end
     if ta < angle_to_target + math.pi/36 and ta > angle_to_target - math.pi/36 then
@@ -117,11 +123,11 @@ function Tank:Update(dt)
     self.velocity={vx=vx,vy=vy,v=math.sqrt(vx^2+vy^2)}
     self.location={x=x,y=y}
     self.location.hull_angle=hull_angle
-    self.image_location.x,self.image_location.y = x+self.hull_offset*math.sin(hull_angle),y-self.hull_offset*math.cos(hull_angle)
-    self.gun_location.x,self.gun_location.y = x+(self.hull_offset+self.gun_offset)*math.sin(hull_angle+self.turret_angle),
-                                              y-(self.hull_offset+self.gun_offset)*math.cos(self.turret_angle+hull_angle)
-    self.exhaust_location.x, self.exhaust_location.y = x+self.exhaust_offset.y*math.sin(hull_angle)+self.exhaust_offset.x*math.cos(hull_angle),
-                                                       y-self.exhaust_offset.y*math.cos(hull_angle)+self.exhaust_offset.x*math.sin(hull_angle)
+    self.image_location.x, self.image_location.y = x+self.hull_offset*math.sin(hull_angle),y-self.hull_offset*math.cos(hull_angle)
+    self.gun_location.x, self.gun_location.y = self.image_location.x+(self.hull_offset+self.gun_offset)*math.sin(hull_angle+self.turret_angle),
+    self.image_location.y-(self.hull_offset+self.gun_offset)*math.cos(self.turret_angle+hull_angle)
+    self.exhaust_location.x, self.exhaust_location.y = self.image_location.x+self.exhaust_offset.y*math.sin(hull_angle)+self.exhaust_offset.x*math.cos(hull_angle),
+                                                       self.image_location.y-self.exhaust_offset.y*math.cos(hull_angle)+self.exhaust_offset.x*math.sin(hull_angle)
     self.reload_timer = self.reload_timer - dt
     self.firing_timer = self.firing_timer - dt
 

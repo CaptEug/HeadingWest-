@@ -5,7 +5,7 @@ function Enemy:load()
     
 end
 function BuildEnemytank(place, tank, x, y)
-    local tank = {
+    local enemy = {
         type = 'Enemy',
         number = tostring(math.random(000,999)),
         name = tank.name,
@@ -22,6 +22,7 @@ function BuildEnemytank(place, tank, x, y)
         innerstructure = tank.innerstructure,
         max_f_speed = tank.max_f_speed,
         max_r_speed = tank.max_r_speed,
+        turret_t_speed = tank.turret_t_speed,
         vision = tank.vision,
         hull_image = tank.hull_image,
         hull_image_line = tank.hull_image_line,
@@ -57,7 +58,10 @@ function BuildEnemytank(place, tank, x, y)
         incomp = false,
         compCom = false
     }
-    setmetatable(tank, Tank)
+    while #enemy.ammorack < enemy.ammorack_size do
+        table.insert(enemy.ammorack, tank.ammunition[1])
+    end
+    setmetatable(enemy, Tank)
     Tank.__index = Tank
-    TankSpawner:newtank(place, tank)
+    TankSpawner:newtank(place, enemy)
 end
