@@ -383,10 +383,10 @@ function TankData:load()
         name = 'M1',
         width = 66,
         length = 140,
-        hull_offset = 0,
+        hull_offset = 7,
         gun_offset = 109,
         exhaust_offset = {x = 0, y = -77},
-        exhaust_angle = math.pi*3/2,
+        exhaust_angle = math.pi/2,
         weight = 55,
         crew = 4,
         max_f_speed = 72,
@@ -425,8 +425,8 @@ function TankData:load()
                     },
                     hull_image = Blank_line,
                     hull_image_line = Blank_line,
-                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret.png'),
-                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret_line.png'),
+                    turret_image = Blank_line,
+                    turret_image_line = Blank_line,
                     tag = 'Armor',
                     type = 'Coposit'
                 }

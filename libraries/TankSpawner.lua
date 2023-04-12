@@ -17,7 +17,7 @@ function TankSpawner:slot_distribution(place)
     return selected_slot
 end
 
-function TankSpawner:newtank(place,tank)
+function TankSpawner:newtank(place, tank)
     tank.collider = world:newRectangleCollider(tank.location.x, tank.location.y, tank.width, tank.length)
     tank.collider:setCollisionClass('tankhull')
     tank.collider:setObject(tank)
@@ -25,21 +25,23 @@ function TankSpawner:newtank(place,tank)
     tank.collider:setRestitution(0.1)
     tank.collider:setLinearDamping(5)
     tank.collider:setAngularDamping(5)
-    tank.Infobuttons = buttons.new()
-    buttons.newCampicButton(
-        invisible_button,
-        function ()
-            TankPanelopen = true
-            TankChoosen = tank
-            TankChoosen.picked = true
-            for i, tank in ipairs(CurrentPlace.exsist_tank) do
-                if tank ~= TankChoosen and tank.picked then
-                    tank.picked = false
+    if tank.type == 'Friendly' then
+        tank.Infobuttons = buttons.new()
+        buttons.newCampicButton(
+            invisible_button,
+            function ()
+                TankPanelopen = true
+                TankChoosen = tank
+                TankChoosen.picked = true
+                for i, tank in ipairs(CurrentPlace.exsist_tank) do
+                    if tank ~= TankChoosen and tank.picked then
+                        tank.picked = false
+                    end
                 end
-            end
-        end,
-        tank.Infobuttons
-    )
+            end,
+            tank.Infobuttons
+        )
+    end
     if tank.armor.type == 'ERA' then
         tank.status.era[1] = true
     end

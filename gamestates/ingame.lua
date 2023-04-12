@@ -3,6 +3,7 @@ ingame = Gamestate.new()
 
 require 'UI.ingameUI'
 require 'libraries/TankSpawner'
+require 'libraries/EnemySpawner'
 require 'libraries/TimeToShoot'
 function ingame:init()
     Gbuttons = buttons.new()
@@ -23,6 +24,8 @@ function ingame:init()
     --square selection
     selection = {}
     selection.active = false
+
+    BuildEnemytank(CurrentPlace, M1, 1000, 500)
 end
 
 function ingame:update(dt)
@@ -75,7 +78,9 @@ function ingame:update(dt)
                 local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
                 if ((x > selection.startX and x < selection.endX) or (x < selection.startX and x > selection.endX)) and 
                 ((y > selection.startY and y < selection.endY) or (y < selection.startY and y > selection.endY)) then
-                    tank.picked = true
+                    if tank.type == 'Friendly' then
+                        tank.picked = true
+                    end
                 else
                     tank.picked = false
                 end

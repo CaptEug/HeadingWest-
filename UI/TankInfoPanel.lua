@@ -85,7 +85,9 @@ end
 function TankInfoPanel:draw()
     cam:attach()
     for i,tank in ipairs(CurrentPlace.exsist_tank) do
-        tank.Infobuttons:use()
+        if tank.type == 'Friendly' then
+            tank.Infobuttons:use()
+        end
     end
     cam:detach()
     --tankinfo on map UI
