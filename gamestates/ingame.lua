@@ -107,7 +107,7 @@ function ingame:draw()
         DrawMapUp()
         world:draw()
         particleworld:draw()
-        Shelltrails:draw()
+        TankProjectiles:draw()
     cam:detach()
     
     --draw selection
@@ -128,6 +128,6 @@ function ingame:drawWithoutUI()
         DrawMapUp()
         world:draw()
         particleworld:draw()
-        Shelltrails:draw()
+        TankProjectiles:draw()
     cam:detach()
 end

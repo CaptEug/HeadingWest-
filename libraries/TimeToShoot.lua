@@ -9,7 +9,6 @@ Datapool = {
     hitmodule = {},
     crewknockout = 0
 }
-Shelltrails = {}
 GunParticles = {}
 
 function Shoot(tank)
@@ -23,13 +22,12 @@ function Shoot(tank)
     shell:setRestitution(0.5)
     shell:setLinearDamping(0.01)
     shell:setMass(round.mass)
-    shell:applyLinearImpulse(ix*round.velocity, iy*round.velocity)
+    shell:applyLinearImpulse(ix*round.velocity/5, iy*round.velocity/5)
     shell.life = 5
     shell.type = round.type
     shell.pen = round.pen
     shell.pentype = round.pentype
     shell.trail = {}
-    table.insert(Shelltrails, shell.trail)
     table.insert(TankProjectiles, shell)
     table.remove(tank.ammorack, 1)
 end
@@ -38,13 +36,11 @@ function TankProjectiles:update(dt)
     for i, shell in ipairs(self) do
         shell.life = shell.life - dt
         local sx, sy = shell:getPosition()
-        table.insert (shell.trail, 1, sy)
-	    table.insert (shell.trail, 1, sx)
+        table.insert(shell.trail, {x = sx, y = sy})
 
         if shell:enter('Wall') then
             shell:destroy()
             table.remove(self, i)
-            table.remove(Shelltrails, i)
         end
 
         if shell:enter('tankhull') then
@@ -56,59 +52,38 @@ function TankProjectiles:update(dt)
             if Target.status.era[1] then
                 Target.armor.life = Target.armor.life - 1
             end
-            
+
             if not ricochet then
                 ispen = PenCheck(shell, Target, hitPart, hitArmorside, angle)
                 shell:destroy()
                 table.remove(self, i)
-                table.remove(Shelltrails, i)
             end
-            
+
             if ispen then
                 DamageCheck(shell, Target, hitPart)
             end
-            
+        end
+
+        if #shell.trail > 20 then
+            table.remove(shell.trail, 1)
         end
 
         if shell.life <= 0 then
             shell:destroy()
             table.remove(self, i)
-            table.remove(Shelltrails, i)
-        end
-    end
-
-    --trail
-    for i, trail in ipairs(Shelltrails) do
-        local trailTimer = 0
-        if #trail > 2 then
-            trailTimer = trailTimer + dt
-            while trailTimer > 0.01 do
-                trailTimer = trailTimer - 0.01
-                -- remove two last coordinates:
-                trail[#trail] = nil
-                trail[#trail] = nil
-            end
-        end
-        if #trail > 5*2 then
-            for i = #trail, 5*2+1, -1 do -- backwards
-                trail[i] = nil
-            end
         end
     end
 end
 
-function Shelltrails:draw()
-    for i, trail in ipairs(self) do
-        for i = #trail-1, 3, -2 do -- backwards for color trail
-            local c = (#trail-(i+1))/#trail
-            local w = 4*c
-            love.graphics.setLineWidth (w)
-            love.graphics.setColor (1,0,0,c)
-            love.graphics.line (trail[i-2], trail[i-1], trail[i], trail[i+1])
-            love.graphics.circle ('fill', trail[i], trail[i+1], w/2)
-            love.graphics.setLineWidth (1)
-            love.graphics.setColor (1,1,1)
+function TankProjectiles:draw()
+    for i, shell in ipairs(self) do
+        for i = 1, #shell.trail - 1 do
+            local p1, p2 = shell.trail[i], shell.trail[i+1]
+            love.graphics.setColor(1, 0.2, 0.2, i / #shell.trail) -- Set the color of the line
+            love.graphics.setLineWidth(2)
+            love.graphics.line(p1.x, p1.y, p2.x, p2.y) -- Draw the line segment
         end
+        love.graphics.setLineWidth(1)
     end
 end
 

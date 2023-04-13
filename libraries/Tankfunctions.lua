@@ -42,10 +42,10 @@ ManualControlfunction = function(tank, dt)
         tank.collider:applyForce(-fx, -fy)
     end
     if love.keyboard.isDown('a') then
-        tank.collider:applyTorque(-3*hp)
+        tank.collider:applyTorque(-5*hp)
     end
     if love.keyboard.isDown('d') then
-        tank.collider:applyTorque(3*hp)
+        tank.collider:applyTorque(5*hp)
     end
 
     if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
@@ -106,8 +106,10 @@ function Tank:CheckStatus(i)
         end
     end
 
-    if self.status.onfire then
-        
+    if self.status.onfire[1] then
+        self.particles.onfire:start()
+    else
+        self.particles.onfire:stop()
     end
 
     if self.status.immobilized[1] then
@@ -174,8 +176,7 @@ function Tank:CreatParticles()
 	self.particles.muzzlesmoke:setColors(1, 1, 1, 1, 1, 1, 1, 0)
     self.particles.muzzlesmoke:stop()
 
-    self.particles.enginesmoke:setParticleLifetime(1)
-	self.particles.enginesmoke:setEmissionRate(5)
+    self.particles.enginesmoke:setParticleLifetime(0.5)
 	self.particles.enginesmoke:setSizeVariation(0.5)
     self.particles.enginesmoke:setSizes(0.4, 1)
     self.particles.enginesmoke:setLinearDamping(5)
@@ -187,6 +188,7 @@ function Tank:CreatParticles()
     self.particles.onfire:setSizes(0.2, 1)
     self.particles.onfire:setLinearDamping(5)
 	self.particles.onfire:setColors(1, 1, 1, 1, 1, 0.2, 0, 1, 0, 0, 0, 0)
+    self.particles.onfire:stop()
 end
 
 function Tank:ParticleUpdate(dt)
@@ -199,7 +201,7 @@ function Tank:ParticleUpdate(dt)
     self.particles.muzzlesmoke:update(dt)
 
     self.particles.enginesmoke:setPosition(self.exhaust_location.x, self.exhaust_location.y)
-    self.particles.enginesmoke:setLinearAcceleration(100*hx+math.random(-50,50), 100*hy+math.random(-50,50))
+    self.particles.enginesmoke:setLinearAcceleration(150*hx+math.random(-50,50), 150*hy+math.random(-50,50))
     self.particles.enginesmoke:update(dt)
 
     self.particles.onfire:setPosition(self.engine_location.x + math.random(-3,3), self.engine_location.y + math.random(-3,3))
@@ -216,7 +218,7 @@ function Tank:ParticleDraw()
     if self.velocity.v > 5 or math.abs(self.collider:getAngularVelocity()) > 0 then
         self.particles.enginesmoke:setEmissionRate(50)
     else
-        self.particles.enginesmoke:setEmissionRate(5)
+        self.particles.enginesmoke:setEmissionRate(10)
     end
     love.graphics.draw(self.particles.enginesmoke)
 

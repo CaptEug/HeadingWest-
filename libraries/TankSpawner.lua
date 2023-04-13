@@ -24,7 +24,7 @@ function TankSpawner:newtank(place, tank)
     tank.collider:setMass(tank.weight)
     tank.collider:setRestitution(0.1)
     tank.collider:setLinearDamping(3)
-    tank.collider:setAngularDamping(3)
+    tank.collider:setAngularDamping(5)
     if tank.type == 'Friendly' then
         tank.Infobuttons = buttons.new()
         buttons.newCampicButton(
