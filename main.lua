@@ -23,7 +23,7 @@ require 'gamestates/MainMenu'
 require 'gamestates/ingame'
 require 'gamestates/Pause'
 require 'gamestates/Worldmap'
-require 'gamestates/SettingMenu'
+require 'gamestates/SettingMenawu'
 
 --Assets registered
 --country
