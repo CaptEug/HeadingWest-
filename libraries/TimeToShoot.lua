@@ -354,7 +354,7 @@ function DamageCheck(shell, Target, penpart)
     else
         Killcrew(Target, crew)
         if math.random() <= engine then
-            Target.status.Immobilized[1] = true
+            Target.status.immobilized[1] = true
             table.insert(Datapool.hitmodule, 'engine')
         end
         if math.random() <= fuel then

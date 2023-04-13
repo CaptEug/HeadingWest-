@@ -193,8 +193,8 @@ function TankStateDraw()
         love.graphics.draw(TankChoosen.status.onfire[2], 0 + 16, 0 + 48*s)
         s = s + 1
     end
-    if TankChoosen.status.Immobilized[1] then
-        love.graphics.draw(TankChoosen.status.Immobilized[2], 0 + 16, 0 + 48*s)
+    if TankChoosen.status.immobilized[1] then
+        love.graphics.draw(TankChoosen.status.immobilized[2], 0 + 16, 0 + 48*s)
         s = s + 1
     end
     

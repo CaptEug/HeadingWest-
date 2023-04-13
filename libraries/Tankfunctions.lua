@@ -42,10 +42,10 @@ ManualControlfunction = function(tank, dt)
         tank.collider:applyForce(-fx, -fy)
     end
     if love.keyboard.isDown('a') then
-        tank.collider:applyTorque(-2*hp)
+        tank.collider:applyTorque(-3*hp)
     end
     if love.keyboard.isDown('d') then
-        tank.collider:applyTorque(2*hp)
+        tank.collider:applyTorque(3*hp)
     end
 
     if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
@@ -106,6 +106,15 @@ function Tank:CheckStatus(i)
         end
     end
 
+    if self.status.onfire then
+        
+    end
+
+    if self.status.immobilized[1] then
+        self.mob.hp = 0
+        self.particles.enginesmoke:stop()
+    end
+
     if self.survivor <= 0 then
         self:Dead()
         table.insert(CurrentPlace.broken_tank, table.remove(CurrentPlace.exsist_tank, i))
@@ -126,6 +135,8 @@ function Tank:Update(dt)
     self.image_location.x, self.image_location.y = x + self.hull_offset*math.sin(hull_angle), y - self.hull_offset*math.cos(hull_angle)
     self.gun_location.x, self.gun_location.y = self.image_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
                                                self.image_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
+    self.engine_location.x, self.engine_location.y = self.image_location.x + (self.engine_offset)*math.sin(hull_angle),
+                                                     self.image_location.y - (self.engine_offset)*math.cos(hull_angle)
     self.exhaust_location.x, self.exhaust_location.y = self.image_location.x + self.exhaust_offset.y*math.sin(hull_angle) + self.exhaust_offset.x*math.cos(hull_angle),
                                                        self.image_location.y - self.exhaust_offset.y*math.cos(hull_angle) + self.exhaust_offset.x*math.sin(hull_angle)
     self.reload_timer = self.reload_timer - dt
@@ -151,23 +162,31 @@ end
 function Tank:CreatParticles()
     self.particles = {
         muzzlesmoke = love.graphics.newParticleSystem(Smoke),
-        enginesmoke = love.graphics.newParticleSystem(ExhaustGas)
+        enginesmoke = love.graphics.newParticleSystem(ExhaustGas),
+        onfire = love.graphics.newParticleSystem(Fire),
     }
     self.particles.muzzlesmoke:setEmitterLifetime(1.5)
     self.particles.muzzlesmoke:setParticleLifetime(2)
 	self.particles.muzzlesmoke:setEmissionRate(50)
-	self.particles.muzzlesmoke:setSizeVariation(1)
-    self.particles.muzzlesmoke:setSizes(0.2, 0.6, 1)
+	self.particles.muzzlesmoke:setSizeVariation(0.5)
+    self.particles.muzzlesmoke:setSizes(0.2, 1)
     self.particles.muzzlesmoke:setLinearDamping(5)
 	self.particles.muzzlesmoke:setColors(1, 1, 1, 1, 1, 1, 1, 0)
     self.particles.muzzlesmoke:stop()
 
-    self.particles.enginesmoke:setParticleLifetime(2)
+    self.particles.enginesmoke:setParticleLifetime(1)
 	self.particles.enginesmoke:setEmissionRate(5)
-	self.particles.enginesmoke:setSizeVariation(1)
-    self.particles.enginesmoke:setSizes(0.4, 0.7, 1)
+	self.particles.enginesmoke:setSizeVariation(0.5)
+    self.particles.enginesmoke:setSizes(0.4, 1)
     self.particles.enginesmoke:setLinearDamping(5)
 	self.particles.enginesmoke:setColors(1, 1, 1, 1, 1, 1, 1, 0)
+
+    self.particles.onfire:setParticleLifetime(1)
+	self.particles.onfire:setEmissionRate(50)
+	self.particles.onfire:setSizeVariation(1)
+    self.particles.onfire:setSizes(0.2, 1)
+    self.particles.onfire:setLinearDamping(5)
+	self.particles.onfire:setColors(1, 1, 1, 1, 1, 0.2, 0, 1, 0, 0, 0, 0)
 end
 
 function Tank:ParticleUpdate(dt)
@@ -182,6 +201,10 @@ function Tank:ParticleUpdate(dt)
     self.particles.enginesmoke:setPosition(self.exhaust_location.x, self.exhaust_location.y)
     self.particles.enginesmoke:setLinearAcceleration(100*hx+math.random(-50,50), 100*hy+math.random(-50,50))
     self.particles.enginesmoke:update(dt)
+
+    self.particles.onfire:setPosition(self.engine_location.x + math.random(-3,3), self.engine_location.y + math.random(-3,3))
+    self.particles.onfire:setLinearAcceleration(50, 50, -50, -50)
+    self.particles.onfire:update(dt)
 end
 
 function Tank:ParticleDraw()
@@ -196,4 +219,6 @@ function Tank:ParticleDraw()
         self.particles.enginesmoke:setEmissionRate(5)
     end
     love.graphics.draw(self.particles.enginesmoke)
+
+    love.graphics.draw(self.particles.onfire)
 end
