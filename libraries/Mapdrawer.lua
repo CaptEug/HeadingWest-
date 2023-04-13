@@ -28,7 +28,7 @@ function loadMap(mapName)
     end
 end
 
-function drawMap()
+function DrawMapDown()
     if gameMap.layers["Ground"] then
         gameMap:drawLayer(gameMap.layers["Ground"])
     end
@@ -41,9 +41,10 @@ function drawMap()
         gameMap:drawLayer(gameMap.layers["Buildings"])
     end
 
-    TankSpawner:draw_tank()
     DrawCollider()
+end
 
+function DrawMapUp()
     if gameMap.layers["Ceiling"] then
         gameMap:drawLayer(gameMap.layers["Ceiling"])
     end

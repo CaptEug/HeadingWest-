@@ -102,7 +102,9 @@ end
 
 function ingame:draw()
     cam:attach()
-        drawMap()
+        DrawMapDown()
+        TankSpawner:draw_tank()
+        DrawMapUp()
         world:draw()
         particleworld:draw()
         Shelltrails:draw()

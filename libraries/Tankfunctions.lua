@@ -42,10 +42,10 @@ ManualControlfunction = function(tank, dt)
         tank.collider:applyForce(-fx, -fy)
     end
     if love.keyboard.isDown('a') then
-        tank.collider:applyTorque(-5*hp)
+        tank.collider:applyTorque(-2*hp)
     end
     if love.keyboard.isDown('d') then
-        tank.collider:applyTorque(5*hp)
+        tank.collider:applyTorque(2*hp)
     end
 
     if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
