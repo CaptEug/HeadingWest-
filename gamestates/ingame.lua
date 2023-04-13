@@ -123,7 +123,11 @@ end
 
 function ingame:drawWithoutUI()
     cam:attach()
-        drawMap()
+        DrawMapDown()
+        TankSpawner:draw_tank()
+        DrawMapUp()
         world:draw()
+        particleworld:draw()
+        Shelltrails:draw()
     cam:detach()
 end
