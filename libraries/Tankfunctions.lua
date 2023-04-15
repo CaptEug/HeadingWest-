@@ -183,7 +183,7 @@ ManualControlfunction = function(tank, dt)
         tank.collider:applyTorque(5*hp)
     end
 
-    if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and tank.reload_timer <= 0 then
+    if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
         Shoot(tank)
         tank.firing_timer = 0.7
         tank.reload_timer = tank.reload_time
