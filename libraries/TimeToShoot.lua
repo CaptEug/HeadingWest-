@@ -22,7 +22,7 @@ function Shoot(tank)
     shell:setRestitution(0.5)
     shell:setLinearDamping(0.01)
     shell:setMass(round.mass)
-    shell:applyLinearImpulse(ix*round.velocity/5, iy*round.velocity/5)
+    shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
     shell.life = 5
     shell.type = round.type
     shell.pen = round.pen
@@ -325,6 +325,7 @@ function DamageCheck(shell, Target, penpart)
 
     if math.random() <= ammo then
         Target.survivor = 0
+        Target:Detonate()
         table.insert(Datapool.hitmodule, 'ammorack')
     else
         Killcrew(Target, crew)

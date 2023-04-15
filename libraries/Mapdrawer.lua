@@ -52,6 +52,7 @@ function DrawMapUp()
     if gameMap.layers["Roof"] and cam.scale < 1 then
         love.graphics.setColor(1,1,1,0.5/cam.scale)
         gameMap:drawLayer(gameMap.layers["Roof"])
+        love.graphics.setColor(1,1,1)
     end
 
     if gameMap.layers["Sky"] then

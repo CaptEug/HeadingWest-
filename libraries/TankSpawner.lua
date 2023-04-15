@@ -61,7 +61,7 @@ end
 
 function TankSpawner:draw_tank()
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        if tank.collider==nil then
+        if tank.collider == nil then
             return nil
         end
         tank:Draw()
@@ -75,5 +75,8 @@ function TankSpawner:draw_tank()
 
         --draw vision circle
         love.graphics.circle("line", tank.location.x, tank.location.y, tank.vision)
+    end
+    for i, tank in ipairs(CurrentPlace.broken_tank) do
+        tank:DrawBrokenTank()
     end
 end

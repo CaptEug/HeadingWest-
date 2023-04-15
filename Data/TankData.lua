@@ -23,7 +23,7 @@ function TankData:load()
         vision = 600,
         steel_cost = 7,
         oil_cost = 3,
-        reload_time = 1,
+        reload_time = 7,
         ammorack_size = 40,
         ammunition = {
             {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
@@ -41,8 +41,10 @@ function TankData:load()
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_hull.png'),
         hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull_line.png'),
+        hull_image_broken = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull_Broken.png'),
         turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_turret.png'),
         turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_line.png'),
+        turret_image_broken = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_Broken.png'),
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
         accessories = {
             --armor
@@ -415,8 +417,10 @@ function TankData:load()
         },
         hull_image = love.graphics.newImage('Assets/tanks/usa/M1/M1_Hull.png'),
         --hull_image_line = love.graphics.newImage(),
+        hull_image_broken = Blank_line,
         turret_image = love.graphics.newImage('Assets/tanks/usa/M1/M1_Turret.png'),
         --turret_image_line = love.graphics.newImage(),
+        turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/usa/M1/M1_firingsprite.png'),
         accessories = {
             --armor

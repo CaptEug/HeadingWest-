@@ -3,7 +3,6 @@ ingame = Gamestate.new()
 
 require 'UI.ingameUI'
 require 'libraries/TankSpawner'
-require 'libraries/EnemySpawner'
 require 'libraries/TimeToShoot'
 function ingame:init()
     Gbuttons = buttons.new()
