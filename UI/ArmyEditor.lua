@@ -4,7 +4,7 @@ function ArmyEditor:load()
     AEscreen = love.graphics.newCanvas(544, 560)
     ArmyEditor.window = {x = 32, y = 32, w = 400, h = 560}
     ArmyEditor.dragging = false
-    CurrentPlace.openarmyeditor = false
+    CurrentPlace.openArmyEditor = false
     CurrentPlace.armyeditormode = false
     CurrentPlace.AEbuttons = buttons.new()
     CurrentPlace.Army.Abuttons = buttons.new()
@@ -46,7 +46,7 @@ function ArmyEditor:update(dt)
 end
 
 function ArmyEditor:draw()
-    if CurrentPlace.openarmyeditor then
+    if CurrentPlace.openArmyEditor then
     love.graphics.setCanvas(AEscreen)
         love.graphics.draw(ArmyEditor_screen)
         love.graphics.setColor(0,0,0)

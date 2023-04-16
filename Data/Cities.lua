@@ -31,7 +31,7 @@ function Cities:load()
         country = {USSR_flag},
         name = 'Nizhny Tagil',
         type = 'Normal',
-        factory = true,
+        factory = 'UralVagonZavod',
         labtory = false,
         state ='Peace',
         map = 3,

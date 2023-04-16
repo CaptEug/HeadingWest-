@@ -4,7 +4,7 @@ function TankDesigner:load()
     TDscreen = love.graphics.newCanvas(640, 480)
     TankDesigner.window = {x = 0, y = 32, w = 640, h = 64}
     TankDesigner.dragging = false
-    CurrentPlace.opendesigner = false
+    CurrentPlace.openTankDesigner = false
     CurrentPlace.Fbuttons = buttons.new()
     CurrentPlace.tankindex = 1
     CurrentPlace.Pageshown = 'Armor'
@@ -252,13 +252,13 @@ function TankDesigner:draw()
 
     TankPresent = CurrentPlace.tanklist[CurrentPlace.tankindex]
 
-        if CurrentPlace.opendesigner then
+        if CurrentPlace.openTankDesigner then
             love.graphics.setCanvas(TDscreen)
             Tank_steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.mob.steel_cost
             Tank_oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.mob.oil_cost
             love.graphics.draw(factory_screen, 0, 0)
             love.graphics.setFont(Rbuttonfont)
-            love.graphics.print(CurrentPlace.name, 0 + 40, 0)
+            love.graphics.print(CurrentPlace.factory, 0 + 40, 0)
             love.graphics.setFont(Rtextfont)
             love.graphics.setColor(0,179/255,0)
             love.graphics.print(TankPresent.name, 0 + 40 + 6, 0 + 64 + 6)

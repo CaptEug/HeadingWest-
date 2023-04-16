@@ -6,6 +6,15 @@ require 'UI/ArmyEditor'
 function ingameUI:load()
     TankInfoPanel:load()
     ArmyEditor:load()
+    if CurrentPlace.state == 'Peace' then
+        if CurrentPlace.factory then
+            TankDesigner:load()
+        end
+    end
+    if CurrentPlace.state == 'Battlefield' then
+
+    end
+
     --buttons in captured
     CurrentPlace.Tbuttons = buttons.new()
     DefButtons = buttons.new() 
@@ -21,44 +30,48 @@ function ingameUI:load()
     ArmyEditor_button = buttons.newToolButton(
         ArmyEditor_icon,
         function ()
-            if CurrentPlace.openarmyeditor then
-                CurrentPlace.openarmyeditor = false
+            if CurrentPlace.openArmyEditor then
+                CurrentPlace.openArmyEditor = false
             else
-                CurrentPlace.openarmyeditor = true
+                CurrentPlace.openArmyEditor = true
             end
         end,
         DefButtons,
         48
     )
 
-    Facbutton = buttons.new()
+    TankFacButtons = buttons.new()
     FacDesigner = buttons.newToolButton(
         Tankdesigner_icon,
         function ()
-            if CurrentPlace.opendesigner then
-                CurrentPlace.opendesigner = false
+            if CurrentPlace.openTankDesigner then
+                CurrentPlace.openTankDesigner = false
             else
-                CurrentPlace.opendesigner = true
+                CurrentPlace.openTankDesigner = true
             end
         end,
-        Facbutton
+        TankFacButtons
     )
 
-    if CurrentPlace.state == 'Peace' then
-        if CurrentPlace.factory == true then
-            TankDesigner:load()
-        end
-    end
-    if CurrentPlace.state == 'Battlefield' then
-
-    end
+    --[[ConstructButtons = buttons.new()
+    ConstructMenu_button = buttons.newToolButton(
+        Constructmenu_icon,
+        function ()
+            if CurrentPlace.openConstructMenu then
+                CurrentPlace.openConstructMenu = false
+            else
+                CurrentPlace.openConstructMenu = true
+            end
+        end,
+        ConstructButtons
+    )]]
 end
 
 function ingameUI:update(dt)
     TankInfoPanel:update(dt)
     ArmyEditor:update(dt)
     if CurrentPlace.state == 'Peace' then
-        if CurrentPlace.factory == true then
+        if CurrentPlace.factory then
             TankDesigner:update(dt)
         end
     end
@@ -72,8 +85,8 @@ function ingameUI:draw()
     DefButtons:use()
     ArmyEditor:draw()
     if CurrentPlace.state == 'Peace' then
-        if CurrentPlace.factory == true then
-            Facbutton:use()
+        if CurrentPlace.factory then
+            TankFacButtons:use()
             TankDesigner:draw()
         end
     end

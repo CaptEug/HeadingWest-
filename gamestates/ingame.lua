@@ -42,10 +42,10 @@ function ingame:update(dt)
     end
     --mouse input
     function love.mousepressed(x, y, button)
-        if CurrentPlace.opendesigner then
+        if CurrentPlace.openTankDesigner then
             TDmousepressed(x, y, button)
         end
-        if CurrentPlace.openarmyeditor then
+        if CurrentPlace.openArmyEditor then
             AEmousepressed(x, y, button)
         end
         if TankPanelopen then
@@ -58,10 +58,10 @@ function ingame:update(dt)
         end
     end
     function love.mousereleased(x, y, button)
-        if CurrentPlace.opendesigner then
+        if CurrentPlace.openTankDesigner then
             TDmousereleased(x, y, button)
         end
-        if CurrentPlace.openarmyeditor then
+        if CurrentPlace.openArmyEditor then
             AEmousereleased(x, y, button)
         end
         if TankPanelopen then
@@ -87,10 +87,10 @@ function ingame:update(dt)
         end
     end
     function love.mousemoved(x, y, dx, dy)
-        if CurrentPlace.opendesigner then
+        if CurrentPlace.openTankDesigner then
             TDmousemoved(x, y, dx, dy)
         end
-        if CurrentPlace.openarmyeditor then
+        if CurrentPlace.openArmyEditor then
             AEmousemoved(x, y, dx, dy)
         end
         if TankPanelopen then
