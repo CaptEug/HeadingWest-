@@ -17,7 +17,7 @@ function TankDesigner:load()
         Close = buttons.newWindowToolButton(
             Close_icon,
             function ()
-                CurrentPlace.opendesigner = false
+                CurrentPlace.openTankDesigner = false
             end,
             TankDesigner.window,
             CurrentPlace.Fbuttons,
@@ -233,7 +233,7 @@ function TankDesigner:update(dt)
     end
     --tank production process
     for i, tank in ipairs(CurrentPlace.ProductionQueue) do
-        if tank.selected_slot~=0 then
+        if tank.selected_slot ~= 0 then
             tank.buildtime = tank.buildtime - dt
         else
             tank.selected_slot = TankSpawner:slot_distribution(CurrentPlace)
@@ -253,7 +253,7 @@ function TankDesigner:draw()
     TankPresent = CurrentPlace.tanklist[CurrentPlace.tankindex]
 
         if CurrentPlace.openTankDesigner then
-            love.graphics.setCanvas(TDscreen)
+        love.graphics.setCanvas(TDscreen)
             Tank_steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.mob.steel_cost
             Tank_oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.mob.oil_cost
             love.graphics.draw(factory_screen, 0, 0)
@@ -332,7 +332,7 @@ function TankDesigner:draw()
             if CurrentPlace.Pageshown == 'Ammo' then
                 love.graphics.draw(Ammo_Hot, 0 + 208, 0 + 356)
             end
-            love.graphics.setCanvas()
+        love.graphics.setCanvas()
             love.graphics.draw(TDscreen, TankDesigner.window.x, TankDesigner.window.y)
         end
 end
