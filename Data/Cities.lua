@@ -33,6 +33,7 @@ Nizhny_Tagil = {
     exsist_tank = {},
     Army = {},
     broken_tank = {},
+    exsist_building = {},
     building_slot = 16,
     songlist = TestSonglist,
     slot_info = {
@@ -56,7 +57,7 @@ Nizhny_Tagil = {
 }
 table.insert(Cities, Nizhny_Tagil)
 
-Baku = {
+--[[Baku = {
     x = 1220,
     y = 700,
     country = {USSR_flag},
@@ -71,7 +72,7 @@ Baku = {
     Army = {},
     broken_tank={}
 }
-table.insert(Cities, Baku)
+table.insert(Cities, Baku)]]
 
 --German
 Berlin = {

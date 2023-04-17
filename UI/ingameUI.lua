@@ -2,11 +2,13 @@ ingameUI={}
 require 'UI/TankDesigner'
 require 'UI/TankInfoPanel'
 require 'UI/ArmyEditor'
+require 'UI/ConstructMenu'
 
 function ingameUI:load()
     TankInfoPanel:load()
     ArmyEditor:load()
     if CurrentPlace.state == 'Peace' then
+        ConstructMenu:load()
         if CurrentPlace.factory then
             TankDesigner:load()
         end
@@ -16,8 +18,7 @@ function ingameUI:load()
     end
 
     --buttons in captured
-    CurrentPlace.Tbuttons = buttons.new()
-    DefButtons = buttons.new() 
+    DefButtons = buttons.new()
     RadioStation = buttons.newToolButton(
         RadioStation_icon,
         function ()
@@ -53,9 +54,9 @@ function ingameUI:load()
         TankFacButtons
     )
 
-    --[[ConstructButtons = buttons.new()
+    ConstructButtons = buttons.new()
     ConstructMenu_button = buttons.newToolButton(
-        Constructmenu_icon,
+        Tankdesigner_icon,
         function ()
             if CurrentPlace.openConstructMenu then
                 CurrentPlace.openConstructMenu = false
@@ -63,14 +64,16 @@ function ingameUI:load()
                 CurrentPlace.openConstructMenu = true
             end
         end,
-        ConstructButtons
-    )]]
+        ConstructButtons,
+        80
+    )
 end
 
 function ingameUI:update(dt)
     TankInfoPanel:update(dt)
     ArmyEditor:update(dt)
     if CurrentPlace.state == 'Peace' then
+        ConstructMenu:update(dt)
         if CurrentPlace.factory then
             TankDesigner:update(dt)
         end
@@ -81,10 +84,12 @@ function ingameUI:update(dt)
 end
 
 function ingameUI:draw()
-    TankInfoPanel:draw()
     DefButtons:use()
+    TankInfoPanel:draw()
     ArmyEditor:draw()
     if CurrentPlace.state == 'Peace' then
+        ConstructButtons:use()
+        ConstructMenu:draw()
         if CurrentPlace.factory then
             TankFacButtons:use()
             TankDesigner:draw()

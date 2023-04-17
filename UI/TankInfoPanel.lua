@@ -8,15 +8,14 @@ function TankInfoPanel:load()
     TankInfoPanel.dragging = false
     TankPanelopen = false
     TankChoosen = {}
-    Rounds = {}
-    PanelButtons = buttons.new()
+    TankInfoPanel.Pbuttons = buttons.new()
     ClosePanel = buttons.newWindowToolButton(
         ClosePanel_icon,
         function ()
             TankPanelopen = false
         end,
         TankInfoPanel.window,
-        PanelButtons,
+        TankInfoPanel.Pbuttons,
         271,
         16
     )
@@ -36,7 +35,7 @@ function TankInfoPanel:load()
             end
         end,
         TankInfoPanel.window,
-        PanelButtons,
+        TankInfoPanel.Pbuttons,
         0 + 40,
         0 + 542
     )
@@ -52,7 +51,7 @@ function TankInfoPanel:load()
             end
         end,
         TankInfoPanel.window,
-        PanelButtons,
+        TankInfoPanel.Pbuttons,
         0 + 40,
         0 + 488
     )
@@ -67,7 +66,7 @@ function TankInfoPanel:load()
             end
         end,
         TankInfoPanel.window,
-        PanelButtons,
+        TankInfoPanel.Pbuttons,
         0 + 108,
         0 + 488
     )
@@ -121,7 +120,7 @@ function TankInfoPanel:draw()
         end
         love.graphics.setColor(1,1,1)
 
-        PanelButtons:use()
+        TankInfoPanel.Pbuttons:use()
         TankCrewDraw()
         TankAmmoDraw()
         TankStateDraw()

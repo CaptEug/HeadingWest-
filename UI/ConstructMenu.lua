@@ -6,19 +6,51 @@ function ConstructMenu:load()
     ConstructMenu.dragging = false
     CurrentPlace.openConstructMenu = false
     CurrentPlace.CMbuttons = buttons.new()
+    ConstructurePicked = false
+    ConstructureSelected = {}
+
+    for i, constructure in ipairs(CurrentPlace.constructurelist) do
+        buttons.newWindowToolButton(
+            constructure.image,
+            function ()
+                ConstructurePicked = true
+                ConstructureSelected = constructure
+            end,
+            ConstructMenu.window,
+            CurrentPlace.CMbuttons,
+            24, 48*i
+        )
+    end
 end
 
 function ConstructMenu:update(dt)
-
+    if love.mouse.isDown(1) and ConstructurePicked then
+        local x, y = cam:mousePosition()
+        BuildConstructure(CurrentPlace, ConstructureSelected, x, y)
+    end
+    if love.mouse.isDown(2) and ConstructurePicked then
+        ConstructurePicked = false
+        ConstructureSelected = {}
+    end
 end
 
 function ConstructMenu:draw()
     if CurrentPlace.openConstructMenu then
-    love.graphics.setCanvas(TDscreen)
+        love.graphics.setCanvas(CMscreen)
         
-    love.graphics.setCanvas()
+        CurrentPlace.CMbuttons:use()
+        love.graphics.setCanvas()
+        love.graphics.draw(CMscreen, ConstructMenu.window.x, ConstructMenu.window.y)
+    end
+
+    if ConstructurePicked then
+        local x, y = love.mouse.getPosition()
+        love.mouse.setCursor(hammercursor)
+        Cursormode = 'Constructing'
+        love.graphics.draw(ConstructureSelected.image, x, y, 0, cam.scale)
     end
 end
+
 
 --TDscreen.window draggie
 function CMmousepressed(x, y, button)

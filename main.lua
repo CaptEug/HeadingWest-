@@ -13,7 +13,6 @@ require 'libraries/utilities/destroyAll'
 require 'libraries/utilities/show'
 require 'libraries/utilities/copytable'
 
-require 'libraries/Tankfunctions'
 require 'libraries/Mapdrawer'
 require 'libraries/shaders'
 
@@ -120,6 +119,7 @@ Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山
 pointcursor = love.mouse.newCursor('Assets/pictures/cursors/PointCursor.png', 0, 0)
 handcursor = love.mouse.newCursor('Assets/pictures/cursors/HandCursor.png', 7, 0)
 sightcursor = love.mouse.newCursor('Assets/pictures/cursors/SightCursor.png', 16, 16)
+hammercursor = love.mouse.newCursor('Assets/pictures/cursors/SightCursor.png', 16, 16)
 --font
 Rtitlefont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 100)
 Rbuttonfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 50)
@@ -139,7 +139,6 @@ function love.load()
 
     addCollisionClass()
 
-    love.mouse.setCursor(Cursor)
     NewSaving:LoadSettings()
 end
 
@@ -155,7 +154,7 @@ end
 function love.draw()
     --cg1:playCG()
     --keep cursor 
-    Cursor = pointcursor
+    love.mouse.setCursor(pointcursor)
     Cursormode = 'normal'
 end
 

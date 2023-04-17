@@ -87,7 +87,7 @@ function ArmyEditor:draw()
                     company.delete.by = 0 - 20 + 6 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight
                     
                     for i, unit in ipairs(company) do
-                        if unit.type == 'tank' then
+                        if unit.class == 'tank' then
                             love.graphics.draw(Tank_icon, 0 + 236, 0 - 20 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight)
                         end
                         love.graphics.print(unit.name..' No.'..unit.number, 0 + 256, 0 - 40 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight + 20*i)

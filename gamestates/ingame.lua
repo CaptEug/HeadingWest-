@@ -3,6 +3,7 @@ ingame = Gamestate.new()
 
 require 'UI.ingameUI'
 require 'libraries/TankSpawner'
+require 'libraries/ConstructureSpawner'
 require 'libraries/TimeToShoot'
 function ingame:init()
     Gbuttons = buttons.new()
@@ -48,6 +49,9 @@ function ingame:update(dt)
         if CurrentPlace.openArmyEditor then
             AEmousepressed(x, y, button)
         end
+        if CurrentPlace.openConstructMenu then
+            CMmousepressed(x, y, button)
+        end
         if TankPanelopen then
             TPmousepressed(x, y, button)
         end
@@ -63,6 +67,9 @@ function ingame:update(dt)
         end
         if CurrentPlace.openArmyEditor then
             AEmousereleased(x, y, button)
+        end
+        if CurrentPlace.openConstructMenu then
+            CMmousereleased(x, y, button)
         end
         if TankPanelopen then
             TPmousereleased(x, y, button)
@@ -93,6 +100,9 @@ function ingame:update(dt)
         if CurrentPlace.openArmyEditor then
             AEmousemoved(x, y, dx, dy)
         end
+        if CurrentPlace.openConstructMenu then
+            CMmousemoved(x, y, dx, dy)
+        end
         if TankPanelopen then
             TPmousemoved(x, y, dx, dy)
         end
@@ -102,7 +112,8 @@ end
 function ingame:draw()
     cam:attach()
         DrawMapDown()
-        TankSpawner:draw_tank()
+        ConstructureSpawner:drawbuilding()
+        TankSpawner:drawtank()
         DrawMapUp()
         world:draw()
         particleworld:draw()
@@ -123,7 +134,7 @@ end
 function ingame:drawWithoutUI()
     cam:attach()
         DrawMapDown()
-        TankSpawner:draw_tank()
+        TankSpawner:drawtank()
         DrawMapUp()
         world:draw()
         particleworld:draw()

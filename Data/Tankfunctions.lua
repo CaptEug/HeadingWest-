@@ -1,5 +1,4 @@
 Tank = {}
-Enemy = {}
 
 function Buildtank()
     local selected_slot = TankSpawner:slot_distribution(CurrentPlace)

@@ -17,7 +17,7 @@ function loadMap(mapName)
             table.insert(Structure, Collider)
         end
     end
-    
+
     if gameMap.layers['Obstacles'] then
         for i, j in pairs(gameMap.layers['Obstacles'].objects) do
             local Collider = world:newRectangleCollider(j.x, j.y, j.width, j.height)

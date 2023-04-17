@@ -59,7 +59,7 @@ function TankSpawner:update(dt)
     end
 end
 
-function TankSpawner:draw_tank()
+function TankSpawner:drawtank()
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         if tank.collider == nil then
             return nil
@@ -69,7 +69,7 @@ function TankSpawner:draw_tank()
 
         --decide cursor
         if tank.functions.move == ManualControlfunction then
-            Cursor = sightcursor
+            love.mouse.setCursor(sightcursor)
             Cursormode = 'firing'
         end
 

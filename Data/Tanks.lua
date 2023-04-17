@@ -6,6 +6,7 @@ Tanks = {
     --USSR
     T72A = {
     name = 'T-72a',
+    class = 'tank',
     width = 64,
     length = 127,
     hull_offset = 0,
@@ -100,6 +101,7 @@ Tanks = {
 
     T72B = {
     name = 'T-72b',
+    class = 'tank',
     width = 64,
     length = 127,
     hull_offset=0,
@@ -208,6 +210,7 @@ Tanks = {
 
     T90 = {
     name = 'T-90',
+    class = 'tank',
     width = 64,
     length = 127,
     hull_offset=0,
@@ -308,6 +311,7 @@ Tanks = {
     --German
     Leopard2A4 = {
     name = 'Leopard2A4',
+    class = 'tank',
     width = 64,
     length = 134,
     hull_offset=10,
@@ -382,6 +386,7 @@ Tanks = {
     --US
     M1 = {
     name = 'M1',
+    class = 'tank',
     width = 66,
     length = 140,
     hull_offset = 7,
@@ -462,5 +467,3 @@ table.insert(Nizhny_Tagil.tanklist, Tanks.T72B)
 table.insert(Nizhny_Tagil.tanklist, Tanks.T90)
 table.insert(Nizhny_Tagil.tanklist, Tanks.Leopard2A4)
 table.insert(Nizhny_Tagil.tanklist, Tanks.M1)
-
-
