@@ -256,7 +256,7 @@ function TankDesigner:draw()
         love.graphics.setCanvas(TDscreen)
             Tank_steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.mob.steel_cost
             Tank_oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.mob.oil_cost
-            love.graphics.draw(factory_screen, 0, 0)
+            love.graphics.draw(TankDesigner_screen, 0, 0)
             love.graphics.setFont(Rbuttonfont)
             love.graphics.print(CurrentPlace.factory, 0 + 40, 0)
             love.graphics.setFont(Rtextfont)

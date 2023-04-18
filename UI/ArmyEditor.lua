@@ -42,7 +42,21 @@ function ArmyEditor:load()
 end
 
 function ArmyEditor:update(dt)
-    
+    for i, division in ipairs(CurrentPlace.Army) do
+        if division.remove then
+            table.remove(CurrentPlace.Army, i)
+        end
+        for m, regiment in ipairs(division) do
+            if regiment.remove then
+                table.remove(division, m)
+            end
+            for n, company in ipairs(regiment) do
+                if company.remove then
+                    table.remove(regiment, n)
+                end
+            end
+        end
+    end
 end
 
 function ArmyEditor:draw()
@@ -152,11 +166,12 @@ end
 function NewDivision(name)
     local instance = {}
     instance.name = name
+    instance.remove = false
     instance.DButtons = buttons.new()
     instance.delete = buttons.newWindowToolButton(
         greyminus_icon,
         function ()
-            removeTable(CurrentPlace.Army, instance)
+            instance.remove = true
         end,
         ArmyEditor.window,
         instance.DButtons
@@ -176,11 +191,12 @@ function NewRegiment(division)
     local instance = {}
     instance.name = 'regiment#'
     instance.type = 'tank'
+    instance.remove = false
     instance.RButtons = buttons.new()
     instance.delete = buttons.newWindowToolButton(
         greyminus_icon,
         function ()
-            removeTable(division, instance)
+            instance.remove = true
         end,
         ArmyEditor.window,
         instance.RButtons
@@ -199,11 +215,12 @@ end
 function NewCompany(regiment)
     local instance = {}
     instance.name = 'company#'
+    instance.remove = false
     instance.CButtons = buttons.new()
     instance.delete = buttons.newWindowToolButton(
         greyminus_icon,
         function ()
-            removeTable(regiment, instance)
+            instance.remove = true
         end,
         ArmyEditor.window,
         instance.CButtons

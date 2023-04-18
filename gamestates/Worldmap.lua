@@ -4,12 +4,13 @@ Worldmap = Gamestate.new()
 require 'UI/WorldmapUI'
 require 'Data/Cities'
 require 'Data/Tanks'
-require 'Data.Tankfunctions'
+require 'Data/Tankfunctions'
 require 'Data/Constructures'
 require 'Data/Constructurefunctions'
 
 function Worldmap:init()
     Year = 1946
+    Cities:load()
 
     NewSaving:LoadFile(Filenumber)
     NewSaving:LoadResource()

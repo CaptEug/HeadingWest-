@@ -5,28 +5,27 @@ Cities = {}
 Moskva = {
     x = 1160,
     y = 580,
-    country = {USSR_flag},
+    country = {},
     name = 'Moskva',
     type = 'Capital',
     factory = false,
     labtory = true,
-    state ='Peace',
+    state = 'Peace',
     map = 2,
     exsist_tank={},
     Army = {},
     broken_tank={}
 }
-table.insert(Cities, Moskva)
 
 Nizhny_Tagil = {
     x = 1280,
     y = 555,
-    country = {USSR_flag},
+    country = {},
     name = 'Nizhny Tagil',
     type = 'Normal',
     factory = 'UralVagonZavod',
     labtory = false,
-    state ='Peace',
+    state = 'Peace',
     map = 3,
     tanklist = {},
     constructurelist = {},
@@ -55,7 +54,6 @@ Nizhny_Tagil = {
         {x=112+544,y=48+256*7,available=true},
     }
 }
-table.insert(Cities, Nizhny_Tagil)
 
 --[[Baku = {
     x = 1220,
@@ -78,7 +76,7 @@ table.insert(Cities, Baku)]]
 Berlin = {
     x = 1035,
     y = 605,
-    country = {USSR_flag, US_flag, UK_flag, FR_flag},
+    country = {},
     name = 'Berlin',
     type = 'Capital',
     factory = false,
@@ -89,9 +87,15 @@ Berlin = {
     Army = {},
     broken_tank={}
 }
-table.insert(Cities, Berlin)
 
-
+function Cities:load()
+    table.insert(Cities, Moskva)
+    Moskva.country = {USSR_flag}
+    table.insert(Cities, Nizhny_Tagil)
+    Nizhny_Tagil.country = {USSR_flag}
+    table.insert(Cities, Berlin)
+    Berlin.country = {USSR_flag, US_flag, UK_flag, FR_flag}
+end
 
 --RadioList
 TestSonglist = {

@@ -23,11 +23,3 @@ function emptyTable(tableList)
         i = i - 1
     end
 end
-
-function removeTable(tableList, target)
-    for i, value in ipairs(tableList) do
-        if value == target then
-            table.remove(tableList, i)
-        end
-    end
-end

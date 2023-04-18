@@ -37,7 +37,7 @@ end
 function ConstructMenu:draw()
     if CurrentPlace.openConstructMenu then
         love.graphics.setCanvas(CMscreen)
-        
+        love.graphics.draw(ConstructMenu_screen)
         CurrentPlace.CMbuttons:use()
         love.graphics.setCanvas()
         love.graphics.draw(CMscreen, ConstructMenu.window.x, ConstructMenu.window.y)

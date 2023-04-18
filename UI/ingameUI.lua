@@ -37,8 +37,7 @@ function ingameUI:load()
                 CurrentPlace.openArmyEditor = true
             end
         end,
-        DefButtons,
-        48
+        DefButtons
     )
 
     TankFacButtons = buttons.new()
@@ -51,12 +50,13 @@ function ingameUI:load()
                 CurrentPlace.openTankDesigner = true
             end
         end,
-        TankFacButtons
+        TankFacButtons,
+        48
     )
 
     ConstructButtons = buttons.new()
     ConstructMenu_button = buttons.newToolButton(
-        Tankdesigner_icon,
+        Constructmenu_icon,
         function ()
             if CurrentPlace.openConstructMenu then
                 CurrentPlace.openConstructMenu = false

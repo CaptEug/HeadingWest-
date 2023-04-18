@@ -50,7 +50,6 @@ function WorldmapUI:load()
             city.Gobuttons,
             city.x + 208,
             city.y + 328,
-            Go,
             Go_Hot
         )
     end
@@ -64,11 +63,11 @@ function WorldmapUI:draw()
     cam:attach()
     if cam.scale >= 1.5 then
         Cbuttons:use()
-    end   
+    end
     cam:detach()
 
     Wbuttons:use()
-    
+
     love.graphics.setFont(Rtextfont)
     love.graphics.draw(Steel_icon)
     love.graphics.print(tostring(Steel), 32)
