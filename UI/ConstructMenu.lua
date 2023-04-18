@@ -2,7 +2,7 @@ ConstructMenu = {}
 
 function ConstructMenu:load()
     CMscreen = love.graphics.newCanvas(640, 480)
-    ConstructMenu.window = {x = 0, y = 32, w = 640, h = 64}
+    ConstructMenu.window = {x = 0, y = 64, w = 640, h = 64}
     ConstructMenu.dragging = false
     CurrentPlace.openConstructMenu = false
     CurrentPlace.CMbuttons = buttons.new()
@@ -18,16 +18,12 @@ function ConstructMenu:load()
             end,
             ConstructMenu.window,
             CurrentPlace.CMbuttons,
-            24, 48*i
+            204 + 156*((i-1)%3), 129 + 118*math.floor((i-1)/3)
         )
     end
 end
 
 function ConstructMenu:update(dt)
-    if love.mouse.isDown(1) and ConstructurePicked then
-        local x, y = cam:mousePosition()
-        BuildConstructure(CurrentPlace, ConstructureSelected, x, y)
-    end
     if love.mouse.isDown(2) and ConstructurePicked then
         ConstructurePicked = false
         ConstructureSelected = {}
@@ -39,6 +35,13 @@ function ConstructMenu:draw()
         love.graphics.setCanvas(CMscreen)
         love.graphics.draw(ConstructMenu_screen)
         CurrentPlace.CMbuttons:use()
+        for i, constructure in ipairs(CurrentPlace.constructurelist) do
+            love.graphics.draw(contructure_box, 128 + 156*((i-1)%3), 72 + 118*math.floor((i-1)/3))
+            love.graphics.setColor(0,179/255,0)
+            love.graphics.print(constructure.steel_cost, 240 + 156*((i-1)%3), 141 + 118*math.floor((i-1)/3))
+            love.graphics.print(constructure.oil_cost, 240 + 156*((i-1)%3), 161 + 118*math.floor((i-1)/3))
+            love.graphics.setColor(1,1,1)
+        end
         love.graphics.setCanvas()
         love.graphics.draw(CMscreen, ConstructMenu.window.x, ConstructMenu.window.y)
     end
@@ -51,6 +54,12 @@ function ConstructMenu:draw()
     end
 end
 
+function BuildDetact(button)
+    if button == 1 and ConstructurePicked then
+        local x, y = cam:mousePosition()
+        BuildConstructure(CurrentPlace, ConstructureSelected, x, y)
+    end
+end
 
 --TDscreen.window draggie
 function CMmousepressed(x, y, button)

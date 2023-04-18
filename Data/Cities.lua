@@ -34,7 +34,7 @@ Nizhny_Tagil = {
     broken_tank = {},
     exsist_building = {},
     building_slot = 16,
-    songlist = TestSonglist,
+    songlist = {},
     slot_info = {
         {x=112,y=48,available=true},
         {x=112,y=48+256*1,available=true},
@@ -88,21 +88,23 @@ Berlin = {
     broken_tank={}
 }
 
-function Cities:load()
-    table.insert(Cities, Moskva)
-    Moskva.country = {USSR_flag}
-    table.insert(Cities, Nizhny_Tagil)
-    Nizhny_Tagil.country = {USSR_flag}
-    table.insert(Cities, Berlin)
-    Berlin.country = {USSR_flag, US_flag, UK_flag, FR_flag}
-end
-
 --RadioList
 TestSonglist = {
     {love.audio.newSource('Assets/audio/music/KINO/Кино - Кукушка.mp3', 'stream')},
     {love.audio.newSource('Assets/audio/music/KINO/Кино - Кончится лето.mp3', 'stream')},
     {love.audio.newSource('Assets/audio/music/KINO/Кино - Красно-желтые дни.mp3', 'stream')}
 }
+
+function Cities:load()
+    table.insert(Cities, Moskva)
+    Moskva.country = {USSR_flag}
+    table.insert(Cities, Nizhny_Tagil)
+    Nizhny_Tagil.country = {USSR_flag}
+    Nizhny_Tagil.songlist = TestSonglist
+    table.insert(Cities, Berlin)
+    Berlin.country = {USSR_flag, US_flag, UK_flag, FR_flag}
+end
+
 function Cities:playRadio(songlist)
     local songindex = math.random(0, #songlist-1)
     if love.audio.getActiveSourceCount( ) then

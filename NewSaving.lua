@@ -90,7 +90,7 @@ function NewSaving:CreateSettings()
         vsync=1,
         msaa=0,
         borderless=false,
-        resizable=false,
+        resizable=true,
         centered=true,
         highdpi=false,
         usedpiscale=true,

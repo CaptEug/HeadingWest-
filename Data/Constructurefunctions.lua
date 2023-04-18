@@ -7,7 +7,8 @@ function BuildConstructure(place, constructure, x, y)
         requirement = constructure.requirement,
         width = constructure.width,
         length = constructure.length,
-        oil_productioon = constructure.oil_productioon,
+        steel_production = constructure.steel_production,
+        oil_production = constructure.oil_productioon,
         hitpoint = constructure.hitpoint,
         image = constructure.image,
         anime_sheet = constructure.anime_sheet,
@@ -15,6 +16,8 @@ function BuildConstructure(place, constructure, x, y)
         fixedbuildtime = constructure.buildtime,
         location = {x = x, y = y},
     }
+    Steel = Steel - constructure.steel_cost
+    Oil = Oil - constructure.oil_cost
     setmetatable(building, Constructure)
     Constructure.__index = Constructure
     table.insert(place.exsist_building, building)

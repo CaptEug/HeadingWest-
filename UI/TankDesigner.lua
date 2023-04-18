@@ -10,8 +10,8 @@ function TankDesigner:load()
     CurrentPlace.Pageshown = 'Armor'
     CurrentPlace.ProductionQueue = {}
     CurrentPlace.ProductionNumber = 0
-    Tank_steel_cost = 0
-    Tank_oil_cost = 0
+    TankDesigner.tank_steel_cost = 0
+    TankDesigner.tank_oil_cost = 0
 
     --load buttons
         Close = buttons.newWindowToolButton(
@@ -254,16 +254,16 @@ function TankDesigner:draw()
 
         if CurrentPlace.openTankDesigner then
         love.graphics.setCanvas(TDscreen)
-            Tank_steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.mob.steel_cost
-            Tank_oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.mob.oil_cost
+            TankDesigner.tank_steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.mob.steel_cost
+            TankDesigner.tank_oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.mob.oil_cost
             love.graphics.draw(TankDesigner_screen, 0, 0)
             love.graphics.setFont(Rbuttonfont)
             love.graphics.print(CurrentPlace.factory, 0 + 40, 0)
             love.graphics.setFont(Rtextfont)
             love.graphics.setColor(0,179/255,0)
             love.graphics.print(TankPresent.name, 0 + 40 + 6, 0 + 64 + 6)
-            love.graphics.print(Tank_steel_cost, 0 + 40 + 246, 0 + 64 + 6)
-            love.graphics.print(Tank_oil_cost, 0 + 40 + 246, 0 + 64 + 26)
+            love.graphics.print(tostring(TankDesigner.tank_steel_cost), 0 + 40 + 246, 0 + 64 + 6)
+            love.graphics.print(tostring(TankDesigner.tank_oil_cost), 0 + 40 + 246, 0 + 64 + 26)
             love.graphics.setColor(1,1,1)
 
             if TankPresent.accessories then

@@ -7,6 +7,7 @@ Constructures = {
         length = 128,
         steel_cost = 20,
         oil_cost = 0,
+        steel_production = 0,
         oil_productioon = 1,
         hitpoint = 3,
         image = love.graphics.newImage('Assets/pictures/Stalin_red.png'),

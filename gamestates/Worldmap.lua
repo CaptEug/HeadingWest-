@@ -33,6 +33,10 @@ function Worldmap:update(dt)
         cam:zoomTo(wh / Worldh)
     end
     cam:lockcamera(0, 0, Worldw, Worldh, 0, ww, 0, wh)
+
+    --resources update
+    Steel = Steel + SteelProduction*dt
+    Oil = Oil + OilProduction*dt
 end
 
 function Worldmap:draw()

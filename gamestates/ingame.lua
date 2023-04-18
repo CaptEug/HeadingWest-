@@ -33,6 +33,7 @@ function ingame:update(dt)
     world:update(dt)
     particleworld:update(dt)
     TankSpawner:update(dt)
+    ConstructureSpawner:update(dt)
     TankProjectiles:update(dt)
     --cam contral
     if cam.scale > 2 then
@@ -74,6 +75,7 @@ function ingame:update(dt)
         if TankPanelopen then
             TPmousereleased(x, y, button)
         end
+        BuildDetact(button)
         if button == 1 and selection.active then
             selection.active = false
             selection.endX = x

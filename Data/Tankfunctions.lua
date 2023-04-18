@@ -60,8 +60,8 @@ function Buildtank()
         incomp = false,
         compCom = false
     }
-    Steel = Steel - Tank_steel_cost
-    Oil = Oil - Tank_oil_cost
+    Steel = Steel - TankDesigner.tank_steel_cost
+    Oil = Oil - TankDesigner.tank_oil_cost
     setmetatable(tank, Tank)
     Tank.__index = Tank
     table.insert(CurrentPlace.ProductionQueue, 1, tank)
