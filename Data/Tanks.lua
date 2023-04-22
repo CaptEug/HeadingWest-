@@ -38,10 +38,10 @@ Tanks = {
     hull = {crew = 0.7, ammo = 0.5, engine = 0.3, fuel = 0.5},
     turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
     },
-    hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_hull.png'),
+    hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull.png'),
     hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull_line.png'),
     hull_image_broken = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull_Broken.png'),
-    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_turret.png'),
+    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret.png'),
     turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_line.png'),
     turret_image_broken = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_Broken.png'),
     anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
@@ -330,10 +330,10 @@ Tanks = {
     armorthickness = {
         
     },
-    hull_image = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_Hull.png'),
-    hull_image_line = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_Hull_line.png'),
-    turret_image = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_Turret.png'),
-    turret_image_line = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_Turret_line.png'),
+    hull_image = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_hull.png'),
+    hull_image_line = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_hull_line.png'),
+    turret_image = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_turret.png'),
+    turret_image_line = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_turret_line.png'),
     accessories = {
     --armor
     {

@@ -18,9 +18,9 @@ require 'libraries/shaders'
 
 require "NewSaving"
 --Gamestates required
-require 'gamestates/MainMenu'
+require 'gamestates/mainmenu'
 require 'gamestates/ingame'
-require 'gamestates/Pause'
+require 'gamestates/pause'
 require 'gamestates/Worldmap'
 require 'gamestates/SettingMenu'
 
@@ -47,8 +47,8 @@ City_capital = love.graphics.newImage('Assets/pictures/Icons/City_capital.png')
 City_capital_Hot = love.graphics.newImage('Assets/pictures/Icons/City_capital_Hot.png')
 City_normal = love.graphics.newImage('Assets/pictures/Icons/City_normal.png')
 City_normal_Hot = love.graphics.newImage('Assets/pictures/Icons/City_normal_Hot.png')
-Berlin_icon = love.graphics.newImage('Assets/pictures/icons/Berlin_icon.png')
-UVZ_Icon = love.graphics.newImage('Assets/pictures/icons/UVZ_Icon.png')
+Berlin_icon = love.graphics.newImage('Assets/pictures/Icons/Berlin_icon.png')
+UVZ_Icon = love.graphics.newImage('Assets/pictures/Icons/UVZ_Icon.png')
 leftArrow = love.graphics.newImage('Assets/pictures/buttons/leftArrow.png')
 rightArrow = love.graphics.newImage('Assets/pictures/buttons/rightArrow.png')
 plus_icon = love.graphics.newImage('Assets/pictures/buttons/Plus.png')
@@ -84,11 +84,11 @@ invisible_button = love.graphics.newImage('Assets/pictures/buttons/Invisible_but
 Edit_button = love.graphics.newImage('Assets/pictures/buttons/Edit.png')
 Done_button = love.graphics.newImage('Assets/pictures/buttons/Done.png')
 --UI
-Gear = love.graphics.newImage('Assets/pictures/icons/Gear.png')
+Gear = love.graphics.newImage('Assets/pictures/Icons/Gear.png')
 Tank_icon = love.graphics.newImage('Assets/pictures/Icons/Tank_icon.png')
-Tankdesigner_icon = love.graphics.newImage('Assets/pictures/icons/Tankdesigner.png')
-Constructmenu_icon = love.graphics.newImage('Assets/pictures/icons/Constructmenu.png')
-RadioStation_icon = love.graphics.newImage('Assets/pictures/icons/RadioStation.png')
+Tankdesigner_icon = love.graphics.newImage('Assets/pictures/Icons/Tankdesigner.png')
+Constructmenu_icon = love.graphics.newImage('Assets/pictures/Icons/Constructmenu.png')
+RadioStation_icon = love.graphics.newImage('Assets/pictures/Icons/RadioStation.png')
 ArmyEditor_icon = love.graphics.newImage('Assets/pictures/Icons/ArmyEditor.png')
 TankDesigner_screen = love.graphics.newImage('Assets/pictures/Tankdesigner_screen.png')
 ConstructMenu_screen = love.graphics.newImage('Assets/pictures/Constructmenu_screen.png')
@@ -102,7 +102,7 @@ crew_icon = love.graphics.newImage('Assets/pictures/Icons/crew_member.png')
 injured_crew_icon = love.graphics.newImage('Assets/pictures/Icons/crew_member_injured.png')
 ERA_icon = love.graphics.newImage('Assets/pictures/Icons/ERA.png')
 Immobilized_icon = love.graphics.newImage('Assets/pictures/Icons/Immobilized.png')
-Onfire_icon = love.graphics.newImage('Assets/pictures/Icons/Onfire!.png')
+Onfire_icon = love.graphics.newImage('Assets/pictures/Icons/Onfire.png')
 AP_icon = love.graphics.newImage('Assets/pictures/Icons/AP.png')
 HE_icon = love.graphics.newImage('Assets/pictures/Icons/HE.png')
 HEAT_icon = love.graphics.newImage('Assets/pictures/Icons/HEAT.png')
