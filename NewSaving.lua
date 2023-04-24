@@ -137,43 +137,44 @@ end
 ---@return string
 function TableToString(table,tableName) --convert table to string (prototype)
 
+    local function Convert(table,layer)
+
+        local str = ""
+        for key, value in pairs(table) do
+            
+            local keyName = tostring(key)
+            local keyValue = ""
+            local convertedKey
+            if type(value) ~= "table" then
+                if type(value) ~= "string" then
+                    keyValue = tostring(value)
+                else
+                    keyValue = "\""..value.."\""
+                end
+                convertedKey = keyName.." = "..keyValue..";\n"
+            else if type(value)~= "function" then
+                layer = layer+1
+                keyValue,layer = Convert(value,layer)
+                convertedKey = keyName.." = {\n"..keyValue
+                for i = 0, layer, 1 do
+                    convertedKey = convertedKey.."    "
+                end
+                convertedKey = convertedKey.."};\n"
+                else
+    
+                end
+            end
+            for i = 0, layer, 1 do
+                convertedKey = "    "..convertedKey
+            end
+            str = str..convertedKey
+        end
+        layer = layer - 1
+        return str,layer
+    end
+
     local str = tableName.." = {\n"..Convert(table,0).."};\n"
+
     return str
 
-end
-
-function Convert(table,layer)
-
-    local str = ""
-    for key, value in pairs(table) do
-        
-        local keyName = tostring(key)
-        local keyValue = ""
-        local convertedKey
-        if type(value) ~= "table" then
-            if type(value) ~= "string" then
-                keyValue = tostring(value)
-            else
-                keyValue = "\""..value.."\""
-            end
-            convertedKey = keyName.." = "..keyValue..";\n"
-        else if type(value)~= "function" then
-            layer = layer+1
-            keyValue,layer = Convert(value,layer)
-            convertedKey = keyName.." = {\n"..keyValue
-            for i = 0, layer, 1 do
-                convertedKey = convertedKey.."    "
-            end
-            convertedKey = convertedKey.."};\n"
-            else
-
-            end
-        end
-        for i = 0, layer, 1 do
-            convertedKey = "    "..convertedKey
-        end
-        str = str..convertedKey
-    end
-    layer = layer - 1
-    return str,layer
 end
