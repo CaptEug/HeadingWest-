@@ -131,7 +131,7 @@ function BuildEnemytank(place, tank, x, y)
     end
     setmetatable(enemy, Tank)
     Tank.__index = Tank
-    TankSpawner:newtank(place, enemy)
+    TankSpawner:loadtank(place, enemy)
 end
 
 AutoControlfunction = function(tank, dt)
