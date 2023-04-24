@@ -2,10 +2,11 @@ ingame = {}
 ingame = Gamestate.new()
 Ingamebuttons = {}
 
-require 'UI.ingameUI'
-require 'libraries/TankSpawner'
-require 'libraries/ConstructureSpawner'
-require 'libraries/TimeToShoot'
+require 'gamestates.Ingame.ingameUI'
+require 'gamestates/Ingame/Mapdrawer'
+require 'Data.Tank.TankSpawner'
+require 'Data.Constructure.ConstructureSpawner'
+require 'gamestates.Ingame.TimeToShoot'
 function ingame:init()
     DestroyAll()
 

@@ -1,12 +1,12 @@
 Worldmap = {}
 Worldmap = Gamestate.new()
 
-require 'UI/WorldmapUI'
+require 'gamestates/Worldmap/WorldmapUI'
 require 'Data/Cities'
-require 'Data/Tanks'
-require 'Data/Tankfunctions'
-require 'Data/Constructures'
-require 'Data/Constructurefunctions'
+require 'Data.Tank.Tanks'
+require 'Data.Tank.Tankfunctions'
+require 'Data/Constructure/Constructures'
+require 'Data/Constructure/Constructurefunctions'
 
 function Worldmap:init()
     Year = 1946

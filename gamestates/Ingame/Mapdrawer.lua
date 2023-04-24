@@ -1,7 +1,7 @@
 Structure = {}
 Obstacles = {}
 
-require 'libraries.TankSpawner'
+require 'Data.Tank.TankSpawner'
 
 function loadMap(mapName)
     gameMap = sti("Assets/maps/" .. mapName .. ".lua")

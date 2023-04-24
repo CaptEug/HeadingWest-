@@ -1,5 +1,4 @@
-TankSpawner={}
-TankColliders = {}
+TankSpawner = {}
 
 function TankSpawner:slot_distribution(place)
     local slot_full=true
@@ -48,7 +47,6 @@ function TankSpawner:loadtank(place, tank)
     end
     tank.functions.move = AutoControlfunction
     tank:CreatParticles()
-    table.insert(TankColliders,tank.collider)
     table.insert(place.exsist_tank, tank)
 end
 

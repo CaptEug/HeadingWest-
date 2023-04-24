@@ -1,21 +1,12 @@
 ingameUI={}
-require 'UI/TankDesigner'
-require 'UI/TankInfoPanel'
-require 'UI/ArmyEditor'
-require 'UI/ConstructMenu'
+require 'gamestates.Ingame.TankDesigner'
+require 'gamestates.Ingame.TankInfoPanel'
+require 'gamestates.Ingame.ArmyEditor'
+require 'gamestates.Ingame.ConstructMenu'
 
 function ingameUI:load()
     TankInfoPanel:load()
     ArmyEditor:load()
-    if CurrentPlace.state == 'Peace' then
-        ConstructMenu:load()
-        if CurrentPlace.factory then
-            TankDesigner:load()
-        end
-    end
-    if CurrentPlace.state == 'Battlefield' then
-
-    end
 
     --buttons in captured
     Ingamebuttons.DefButtons = buttons.new()
@@ -49,33 +40,41 @@ function ingameUI:load()
         Ingamebuttons.DefButtons
     )
 
-    Ingamebuttons.TankFacButtons = buttons.new()
-    FacDesigner = buttons.newToolButton(
-        Tankdesigner_icon,
-        function ()
-            if CurrentPlace.openTankDesigner then
-                CurrentPlace.openTankDesigner = false
-            else
-                CurrentPlace.openTankDesigner = true
-            end
-        end,
-        Ingamebuttons.TankFacButtons,
-        48
-    )
+    if CurrentPlace.state == 'Peace' then
+        ConstructMenu:load()
+        Ingamebuttons.ConstructButtons = buttons.new()
+        ConstructMenu_button = buttons.newToolButton(
+            Constructmenu_icon,
+            function ()
+                if CurrentPlace.openConstructMenu then
+                    CurrentPlace.openConstructMenu = false
+                else
+                    CurrentPlace.openConstructMenu = true
+                end
+            end,
+            Ingamebuttons.ConstructButtons,
+            80
+        )
+        if CurrentPlace.factory then
+            TankDesigner:load()
+            Ingamebuttons.TankFacButtons = buttons.new()
+            FacDesigner = buttons.newToolButton(
+                Tankdesigner_icon,
+                function ()
+                    if CurrentPlace.openTankDesigner then
+                        CurrentPlace.openTankDesigner = false
+                    else
+                        CurrentPlace.openTankDesigner = true
+                    end
+                end,
+                Ingamebuttons.TankFacButtons,
+                48
+            )
+        end
+    end
+    if CurrentPlace.state == 'Battlefield' then
 
-    Ingamebuttons.ConstructButtons = buttons.new()
-    ConstructMenu_button = buttons.newToolButton(
-        Constructmenu_icon,
-        function ()
-            if CurrentPlace.openConstructMenu then
-                CurrentPlace.openConstructMenu = false
-            else
-                CurrentPlace.openConstructMenu = true
-            end
-        end,
-        Ingamebuttons.ConstructButtons,
-        80
-    )
+    end
 end
 
 function ingameUI:update(dt)

@@ -13,15 +13,14 @@ require 'libraries/utilities/DestroyAll'
 require 'libraries/utilities/show'
 require 'libraries/utilities/copytable'
 
-require 'libraries/Mapdrawer'
 require 'libraries/shaders'
 
 require "NewSaving"
 --Gamestates required
 require 'gamestates/mainmenu'
-require 'gamestates/ingame'
+require 'gamestates.Ingame.ingame'
 require 'gamestates/pause'
-require 'gamestates/Worldmap'
+require 'gamestates.Worldmap.Worldmap'
 require 'gamestates/SettingMenu'
 
 --Assets registered
