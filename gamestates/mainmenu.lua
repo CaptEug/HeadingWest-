@@ -43,7 +43,7 @@ function MainMenu:init()
             MMbuttons.isopen = true
             Lbuttons.isopen = false
             Filenumber=1
-            Worldmap:init()
+            
             Gamestate.switch(Worldmap)
         end,
         Lbuttons,
@@ -57,7 +57,7 @@ function MainMenu:init()
             MMbuttons.isopen = true
             Lbuttons.isopen = false
             Filenumber=2
-            Worldmap:init()
+            
             Gamestate.switch(Worldmap)
         end,
         Lbuttons,
@@ -71,7 +71,7 @@ function MainMenu:init()
             MMbuttons.isopen = true
             Lbuttons.isopen = false
             Filenumber=3
-            Worldmap:init()
+            
             Gamestate.switch(Worldmap)
         end,
         Lbuttons,
