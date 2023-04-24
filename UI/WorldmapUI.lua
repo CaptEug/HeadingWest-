@@ -1,16 +1,17 @@
 WorldmapUI = {}
+Worldmapbuttons = {}
 
 function WorldmapUI:load()
-    Wbuttons = buttons.new()
+    Worldmapbuttons.Wbuttons = buttons.new()
     Settings = buttons.newToolButton(
         Gear,
         function()
             Gamestate.push(Pause)
         end,
-        Wbuttons
+        Worldmapbuttons.Wbuttons
     )
 
-    Cbuttons = buttons.new()
+    Worldmapbuttons.Cbuttons = buttons.new()
     for i, city in ipairs(Cities) do
         city.isopen = false
         city.Gobuttons = buttons.new()
@@ -30,7 +31,7 @@ function WorldmapUI:load()
                     city.isopen = true
                 end
             end,
-            Cbuttons,
+            Worldmapbuttons.Cbuttons,
             city.x,
             city.y,
             pic_Hot
@@ -61,11 +62,11 @@ end
 function WorldmapUI:draw()
     cam:attach()
     if cam.scale >= 1.5 then
-        Cbuttons:use()
+        Worldmapbuttons.Cbuttons:use()
     end
     cam:detach()
 
-    Wbuttons:use()
+    Worldmapbuttons.Wbuttons:use()
 
     love.graphics.setFont(Rtextfont)
     love.graphics.draw(Steel_icon)
