@@ -53,12 +53,12 @@ function TankSpawner:loadtank(place, tank)
 end
 
 function TankSpawner:update(dt)
-    for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        tank:Update(dt)
-        tank:CheckStatus(i)
-        tank:ParticleUpdate(dt)
-        tank.functions.move(tank,dt)
-    end
+        for i, tank in ipairs(CurrentPlace.exsist_tank) do
+            tank:Update(dt)
+            tank:CheckStatus(i)
+            tank:ParticleUpdate(dt)
+            tank.functions.move(tank,dt)
+        end
 end
 
 function TankSpawner:drawtank()
