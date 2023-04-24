@@ -1,6 +1,7 @@
 function destroyAll()
     colliderTableDestroy(Structure)
     colliderTableDestroy(Obstacles)
+    colliderTableDestroy(CurrentPlace.exsist_tank)
 end
 
 -- Used for tables of colliders

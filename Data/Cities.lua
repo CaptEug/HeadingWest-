@@ -12,7 +12,9 @@ Moskva = {
     labtory = true,
     state = 'Peace',
     map = 2,
+    constructurelist = {},
     exsist_tank={},
+    exsist_building = {},
     Army = {},
     broken_tank={}
 }
