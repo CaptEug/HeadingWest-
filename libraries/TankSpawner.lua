@@ -17,7 +17,7 @@ function TankSpawner:slot_distribution(place)
     return selected_slot
 end
 
-function TankSpawner:newtank(place, tank)
+function TankSpawner:loadtank(place, tank)
     tank.collider = world:newRectangleCollider(tank.location.x, tank.location.y, tank.width, tank.length)
     tank.collider:setCollisionClass('tankhull')
     tank.collider:setObject(tank)
