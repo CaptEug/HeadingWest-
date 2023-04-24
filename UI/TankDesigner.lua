@@ -239,7 +239,7 @@ function TankDesigner:update(dt)
             tank.selected_slot = TankSpawner:slot_distribution(CurrentPlace)
         end
         if tank.buildtime <= 0 then
-            TankSpawner:newtank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
+            TankSpawner:loadtank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
             CurrentPlace.slot_info[tank.selected_slot].available = true
             tank.selected_slot = nil

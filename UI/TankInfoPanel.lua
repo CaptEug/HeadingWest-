@@ -76,7 +76,7 @@ function TankInfoPanel:update(dt)
     --tankbutton pos update
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         for i, button in ipairs(tank.Infobuttons) do
-            button.bx, button.by = tank.collider:getPosition()
+                button.bx, button.by = tank.image_location.x,tank.image_location.y
         end
     end
 end

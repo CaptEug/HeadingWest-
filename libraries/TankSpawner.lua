@@ -1,4 +1,5 @@
 TankSpawner={}
+TankColliders = {}
 
 function TankSpawner:slot_distribution(place)
     local slot_full=true
@@ -47,6 +48,7 @@ function TankSpawner:loadtank(place, tank)
     end
     tank.functions.move = AutoControlfunction
     tank:CreatParticles()
+    table.insert(TankColliders,tank.collider)
     table.insert(place.exsist_tank, tank)
 end
 
@@ -79,4 +81,12 @@ function TankSpawner:drawtank()
     for i, tank in ipairs(CurrentPlace.broken_tank) do
         tank:DrawBrokenTank()
     end
+end
+
+function TankColliderDestroy()
+    
+    for i, collider in ipairs(TankColliders) do
+        collider:destroy()
+    end
+    
 end

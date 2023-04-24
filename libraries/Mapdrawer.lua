@@ -4,7 +4,7 @@ Obstacles = {}
 require 'libraries.TankSpawner'
 
 function loadMap(mapName)
-    destroyAll()
+    DestroyAll()
     gameMap = sti("Assets/maps/" .. mapName .. ".lua")
 
     if gameMap.layers['Structure'] then

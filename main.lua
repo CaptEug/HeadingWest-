@@ -9,7 +9,7 @@ wf = require 'libraries/windfield'
 anim8 = require 'libraries/utilities/anim8'
 require 'libraries/utilities/CGplayer'
 require 'libraries/utilities/buttons'
-require 'libraries/utilities/destroyAll'
+require 'libraries/utilities/DestroyAll'
 require 'libraries/utilities/show'
 require 'libraries/utilities/copytable'
 

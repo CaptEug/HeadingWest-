@@ -1,11 +1,12 @@
-function destroyAll()
-    colliderTableDestroy(Structure)
-    colliderTableDestroy(Obstacles)
-    colliderTableDestroy(CurrentPlace.exsist_tank)
+function DestroyAll()
+    ColliderTableDestroy(Structure)
+    ColliderTableDestroy(Obstacles)
+    ColliderTableDestroy(CurrentPlace.exsist_tank)
+    ColliderTableDestroy(TankColliders)
 end
 
 -- Used for tables of colliders
-function colliderTableDestroy(tableList)
+function ColliderTableDestroy(tableList)
     local i = #tableList
     while i > 0 do
         if tableList[i] ~= nil then
@@ -17,7 +18,7 @@ function colliderTableDestroy(tableList)
 end
 
 -- Used for tables of standard non-collider tables
-function emptyTable(tableList)
+function EmptyTable(tableList)
     local i = #tableList
     while i > 0 do
         table.remove(tableList, i)
