@@ -7,7 +7,7 @@ require 'libraries/TankSpawner'
 require 'libraries/ConstructureSpawner'
 require 'libraries/TimeToShoot'
 function ingame:init()
-    destroyAll()
+    DestroyAll()
 
     local map=Maps[MapNumber]
     loadMap(map)
