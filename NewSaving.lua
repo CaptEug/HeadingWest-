@@ -137,10 +137,10 @@ end
 ---@return string
 function TableToString(table,tableName) --convert table to string (prototype)
 
-    local function Convert(table,layer)
+    local function Convert(input,layer)
 
         local str = ""
-        for key, value in pairs(table) do
+        for key, value in pairs(input) do
             
             local keyName = tostring(key)
             local keyValue = ""
