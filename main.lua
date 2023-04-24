@@ -176,7 +176,7 @@ function cammovement()
     if love.keyboard.isDown("d") then
         cam:move(5,0)
     end
-    
+
     function love.wheelmoved(x, y)
         if y > 0 then
             cam:zoom(1.1)

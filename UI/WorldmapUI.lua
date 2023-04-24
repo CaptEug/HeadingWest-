@@ -42,7 +42,7 @@ function WorldmapUI:load()
                 MapNumber = city.map
                 Map_type = city.type
                 CurrentPlace = city
-                --ingame:init()
+                ingame:init()
                 Gamestate.switch(ingame)
             end,
             city.Gobuttons,
