@@ -1,21 +1,13 @@
 ingame = {}
 ingame = Gamestate.new()
+Ingamebuttons = {}
 
 require 'UI.ingameUI'
 require 'libraries/TankSpawner'
 require 'libraries/ConstructureSpawner'
 require 'libraries/TimeToShoot'
 function ingame:init()
-    Gbuttons = buttons.new()
-    Settings = buttons.newToolButton(
-        Gear,
-        function()
-            Gamestate.push(Pause)
-        end,
-        Gbuttons,
-        16,
-        wh - 16
-    )
+    destroyAll()
 
     local map=Maps[MapNumber]
     loadMap(map)
@@ -130,7 +122,6 @@ function ingame:draw()
     end
 
     ingameUI:draw()
-    Gbuttons:use()
 end
 
 function ingame:drawWithoutUI()

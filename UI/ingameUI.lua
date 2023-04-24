@@ -18,13 +18,22 @@ function ingameUI:load()
     end
 
     --buttons in captured
-    DefButtons = buttons.new()
+    Ingamebuttons.DefButtons = buttons.new()
+    Settings = buttons.newToolButton(
+        Gear,
+        function()
+            Gamestate.push(Pause)
+        end,
+        Ingamebuttons.DefButtons,
+        16,
+        wh - 16
+    )
     RadioStation = buttons.newToolButton(
         RadioStation_icon,
         function ()
             Cities:playRadio(CurrentPlace.songlist)
         end,
-        DefButtons,
+        Ingamebuttons.DefButtons,
         ww - 16,
         wh - 16
     )
@@ -37,10 +46,10 @@ function ingameUI:load()
                 CurrentPlace.openArmyEditor = true
             end
         end,
-        DefButtons
+        Ingamebuttons.DefButtons
     )
 
-    TankFacButtons = buttons.new()
+    Ingamebuttons.TankFacButtons = buttons.new()
     FacDesigner = buttons.newToolButton(
         Tankdesigner_icon,
         function ()
@@ -50,11 +59,11 @@ function ingameUI:load()
                 CurrentPlace.openTankDesigner = true
             end
         end,
-        TankFacButtons,
+        Ingamebuttons.TankFacButtons,
         48
     )
 
-    ConstructButtons = buttons.new()
+    Ingamebuttons.ConstructButtons = buttons.new()
     ConstructMenu_button = buttons.newToolButton(
         Constructmenu_icon,
         function ()
@@ -64,7 +73,7 @@ function ingameUI:load()
                 CurrentPlace.openConstructMenu = true
             end
         end,
-        ConstructButtons,
+        Ingamebuttons.ConstructButtons,
         80
     )
 end
@@ -84,14 +93,14 @@ function ingameUI:update(dt)
 end
 
 function ingameUI:draw()
-    DefButtons:use()
+    Ingamebuttons.DefButtons:use()
     TankInfoPanel:draw()
     ArmyEditor:draw()
     if CurrentPlace.state == 'Peace' then
-        ConstructButtons:use()
+        Ingamebuttons.ConstructButtons:use()
         ConstructMenu:draw()
         if CurrentPlace.factory then
-            TankFacButtons:use()
+            Ingamebuttons.TankFacButtons:use()
             TankDesigner:draw()
         end
     end

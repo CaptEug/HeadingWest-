@@ -71,7 +71,7 @@ function GS.pop(...)
 end
 function GS.TRASH(...)
 	
-	end
+end
 
 function GS.current()
 	return stack[#stack]

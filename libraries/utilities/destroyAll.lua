@@ -1,7 +1,7 @@
 function destroyAll()
     colliderTableDestroy(Structure)
     colliderTableDestroy(Obstacles)
-    colliderTableDestroy(CurrentPlace.exsist_tank)
+    emptyTable(Ingamebuttons)
 end
 
 -- Used for tables of colliders
