@@ -1,11 +1,11 @@
-ArmyEditor = {}
+CityInfoPenal = {}
 
-function ArmyEditor:load()
+function CityInfoPenal:load()
     AEscreen = love.graphics.newCanvas(544, 560)
-    ArmyEditor.window = {x = 32, y = 32, w = 400, h = 560}
-    ArmyEditor.dragging = false
-    CurrentPlace.openArmyEditor = false
-    CurrentPlace.armyeditormode = false
+    CityInfoPenal.window = {x = 32, y = 32, w = 400, h = 560}
+    CityInfoPenal.dragging = false
+    CurrentPlace.openCityInfoPenal = false
+    CurrentPlace.cityinfopenalmode = false
     CurrentPlace.AEbuttons = buttons.new()
     CurrentPlace.Army.Abuttons = buttons.new()
     DivisionNum = 1
@@ -14,13 +14,13 @@ function ArmyEditor:load()
     EditArmy = buttons.newWindowToolButton(
         Edit_button,
         function ()
-            if CurrentPlace.armyeditormode then
-                CurrentPlace.armyeditormode = false
+            if CurrentPlace.cityinfopenalmode then
+                CurrentPlace.cityinfopenalmode = false
             else
-                CurrentPlace.armyeditormode = true
+                CurrentPlace.cityinfopenalmode = true
             end
         end,
-        ArmyEditor.window,
+        CityInfoPenal.window,
         CurrentPlace.AEbuttons,
         0 + 363,
         0 + 53,
@@ -35,13 +35,13 @@ function ArmyEditor:load()
             NewDivision('division#'..tostring(DivisionNum))
             DivisionNum = DivisionNum + 1
         end,
-        ArmyEditor.window,
+        CityInfoPenal.window,
         CurrentPlace.Army.Abuttons
     )
     
 end
 
-function ArmyEditor:update(dt)
+function CityInfoPenal:update(dt)
     for i, division in ipairs(CurrentPlace.Army) do
         if division.remove then
             table.remove(CurrentPlace.Army, i)
@@ -59,10 +59,10 @@ function ArmyEditor:update(dt)
     end
 end
 
-function ArmyEditor:draw()
-    if CurrentPlace.openArmyEditor then
+function CityInfoPenal:draw()
+    if CurrentPlace.openCityInfoPenal then
     love.graphics.setCanvas(AEscreen)
-        love.graphics.draw(ArmyEditor_screen)
+        love.graphics.draw(CityInfoPenal_screen)
         love.graphics.setColor(0,0,0)
         love.graphics.setFont(Rheadfont)
         love.graphics.print('Army in '..CurrentPlace.name, 0 + 32, 0 + 40)
@@ -91,7 +91,7 @@ function ArmyEditor:draw()
                 for m, company in ipairs(regiment) do
                     love.graphics.setColor(0,0,0)
                     love.graphics.print(company.name, 0 + 154, 0 - 20 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight)
-                    if CurrentPlace.armyeditormode then
+                    if CurrentPlace.cityinfopenalmode then
                         company.CButtons:use()
                         love.graphics.setColor(0,0,0)
                         love.graphics.rectangle("line", 0 + 236, 0 - 20 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight, 133, 20*#company + 20)
@@ -110,7 +110,7 @@ function ArmyEditor:draw()
                     regiment.compHight = regiment.compHight + 4 + 20 * #company
                 end
 
-                if CurrentPlace.armyeditormode then
+                if CurrentPlace.cityinfopenalmode then
                     love.graphics.setColor(0.5,0.5,0.5)
                     love.graphics.print('comp.', 0 + 148, 0 + DivisionHight + 20*n + division.rgtHight + 20*#regiment + regiment.compHight)
                     regiment.New_Company.bx = 0 + 189
@@ -124,7 +124,7 @@ function ArmyEditor:draw()
             love.graphics.setColor(0,0,0)
             love.graphics.rectangle("fill", 0 + 32, 0 + 40 + DivisionHight + 20*#division + division.rgtHight, 338, 2)
 
-            if CurrentPlace.armyeditormode then
+            if CurrentPlace.cityinfopenalmode then
                 love.graphics.setColor(0.5,0.5,0.5)
                 love.graphics.print('rgt.', 0 + 48, 0 + 20 + DivisionHight + 20*#division + division.rgtHight)
                 division.New_Regiment.bx = 0 + 80
@@ -136,7 +136,7 @@ function ArmyEditor:draw()
             DivisionHight = DivisionHight + 44 + 20 * #division + division.rgtHight
         end
 
-        if CurrentPlace.armyeditormode then
+        if CurrentPlace.cityinfopenalmode then
             love.graphics.setColor(0.5,0.5,0.5)
             love.graphics.setFont(Rheadfont)
             love.graphics.print('div.', 0 + 32, 0 + DivisionHight)
@@ -147,15 +147,15 @@ function ArmyEditor:draw()
         end
         love.graphics.setColor(1,1,1)
     love.graphics.setCanvas()
-        love.graphics.draw(AEscreen, ArmyEditor.window.x, ArmyEditor.window.y)
-        if CurrentPlace.armyeditormode then
+        love.graphics.draw(AEscreen, CityInfoPenal.window.x, CityInfoPenal.window.y)
+        if CurrentPlace.cityinfopenalmode then
             love.graphics.setColor(1,1,1)
-            love.graphics.draw(ArmyEditor_list, ArmyEditor.window.x, ArmyEditor.window.y)
+            love.graphics.draw(CityInfoPenal_list, CityInfoPenal.window.x, CityInfoPenal.window.y)
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
                 if not tank.incomp then
                     love.graphics.setColor(0,0,0)
-                    love.graphics.draw(Tank_icon,  ArmyEditor.window.x + 393, ArmyEditor.window.y + 24 + 20*i)
-                    love.graphics.print(tank.name..' No.'..tank.number, ArmyEditor.window.x + 415, ArmyEditor.window.y + 24 + 20*i)
+                    love.graphics.draw(Tank_icon,  CityInfoPenal.window.x + 393, CityInfoPenal.window.y + 24 + 20*i)
+                    love.graphics.print(tank.name..' No.'..tank.number, CityInfoPenal.window.x + 415, CityInfoPenal.window.y + 24 + 20*i)
                     love.graphics.setColor(1,1,1)
                 end
             end
@@ -173,7 +173,7 @@ function NewDivision(name)
         function ()
             instance.remove = true
         end,
-        ArmyEditor.window,
+        CityInfoPenal.window,
         instance.DButtons
     )
     instance.New_Regiment = buttons.newWindowToolButton(
@@ -181,7 +181,7 @@ function NewDivision(name)
         function ()
             NewRegiment(instance)
         end,
-        ArmyEditor.window,
+        CityInfoPenal.window,
         instance.DButtons
     )
     table.insert(CurrentPlace.Army, instance)
@@ -198,7 +198,7 @@ function NewRegiment(division)
         function ()
             instance.remove = true
         end,
-        ArmyEditor.window,
+        CityInfoPenal.window,
         instance.RButtons
     )
     instance.New_Company = buttons.newWindowToolButton(
@@ -206,7 +206,7 @@ function NewRegiment(division)
         function ()
             NewCompany(instance)
         end,
-        ArmyEditor.window,
+        CityInfoPenal.window,
         instance.RButtons
     )
     table.insert(division, instance)
@@ -222,7 +222,7 @@ function NewCompany(regiment)
         function ()
             instance.remove = true
         end,
-        ArmyEditor.window,
+        CityInfoPenal.window,
         instance.CButtons
     )
     table.insert(regiment, instance)
@@ -231,25 +231,25 @@ end
 --AEscreen.window draggie
 function AEmousepressed(x, y, button)
     -- Check if the mouse is inside the TDscreen.window
-    if x >= ArmyEditor.window.x and x <= ArmyEditor.window.x + ArmyEditor.window.w and
-     y >= ArmyEditor.window.y and y <= ArmyEditor.window.y + ArmyEditor.window.h then
+    if x >= CityInfoPenal.window.x and x <= CityInfoPenal.window.x + CityInfoPenal.window.w and
+     y >= CityInfoPenal.window.y and y <= CityInfoPenal.window.y + CityInfoPenal.window.h then
         Cursormode = 'dragging'
-        ArmyEditor.dragging = true
+        CityInfoPenal.dragging = true
        -- Calculate the offset between the mouse position and the TDscreen.window position
-       ArmyEditor.offsetX = x - ArmyEditor.window.x
-       ArmyEditor.offsetY = y - ArmyEditor.window.y
+       CityInfoPenal.offsetX = x - CityInfoPenal.window.x
+       CityInfoPenal.offsetY = y - CityInfoPenal.window.y
     end
 end
  
 function AEmousereleased(x, y, button)
     -- Stop dragging when the mouse is released
-    ArmyEditor.dragging = false
+    CityInfoPenal.dragging = false
 end
  
 function AEmousemoved(x, y, dx, dy)
     -- Update the TDscreen.window position if the user is dragging it
-    if ArmyEditor.dragging then
-        ArmyEditor.window.x = x - ArmyEditor.offsetX
-        ArmyEditor.window.y = y - ArmyEditor.offsetY
+    if CityInfoPenal.dragging then
+        CityInfoPenal.window.x = x - CityInfoPenal.offsetX
+        CityInfoPenal.window.y = y - CityInfoPenal.offsetY
     end
 end

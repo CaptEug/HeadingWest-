@@ -1,7 +1,7 @@
 Tank = {}
 
 function Buildtank()
-    local selected_slot = TankSpawner:slot_distribution(CurrentPlace)
+    local selected_slot = TankDesigner:slot_distribution(CurrentPlace)
     local tank = {
         selected_slot = selected_slot,
         type = 'Friendly',
@@ -131,6 +131,7 @@ function BuildEnemytank(place, tank, x, y)
     end
     setmetatable(enemy, Tank)
     Tank.__index = Tank
+    table.insert(place.exsist_tank, enemy)
     TankSpawner:loadtank(place, enemy)
 end
 

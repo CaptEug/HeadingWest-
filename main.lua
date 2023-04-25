@@ -12,7 +12,6 @@ require 'libraries/utilities/buttons'
 require 'libraries/utilities/DestroyAll'
 require 'libraries/utilities/show'
 require 'libraries/utilities/copytable'
-
 require 'libraries/shaders'
 
 require "NewSaving"
@@ -88,11 +87,11 @@ Tank_icon = love.graphics.newImage('Assets/pictures/Icons/Tank_icon.png')
 Tankdesigner_icon = love.graphics.newImage('Assets/pictures/Icons/Tankdesigner.png')
 Constructmenu_icon = love.graphics.newImage('Assets/pictures/Icons/Constructmenu.png')
 RadioStation_icon = love.graphics.newImage('Assets/pictures/Icons/RadioStation.png')
-ArmyEditor_icon = love.graphics.newImage('Assets/pictures/Icons/ArmyEditor.png')
+CityInfoPenal_icon = love.graphics.newImage('Assets/pictures/Icons/CityInfoPenal.png')
 TankDesigner_screen = love.graphics.newImage('Assets/pictures/Tankdesigner_screen.png')
 ConstructMenu_screen = love.graphics.newImage('Assets/pictures/Constructmenu_screen.png')
-ArmyEditor_screen = love.graphics.newImage('Assets/pictures/ArmyEditorScreen.png')
-ArmyEditor_list = love.graphics.newImage('Assets/pictures/ArmyEditorList.png')
+CityInfoPenal_screen = love.graphics.newImage('Assets/pictures/CityInfoPenalScreen.png')
+CityInfoPenal_list = love.graphics.newImage('Assets/pictures/CityInfoPenalList.png')
 city_page = love.graphics.newImage('Assets/pictures/Citypage.png')
 production_box = love.graphics.newImage('Assets/pictures/Pbox.png')
 contructure_box = love.graphics.newImage('Assets/pictures/Cbox.png')

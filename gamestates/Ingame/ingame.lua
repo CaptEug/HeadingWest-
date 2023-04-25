@@ -40,7 +40,7 @@ function ingame:update(dt)
         if CurrentPlace.openTankDesigner then
             TDmousepressed(x, y, button)
         end
-        if CurrentPlace.openArmyEditor then
+        if CurrentPlace.openCityInfoPenal then
             AEmousepressed(x, y, button)
         end
         if CurrentPlace.openConstructMenu then
@@ -59,7 +59,7 @@ function ingame:update(dt)
         if CurrentPlace.openTankDesigner then
             TDmousereleased(x, y, button)
         end
-        if CurrentPlace.openArmyEditor then
+        if CurrentPlace.openCityInfoPenal then
             AEmousereleased(x, y, button)
         end
         if CurrentPlace.openConstructMenu then
@@ -92,7 +92,7 @@ function ingame:update(dt)
         if CurrentPlace.openTankDesigner then
             TDmousemoved(x, y, dx, dy)
         end
-        if CurrentPlace.openArmyEditor then
+        if CurrentPlace.openCityInfoPenal then
             AEmousemoved(x, y, dx, dy)
         end
         if CurrentPlace.openConstructMenu then
