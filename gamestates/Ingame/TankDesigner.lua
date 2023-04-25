@@ -236,9 +236,10 @@ function TankDesigner:update(dt)
         if tank.selected_slot ~= 0 then
             tank.buildtime = tank.buildtime - dt
         else
-            tank.selected_slot = TankSpawner:slot_distribution(CurrentPlace)
+            tank.selected_slot = TankDesigner:slot_distribution(CurrentPlace)
         end
         if tank.buildtime <= 0 then
+            table.insert(CurrentPlace.exsist_tank, tank)
             TankSpawner:loadtank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
             CurrentPlace.slot_info[tank.selected_slot].available = true
@@ -337,6 +338,22 @@ function TankDesigner:draw()
         end
 end
 
+function TankDesigner:slot_distribution(place)
+    local slot_full = true
+    local selected_slot
+    for i, slot in ipairs(place.slot_info) do
+        if slot.available==true then
+            slot.available=false
+            selected_slot=i
+            slot_full=false
+            break
+        end
+    end
+    if slot_full==true then
+        selected_slot=0
+    end
+    return selected_slot
+end
 
 --TDscreen.window draggie
 function TDmousepressed(x, y, button)

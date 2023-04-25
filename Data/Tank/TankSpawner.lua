@@ -1,22 +1,5 @@
 TankSpawner = {}
 
-function TankSpawner:slot_distribution(place)
-    local slot_full=true
-    local selected_slot
-    for i, slot in ipairs(place.slot_info) do
-        if slot.available==true then
-            slot.available=false
-            selected_slot=i
-            slot_full=false
-            break
-        end
-    end
-    if slot_full==true then
-        selected_slot=0
-    end
-    return selected_slot
-end
-
 function TankSpawner:loadtank(place, tank)
     tank.collider = world:newRectangleCollider(tank.location.x, tank.location.y, tank.width, tank.length)
     tank.collider:setCollisionClass('tankhull')
@@ -47,7 +30,6 @@ function TankSpawner:loadtank(place, tank)
     end
     tank.functions.move = AutoControlfunction
     tank:CreatParticles()
-    table.insert(place.exsist_tank, tank)
 end
 
 function TankSpawner:update(dt)

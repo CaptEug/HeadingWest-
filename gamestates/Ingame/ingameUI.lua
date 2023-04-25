@@ -1,12 +1,12 @@
 ingameUI={}
 require 'gamestates.Ingame.TankDesigner'
 require 'gamestates.Ingame.TankInfoPanel'
-require 'gamestates.Ingame.ArmyEditor'
+require 'gamestates.Ingame.CityInfoPenal'
 require 'gamestates.Ingame.ConstructMenu'
 
 function ingameUI:load()
     TankInfoPanel:load()
-    ArmyEditor:load()
+    CityInfoPenal:load()
 
     --buttons in captured
     Ingamebuttons.DefButtons = buttons.new()
@@ -28,13 +28,13 @@ function ingameUI:load()
         ww - 16,
         wh - 16
     )
-    ArmyEditor_button = buttons.newToolButton(
-        ArmyEditor_icon,
+    CityInfoPenal_button = buttons.newToolButton(
+        CityInfoPenal_icon,
         function ()
-            if CurrentPlace.openArmyEditor then
-                CurrentPlace.openArmyEditor = false
+            if CurrentPlace.openCityInfoPenal then
+                CurrentPlace.openCityInfoPenal = false
             else
-                CurrentPlace.openArmyEditor = true
+                CurrentPlace.openCityInfoPenal = true
             end
         end,
         Ingamebuttons.DefButtons
@@ -79,7 +79,7 @@ end
 
 function ingameUI:update(dt)
     TankInfoPanel:update(dt)
-    ArmyEditor:update(dt)
+    CityInfoPenal:update(dt)
     if CurrentPlace.state == 'Peace' then
         ConstructMenu:update(dt)
         if CurrentPlace.factory then
@@ -94,7 +94,7 @@ end
 function ingameUI:draw()
     Ingamebuttons.DefButtons:use()
     TankInfoPanel:draw()
-    ArmyEditor:draw()
+    CityInfoPenal:draw()
     if CurrentPlace.state == 'Peace' then
         Ingamebuttons.ConstructButtons:use()
         ConstructMenu:draw()
