@@ -25,7 +25,6 @@ require 'gamestates/SettingMenu'
 --Assets registered
 --country
 Earth = love.graphics.newImage('Assets/countries/WorldMap.png')
-WdMap = sti('Assets/countries/Worldmap.lua')
 Worldw, Worldh = Earth:getDimensions()
 USSR_flag = love.graphics.newImage('Assets/countries/USSR_Flag.png')
 US_flag = love.graphics.newImage('Assets/countries/US_Flag.png')
@@ -184,9 +183,8 @@ function cammovement()
     end
 end
 
-function DrawMaps()
-    --love.graphics.draw(Earth, 0, 0)
-    WdMap:drawLayer(WdMap.layers['Earth'])
+function DrawEarth()
+    love.graphics.draw(Earth, 0, 0)
 end
 
 function DrawCountries()

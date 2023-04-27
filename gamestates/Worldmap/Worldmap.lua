@@ -41,7 +41,7 @@ end
 
 function Worldmap:draw()
     cam:attach()
-        DrawMaps()
+        DrawEarth()
         DrawCountries()
     cam:detach()
 
@@ -50,7 +50,7 @@ end
 
 function Worldmap:drawWithoutUI()
     cam:attach()
-        DrawMaps()
+        DrawEarth()
         DrawCountries()
     cam:detach()
 end

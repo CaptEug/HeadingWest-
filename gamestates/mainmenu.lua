@@ -123,7 +123,7 @@ function MainMenu:draw()
         if Lbuttons.isopen then
             love.graphics.setColor(0.3,0.3,0.3)
         end
-        DrawMaps()
+        DrawEarth()
         DrawCountries()
     cam:detach()
 
