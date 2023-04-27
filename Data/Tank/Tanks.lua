@@ -1,6 +1,6 @@
 Blank_line = love.graphics.newImage('Assets/tanks/Blank_line.png')
 Blank_Gear = {name = 'Blank', steel_cost = 0, oil_cost = 0, line_image = Blank_line, turret_image = Blank_line, hull_image = Blank_line}
-Tank_Grid = anim8.newGrid(288, 288, 288*7, 288)
+Tank_Grid = anim8.newGrid(288, 288, 288*7, 288*2)
 
 Tanks = {
     --USSR
@@ -23,6 +23,7 @@ Tanks = {
         steel_cost = 7,
         oil_cost = 3,
         reload_time = 7,
+        deploy_time = 0,
         ammorack_size = 40,
         ammunition = {
         {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
@@ -87,7 +88,7 @@ Tanks = {
         --mob
         {
         {
-            name = 'V_84',
+            name = 'V_46',
             steel_cost = 0,
             oil_cost = 0,
             line_image = Blank_line,
@@ -403,6 +404,7 @@ Tanks = {
         steel_cost = 0,
         oil_cost = 0,
         reload_time = 6,
+        deploy_time = 0,
         ammorack_size = 40,
         ammunition = {
         {name = 'M900', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 530},
@@ -482,13 +484,15 @@ SPGs = {
         exhaust_angle2 = 0,
         weight = 46.5,
         crew = 14,
-        max_f_speed = 60,
-        max_r_speed = -4,
+        max_f_speed = 50,
+        max_r_speed = -50,
         turret_t_speed = 20,
+        turret_t_angle = {l = 15, r = 15},
         vision = 600,
         steel_cost = 0,
         oil_cost = 0,
         reload_time = 3,
+        deploy_time = 1.2,
         ammorack_size = 40,
         ammunition = {
         {name = '203mmHE', type = 'HE', pentype = 'CE', velocity = 960, mass = 0.2, pen = 203}
@@ -508,7 +512,7 @@ SPGs = {
         turret_image = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_Gun.png'),
         turret_image_line = Blank_line,
         turret_image_broken = Blank_line,
-        anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
+        anime_sheet = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_sprite.png'),
         accessories = {
         --armor
         {
@@ -539,7 +543,7 @@ SPGs = {
             steel_cost = 0,
             oil_cost = 0,
             line_image = Blank_line,
-            hp = 840,
+            hp = 780,
             tag = 'Mob'
         }
         }

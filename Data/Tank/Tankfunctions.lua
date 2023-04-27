@@ -7,6 +7,7 @@ function Buildtank()
         type = 'Friendly',
         number = tostring(math.random(000,999)),
         name = TankPresent.name,
+        class = TankPresent.class,
         width = TankPresent.width,
         length = TankPresent.length,
         weight = TankPresent.weight,
@@ -14,6 +15,8 @@ function Buildtank()
         survivor = TankPresent.crew,
         reload_time = TankPresent.reload_time,
         reload_timer = TankPresent.reload_time,
+        deploy_time = TankPresent.deploy_time,
+        deploy_timer = -1,
         ammorack_size = TankPresent.ammorack_size,
         ammorack = copytable(TankPresent.ammorack),
         armorthickness = TankPresent.armorthickness,
@@ -29,7 +32,9 @@ function Buildtank()
         turret_image_line = TankPresent.turret_image_line,
         turret_image_broken = TankPresent.turret_image_broken,
         anime_sheet = TankPresent.anime_sheet,
-        turret_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
+        turret_anime = {},
+        firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
+        fortify_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
         hull_offset = TankPresent.hull_offset,
         gun_offset = TankPresent.gun_offset,
         engine_offset = TankPresent.engine_offset,
@@ -61,7 +66,8 @@ function Buildtank()
         firing_timer = 0,
         picked = false,
         incomp = false,
-        compCom = false
+        compCom = false,
+        fortified = false
     }
     Steel = Steel - TankDesigner.tank_steel_cost
     Oil = Oil - TankDesigner.tank_oil_cost
@@ -76,6 +82,7 @@ function BuildEnemytank(place, tank, x, y)
         type = 'Enemy',
         number = tostring(math.random(000,999)),
         name = tank.name,
+        class = tank.class,
         width = tank.width,
         length = tank.length,
         weight = tank.weight,
@@ -83,6 +90,8 @@ function BuildEnemytank(place, tank, x, y)
         survivor = tank.crew,
         reload_time = tank.reload_time,
         reload_timer = tank.reload_time,
+        deploy_time = tank.deploy_time,
+        deploy_timer = -1,
         ammorack_size = tank.ammorack_size,
         ammorack = {},
         armorthickness = tank.armorthickness,
@@ -98,7 +107,9 @@ function BuildEnemytank(place, tank, x, y)
         turret_image_line = tank.turret_image_line,
         turret_image_broken = tank.turret_image_broken,
         anime_sheet = tank.anime_sheet,
-        turret_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
+        turret_anime = {},
+        firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
+        fortify_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
         hull_offset = tank.hull_offset,
         gun_offset = tank.gun_offset,
         engine_offset = tank.engine_offset,
@@ -130,7 +141,8 @@ function BuildEnemytank(place, tank, x, y)
         firing_timer = 0,
         picked = false,
         incomp = false,
-        compCom = false
+        compCom = false,
+        fortified = false
     }
     while #enemy.ammorack < enemy.ammorack_size do
         table.insert(enemy.ammorack, tank.ammunition[1])
@@ -175,17 +187,17 @@ ManualControlfunction = function(tank, dt)
     local isaim = tank:AimCheck(mx, my, dt)
 
     cam:lookAt(tank.location.x, tank.location.y)
-    
-    if love.keyboard.isDown('w') and speed <= max_f then
+
+    if not tank.fortified and love.keyboard.isDown('w') and speed <= max_f then
         tank.collider:applyForce(fx, fy)
     end
-    if love.keyboard.isDown('s') and speed <= max_r then
+    if not tank.fortified and love.keyboard.isDown('s') and speed <= max_r then
         tank.collider:applyForce(-fx, -fy)
     end
-    if love.keyboard.isDown('a') then
+    if not tank.fortified and love.keyboard.isDown('a') then
         tank.collider:applyTorque(-5*hp)
     end
-    if love.keyboard.isDown('d') then
+    if not tank.fortified and love.keyboard.isDown('d') then
         tank.collider:applyTorque(5*hp)
     end
 
@@ -196,8 +208,13 @@ ManualControlfunction = function(tank, dt)
     end
 end
 
-SetFortified = function(tank, dt)
-    
+function Tank:SetFortified()
+    if self.fortified then
+        self.deploy_timer = -1
+        self.fortified = false
+    else
+        self.deploy_timer = self.deploy_time
+    end
 end
 
 function Tank:AimCheck(x, y, dt)
@@ -283,10 +300,26 @@ function Tank:Update(dt)
     end
     self.reload_timer = self.reload_timer - dt
     self.firing_timer = self.firing_timer - dt
+    self.deploy_timer = self.deploy_timer - dt
 
     --ainme update
+    if self.class == 'spg' then
+        self.turret_anime = self.fortify_anime
+    else
+        self.turret_anime = self.firing_anime
+    end
     if self.firing_timer <= 0 then
-        self.turret_anime:gotoFrame(1)
+        self.firing_anime:gotoFrame(1)
+    end
+    if self.fortified then
+        self.turret_anime = self.firing_anime
+    else
+        if self.deploy_timer <= -1 then
+            self.fortify_anime:gotoFrame(1)
+        end
+        if self.deploy_timer <= 0 and self.deploy_timer > -1 then
+            self.fortified = true
+        end
     end
     self.turret_anime:update(dt)
 end

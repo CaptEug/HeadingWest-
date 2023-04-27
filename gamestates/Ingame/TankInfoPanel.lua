@@ -59,11 +59,7 @@ function TankInfoPanel:load()
     Fortify = buttons.newWindowToolButton(
         Fortify_icon,
         function ()
-            if TankChoosen.functions.move ~= SetFortified then
-                TankChoosen.functions.move = SetFortified
-            else
-                TankChoosen.functions.move = AutoControlfunction
-            end
+            TankChoosen:SetFortified()
         end,
         TankInfoPanel.window,
         TankInfoPanel.Pbuttons,
@@ -76,7 +72,7 @@ function TankInfoPanel:update(dt)
     --tankbutton pos update
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         for i, button in ipairs(tank.Infobuttons) do
-                button.bx, button.by = tank.image_location.x,tank.image_location.y
+            button.bx, button.by = tank.image_location.x,tank.image_location.y
         end
     end
 end
@@ -117,6 +113,9 @@ function TankInfoPanel:draw()
         love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', 0 + 4, 0 + 268)
         if TankChoosen.reload_timer >= 0 then
             love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s', 0 + 144, 0 + 268)
+        end
+        if TankChoosen.deploy_timer >= 0 then
+            love.graphics.print('Deploying '..string.format("%.1f", TankChoosen.deploy_timer)..' s', 0 + 144, 0 + 248)
         end
         love.graphics.setColor(1,1,1)
 
@@ -200,7 +199,7 @@ function TankStateDraw()
     if TankChoosen.functions.move == ManualControlfunction then
         love.graphics.draw(ManulControlOn_icon, 0 + 10, 0 + 519)
     end
-    if TankChoosen.functions.move == SetFortified then
+    if TankChoosen.fortified then
         love.graphics.draw(FortifyOn_icon, 0 + 78, 0 + 465)
     end
     if TankChoosen.compCom then
