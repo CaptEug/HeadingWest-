@@ -136,7 +136,7 @@ function MainMenu:draw()
     if Lbuttons.isopen then
         love.graphics.setColor(1,1,1)
         love.graphics.setFont(Rtitlefont)
-        love.graphics.print("SAVED FILES", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("SAVED FILES") / 2, 0)
+        love.graphics.print("Choose FILE", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("SAVED FILES") / 2, 0)
         Lbuttons:use()
     end
 end

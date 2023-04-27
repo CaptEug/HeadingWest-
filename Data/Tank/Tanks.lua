@@ -28,7 +28,7 @@ Tanks = {
         ammorack_size = 40,
         ammunition = {
         {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
-        {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65},
+        {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
         {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
         },
         armorthickness = {
@@ -501,7 +501,7 @@ SPGs = {
         deploy_time = 1.2,
         ammorack_size = 40,
         ammunition = {
-        {name = '203mmHE', type = 'HE', pentype = 'CE', velocity = 960, mass = 0.2, pen = 203}
+        {name = '203mmHE', type = 'HE', pentype = 'CE', velocity = 960, mass = 0.2, pen = 203, TNT_eq = 15}
         },
         armorthickness = {
         hull = {front = {10, 10}, side = {10, 10}, back = {10, 10}},

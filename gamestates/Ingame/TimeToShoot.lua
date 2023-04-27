@@ -24,7 +24,6 @@ function Shoot(tank)
     shell:setMass(round.mass)
     shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
     shell.life = 5
-    shell.type = round.type
     shell.pen = round.pen
     shell.pentype = round.pentype
     shell.trail = {}
