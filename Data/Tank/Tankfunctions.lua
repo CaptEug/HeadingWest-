@@ -202,7 +202,11 @@ ManualControlfunction = function(tank, dt)
     end
 
     if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
-        Shoot(tank)
+        if tank.class == 'spg' then
+            Bomb(tank, mx, my)
+        else
+            Shoot(tank)
+        end
         tank.firing_timer = 0.7
         tank.reload_timer = tank.reload_time
     end
