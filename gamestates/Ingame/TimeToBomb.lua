@@ -1,0 +1,5 @@
+Explosions = {}
+
+function Bomb()
+    
+end

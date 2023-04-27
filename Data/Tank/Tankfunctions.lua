@@ -34,7 +34,9 @@ function Buildtank()
         gun_offset = TankPresent.gun_offset,
         engine_offset = TankPresent.engine_offset,
         exhaust_offset = TankPresent.exhaust_offset,
+        exhaust_offset2 = TankPresent.exhaust_offset2 or nil,
         exhaust_angle = TankPresent.exhaust_angle,
+        exhaust_angle2 = TankPresent.exhaust_angle2 or nil,
         turret_angle = 0,
         armor = copytable(TankPresent.equipment.armor),
         aim = copytable(TankPresent.equipment.aim),
@@ -47,6 +49,7 @@ function Buildtank()
         gun_location = {},
         engine_location = {},
         exhaust_location = {},
+        exhaust_location2 = {},
         functions = {},
         Infobuttons = {},
         status = {
@@ -100,7 +103,9 @@ function BuildEnemytank(place, tank, x, y)
         gun_offset = tank.gun_offset,
         engine_offset = tank.engine_offset,
         exhaust_offset = tank.exhaust_offset,
+        exhaust_offset2 = tank.exhaust_offset2 or nil,
         exhaust_angle = tank.exhaust_angle,
+        exhaust_angle2 = tank.exhaust_angle or nil,
         turret_angle = 0,
         armor = copytable(tank.accessories[1][1] or Blank_Gear),
         aim = copytable(tank.accessories[2][1] or Blank_Gear),
@@ -113,6 +118,7 @@ function BuildEnemytank(place, tank, x, y)
         gun_location = {},
         engine_location = {},
         exhaust_location = {},
+        exhaust_location2 = {},
         functions = {},
         Infobuttons = {},
         status = {
@@ -271,6 +277,10 @@ function Tank:Update(dt)
                                                      self.image_location.y - (self.engine_offset)*math.cos(hull_angle)
     self.exhaust_location.x, self.exhaust_location.y = self.image_location.x + self.exhaust_offset.y*math.sin(hull_angle) + self.exhaust_offset.x*math.cos(hull_angle),
                                                        self.image_location.y - self.exhaust_offset.y*math.cos(hull_angle) + self.exhaust_offset.x*math.sin(hull_angle)
+    if self.exhaust_offset2 then
+        self.exhaust_location2.x, self.exhaust_location2.y = self.image_location.x + self.exhaust_offset2.y*math.sin(hull_angle) + self.exhaust_offset2.x*math.cos(hull_angle),
+                                                             self.image_location.y - self.exhaust_offset2.y*math.cos(hull_angle) + self.exhaust_offset2.x*math.sin(hull_angle)
+    end
     self.reload_timer = self.reload_timer - dt
     self.firing_timer = self.firing_timer - dt
 
@@ -322,6 +332,9 @@ function Tank:CreatParticles()
     self.particles.enginesmoke:setSizes(0.4, 1)
     self.particles.enginesmoke:setLinearDamping(5)
 	self.particles.enginesmoke:setColors(1, 1, 1, 1, 1, 1, 1, 0)
+    if self.exhaust_offset2 then
+        self.particles.enginesmoke2 = self.particles.enginesmoke:clone()
+    end
 
     self.particles.onfire:setParticleLifetime(1)
 	self.particles.onfire:setEmissionRate(50)
@@ -344,6 +357,12 @@ function Tank:ParticleUpdate(dt)
     self.particles.enginesmoke:setPosition(self.exhaust_location.x, self.exhaust_location.y)
     self.particles.enginesmoke:setLinearAcceleration(150*hx+math.random(-50,50), 150*hy+math.random(-50,50))
     self.particles.enginesmoke:update(dt)
+    if self.exhaust_offset2 then
+        local hx2, hy2 = math.cos(self.location.hull_angle+self.exhaust_angle2), math.sin(self.location.hull_angle+self.exhaust_angle2)
+        self.particles.enginesmoke2:setPosition(self.exhaust_location2.x, self.exhaust_location2.y)
+        self.particles.enginesmoke2:setLinearAcceleration(150*hx2+math.random(-50,50), 150*hy2+math.random(-50,50))
+        self.particles.enginesmoke2:update(dt)
+    end
 
     self.particles.onfire:setPosition(self.engine_location.x + math.random(-3,3), self.engine_location.y + math.random(-3,3))
     self.particles.onfire:setLinearAcceleration(50, 50, -50, -50)
@@ -358,10 +377,18 @@ function Tank:ParticleDraw()
 
     if self.velocity.v > 5 or math.abs(self.collider:getAngularVelocity()) > 0 then
         self.particles.enginesmoke:setEmissionRate(50)
+        if self.exhaust_offset2 then
+            self.particles.enginesmoke2:setEmissionRate(50)
+        end
     else
         self.particles.enginesmoke:setEmissionRate(10)
+        if self.exhaust_offset2 then
+            self.particles.enginesmoke2:setEmissionRate(10)
+        end
     end
     love.graphics.draw(self.particles.enginesmoke)
-
+    if self.exhaust_offset2 then
+        love.graphics.draw(self.particles.enginesmoke2)
+    end
     love.graphics.draw(self.particles.onfire)
 end
