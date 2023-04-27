@@ -36,6 +36,7 @@ function Buildtank()
         firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         fortify_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
         hull_offset = TankPresent.hull_offset,
+        turret_offset = TankPresent.turret_offset,
         gun_offset = TankPresent.gun_offset,
         engine_offset = TankPresent.engine_offset,
         exhaust_offset = TankPresent.exhaust_offset,
@@ -51,6 +52,7 @@ function Buildtank()
         velocity = {},
         location = {x = CurrentPlace.slot_info[selected_slot].x, y = CurrentPlace.slot_info[selected_slot].y},
         image_location = {},
+        turret_location = {},
         gun_location = {},
         engine_location = {},
         exhaust_location = {},
@@ -111,6 +113,7 @@ function BuildEnemytank(place, tank, x, y)
         firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         fortify_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
         hull_offset = tank.hull_offset,
+        turret_offset = tank.turret_offset,
         gun_offset = tank.gun_offset,
         engine_offset = tank.engine_offset,
         exhaust_offset = tank.exhaust_offset,
@@ -126,6 +129,7 @@ function BuildEnemytank(place, tank, x, y)
         velocity = {},
         location = {x = x, y = y},
         image_location = {},
+        turret_location = {},
         gun_location = {},
         engine_location = {},
         exhaust_location = {},
@@ -287,7 +291,8 @@ function Tank:Update(dt)
     self.velocity = {vx = vx, vy = vy, v = math.sqrt(vx^2 + vy^2)}
     self.location = {x = x, y = y}
     self.location.hull_angle = hull_angle
-    self.image_location.x, self.image_location.y = x + self.hull_offset*math.sin(hull_angle), y - self.hull_offset*math.cos(hull_angle)
+    self.image_location.x, self.image_location.y = x + self.hull_offset*math.sin(hull_angle), y - self.hull_offset*math.cos(hull_angle)     --adjust collider's and image's location
+    self.turret_location.x, self.turret_location.y = x - self.turret_offset*math.sin(hull_angle), y + self.turret_offset*math.cos(hull_angle)
     self.gun_location.x, self.gun_location.y = self.image_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
                                                self.image_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
     self.engine_location.x, self.engine_location.y = self.image_location.x + (self.engine_offset)*math.sin(hull_angle),
@@ -326,10 +331,11 @@ end
 
 function Tank:Draw()
     local x, y = self.image_location.x, self.image_location.y
+    local turret_x, turret_y = self.turret_location.x, self.turret_location.y
     local a = self.location.hull_angle
     love.graphics.draw(self.hull_image,x,y,a,1,1,144,144)
     love.graphics.draw(self.armor.hull_image,x,y,a,1,1,144,144)
-    self.turret_anime:draw(self.anime_sheet,x,y,a+self.turret_angle,1,1,144,144)
+    self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144+self.turret_offset)    --draw turret
     love.graphics.draw(self.aim.turret_image,x,y,a+self.turret_angle,1,1,144,144)
     love.graphics.draw(self.armor.turret_image,x,y,a+self.turret_angle,1,1,144,144)
 end
