@@ -24,6 +24,7 @@ function Buildtank()
         max_f_speed = TankPresent.max_f_speed,
         max_r_speed = TankPresent.max_r_speed,
         turret_t_speed = TankPresent.turret_t_speed,
+        turret_t_angle = TankPresent.turret_t_angle or nil,
         vision = TankPresent.vision,
         hull_image = TankPresent.hull_image,
         hull_image_line = TankPresent.hull_image_line,
@@ -101,6 +102,7 @@ function BuildEnemytank(place, tank, x, y)
         max_f_speed = tank.max_f_speed,
         max_r_speed = tank.max_r_speed,
         turret_t_speed = tank.turret_t_speed,
+        turret_t_angle = tank.turret_t_angle or nil,
         vision = tank.vision,
         hull_image = tank.hull_image,
         hull_image_line = tank.hull_image_line,
@@ -227,10 +229,11 @@ end
 
 function Tank:AimCheck(x, y, dt)
     local isaim = false
-    local tx, ty = self.image_location.x, self.image_location.y
+    local tx, ty = self.turret_location.x, self.turret_location.y
     local angle_to_target = math.atan2(y - ty, x - tx)
     local ta = self.turret_angle + self.location.hull_angle - 0.5*math.pi
     local tspeed = self.turret_t_speed * math.pi/180
+    local l, r = self.turret_t_angle.l/180*math.pi, self.turret_t_angle.r/180*math.pi - 2*math.pi
 
     if angle_to_target <= 0 then
         angle_to_target = angle_to_target + math.pi*2
@@ -241,14 +244,14 @@ function Tank:AimCheck(x, y, dt)
     while ta < 0 do
         ta = ta + 2*math.pi
     end
-    if ta > angle_to_target then
+    if ta > angle_to_target and ta < r then
         if ta - angle_to_target <= math.pi then
             self.turret_angle = self.turret_angle - tspeed*dt
         else
             self.turret_angle = self.turret_angle + tspeed*dt
         end
     end
-    if ta < angle_to_target then
+    if ta < angle_to_target and ta > l then
         if angle_to_target - ta <= math.pi then
             self.turret_angle = self.turret_angle + tspeed*dt
         else
