@@ -297,11 +297,19 @@ function Tank:FacePosition(x, y, dt)
     while ha < 0 do
         ha = ha + 2*math.pi
     end
-    if not self.fortified and ha > angle_to_target + math.pi/36 then
-        self.collider:applyTorque(-5*hp)
+    if not self.fortified and ha < angle_to_target + math.pi/36 then
+        if ha - angle_to_target <= math.pi then
+            self.collider:applyTorque(5*hp)
+        else
+            self.collider:applyTorque(-5*hp)
+        end
     end
-    if not self.fortified and ha < angle_to_target - math.pi/36 then
-        self.collider:applyTorque(5*hp)
+    if not self.fortified and ha > angle_to_target - math.pi/36 then
+        if angle_to_target - ha <= math.pi then
+            self.collider:applyTorque(-5*hp)
+        else
+            self.collider:applyTorque(5*hp)
+        end
     end
 end
 
