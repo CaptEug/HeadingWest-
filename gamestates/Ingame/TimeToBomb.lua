@@ -38,7 +38,7 @@ function Explode(explosive)
         explode:setBullet(true)
         explode:setRestitution(0.5)
         explode:setLinearDamping(1)
-        explode:applyLinearImpulse(math.random(-100,100),math.random(-100,100))
+        explode:applyLinearImpulse(math.random(-10*explosive.TNT_eq,10*explosive.TNT_eq),math.random(-10*explosive.TNT_eq,10*explosive.TNT_eq))
         explode.life = 1
         explode.pen = explosive.pen
         explode.pentype = explosive.pentype
