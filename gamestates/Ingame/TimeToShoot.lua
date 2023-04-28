@@ -24,8 +24,10 @@ function Shoot(tank)
     shell:setMass(round.mass)
     shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
     shell.life = 5
+    shell.type = round.type
     shell.pen = round.pen
     shell.pentype = round.pentype
+    shell.TNT_eq = round.TNT_eq or nil
     shell.trail = {}
     table.insert(TankProjectiles, shell)
     table.remove(tank.ammorack, 1)
@@ -40,6 +42,9 @@ function TankProjectiles:update(dt)
         table.insert(shell.trail, {x = sx, y = sy})
 
         if shell:enter('Wall') then
+            if shell.type == 'HE' then
+                Explode(shell)
+            end
             shell:destroy()
             table.remove(self, i)
         end
@@ -49,7 +54,7 @@ function TankProjectiles:update(dt)
             local Target = collision_data.collider:getObject()
 
             if shell.type == 'HE' then
-                shell:explode()
+                Explode(shell)
                 shell:destroy()
                 table.remove(self, i)
             else

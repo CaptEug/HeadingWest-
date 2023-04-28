@@ -1,42 +1,50 @@
-Bombs = {}
+Explosives = {}
 Explosions = {}
 
 function Bomb(unit, x, y)
     local bomb = unit.ammorack[1]
     local ux, uy = unit.gun_location.x, unit.gun_location.y
-    local distance = math.sqrt((x-ux)^2 + (y-uy)^2)
-    bomb.timer = distance/(bomb.velocity/2)
-    bomb.x, bomb.y = x, y
-    table.insert(Bombs, bomb)
+    local ix, iy = math.cos(math.atan2(y - uy, x - ux)), math.sin(math.atan2(y - uy, x - ux))
+    local distance = math.sqrt((x - ux)^2 + (y - uy)^2)
+    local explosive = particleworld:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 3)
+    explosive:setMass(bomb.mass)
+    explosive:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
+    explosive.timer = distance/bomb.velocity
+    explosive.type = bomb.type
+    explosive.pen = bomb.pen
+    explosive.pentype = bomb.pentype
+    explosive.TNT_eq = bomb.TNT_eq
+    table.insert(Explosives, explosive)
     unit.firing_timer = 0.7
     unit.reload_timer = unit.reload_time
 end
 
-function Bombs:update(dt)
-    for i, bomb in ipairs(self) do
-        bomb.timer = bomb.timer - dt
-        if bomb.timer <= 0 then
-            Expolde(bomb, i)
+function Explosives:update(dt)
+    for i, explosive in ipairs(self) do
+        explosive.timer = explosive.timer - dt
+        if explosive.timer <= 0 then
+            Explode(explosive)
+            table.remove(self, i)
         end
     end
 end
 
-function Expolde(bomb, i)
+function Explode(explosive)
     local n = 0
-    while n < bomb.TNT_eq do
-        local explode = world:newCircleCollider(bomb.x, bomb.y, 3)
+    while n < explosive.TNT_eq do
+        local x, y = explosive:getPosition()
+        local explode = world:newCircleCollider(x, y, 3)
         explode:setCollisionClass('Explosion')
         explode:setBullet(true)
         explode:setRestitution(0.5)
         explode:setLinearDamping(1)
-        explode:applyLinearImpulse(math.random(-1000,1000),math.random(-1000,1000))
+        explode:applyLinearImpulse(math.random(-100,100),math.random(-100,100))
         explode.life = 1
-        explode.pen = bomb.pen
-        explode.pentype = bomb.pentype
+        explode.pen = explosive.pen
+        explode.pentype = explosive.pentype
         table.insert(Explosions, explode)
         n = n + 1
     end
-    table.remove(Bombs, i)
 end
 
 function Explosions:update(dt)

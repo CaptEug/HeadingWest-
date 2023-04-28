@@ -29,7 +29,7 @@ function ingame:update(dt)
     TankSpawner:update(dt)
     ConstructureSpawner:update(dt)
     TankProjectiles:update(dt)
-    Bombs:update(dt)
+    Explosives:update(dt)
     Explosions:update(dt)
     --cam contral
     if cam.scale > 2 then
