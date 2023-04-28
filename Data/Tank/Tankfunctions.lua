@@ -160,6 +160,12 @@ function BuildEnemytank(place, tank, x, y)
 end
 
 AutoControlfunction = function(tank, dt)
+    local hp = 50*tank.mob.hp*0.745
+    local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
+    local fy = hp*math.sin(tank.location.hull_angle - 0.5*math.pi)
+    local max_f = tank.max_f_speed
+    local max_r = math.abs(tank.max_r_speed)
+    local speed = tank.velocity.v/5
     local alert = false
     --enemy confirmation
     local enemy = {}
@@ -173,11 +179,16 @@ AutoControlfunction = function(tank, dt)
         end
     end
     if alert then
+        tank:FacePosition(enemy.location.x, enemy.location.y, dt)
         local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
         if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
-            Shoot(tank)
-            tank.firing_timer = 0.7
-            tank.reload_timer = tank.reload_time
+            if tank.class == 'spg' then
+                if tank.fortified then
+                    Bomb(tank, enemy.location.x, enemy.location.y)
+                end
+            else
+                Shoot(tank)
+            end
         end
     end
 end
@@ -209,12 +220,12 @@ ManualControlfunction = function(tank, dt)
 
     if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
         if tank.class == 'spg' then
-            Bomb(tank, mx, my)
+            if tank.fortified then
+                Bomb(tank, mx, my)
+            end
         else
             Shoot(tank)
         end
-        tank.firing_timer = 0.7
-        tank.reload_timer = tank.reload_time
     end
 end
 
@@ -233,7 +244,6 @@ function Tank:AimCheck(x, y, dt)
     local angle_to_target = math.atan2(y - ty, x - tx)
     local ta = self.turret_angle + self.location.hull_angle - 0.5*math.pi
     local tspeed = self.turret_t_speed * math.pi/180
-    local l, r = self.turret_t_angle.l/180*math.pi, self.turret_t_angle.r/180*math.pi - 2*math.pi
 
     if angle_to_target <= 0 then
         angle_to_target = angle_to_target + math.pi*2
@@ -244,24 +254,55 @@ function Tank:AimCheck(x, y, dt)
     while ta < 0 do
         ta = ta + 2*math.pi
     end
-    if ta > angle_to_target and ta < r then
+    if ta > angle_to_target then
         if ta - angle_to_target <= math.pi then
             self.turret_angle = self.turret_angle - tspeed*dt
         else
             self.turret_angle = self.turret_angle + tspeed*dt
         end
     end
-    if ta < angle_to_target and ta > l then
+    if ta < angle_to_target then
         if angle_to_target - ta <= math.pi then
             self.turret_angle = self.turret_angle + tspeed*dt
         else
             self.turret_angle = self.turret_angle - tspeed*dt
         end
     end
+    if self.turret_t_angle then
+        local l, r = self.turret_t_angle.l/180*math.pi, self.turret_t_angle.r/180*math.pi
+        if self.turret_angle > l then
+            self.turret_angle = l
+        end
+        if self.turret_angle < -r then
+            self.turret_angle = -r
+        end
+    end
     if ta < angle_to_target + math.pi/36 and ta > angle_to_target - math.pi/36 then
         isaim = true
     end
     return isaim
+end
+
+function Tank:FacePosition(x, y, dt)
+    local hp = 50*self.mob.hp*0.745
+    local ha = self.location.hull_angle - math.pi/2
+    local hx, hy = self.location.x, self.location.y
+    local angle_to_target = math.atan2(y - hy, x - hx)
+    if angle_to_target <= 0 then
+        angle_to_target = angle_to_target + math.pi*2
+    end
+    while ha > 2*math.pi do
+        ha = ha - 2*math.pi
+    end
+    while ha < 0 do
+        ha = ha + 2*math.pi
+    end
+    if not self.fortified and ha > angle_to_target + math.pi/36 then
+        self.collider:applyTorque(-5*hp)
+    end
+    if not self.fortified and ha < angle_to_target - math.pi/36 then
+        self.collider:applyTorque(5*hp)
+    end
 end
 
 function Tank:CheckStatus(i)
@@ -300,8 +341,8 @@ function Tank:Update(dt)
     self.location.hull_angle = hull_angle
     self.image_location.x, self.image_location.y = x + self.hull_offset*math.sin(hull_angle), y - self.hull_offset*math.cos(hull_angle)     --adjust collider's and image's location
     self.turret_location.x, self.turret_location.y = x - self.turret_offset*math.sin(hull_angle), y + self.turret_offset*math.cos(hull_angle)
-    self.gun_location.x, self.gun_location.y = self.image_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
-                                               self.image_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
+    self.gun_location.x, self.gun_location.y = self.turret_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
+                                               self.turret_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
     self.engine_location.x, self.engine_location.y = self.image_location.x + (self.engine_offset)*math.sin(hull_angle),
                                                      self.image_location.y - (self.engine_offset)*math.cos(hull_angle)
     self.exhaust_location.x, self.exhaust_location.y = self.image_location.x + self.exhaust_offset.y*math.sin(hull_angle) + self.exhaust_offset.x*math.cos(hull_angle),

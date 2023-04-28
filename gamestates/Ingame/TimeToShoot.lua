@@ -29,6 +29,8 @@ function Shoot(tank)
     shell.trail = {}
     table.insert(TankProjectiles, shell)
     table.remove(tank.ammorack, 1)
+    tank.firing_timer = 0.7
+    tank.reload_timer = tank.reload_time
 end
 
 function TankProjectiles:update(dt)
@@ -45,21 +47,25 @@ function TankProjectiles:update(dt)
         if shell:enter('tankhull') then
             local collision_data = shell:getEnterCollisionData('tankhull')
             local Target = collision_data.collider:getObject()
-            local ricochet, hitPart, hitArmorside, angle = RicochetCheck(shell, Target)
-            local ispen = false
 
-            if Target.status.era[1] then
-                Target.armor.life = Target.armor.life - 1
-            end
-
-            if not ricochet then
-                ispen = PenCheck(shell, Target, hitPart, hitArmorside, angle)
+            if shell.type == 'HE' then
+                shell:explode()
                 shell:destroy()
                 table.remove(self, i)
-            end
-
-            if ispen then
-                DamageCheck(shell, Target, hitPart)
+            else
+                local ricochet, hitPart, hitArmorside, angle = RicochetCheck(shell, Target)
+                local ispen = false
+                if not ricochet then
+                    ispen = PenCheck(shell, Target, hitPart, hitArmorside, angle)
+                    shell:destroy()
+                    table.remove(self, i)
+                end
+                if ispen then
+                    DamageCheck(Target, hitPart)
+                end
+                if Target.status.era[1] then
+                    Target.armor.life = Target.armor.life - 1
+                end
             end
         end
 
@@ -125,13 +131,14 @@ function RicochetCheck(shell, Target)
     if hitvalue < Target.innerstructure.htl then
         hitPart = 'Hull'
         local position_angle = Target.location.hull_angle - math.atan2(y-Target.location.y, x-Target.location.x)
+        local diagonal = math.atan2(Target.length, Target.width)
+
         while position_angle < 0 do
             position_angle = position_angle + 2*math.pi
         end
         while position_angle > 2*math.pi do
             position_angle = position_angle - 2*math.pi
         end
-        local diagonal = 0
         local dangle = Target.location.hull_angle - vangle
         while dangle < 0 do
             dangle = dangle + 2*math.pi
@@ -139,7 +146,7 @@ function RicochetCheck(shell, Target)
         while dangle > 2*math.pi do
             dangle = dangle - 2*math.pi
         end
-        diagonal = math.atan2(Target.length, Target.width)
+
         if position_angle > 2*math.pi-diagonal or position_angle < diagonal then
             hitArmorside = 'Right'
             if dangle < math.pi then
@@ -303,7 +310,7 @@ function PenCheck(shell, Target, hitPart, hitArmorside, angle)
     return penetration
 end
 
-function DamageCheck(shell, Target, penpart)
+function DamageCheck(Target, penpart)
     local crew, ammo, engine, fuel = 0, 0, 0, 0
     while #Datapool.hitmodule > 0 do
         table.remove(Datapool.hitmodule, 1)
