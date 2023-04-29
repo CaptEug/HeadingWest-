@@ -1,4 +1,5 @@
 ConstructMenu = {}
+ConstructionQueue = {}
 
 function ConstructMenu:load()
     CMscreen = love.graphics.newCanvas(640, 480)
@@ -28,6 +29,12 @@ function ConstructMenu:update(dt)
         ConstructurePicked = false
         ConstructureSelected = {}
     end
+    for i, constructure in ipairs(ConstructionQueue) do
+        constructure.buildtime = constructure.buildtime - dt
+        if constructure.buildtime <= 0 then
+            BuildConstructure(CurrentPlace, table.remove(ConstructionQueue, i), constructure.x, constructure.y)
+        end
+    end
 end
 
 function ConstructMenu:draw()
@@ -52,12 +59,23 @@ function ConstructMenu:draw()
         Cursormode = 'Constructing'
         love.graphics.draw(ConstructureSelected.image, x, y, 0, cam.scale)
     end
+
+    for i, building in ipairs(ConstructionQueue) do
+        local x, y = cam:cameraCoords(building.x, building.y)
+        love.graphics.setColor(0,179/255,0)
+        love.graphics.draw(building.image, x, y, 0, cam.scale)
+        love.graphics.rectangle('line', x + (building.width/2)*cam.scale - 68, y + (building.length)*cam.scale, 136, 8)
+        love.graphics.rectangle('fill', x + (building.width/2)*cam.scale - 66, y + (building.length)*cam.scale + 2, 132 - (132*building.buildtime/building.fixedbuildtime), 4)
+        love.graphics.setColor(1,1,1)
+    end
 end
 
 function BuildDetact(button)
     if button == 1 and ConstructurePicked then
+        local building = copytable(ConstructureSelected)
         local x, y = cam:mousePosition()
-        BuildConstructure(CurrentPlace, ConstructureSelected, x, y)
+        building.x, building.y = x, y
+        table.insert(ConstructionQueue, building)
     end
 end
 

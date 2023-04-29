@@ -71,8 +71,8 @@ end
 function TankInfoPanel:update(dt)
     --tankbutton pos update
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        for i, button in ipairs(tank.Infobuttons) do
-            button.bx, button.by = tank.image_location.x,tank.image_location.y
+        for n, button in ipairs(tank.Infobuttons) do
+            button.bx, button.by = tank.image_location.x, tank.image_location.y
         end
     end
 end
@@ -80,7 +80,7 @@ end
 function TankInfoPanel:draw()
     cam:attach()
     for i,tank in ipairs(CurrentPlace.exsist_tank) do
-        if tank.type == 'Friendly' then
+        if tank.type == 'friendly' then
             tank.Infobuttons:use()
         end
     end

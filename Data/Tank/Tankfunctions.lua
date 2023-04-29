@@ -1,88 +1,10 @@
 Tank = {}
 
-function Buildtank()
-    local selected_slot = TankDesigner:slot_distribution(CurrentPlace)
-    local tank = {
-        selected_slot = selected_slot,
-        type = 'Friendly',
-        number = tostring(math.random(000,999)),
-        name = TankPresent.name,
-        class = TankPresent.class,
-        width = TankPresent.width,
-        length = TankPresent.length,
-        weight = TankPresent.weight,
-        crew = TankPresent.crew,
-        survivor = TankPresent.crew,
-        reload_time = TankPresent.reload_time,
-        reload_timer = TankPresent.reload_time,
-        deploy_time = TankPresent.deploy_time,
-        deploy_timer = -1,
-        ammorack_size = TankPresent.ammorack_size,
-        ammorack = copytable(TankPresent.ammorack),
-        armorthickness = TankPresent.armorthickness,
-        innerstructure = TankPresent.innerstructure,
-        max_f_speed = TankPresent.max_f_speed,
-        max_r_speed = TankPresent.max_r_speed,
-        turret_t_speed = TankPresent.turret_t_speed,
-        turret_t_angle = TankPresent.turret_t_angle or nil,
-        vision = TankPresent.vision,
-        hull_image = TankPresent.hull_image,
-        hull_image_line = TankPresent.hull_image_line,
-        hull_image_broken = TankPresent.hull_image_broken,
-        turret_image = TankPresent.turret_image,
-        turret_image_line = TankPresent.turret_image_line,
-        turret_image_broken = TankPresent.turret_image_broken,
-        anime_sheet = TankPresent.anime_sheet,
-        turret_anime = {},
-        firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
-        fortify_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
-        hull_offset = TankPresent.hull_offset,
-        turret_offset = TankPresent.turret_offset,
-        gun_offset = TankPresent.gun_offset,
-        engine_offset = TankPresent.engine_offset,
-        exhaust_offset = TankPresent.exhaust_offset,
-        exhaust_offset2 = TankPresent.exhaust_offset2 or nil,
-        exhaust_angle = TankPresent.exhaust_angle,
-        exhaust_angle2 = TankPresent.exhaust_angle2 or nil,
-        turret_angle = 0,
-        armor = copytable(TankPresent.equipment.armor),
-        aim = copytable(TankPresent.equipment.aim),
-        mob = copytable(TankPresent.equipment.mob),
-        buildtime = TankPresent.buildtime,
-        fixedbuildtime = TankPresent.buildtime,
-        velocity = {},
-        location = {x = CurrentPlace.slot_info[selected_slot].x, y = CurrentPlace.slot_info[selected_slot].y},
-        image_location = {},
-        turret_location = {},
-        gun_location = {},
-        engine_location = {},
-        exhaust_location = {},
-        exhaust_location2 = {},
-        functions = {},
-        Infobuttons = {},
-        status = {
-            dead = {false},
-            onfire = {false, Onfire_icon},
-            immobilized = {false, Immobilized_icon},
-            era = {false, ERA_icon}
-        },
-        firing_timer = 0,
-        picked = false,
-        incomp = false,
-        compCom = false,
-        fortified = false
-    }
-    Steel = Steel - TankDesigner.tank_steel_cost
-    Oil = Oil - TankDesigner.tank_oil_cost
-    setmetatable(tank, Tank)
-    Tank.__index = Tank
-    table.insert(CurrentPlace.ProductionQueue, 1, tank)
-    CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
-end
 
-function BuildEnemytank(place, tank, x, y)
-    local enemy = {
-        type = 'Enemy',
+
+function Buildtank(place, tank, type, x, y)
+    local tanky = {
+        type = type,
         number = tostring(math.random(000,999)),
         name = tank.name,
         class = tank.class,
@@ -96,7 +18,7 @@ function BuildEnemytank(place, tank, x, y)
         deploy_time = tank.deploy_time,
         deploy_timer = -1,
         ammorack_size = tank.ammorack_size,
-        ammorack = {},
+        ammorack = copytable(tank.ammorack or {}),
         armorthickness = tank.armorthickness,
         innerstructure = tank.innerstructure,
         max_f_speed = tank.max_f_speed,
@@ -121,13 +43,12 @@ function BuildEnemytank(place, tank, x, y)
         exhaust_offset = tank.exhaust_offset,
         exhaust_offset2 = tank.exhaust_offset2 or nil,
         exhaust_angle = tank.exhaust_angle,
-        exhaust_angle2 = tank.exhaust_angle or nil,
+        exhaust_angle2 = tank.exhaust_angle2 or nil,
         turret_angle = 0,
-        armor = copytable(tank.accessories[1][1] or Blank_Gear),
-        aim = copytable(tank.accessories[2][1] or Blank_Gear),
-        mob = copytable(tank.accessories[3][1] or Blank_Gear),
+        armor = copytable(tank.equipment.armor or tank.accessories[1][1] or Blank_Gear),
+        aim = copytable(tank.equipment.aim or tank.accessories[2][1] or Blank_Gear),
+        mob = copytable(tank.equipment.mob or tank.accessories[3][1] or Blank_Gear),
         buildtime = tank.buildtime,
-        fixedbuildtime = tank.buildtime,
         velocity = {},
         location = {x = x, y = y},
         image_location = {},
@@ -150,13 +71,15 @@ function BuildEnemytank(place, tank, x, y)
         compCom = false,
         fortified = false
     }
-    while #enemy.ammorack < enemy.ammorack_size do
-        table.insert(enemy.ammorack, tank.ammunition[1])
+    if type == 'enemy' then
+        while #tanky.ammorack < tanky.ammorack_size do
+            table.insert(tanky.ammorack, tank.ammunition[1])
+        end
     end
-    setmetatable(enemy, Tank)
+    setmetatable(tanky, Tank)
     Tank.__index = Tank
-    table.insert(place.exsist_tank, enemy)
-    TankSpawner:loadtank(place, enemy)
+    table.insert(place.exsist_tank, tanky)
+    TankSpawner:loadtank(place, tanky)
 end
 
 AutoControlfunction = function(tank, dt)
@@ -179,7 +102,7 @@ AutoControlfunction = function(tank, dt)
         end
     end
     if alert then
-        tank:FacePosition(enemy.location.x, enemy.location.y, dt)
+        tank:FacePosition(enemy.location.x, enemy.location.y)
         local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
         if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
             if tank.class == 'spg' then
@@ -254,6 +177,7 @@ function Tank:AimCheck(x, y, dt)
     while ta < 0 do
         ta = ta + 2*math.pi
     end
+
     if ta > angle_to_target then
         if ta - angle_to_target <= math.pi then
             self.turret_angle = self.turret_angle - tspeed*dt
@@ -283,11 +207,12 @@ function Tank:AimCheck(x, y, dt)
     return isaim
 end
 
-function Tank:FacePosition(x, y, dt)
+function Tank:FacePosition(x, y)
     local hp = 50*self.mob.hp*0.745
-    local ha = self.location.hull_angle - math.pi/2
+    local ha = self.location.hull_angle + math.pi/2
     local hx, hy = self.location.x, self.location.y
     local angle_to_target = math.atan2(y - hy, x - hx)
+
     if angle_to_target <= 0 then
         angle_to_target = angle_to_target + math.pi*2
     end
@@ -297,14 +222,15 @@ function Tank:FacePosition(x, y, dt)
     while ha < 0 do
         ha = ha + 2*math.pi
     end
-    if not self.fortified and ha < angle_to_target + math.pi/36 then
+
+    if not self.fortified and ha > angle_to_target then
         if ha - angle_to_target <= math.pi then
             self.collider:applyTorque(5*hp)
         else
             self.collider:applyTorque(-5*hp)
         end
     end
-    if not self.fortified and ha > angle_to_target - math.pi/36 then
+    if not self.fortified and ha < angle_to_target then
         if angle_to_target - ha <= math.pi then
             self.collider:applyTorque(-5*hp)
         else
@@ -392,8 +318,8 @@ function Tank:Draw()
     love.graphics.draw(self.hull_image,x,y,a,1,1,144,144)
     love.graphics.draw(self.armor.hull_image,x,y,a,1,1,144,144)
     self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144+self.turret_offset)    --draw turret
-    love.graphics.draw(self.aim.turret_image,x,y,a+self.turret_angle,1,1,144,144)
-    love.graphics.draw(self.armor.turret_image,x,y,a+self.turret_angle,1,1,144,144)
+    love.graphics.draw(self.aim.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
+    love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
 end
 
 function Tank:DrawBrokenTank()

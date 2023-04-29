@@ -8,7 +8,7 @@ function TankSpawner:loadtank(place, tank)
     tank.collider:setRestitution(0.1)
     tank.collider:setLinearDamping(3)
     tank.collider:setAngularDamping(5)
-    if tank.type == 'Friendly' then
+    if tank.type == 'friendly' then
         tank.Infobuttons = buttons.new()
         buttons.newCampicButton(
             invisible_button,

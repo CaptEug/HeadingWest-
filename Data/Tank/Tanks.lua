@@ -1,4 +1,5 @@
 Blank_line = love.graphics.newImage('Assets/tanks/Blank_line.png')
+Image_in_progress = love.graphics.newImage('Assets/tanks/ImageInProgress.png')
 Blank_Gear = {name = 'Blank', steel_cost = 0, oil_cost = 0, line_image = Blank_line, turret_image = Blank_line, hull_image = Blank_line}
 Tank_Grid = anim8.newGrid(288, 288, 288*7, 288*2)
 
@@ -98,7 +99,8 @@ Tanks = {
         }
         }
         },
-        buildtime = 2
+        buildtime = 2,
+        fixedbuildtime = 2
     },
 
     T72B = {
@@ -424,10 +426,10 @@ Tanks = {
         turret = {crew = 0.8, ammo = 0.3, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/usa/M1/M1_Hull.png'),
-        hull_image_line = Blank_line,
+        hull_image_line = Image_in_progress,
         hull_image_broken = Blank_line,
         turret_image = love.graphics.newImage('Assets/tanks/usa/M1/M1_Turret.png'),
-        turret_image_line = Blank_line,
+        turret_image_line = Image_in_progress,
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/usa/M1/M1_firingsprite.png'),
         accessories = {
@@ -465,7 +467,8 @@ Tanks = {
             }
         }
         },
-        buildtime = 2
+        buildtime = 2,
+        fixedbuildtime = 2
     }
 }
 
@@ -513,10 +516,10 @@ SPGs = {
         turret = {crew = 0, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_Hull.png'),
-        hull_image_line = Blank_line,
+        hull_image_line = Image_in_progress,
         hull_image_broken = Blank_line,
         turret_image = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_Gun.png'),
-        turret_image_line = Blank_line,
+        turret_image_line = Image_in_progress,
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_sprite.png'),
         accessories = {
@@ -554,7 +557,8 @@ SPGs = {
         }
         }
         },
-        buildtime = 2
+        buildtime = 2,
+        fixedbuildtime = 2
     }
 }
 
