@@ -43,7 +43,7 @@ function Buildtank(place, tank, type, x, y)
         exhaust_offset = tank.exhaust_offset,
         exhaust_offset2 = tank.exhaust_offset2 or nil,
         exhaust_angle = tank.exhaust_angle,
-        exhaust_angle2 = tank.exhaust_angle or nil,
+        exhaust_angle2 = tank.exhaust_angle2 or nil,
         turret_angle = 0,
         armor = copytable(tank.equipment.armor or tank.accessories[1][1] or Blank_Gear),
         aim = copytable(tank.equipment.aim or tank.accessories[2][1] or Blank_Gear),
