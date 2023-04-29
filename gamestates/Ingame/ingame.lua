@@ -19,7 +19,7 @@ function ingame:init()
     selection = {}
     selection.active = false
 
-    BuildEnemytank(CurrentPlace, Tanks.M1, 1500, 500)
+    Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1500, 500)
 end
 
 function ingame:update(dt)

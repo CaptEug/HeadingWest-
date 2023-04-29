@@ -169,7 +169,10 @@ function TankDesigner:load()
     Build = buttons.newWindowToolButton(
         Build_icon,
         function ()
-            Buildtank()
+            local tank = copytable(TankPresent)
+            tank.selected_slot = TankDesigner:slot_distribution(CurrentPlace)
+            table.insert(CurrentPlace.ProductionQueue, 1, tank)
+            CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
         end,
         TankDesigner.window,
         CurrentPlace.Fbuttons,
@@ -239,8 +242,7 @@ function TankDesigner:update(dt)
             tank.selected_slot = TankDesigner:slot_distribution(CurrentPlace)
         end
         if tank.buildtime <= 0 then
-            table.insert(CurrentPlace.exsist_tank, tank)
-            TankSpawner:loadtank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue,i))
+            Buildtank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue, i), 'friendly', CurrentPlace.slot_info[tank.selected_slot].x, CurrentPlace.slot_info[tank.selected_slot].y)
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
             CurrentPlace.slot_info[tank.selected_slot].available = true
             tank.selected_slot = nil

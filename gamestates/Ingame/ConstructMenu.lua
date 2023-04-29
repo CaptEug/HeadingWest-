@@ -1,4 +1,5 @@
 ConstructMenu = {}
+ConstructionQueue = {}
 
 function ConstructMenu:load()
     CMscreen = love.graphics.newCanvas(640, 480)
@@ -27,6 +28,12 @@ function ConstructMenu:update(dt)
     if love.mouse.isDown(2) and ConstructurePicked then
         ConstructurePicked = false
         ConstructureSelected = {}
+    end
+    for i, constructure in ipairs(ConstructionQueue) do
+        constructure.buildtime = constructure.buildtime - dt
+        if constructure.buildtime <= 0 then
+            BuildConstructure(CurrentPlace, constructure, constructure.x, constructure.y)
+        end
     end
 end
 
@@ -57,7 +64,8 @@ end
 function BuildDetact(button)
     if button == 1 and ConstructurePicked then
         local x, y = cam:mousePosition()
-        BuildConstructure(CurrentPlace, ConstructureSelected, x, y)
+        ConstructureSelected.x, ConstructureSelected.y = x, y
+        table.insert(ConstructionQueue, ConstructureSelected)
     end
 end
 
