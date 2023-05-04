@@ -1,10 +1,24 @@
+StageManager = {}
 
-NGameState = {
+function StageManager:load()
+    local stages = {}
+    
+    return stages
+end
 
-    ThreadGnenerator = function (name)
-        local t = love.thread.newThread(name)
-        return t
-    end
-}
+function StageManager:new()
+    local t = {}
+    
+end
 
-TestThread = love.thread.newThread("ingame")
+function StageManager:switch(stageName)
+    
+end
+
+function StageManager:remove()
+    
+end
+
+
+-- StageManager:load()
+--GS-->Gamestate-->ingame
