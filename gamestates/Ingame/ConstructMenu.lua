@@ -32,7 +32,7 @@ function ConstructMenu:update(dt)
     for i, constructure in ipairs(ConstructionQueue) do
         constructure.buildtime = constructure.buildtime - dt
         if constructure.buildtime <= 0 then
-            BuildConstructure(CurrentPlace, table.remove(ConstructionQueue, i), constructure.x, constructure.y)
+            BuildConstructure(CurrentPlace, table.remove(ConstructionQueue, i), 'friendly', constructure.x, constructure.y)
         end
     end
 end
@@ -55,17 +55,19 @@ function ConstructMenu:draw()
 
     if ConstructurePicked then
         local x, y = love.mouse.getPosition()
+        local center = ConstructureSelected.image:getWidth()/2
         love.mouse.setCursor(hammercursor)
         Cursormode = 'Constructing'
-        love.graphics.draw(ConstructureSelected.image, x, y, 0, cam.scale)
+        love.graphics.draw(ConstructureSelected.image, x, y, 0, cam.scale, cam.scale, center, center)
     end
 
     for i, building in ipairs(ConstructionQueue) do
         local x, y = cam:cameraCoords(building.x, building.y)
+        local center = building.image:getWidth()/2
         love.graphics.setColor(0,179/255,0)
-        love.graphics.draw(building.image, x, y, 0, cam.scale)
-        love.graphics.rectangle('line', x + (building.width/2)*cam.scale - 68, y + (building.length)*cam.scale, 136, 8)
-        love.graphics.rectangle('fill', x + (building.width/2)*cam.scale - 66, y + (building.length)*cam.scale + 2, 132 - (132*building.buildtime/building.fixedbuildtime), 4)
+        love.graphics.draw(building.image, x, y, 0, cam.scale, cam.scale, center, center)
+        love.graphics.rectangle('line', x - 68, y, 136, 8)
+        love.graphics.rectangle('fill', x - 66, y + 2, 132 - (132*building.buildtime/building.fixedbuildtime), 4)
         love.graphics.setColor(1,1,1)
     end
 end

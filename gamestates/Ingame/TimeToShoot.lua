@@ -31,7 +31,7 @@ function Shoot(tank)
     shell.trail = {}
     table.insert(TankProjectiles, shell)
     table.remove(tank.ammorack, 1)
-    tank.firing_timer = 0.7
+    tank.firing_timer = tank.firing_time
     tank.reload_timer = tank.reload_time
 end
 

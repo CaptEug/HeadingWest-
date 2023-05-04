@@ -65,6 +65,7 @@ function Buildtank(place, tank, type, x, y)
             immobilized = {false, Immobilized_icon},
             era = {false, ERA_icon}
         },
+        firing_time = tank.firing_time,
         firing_timer = 0,
         picked = false,
         incomp = false,
@@ -165,7 +166,8 @@ function Tank:AimCheck(x, y, dt)
     local isaim = false
     local tx, ty = self.turret_location.x, self.turret_location.y
     local angle_to_target = math.atan2(y - ty, x - tx)
-    local ta = self.turret_angle + self.location.hull_angle - 0.5*math.pi
+    local hull_angle = self.location.hull_angle
+    local ta = self.turret_angle + hull_angle - 0.5*math.pi
     local tspeed = self.turret_t_speed * math.pi/180
 
     if angle_to_target <= 0 then
@@ -267,6 +269,7 @@ function Tank:CheckStatus(i)
 end
 
 function Tank:Update(dt)
+    --location update
     local x,y = self.collider:getPosition()
     local hull_angle = self.collider:getAngle()
     local vx, vy = self.collider:getLinearVelocity()
@@ -288,6 +291,9 @@ function Tank:Update(dt)
     self.reload_timer = self.reload_timer - dt
     self.firing_timer = self.firing_timer - dt
     self.deploy_timer = self.deploy_timer - dt
+
+    --functions update
+    self.functions.move(self,dt)
 
     --ainme update
     if self.class == 'spg' then

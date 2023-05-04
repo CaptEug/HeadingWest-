@@ -25,21 +25,22 @@ Tanks = {
         steel_cost = 7,
         oil_cost = 3,
         reload_time = 7,
+        firing_time = 0.7,
         deploy_time = 0,
         ammorack_size = 40,
         ammunition = {
-        {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
-        {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
-        {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
+            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
+            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
+            {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
         },
         armorthickness = {
-        hull = {front = {330, 450}, side = {80, 80}, back = {50, 50}},
-        turret = {front = {500, 550}, side = {300, 300}, back = {70, 70}}
+            hull = {front = {330, 450}, side = {80, 80}, back = {50, 50}},
+            turret = {front = {500, 550}, side = {300, 300}, back = {70, 70}}
         },
         innerstructure = {
-        htl = 0.7,
-        hull = {crew = 0.7, ammo = 0.5, engine = 0.3, fuel = 0.5},
-        turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
+            htl = 0.7,
+            hull = {crew = 0.7, ammo = 0.5, engine = 0.3, fuel = 0.5},
+            turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull.png'),
         hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull_line.png'),
@@ -50,54 +51,54 @@ Tanks = {
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
         accessories = {
         --armor
-        {
-        {
-            name = 'BASE_ARMOR',
-            steel_cost = 0,
-            oil_cost = 0,
-            armorthickness = {
-                hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
-                turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
+            {
+                {
+                    name = 'BASE_ARMOR',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
+                        turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
+                    },
+                    hull_image = Blank_line,
+                    hull_image_line = Blank_line,
+                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret.png'),
+                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret_line.png'),
+                    tag = 'Armor',
+                    type = 'Coposit'
+                },
+                {
+                    name = 'Kontakt_1',
+                    steel_cost = 1,
+                    oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {5, 400}, side = {5, 400}, back = {0, 0}},
+                        turret = {front = {5, 400}, side = {5, 400}, back = {0, 0}}
+                    },
+                    hull_image =love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_hull.png'),
+                    hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_hull_line.png'),
+                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_turret.png'),
+                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_turret_line.png'),
+                    tag = 'Armor',
+                    type = 'ERA',
+                    life = 3
+                },
             },
-            hull_image = Blank_line,
-            hull_image_line = Blank_line,
-            turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret.png'),
-            turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret_line.png'),
-            tag = 'Armor',
-            type = 'Coposit'
-        },
-        {
-            name = 'Kontakt_1',
-            steel_cost = 1,
-            oil_cost = 0,
-            armorthickness = {
-                hull = {front = {5, 400}, side = {5, 400}, back = {0, 0}},
-                turret = {front = {5, 400}, side = {5, 400}, back = {0, 0}}
-            },
-            hull_image =love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_hull.png'),
-            hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_hull_line.png'),
-            turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_turret.png'),
-            turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_turret_line.png'),
-            tag = 'Armor',
-            type = 'ERA',
-            life = 3
-        },
-        },
-        --aim
-        {
+            --aim
+            {
 
-        },
-        --mob
-        {
-        {
-            name = 'V_46',
-            steel_cost = 0,
-            oil_cost = 0,
-            line_image = Blank_line,
-            hp = 780,
-            tag = 'Mob'
-        }
-        }
+            },
+            --mob
+            {
+                {
+                    name = 'V_46',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    line_image = Blank_line,
+                    hp = 780,
+                    tag = 'Mob'
+                }
+            }
         },
         buildtime = 2,
         fixedbuildtime = 2
@@ -411,19 +412,20 @@ Tanks = {
         steel_cost = 0,
         oil_cost = 0,
         reload_time = 6,
+        firing_time = 0.7,
         deploy_time = 0,
         ammorack_size = 40,
         ammunition = {
-        {name = 'M900', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 530},
+            {name = 'M900', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 530},
         },
         armorthickness = {
-        hull = {front = {400, 750}, side = {60, 60}, back = {30, 30}},
-        turret = {front = {410, 800}, side = {200, 350}, back = {20, 20}}
+            hull = {front = {400, 750}, side = {60, 60}, back = {30, 30}},
+            turret = {front = {410, 800}, side = {200, 350}, back = {20, 20}}
         },
         innerstructure = {
-        htl = 0.6,
-        hull = {crew = 0.7, ammo = 0, engine = 0.4, fuel = 0.4},
-        turret = {crew = 0.8, ammo = 0.3, engine = 0, fuel = 0}
+            htl = 0.6,
+            hull = {crew = 0.7, ammo = 0, engine = 0.4, fuel = 0.4},
+            turret = {crew = 0.8, ammo = 0.3, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/usa/M1/M1_Hull.png'),
         hull_image_line = Image_in_progress,
@@ -433,39 +435,39 @@ Tanks = {
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/usa/M1/M1_firingsprite.png'),
         accessories = {
-        --armor
-        {
+            --armor
             {
-                name = 'BASE_ARMOR',
-                steel_cost = 0,
-                oil_cost = 0,
-                armorthickness = {
-                    hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
-                    turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
-                },
-                hull_image = Blank_line,
-                hull_image_line = Blank_line,
-                turret_image = Blank_line,
-                turret_image_line = Blank_line,
-                tag = 'Armor',
-                type = 'Coposit'
-            }
-        },
-        --aim
-        {
+                {
+                    name = 'BASE_ARMOR',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
+                        turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
+                    },
+                    hull_image = Blank_line,
+                    hull_image_line = Blank_line,
+                    turret_image = Blank_line,
+                    turret_image_line = Blank_line,
+                    tag = 'Armor',
+                    type = 'Coposit'
+                }
+            },
+            --aim
+            {
 
-        },
-        --mob
-        {
+            },
+            --mob
             {
-                name = 'Honeywell AGT1500',
-                steel_cost = 0,
-                oil_cost = 0,
-                line_image = Blank_line,
-                hp = 1500,
-                tag = 'Mob'
+                {
+                    name = 'Honeywell AGT1500',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    line_image = Blank_line,
+                    hp = 1500,
+                    tag = 'Mob'
+                }
             }
-        }
         },
         buildtime = 2,
         fixedbuildtime = 2
@@ -501,6 +503,7 @@ SPGs = {
         steel_cost = 0,
         oil_cost = 0,
         reload_time = 3,
+        firing_time = 0.7,
         deploy_time = 1.2,
         ammorack_size = 40,
         ammunition = {
