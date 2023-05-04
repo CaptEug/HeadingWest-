@@ -85,18 +85,18 @@ local all_callbacks = { 'draw', 'update' }
 
 -- fetch event callbacks from love.handlers
 for k in pairs(love.handlers) do
-	all_callbacks[#all_callbacks+1] = k
+	all_callbacks[#all_callbacks+1] = k		--insert all love
 end
 
 function GS.registerEvents(callbacks)
 	local registry = {}
-	callbacks = callbacks or all_callbacks
+	callbacks = callbacks or all_callbacks		--insert new callback or use defaults like draw and update
 	for _, f in ipairs(callbacks) do
-		registry[f] = love[f] or __NULL__
-		love[f] = function(...)
-			registry[f](...)
-			return GS[f](...)
-		end
+		registry[f] = love[f] or __NULL__		--store love.draw and love.update in table 'registry',example: callback = draw
+		love[f] = function(...)					--override love.draw and love.update, add GS.draw/update, love.draw = function()
+			registry[f](...)					--																	registry.draw()
+			return GS[f](...)					--																	return GS.draw()
+		end			
 	end
 end
 
