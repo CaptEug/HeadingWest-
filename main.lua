@@ -202,6 +202,6 @@ function addCollisionClass()
     world:addCollisionClass('APFSDS')
     world:addCollisionClass('Amour')
     world:addCollisionClass('Wall')
-    world:addCollisionClass('Explosion')
+    world:addCollisionClass('Fregment', {ignores = {'Fregment'}})
     world:addCollisionClass('tankhull')
 end

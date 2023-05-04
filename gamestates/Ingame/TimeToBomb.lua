@@ -15,7 +15,7 @@ function Bomb(unit, x, y)
     explosive.pentype = bomb.pentype
     explosive.TNT_eq = bomb.TNT_eq
     table.insert(Explosives, explosive)
-    --[[if unit.gun_location2 then
+    if unit.gun_location2 then
         local explosive2 = particleworld:newCircleCollider(unit.gun_location2.x, unit.gun_location2.y, 3)
         explosive2:setMass(bomb.mass)
         explosive2:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
@@ -25,8 +25,8 @@ function Bomb(unit, x, y)
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
         table.insert(Explosives, explosive2)
-    end]]
-    --[[if unit.gun_location3 then
+    end
+    if unit.gun_location3 then
         local explosive3 = particleworld:newCircleCollider(unit.gun_location3.x, unit.gun_location3.y, 3)
         explosive3:setMass(bomb.mass)
         explosive3:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
@@ -36,7 +36,7 @@ function Bomb(unit, x, y)
         explosive3.pentype = bomb.pentype
         explosive3.TNT_eq = bomb.TNT_eq
         table.insert(Explosives, explosive3)
-    end]]
+    end
 
     unit.firing_timer = unit.firing_time
     unit.reload_timer = unit.reload_time
@@ -57,7 +57,7 @@ function Explode(explosive)
     while n < explosive.TNT_eq do
         local x, y = explosive:getPosition()
         local explode = world:newCircleCollider(x, y, 2)
-        explode:setCollisionClass('Explosion')
+        explode:setCollisionClass('Fregment')
         explode:setBullet(true)
         explode:setRestitution(0.5)
         explode:setLinearDamping(1)
