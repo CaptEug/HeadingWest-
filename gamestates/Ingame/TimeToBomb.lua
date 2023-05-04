@@ -3,9 +3,9 @@ Explosions = {}
 
 function Bomb(unit, x, y)
     local bomb = unit.ammorack[1]
-    local ux, uy = unit.gun_location.x, unit.gun_location.y
-    local ix, iy = math.cos(math.atan2(y - uy, x - ux)), math.sin(math.atan2(y - uy, x - ux))
-    local distance = math.sqrt((x - ux)^2 + (y - uy)^2)
+    local ix, iy = math.cos(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x)),
+                   math.sin(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x))
+    local distance = math.sqrt((x - unit.gun_location.x)^2 + (y - unit.gun_location.y)^2)
     local explosive = particleworld:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 3)
     explosive:setMass(bomb.mass)
     explosive:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
@@ -15,7 +15,30 @@ function Bomb(unit, x, y)
     explosive.pentype = bomb.pentype
     explosive.TNT_eq = bomb.TNT_eq
     table.insert(Explosives, explosive)
-    unit.firing_timer = 0.7
+    --[[if unit.gun_location2 then
+        local explosive2 = particleworld:newCircleCollider(unit.gun_location2.x, unit.gun_location2.y, 3)
+        explosive2:setMass(bomb.mass)
+        explosive2:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
+        explosive2.timer = distance/bomb.velocity
+        explosive2.type = bomb.type
+        explosive2.pen = bomb.pen
+        explosive2.pentype = bomb.pentype
+        explosive2.TNT_eq = bomb.TNT_eq
+        table.insert(Explosives, explosive2)
+    end]]
+    --[[if unit.gun_location3 then
+        local explosive3 = particleworld:newCircleCollider(unit.gun_location3.x, unit.gun_location3.y, 3)
+        explosive3:setMass(bomb.mass)
+        explosive3:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
+        explosive3.timer = distance/bomb.velocity
+        explosive3.type = bomb.type
+        explosive3.pen = bomb.pen
+        explosive3.pentype = bomb.pentype
+        explosive3.TNT_eq = bomb.TNT_eq
+        table.insert(Explosives, explosive3)
+    end]]
+
+    unit.firing_timer = unit.firing_time
     unit.reload_timer = unit.reload_time
 end
 
@@ -23,8 +46,8 @@ function Explosives:update(dt)
     for i, explosive in ipairs(self) do
         explosive.timer = explosive.timer - dt
         if explosive.timer <= 0 then
-            Explode(explosive)
             table.remove(self, i)
+            Explode(explosive)
         end
     end
 end
@@ -38,7 +61,7 @@ function Explode(explosive)
         explode:setBullet(true)
         explode:setRestitution(0.5)
         explode:setLinearDamping(1)
-        explode:applyLinearImpulse(math.random(-10*explosive.TNT_eq,10*explosive.TNT_eq),math.random(-10*explosive.TNT_eq,10*explosive.TNT_eq))
+        explode:applyLinearImpulse(math.random(-explosive.TNT_eq, explosive.TNT_eq), math.random(-explosive.TNT_eq, explosive.TNT_eq))
         explode.life = 1
         explode.pen = explosive.pen
         explode.pentype = explosive.pentype

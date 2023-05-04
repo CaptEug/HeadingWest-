@@ -20,6 +20,7 @@ function ingame:init()
     selection.active = false
 
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1500, 500)
+    BuildConstructure(CurrentPlace, Constructures.Maxim_Gorky, 'enemy', 2000, 3000)
 end
 
 function ingame:update(dt)
@@ -110,8 +111,8 @@ end
 function ingame:draw()
     cam:attach()
         DrawMapDown()
-        ConstructureSpawner:drawbuilding()
         TankSpawner:drawtank()
+        ConstructureSpawner:drawbuilding()
         DrawMapUp()
         world:draw()
         particleworld:draw()

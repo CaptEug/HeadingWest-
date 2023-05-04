@@ -37,7 +37,6 @@ function TankSpawner:update(dt)
             tank:Update(dt)
             tank:CheckStatus(i)
             tank:ParticleUpdate(dt)
-            tank.functions.move(tank,dt)
         end
 end
 
@@ -61,12 +60,4 @@ function TankSpawner:drawtank()
     for i, tank in ipairs(CurrentPlace.broken_tank) do
         tank:DrawBrokenTank()
     end
-end
-
-function TankColliderDestroy()
-    
-    for i, collider in ipairs(TankColliders) do
-        collider:destroy()
-    end
-    
 end
