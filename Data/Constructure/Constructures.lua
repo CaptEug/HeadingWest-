@@ -12,6 +12,7 @@ Constructures = {
         oil_productioon = 1,
         hitpoint = 10,
         armorthickness = 0,
+        icon = love.graphics.newImage('Assets/pictures/buttons/MaximGorky_icon.png'),
         image = Image_in_progress,
         anime_sheet = Image_in_progress,
         buildtime = 10,
@@ -25,7 +26,7 @@ Constructures = {
         requirement = 'none',
         width = 288,
         length = 288,
-        vision = 1500,
+        vision = 1800,
         turret_offset = 0,
         turret_t_speed = 5,
         gun_offset = {x = 0, y = 250},
@@ -36,12 +37,13 @@ Constructures = {
         hitpoint = 100,
         armorthickness = 305,
         ammorack = {
-            {name = '305mmHE', type = 'HE', pentype = 'CE', velocity = 1000, mass = 0.3, pen = 305, TNT_eq = 61}
+            {name = '305mmHE', type = 'HE', pentype = 'CE', velocity = 1000, mass = 1, pen = 305, TNT_eq = 55}
         },
-        reload_time = 2,
+        reload_time = 10,
         firing_time = 1,
         buildtime = 3,
         fixedbuildtime = 3,
+        icon = love.graphics.newImage('Assets/pictures/buttons/MaximGorky_icon.png'),
         image = love.graphics.newImage('Assets/constructures/defence/MaximGorky/MaximGorky.png'),
         base_image = love.graphics.newImage('Assets/constructures/defence/MaximGorky/MaximGorky_Base.png'),
         anime_sheet = love.graphics.newImage('Assets/constructures/defence/MaximGorky/MaximOpenFire.png'),

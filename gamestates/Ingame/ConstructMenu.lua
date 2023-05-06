@@ -12,7 +12,7 @@ function ConstructMenu:load()
 
     for i, constructure in ipairs(CurrentPlace.constructurelist) do
         buttons.newWindowToolButton(
-            constructure.image,
+            constructure.icon,
             function ()
                 ConstructurePicked = true
                 ConstructureSelected = constructure
@@ -45,6 +45,7 @@ function ConstructMenu:draw()
         for i, constructure in ipairs(CurrentPlace.constructurelist) do
             love.graphics.draw(contructure_box, 128 + 156*((i-1)%3), 72 + 118*math.floor((i-1)/3))
             love.graphics.setColor(0,179/255,0)
+            love.graphics.print(constructure.name,128 + 156*((i-1)%3) + 4, 72 + 118*math.floor((i-1)/3) + 4)
             love.graphics.print(constructure.steel_cost, 240 + 156*((i-1)%3), 141 + 118*math.floor((i-1)/3))
             love.graphics.print(constructure.oil_cost, 240 + 156*((i-1)%3), 161 + 118*math.floor((i-1)/3))
             love.graphics.setColor(1,1,1)

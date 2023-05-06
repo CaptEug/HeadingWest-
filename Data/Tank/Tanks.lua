@@ -105,113 +105,126 @@ Tanks = {
     },
 
     T72B = {
-    name = 'T-72b',
-    class = 'tank',
-    width = 64,
-    length = 127,
-    turret_offset = 0,
-    hull_offset=0,
-    gun_offset = 109,
-    weight = 44.5,
-    crew = 3,
-    max_f_speed = 60,
-    max_r_speed = -4,
-    steel_cost = 8,
-    oil_cost = 3,
-    reload_time = 7,
-    ammorack_size = 40,
-    ammunition = {
-    {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425}
-    },
-    armorthickness = {
-    hull = {front = {500, 600}, side = {80, 80}, back = {50, 50}},
-    turret = {front = {600, 700}, side = {350, 375}, back = {70, 70}}
-    },
-    innerstructure = {
-    htl = 0.7,
-    hull = {crew = 0.7, ammo = 0.5, engine = 0.3, fuel = 0.5},
-    turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
-    },
-    hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_hull.png'),
-    hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_hull_line.png'),
-    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_turret.png'),
-    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_turret_line.png'),
-    accessories = {
-    --armor
-    {
-        {
-            name = 'BASE_ARMOR',
-            steel_cost = 0,
-            oil_cost = 0,
-            armorthickness = {
-                hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
-                turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
-            },
-            hull_image = Blank_line,
-            hull_image_line = Blank_line,
-            turret_image = Blank_line,
-            turret_image_line = Blank_line,
-            tag = 'Armor',
-            type = 'Coposit'
+        name = 'T-72b',
+        class = 'tank',
+        width = 64,
+        length = 127,
+        turret_offset = 0,
+        hull_offset = 0,
+        gun_offset = 109,
+        engine_offset = -43,
+        exhaust_offset = {x = -34, y = -34},
+        exhaust_angle = math.pi,
+        weight = 44.5,
+        crew = 3,
+        max_f_speed = 60,
+        max_r_speed = -4,
+        turret_t_speed = 20,
+        vision = 600,
+        steel_cost = 7,
+        oil_cost = 3,
+        reload_time = 7,
+        firing_time = 0.7,
+        deploy_time = 0,
+        ammorack_size = 40,
+        ammunition = {
+            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
+            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
+            {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
         },
-        {
-            name = 'Kontakt_1',
-            steel_cost = 1,
-            oil_cost = 0,
-            armorthickness = {
-                hull = {front = {5, 400}, side = {5, 400}, back = {0, 0}},
-                turret = {front = {5, 400}, side = {5, 400}, back = {0, 0}}
-            },
-            hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_hull.png'),
-            hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_hull_line.png'),
-            turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_turret.png'),
-            turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_turret_line.png'),
-            tag = 'Armor',
-            type = 'ERA',
-            life = 3
+        armorthickness = {
+            hull = {front = {500, 600}, side = {80, 80}, back = {50, 50}},
+            turret = {front = {600, 700}, side = {350, 375}, back = {70, 70}}
         },
-        {
-            name = 'Kontakt_5',
-            steel_cost = 2,
-            oil_cost = 0,
-            armorthickness = {
-                hull = {front = {120, 450}, side = {120, 450}, back = {0, 0}},
-                turret = {front = {120, 450}, side = {120, 450}, back = {0, 0}}
-            },
-            hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_hull.png'),
-            hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_hull_line.png'),
-            turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_turret.png'),
-            turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_turret_line.png'),
-            tag = 'Armor',
-            type = 'ERA',
-            life = 4
+        innerstructure = {
+            htl = 0.7,
+            hull = {crew = 0.7, ammo = 0.5, engine = 0.3, fuel = 0.5},
+            turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
         },
-    },
-    --aim
-    {
+        hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_Hull.png'),
+        hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_Hull_line.png'),
+        hull_image_broken = Blank_line,
+        turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_Turret.png'),
+        turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_Turret_line.png'),
+        turret_image_broken = Blank_line,
+        anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_firingsprite.png'),
+        accessories = {
+            --armor
+            {
+                {
+                    name = 'BASE_ARMOR',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
+                        turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
+                    },
+                    hull_image = Blank_line,
+                    hull_image_line = Blank_line,
+                    turret_image = Blank_line,
+                    turret_image_line = Blank_line,
+                    tag = 'Armor',
+                    type = 'Coposit'
+                },
+                {
+                    name = 'Kontakt_1',
+                    steel_cost = 1,
+                    oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {5, 400}, side = {5, 400}, back = {0, 0}},
+                        turret = {front = {5, 400}, side = {5, 400}, back = {0, 0}}
+                    },
+                    hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_hull.png'),
+                    hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_hull_line.png'),
+                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_turret.png'),
+                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt1_turret_line.png'),
+                    tag = 'Armor',
+                    type = 'ERA',
+                    life = 3
+                },
+                {
+                    name = 'Kontakt_5',
+                    steel_cost = 2,
+                    oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {120, 450}, side = {120, 450}, back = {0, 0}},
+                        turret = {front = {120, 450}, side = {120, 450}, back = {0, 0}}
+                    },
+                    hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_hull.png'),
+                    hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_hull_line.png'),
+                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_turret.png'),
+                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_kontakt5_turret_line.png'),
+                    tag = 'Armor',
+                    type = 'ERA',
+                    life = 4
+                },
+            },
+            --aim
+            {
 
-    },
-    --mob
-    {
-        {
-            name = 'V_84',
-            steel_cost = 0,
-            oil_cost = 0,
-            line_image = Blank_line,
-            hp = 780,
-            tag = 'Mob'
+            },
+            --mob
+            {
+                {
+                    name = 'V_46',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    line_image = Blank_line,
+                    hp = 780,
+                    tag = 'Mob'
+                },
+                {
+                    name = 'V_92',
+                    steel_cost = 2,
+                    oil_cost = 1,
+                    line_image = Blank_line,
+                    hp = 1130,
+                    tag = 'Mob'
+                }
+            }
         },
-        {
-            name = 'V_92',
-            steel_cost = 2,
-            oil_cost = 1,
-            line_image = Blank_line,
-            hp = 1130,
-            tag = 'Mob'
-        }
-    }
-    },
-    buildtime = 3
+        buildtime = 3,
+        fixedbuildtime = 3
     },
 
     T90 = {

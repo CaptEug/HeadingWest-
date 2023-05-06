@@ -31,7 +31,7 @@ function ingame:update(dt)
     ConstructureSpawner:update(dt)
     TankProjectiles:update(dt)
     Explosives:update(dt)
-    Explosions:update(dt)
+    Fragments:update(dt)
     --cam contral
     if cam.scale > 2 then
         cam:zoomTo(2)

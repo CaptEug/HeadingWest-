@@ -1,5 +1,5 @@
 Explosives = {}
-Explosions = {}
+Fragments = {}
 
 function Bomb(unit, x, y)
     local bomb = unit.ammorack[1]
@@ -8,6 +8,7 @@ function Bomb(unit, x, y)
     local distance = math.sqrt((x - unit.gun_location.x)^2 + (y - unit.gun_location.y)^2)
     local explosive = particleworld:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 3)
     explosive:setMass(bomb.mass)
+    explosive:setBullet(true)
     explosive:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
     explosive.timer = distance/bomb.velocity
     explosive.type = bomb.type
@@ -18,6 +19,7 @@ function Bomb(unit, x, y)
     if unit.gun_location2 then
         local explosive2 = particleworld:newCircleCollider(unit.gun_location2.x, unit.gun_location2.y, 3)
         explosive2:setMass(bomb.mass)
+        explosive2:setBullet(true)
         explosive2:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
         explosive2.timer = distance/bomb.velocity
         explosive2.type = bomb.type
@@ -29,6 +31,7 @@ function Bomb(unit, x, y)
     if unit.gun_location3 then
         local explosive3 = particleworld:newCircleCollider(unit.gun_location3.x, unit.gun_location3.y, 3)
         explosive3:setMass(bomb.mass)
+        explosive3:setBullet(true)
         explosive3:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
         explosive3.timer = distance/bomb.velocity
         explosive3.type = bomb.type
@@ -46,8 +49,8 @@ function Explosives:update(dt)
     for i, explosive in ipairs(self) do
         explosive.timer = explosive.timer - dt
         if explosive.timer <= 0 then
-            table.remove(self, i)
             Explode(explosive)
+            table.remove(self, i)
         end
     end
 end
@@ -56,37 +59,37 @@ function Explode(explosive)
     local n = 0
     while n < explosive.TNT_eq do
         local x, y = explosive:getPosition()
-        local explode = world:newCircleCollider(x, y, 2)
-        explode:setCollisionClass('Fregment')
-        explode:setBullet(true)
-        explode:setRestitution(0.5)
-        explode:setLinearDamping(1)
-        explode:applyLinearImpulse(math.random(-explosive.TNT_eq, explosive.TNT_eq), math.random(-explosive.TNT_eq, explosive.TNT_eq))
-        explode.life = 1
-        explode.pen = explosive.pen
-        explode.pentype = explosive.pentype
-        table.insert(Explosions, explode)
+        local fragmnet = world:newCircleCollider(x, y, 2)
+        fragmnet:setCollisionClass('Fregment')
+        fragmnet:setBullet(true)
+        fragmnet:setRestitution(0.5)
+        fragmnet:setLinearDamping(1)
+        fragmnet:applyLinearImpulse(math.random(-explosive.TNT_eq, explosive.TNT_eq), math.random(-explosive.TNT_eq, explosive.TNT_eq))
+        fragmnet.life = 1
+        fragmnet.pen = explosive.pen
+        fragmnet.pentype = explosive.pentype
+        table.insert(Fragments, fragmnet)
         n = n + 1
     end
 end
 
-function Explosions:update(dt)
-    for i, explode in ipairs(self) do
-        explode.life = explode.life - dt
+function Fragments:update(dt)
+    for i, fragmnet in ipairs(self) do
+        fragmnet.life = fragmnet.life - dt
 
-        if explode:enter('Wall') then
-            explode:destroy()
+        if fragmnet:enter('Wall') then
+            fragmnet:destroy()
             table.remove(self, i)
         end
 
-        if explode:enter('tankhull') then
-            local collision_data = explode:getEnterCollisionData('tankhull')
+        if fragmnet:enter('tankhull') then
+            local collision_data = fragmnet:getEnterCollisionData('tankhull')
             local Target = collision_data.collider:getObject()
-            local hitPart, hitArmorside = OverPressureCheck(explode, Target)
-            local ispen = PenCheck(explode, Target, hitPart, hitArmorside, 0)
+            local hitPart, hitArmorside = OverPressureCheck(fragmnet, Target)
+            local ispen = PenCheck(fragmnet, Target, hitPart, hitArmorside, 0)
 
             if ispen then
-                explode:destroy()
+                fragmnet:destroy()
                 table.remove(self, i)
                 DamageCheck(Target, hitPart)
             end
@@ -96,15 +99,15 @@ function Explosions:update(dt)
             end
         end
 
-        if explode.life <= 0 then
-            explode:destroy()
+        if fragmnet.life <= 0 then
+            fragmnet:destroy()
             table.remove(self, i)
         end
     end
 end
 
-function OverPressureCheck(explode, Target)
-    local x, y = explode:getPosition()
+function OverPressureCheck(fragmnet, Target)
+    local x, y = fragmnet:getPosition()
     local hitvalue = math.random()
     local hitPart = 'none'
     local hitArmorside = 'none'
@@ -131,7 +134,7 @@ function OverPressureCheck(explode, Target)
         end
     else
         hitPart = 'Turret'
-        local vx, vy = explode:getLinearVelocity()
+        local vx, vy = fragmnet:getLinearVelocity()
         local vangle = math.atan2(vy, vx)
         local dangle = Target.location.hull_angle + Target.turret_angle - vangle
         while dangle < 0 do
