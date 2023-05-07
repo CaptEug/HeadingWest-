@@ -59,37 +59,37 @@ function Explode(explosive)
     local n = 0
     while n < explosive.TNT_eq do
         local x, y = explosive:getPosition()
-        local fragmnet = world:newCircleCollider(x, y, 2)
-        fragmnet:setCollisionClass('Fregment')
-        fragmnet:setBullet(true)
-        fragmnet:setRestitution(0.5)
-        fragmnet:setLinearDamping(1)
-        fragmnet:applyLinearImpulse(math.random(-explosive.TNT_eq, explosive.TNT_eq), math.random(-explosive.TNT_eq, explosive.TNT_eq))
-        fragmnet.life = 1
-        fragmnet.pen = explosive.pen
-        fragmnet.pentype = explosive.pentype
-        table.insert(Fragments, fragmnet)
+        local fragment = world:newCircleCollider(x, y, 2)
+        fragment:setCollisionClass('Fregment')
+        fragment:setBullet(true)
+        fragment:setRestitution(0.5)
+        fragment:setLinearDamping(1)
+        fragment:applyLinearImpulse(math.random(-explosive.TNT_eq, explosive.TNT_eq), math.random(-explosive.TNT_eq, explosive.TNT_eq))
+        fragment.life = 1
+        fragment.pen = explosive.pen
+        fragment.pentype = explosive.pentype
+        table.insert(Fragments, fragment)
         n = n + 1
     end
 end
 
 function Fragments:update(dt)
-    for i, fragmnet in ipairs(self) do
-        fragmnet.life = fragmnet.life - dt
+    for i, fragment in ipairs(self) do
+        fragment.life = fragment.life - dt
 
-        if fragmnet:enter('Wall') then
-            fragmnet:destroy()
+        if fragment:enter('Wall') then
+            fragment:destroy()
             table.remove(self, i)
         end
 
-        if fragmnet:enter('tankhull') then
-            local collision_data = fragmnet:getEnterCollisionData('tankhull')
+        if fragment:enter('Hull') then
+            local collision_data = fragment:getEnterCollisionData('Hull')
             local Target = collision_data.collider:getObject()
-            local hitPart, hitArmorside = OverPressureCheck(fragmnet, Target)
-            local ispen = PenCheck(fragmnet, Target, hitPart, hitArmorside, 0)
+            local hitPart, hitArmorside = OverPressureCheck(fragment, Target)
+            local ispen = PenCheck(fragment, Target, hitPart, hitArmorside, 0)
 
             if ispen then
-                fragmnet:destroy()
+                fragment:destroy()
                 table.remove(self, i)
                 DamageCheck(Target, hitPart)
             end
@@ -99,15 +99,15 @@ function Fragments:update(dt)
             end
         end
 
-        if fragmnet.life <= 0 then
-            fragmnet:destroy()
+        if fragment.life <= 0 then
+            fragment:destroy()
             table.remove(self, i)
         end
     end
 end
 
-function OverPressureCheck(fragmnet, Target)
-    local x, y = fragmnet:getPosition()
+function OverPressureCheck(fragment, Target)
+    local x, y = fragment:getPosition()
     local hitvalue = math.random()
     local hitPart = 'none'
     local hitArmorside = 'none'
@@ -134,7 +134,7 @@ function OverPressureCheck(fragmnet, Target)
         end
     else
         hitPart = 'Turret'
-        local vx, vy = fragmnet:getLinearVelocity()
+        local vx, vy = fragment:getLinearVelocity()
         local vangle = math.atan2(vy, vx)
         local dangle = Target.location.hull_angle + Target.turret_angle - vangle
         while dangle < 0 do

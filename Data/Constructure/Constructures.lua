@@ -39,10 +39,10 @@ Constructures = {
         ammorack = {
             {name = '305mmHE', type = 'HE', pentype = 'CE', velocity = 1000, mass = 1, pen = 305, TNT_eq = 55}
         },
-        reload_time = 10,
+        reload_time = 20,
         firing_time = 1,
-        buildtime = 3,
-        fixedbuildtime = 3,
+        buildtime = 10,
+        fixedbuildtime = 10,
         icon = love.graphics.newImage('Assets/pictures/buttons/MaximGorky_icon.png'),
         image = love.graphics.newImage('Assets/constructures/defence/MaximGorky/MaximGorky.png'),
         base_image = love.graphics.newImage('Assets/constructures/defence/MaximGorky/MaximGorky_Base.png'),
