@@ -3,8 +3,8 @@ TankInfoPanel = {}
 
 function TankInfoPanel:load()
     --add tankinfopanel button
-    TPscreen = love.graphics.newCanvas(288, 576)
-    TankInfoPanel.window = {x = ww - 288, y = wh/2 - 288, w = 288, h = 576}
+    TPscreen = love.graphics.newCanvas(288, 288)
+    TankInfoPanel.window = {x = ww - 288, y = wh - 320, w = 288, h = 288}
     TankInfoPanel.dragging = false
     TankPanelopen = false
     TankChoosen = {}
@@ -21,7 +21,7 @@ function TankInfoPanel:load()
     )
 
     ManulControl = buttons.newWindowToolButton(
-        ManulControl_icon,
+        ManualControl_icon,
         function ()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
                 if tank ~= TankChoosen and tank.functions.move == ManualControlfunction then
@@ -36,35 +36,8 @@ function TankInfoPanel:load()
         end,
         TankInfoPanel.window,
         TankInfoPanel.Pbuttons,
-        0 + 40,
-        0 + 542
-    )
-
-    SetCommander = buttons.newWindowToolButton(
-        SetCommander_icon,
-        function ()
-            TankChoosen.compCom = true
-            for i, tank in ipairs(CurrentPlace.exsist_tank) do
-                if tank ~= TankChoosen and tank.compCom then
-                    tank.compCom = false
-                end
-            end
-        end,
-        TankInfoPanel.window,
-        TankInfoPanel.Pbuttons,
-        0 + 40,
-        0 + 488
-    )
-
-    Fortify = buttons.newWindowToolButton(
-        Fortify_icon,
-        function ()
-            TankChoosen:SetFortified()
-        end,
-        TankInfoPanel.window,
-        TankInfoPanel.Pbuttons,
-        0 + 108,
-        0 + 488
+        0 + 256,
+        0 + 256
     )
 end
 
@@ -112,10 +85,10 @@ function TankInfoPanel:draw()
         love.graphics.print(TankChoosen.name..' No.'..TankChoosen.number, 0 + 4, 0 + 4)
         love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', 0 + 4, 0 + 268)
         if TankChoosen.reload_timer >= 0 then
-            love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s', 0 + 144, 0 + 268)
+            love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s', 0 + 128, 0 + 268)
         end
         if TankChoosen.deploy_timer >= 0 then
-            love.graphics.print('Deploying '..string.format("%.1f", TankChoosen.deploy_timer)..' s', 0 + 144, 0 + 248)
+            love.graphics.print('Deploying '..string.format("%.1f", TankChoosen.deploy_timer)..' s', 0 + 128, 0 + 254)
         end
         love.graphics.setColor(1,1,1)
 
@@ -133,49 +106,21 @@ function TankCrewDraw()
     local m = 0
 
     while n < TankChoosen.crew do
-        love.graphics.draw(injured_crew_icon, 144 - 28*TankChoosen.crew/2 + 28*n, 288)
+        love.graphics.draw(injured_crew_icon, 144 - 28*TankChoosen.crew/2 + 28*n, 224)
         n = n + 1
     end
     while m < TankChoosen.survivor do
-        love.graphics.draw(crew_icon, 144 - 28*TankChoosen.crew/2 + 28*m, 288)
+        love.graphics.draw(crew_icon, 144 - 28*TankChoosen.crew/2 + 28*m, 224)
         m = m + 1
     end
 end
 
 function TankAmmoDraw()
-    local i = 0
-    local apfsds = 0
-    local he = 0
-    local heat = 0
-    for i, ammo in ipairs(TankChoosen.ammorack) do
-        if ammo.type == 'APFSDS' then
-            apfsds = apfsds + 1
-        end
-        if ammo.type == 'HE' then
-            he = he + 1
-        end
-        if ammo.type == 'HEAT' then
-            heat = heat + 1
-        end
-    end
     love.graphics.setColor(0,179/255,0)
     if #TankChoosen.ammorack == 0 then
-        love.graphics.print('NO AMMO', 0 + 4, 0 + 390)
-    end
-    if apfsds ~= 0 then
-        i = i + 1
-        love.graphics.draw(APFSDS_icon, 0 + 36*i - 20, 0 + 390)
-        love.graphics.print(apfsds, 0 + 36*i - 8, 0 + 411)
-    end
-    if he ~= 0 then
-        i = i + 1
-        love.graphics.draw(HE_icon, 0 + 36*i - 20, 0 + 390)
-        love.graphics.print(he, 0 + 36*i - 8, 0 + 411)
-    end
-    if heat ~= 0 then
-        i = i + 1
-        love.graphics.draw(HEAT_icon, 0 + 36*i - 20, 0 + 390)
-        love.graphics.print(heat, 0 + 36*i - 8, 0 + 411)
+        love.graphics.print('NO AMMO', 0 + 4, 0 + 254)
+    else
+        love.graphics.print('AMMO '..#TankChoosen.ammorack..'/'..TankChoosen.ammorack_size, 0 + 4, 0 + 254)
     end
     love.graphics.setColor(1,1,1)
 end
@@ -197,13 +142,10 @@ function TankStateDraw()
     end
     
     if TankChoosen.functions.move == ManualControlfunction then
-        love.graphics.draw(ManulControlOn_icon, 0 + 10, 0 + 519)
+        love.graphics.draw(ManualControlOn_icon, 0 + 232, 0 + 232)
     end
     if TankChoosen.fortified then
         love.graphics.draw(FortifyOn_icon, 0 + 78, 0 + 465)
-    end
-    if TankChoosen.compCom then
-        love.graphics.draw(SetCommanderOn_icon, 0 + 10, 0 + 465)
     end
 end
 

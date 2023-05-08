@@ -83,7 +83,7 @@ function ingame:update(dt)
                 local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
                 if ((x > selection.startX and x < selection.endX) or (x < selection.startX and x > selection.endX)) and 
                 ((y > selection.startY and y < selection.endY) or (y < selection.startY and y > selection.endY)) then
-                    if tank.type == 'Friendly' then
+                    if tank.type == 'friendly' then
                         tank.picked = true
                     end
                 else
