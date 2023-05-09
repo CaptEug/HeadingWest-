@@ -11,17 +11,6 @@ function TankInfoPanel:load()
     TankInfoPanel.Buttons = buttons.new()
     TankInfoPanel.SPGButtons = buttons.new()
 
-    ClosePanel = buttons.newWindowToolButton(
-        ClosePanel_icon,
-        function ()
-            TankPanelopen = false
-        end,
-        TankInfoPanel.window,
-        TankInfoPanel.Buttons,
-        271,
-        16
-    )
-
     ManulControl = buttons.newWindowToolButton(
         ManualControl_icon,
         function ()
@@ -79,17 +68,18 @@ function TankInfoPanel:draw()
         end
     end
     if TankPanelopen then
-        local a=TankChoosen.collider:getAngle()
+        local a = TankChoosen.collider:getAngle()
         local x,y = cam:cameraCoords(TankChoosen.location.x, TankChoosen.location.y)
+        local tx, ty = TankChoosen.turret_offset*math.sin(a), TankChoosen.turret_offset*math.cos(a)
         love.graphics.draw(Choosen_icon, x - 10, y + 32*cam.scale)
 
     love.graphics.setCanvas(TPscreen)
         love.graphics.draw(tank_info_panel, 0, 0)
         love.graphics.draw(TankChoosen.hull_image_line, 144, 144, a, 1, 1, 144, 144)
         love.graphics.draw(TankChoosen.armor.hull_image_line, 144, 144, a, 1, 1, 144, 144)
-        love.graphics.draw(TankChoosen.turret_image_line, 144, 144, a+TankChoosen.turret_angle, 1, 1, 144, 144)
-        love.graphics.draw(TankChoosen.aim.line_image, 144, 144, a+TankChoosen.turret_angle, 1, 1, 144, 144)
-        love.graphics.draw(TankChoosen.armor.turret_image_line, 144, 144, a+TankChoosen.turret_angle, 1, 1, 144, 144)
+        love.graphics.draw(TankChoosen.turret_image_line, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
+        love.graphics.draw(TankChoosen.aim.line_image, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
+        love.graphics.draw(TankChoosen.armor.turret_image_line, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
         love.graphics.setFont(Rtextfont)
         love.graphics.setColor(0,179/255,0)
         love.graphics.print(TankChoosen.name..' No.'..TankChoosen.number, 0 + 4, 0 + 4)

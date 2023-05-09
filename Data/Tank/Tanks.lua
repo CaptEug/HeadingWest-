@@ -524,7 +524,7 @@ SPGs = {
         vision = 1000,
         steel_cost = 0,
         oil_cost = 0,
-        reload_time = 3,
+        reload_time = 15,
         firing_time = 0.7,
         deploy_time = 1.2,
         ammorack_size = 40,
@@ -537,14 +537,14 @@ SPGs = {
         },
         innerstructure = {
         htl = 0.8,
-        hull = {crew = 0.9, ammo = 0.2, engine = 0.5, fuel = 0.5},
+        hull = {crew = 0.8, ammo = 0.2, engine = 0.5, fuel = 0.5},
         turret = {crew = 0, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_Hull.png'),
-        hull_image_line = Image_in_progress,
+        hull_image_line = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_Hull_line.png'),
         hull_image_broken = Blank_line,
         turret_image = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_Gun.png'),
-        turret_image_line = Image_in_progress,
+        turret_image_line = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_Gun_line.png'),
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_sprite.png'),
         accessories = {
