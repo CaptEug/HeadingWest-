@@ -1,10 +1,12 @@
 ingameUI={}
+require 'gamestates/Ingame/Console'
 require 'gamestates.Ingame.TankDesigner'
 require 'gamestates.Ingame.TankInfoPanel'
 require 'gamestates.Ingame.CityInfoPenal'
 require 'gamestates.Ingame.ConstructMenu'
 
 function ingameUI:load()
+    Console:load()
     TankInfoPanel:load()
     CityInfoPenal:load()
 
@@ -78,6 +80,7 @@ function ingameUI:load()
 end
 
 function ingameUI:update(dt)
+    Console:update(dt)
     TankInfoPanel:update(dt)
     CityInfoPenal:update(dt)
     if CurrentPlace.state == 'Peace' then
@@ -93,6 +96,7 @@ end
 
 function ingameUI:draw()
     Ingamebuttons.DefButtons:use()
+    Console:draw()
     TankInfoPanel:draw()
     CityInfoPenal:draw()
     if CurrentPlace.state == 'Peace' then

@@ -15,10 +15,6 @@ function ingame:init()
     loadMap(map)
     ingameUI:load()
 
-    --square selection
-    selection = {}
-    selection.active = false
-
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1500, 500)
     BuildConstructure(CurrentPlace, Constructures.Maxim_Gorky, 'enemy', 2000, 3000)
 end
@@ -41,6 +37,7 @@ function ingame:update(dt)
     end
     --mouse input
     function love.mousepressed(x, y, button)
+        SelectionMousePressed(x, y, button)
         if CurrentPlace.openTankDesigner then
             TDmousepressed(x, y, button)
         end
@@ -53,13 +50,9 @@ function ingame:update(dt)
         if TankPanelopen then
             TPmousepressed(x, y, button)
         end
-        if button == 1 and Cursormode == 'normal' then
-            selection.active = true
-            selection.startX = x
-            selection.startY = y
-        end
     end
     function love.mousereleased(x, y, button)
+        SelectionMouseReleased(x, y, button)
         if CurrentPlace.openTankDesigner then
             TDmousereleased(x, y, button)
         end
@@ -73,24 +66,7 @@ function ingame:update(dt)
             TPmousereleased(x, y, button)
         end
         BuildDetact(button)
-        if button == 1 and selection.active then
-            selection.active = false
-            selection.endX = x
-            selection.endY = y
-        end
-        if selection.startX ~= selection.endX and selection.startY ~= selection.endY then
-            for i, tank in ipairs(CurrentPlace.exsist_tank) do
-                local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
-                if ((x > selection.startX and x < selection.endX) or (x < selection.startX and x > selection.endX)) and 
-                ((y > selection.startY and y < selection.endY) or (y < selection.startY and y > selection.endY)) then
-                    if tank.type == 'friendly' then
-                        tank.picked = true
-                    end
-                else
-                    tank.picked = false
-                end
-            end
-        end
+        
     end
     function love.mousemoved(x, y, dx, dy)
         if CurrentPlace.openTankDesigner then
@@ -118,13 +94,6 @@ function ingame:draw()
         particleworld:draw()
         TankProjectiles:draw()
     cam:detach()
-    
-    --draw selection
-    if selection.active and Cursormode == 'normal' then
-        love.graphics.setColor(0,179/255,0)
-        love.graphics.rectangle("line", selection.startX, selection.startY,
-        love.mouse.getX() - selection.startX, love.mouse.getY() - selection.startY)
-    end
 
     ingameUI:draw()
 end

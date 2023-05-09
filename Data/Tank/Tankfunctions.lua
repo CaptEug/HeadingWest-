@@ -15,7 +15,7 @@ function Buildtank(place, tank, type, x, y)
         survivor = tank.crew,
         reload_time = tank.reload_time,
         reload_timer = tank.reload_time,
-        deploy_time = tank.deploy_time,
+        deploy_time = tank.deploy_time or nil,
         deploy_timer = -1,
         ammorack_size = tank.ammorack_size,
         ammorack = copytable(tank.ammorack or {}),
@@ -35,7 +35,7 @@ function Buildtank(place, tank, type, x, y)
         anime_sheet = tank.anime_sheet,
         turret_anime = {},
         firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
-        fortify_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
+        deploy_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
         hull_offset = tank.hull_offset,
         turret_offset = tank.turret_offset,
         gun_offset = tank.gun_offset,
@@ -69,8 +69,7 @@ function Buildtank(place, tank, type, x, y)
         firing_timer = 0,
         picked = false,
         incomp = false,
-        compCom = false,
-        fortified = false
+        deployed = false
     }
     if type == 'enemy' then
         while #tanky.ammorack < tanky.ammorack_size do
@@ -107,7 +106,7 @@ AutoControlfunction = function(tank, dt)
         local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
         if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
             if tank.class == 'spg' then
-                if tank.fortified then
+                if tank.deployed then
                     Bomb(tank, enemy.location.x, enemy.location.y)
                 end
             else
@@ -129,22 +128,22 @@ ManualControlfunction = function(tank, dt)
 
     cam:lookAt(tank.location.x, tank.location.y)
 
-    if not tank.fortified and love.keyboard.isDown('w') and speed <= max_f then
+    if not tank.deployed and love.keyboard.isDown('w') and speed <= max_f then
         tank.collider:applyForce(fx, fy)
     end
-    if not tank.fortified and love.keyboard.isDown('s') and speed <= max_r then
+    if not tank.deployed and love.keyboard.isDown('s') and speed <= max_r then
         tank.collider:applyForce(-fx, -fy)
     end
-    if not tank.fortified and love.keyboard.isDown('a') then
+    if not tank.deployed and love.keyboard.isDown('a') then
         tank.collider:applyTorque(-5*hp)
     end
-    if not tank.fortified and love.keyboard.isDown('d') then
+    if not tank.deployed and love.keyboard.isDown('d') then
         tank.collider:applyTorque(5*hp)
     end
 
     if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
         if tank.class == 'spg' then
-            if tank.fortified then
+            if tank.deployed then
                 Bomb(tank, mx, my)
             end
         else
@@ -153,10 +152,10 @@ ManualControlfunction = function(tank, dt)
     end
 end
 
-function Tank:SetFortified()
-    if self.fortified then
+function Tank:Setdeployed()
+    if self.deployed then
         self.deploy_timer = -1
-        self.fortified = false
+        self.deployed = false
     else
         self.deploy_timer = self.deploy_time
     end
@@ -225,14 +224,14 @@ function Tank:FacePosition(x, y)
         ha = ha + 2*math.pi
     end
 
-    if not self.fortified and ha > angle_to_target then
+    if not self.deployed and ha > angle_to_target then
         if ha - angle_to_target <= math.pi then
             self.collider:applyTorque(5*hp)
         else
             self.collider:applyTorque(-5*hp)
         end
     end
-    if not self.fortified and ha < angle_to_target then
+    if not self.deployed and ha < angle_to_target then
         if angle_to_target - ha <= math.pi then
             self.collider:applyTorque(-5*hp)
         else
@@ -290,28 +289,30 @@ function Tank:Update(dt)
     end
     self.reload_timer = self.reload_timer - dt
     self.firing_timer = self.firing_timer - dt
-    self.deploy_timer = self.deploy_timer - dt
+    if self.class == 'spg' then
+        self.deploy_timer = self.deploy_timer - dt
+    end
 
     --functions update
     self.functions.move(self,dt)
 
     --ainme update
     if self.class == 'spg' then
-        self.turret_anime = self.fortify_anime
+        self.turret_anime = self.deploy_anime
     else
         self.turret_anime = self.firing_anime
     end
     if self.firing_timer <= 0 then
         self.firing_anime:gotoFrame(1)
     end
-    if self.fortified then
+    if self.deployed then
         self.turret_anime = self.firing_anime
     else
         if self.deploy_timer <= -1 then
-            self.fortify_anime:gotoFrame(1)
+            self.deploy_anime:gotoFrame(1)
         end
         if self.deploy_timer <= 0 and self.deploy_timer > -1 then
-            self.fortified = true
+            self.deployed = true
         end
     end
     self.turret_anime:update(dt)

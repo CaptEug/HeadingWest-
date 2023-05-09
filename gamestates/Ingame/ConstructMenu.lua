@@ -57,7 +57,7 @@ function ConstructMenu:draw()
     if ConstructurePicked then
         local x, y = love.mouse.getPosition()
         local center = ConstructureSelected.image:getWidth()/2
-        love.mouse.setCursor(hammercursor)
+        love.mouse.setCursor(emptycursor)
         Cursormode = 'Constructing'
         love.graphics.draw(ConstructureSelected.image, x, y, 0, cam.scale, cam.scale, center, center)
     end

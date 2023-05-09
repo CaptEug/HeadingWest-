@@ -8,14 +8,16 @@ function TankInfoPanel:load()
     TankInfoPanel.dragging = false
     TankPanelopen = false
     TankChoosen = {}
-    TankInfoPanel.Pbuttons = buttons.new()
+    TankInfoPanel.Buttons = buttons.new()
+    TankInfoPanel.SPGButtons = buttons.new()
+
     ClosePanel = buttons.newWindowToolButton(
         ClosePanel_icon,
         function ()
             TankPanelopen = false
         end,
         TankInfoPanel.window,
-        TankInfoPanel.Pbuttons,
+        TankInfoPanel.Buttons,
         271,
         16
     )
@@ -35,9 +37,20 @@ function TankInfoPanel:load()
             end
         end,
         TankInfoPanel.window,
-        TankInfoPanel.Pbuttons,
-        0 + 256,
-        0 + 256
+        TankInfoPanel.Buttons,
+        256,
+        256
+    )
+
+    Deploy = buttons.newWindowToolButton(
+        Deploy_icon,
+        function ()
+            TankChoosen:Setdeployed()
+        end,
+        TankInfoPanel.window,
+        TankInfoPanel.SPGButtons,
+        256,
+        208
     )
 end
 
@@ -60,10 +73,6 @@ function TankInfoPanel:draw()
     cam:detach()
     --tankinfo on map UI
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        if tank.compCom then
-            local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
-            love.graphics.draw(Coms_icon, x - 10, y - 16*cam.scale)
-        end
         if tank.picked then
             local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
             love.graphics.draw(Picked_icon, x - 10, y  + 32*cam.scale)
@@ -73,7 +82,8 @@ function TankInfoPanel:draw()
         local a=TankChoosen.collider:getAngle()
         local x,y = cam:cameraCoords(TankChoosen.location.x, TankChoosen.location.y)
         love.graphics.draw(Choosen_icon, x - 10, y + 32*cam.scale)
-        love.graphics.setCanvas(TPscreen)
+
+    love.graphics.setCanvas(TPscreen)
         love.graphics.draw(tank_info_panel, 0, 0)
         love.graphics.draw(TankChoosen.hull_image_line, 144, 144, a, 1, 1, 144, 144)
         love.graphics.draw(TankChoosen.armor.hull_image_line, 144, 144, a, 1, 1, 144, 144)
@@ -92,11 +102,14 @@ function TankInfoPanel:draw()
         end
         love.graphics.setColor(1,1,1)
 
-        TankInfoPanel.Pbuttons:use()
+        TankInfoPanel.Buttons:use()
+        if TankChoosen.class == 'spg' then
+            TankInfoPanel.SPGButtons:use()
+        end
         TankCrewDraw()
         TankAmmoDraw()
         TankStateDraw()
-        love.graphics.setCanvas()
+    love.graphics.setCanvas()
         love.graphics.draw(TPscreen, TankInfoPanel.window.x, TankInfoPanel.window.y)
     end
 end
@@ -106,11 +119,11 @@ function TankCrewDraw()
     local m = 0
 
     while n < TankChoosen.crew do
-        love.graphics.draw(injured_crew_icon, 144 - 28*TankChoosen.crew/2 + 28*n, 224)
+        love.graphics.draw(injured_crew_icon, 144 - 28*TankChoosen.crew/2 + 28*n, 220)
         n = n + 1
     end
     while m < TankChoosen.survivor do
-        love.graphics.draw(crew_icon, 144 - 28*TankChoosen.crew/2 + 28*m, 224)
+        love.graphics.draw(crew_icon, 144 - 28*TankChoosen.crew/2 + 28*m, 220)
         m = m + 1
     end
 end
@@ -144,8 +157,8 @@ function TankStateDraw()
     if TankChoosen.functions.move == ManualControlfunction then
         love.graphics.draw(ManualControlOn_icon, 0 + 232, 0 + 232)
     end
-    if TankChoosen.fortified then
-        love.graphics.draw(FortifyOn_icon, 0 + 78, 0 + 465)
+    if TankChoosen.deployed then
+        love.graphics.draw(DeployOn_icon, 0 + 232, 0 + 184)
     end
 end
 

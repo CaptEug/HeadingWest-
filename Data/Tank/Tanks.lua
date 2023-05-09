@@ -26,7 +26,6 @@ Tanks = {
         oil_cost = 3,
         reload_time = 7,
         firing_time = 0.7,
-        deploy_time = 0,
         ammorack_size = 40,
         ammunition = {
             {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
@@ -125,7 +124,6 @@ Tanks = {
         oil_cost = 3,
         reload_time = 7,
         firing_time = 0.7,
-        deploy_time = 0,
         ammorack_size = 40,
         ammunition = {
             {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
@@ -248,7 +246,6 @@ Tanks = {
         oil_cost = 3,
         reload_time = 7,
         firing_time = 0.7,
-        deploy_time = 0,
         ammorack_size = 40,
     ammunition = {
         {name = '3bm42', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 457},
@@ -439,7 +436,6 @@ Tanks = {
         oil_cost = 0,
         reload_time = 6,
         firing_time = 0.7,
-        deploy_time = 0,
         ammorack_size = 40,
         ammunition = {
             {name = 'M900', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 530},
@@ -520,7 +516,7 @@ SPGs = {
         exhaust_angle = math.pi,
         exhaust_angle2 = 0,
         weight = 46.5,
-        crew = 10,
+        crew = 6,
         max_f_speed = 50,
         max_r_speed = -50,
         turret_t_speed = 7,
