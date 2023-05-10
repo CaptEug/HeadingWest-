@@ -34,7 +34,7 @@ Constructures = {
         gun_offset3 = {x = 48, y = 250},
         steel_cost = 100,
         oil_cost = 50,
-        hitpoint = 100,
+        hitpoint = 500,
         armorthickness = 305,
         ammorack = {
             {name = '305mmHE', type = 'HE', pentype = 'CE', velocity = 1000, mass = 1, pen = 305, TNT_eq = 55}

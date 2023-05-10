@@ -58,6 +58,8 @@ function Console:load()
 end
 
 function Console:update(dt)
+    Console.window.x = ww/2 - 192
+    Console.window.y = wh - 64
     OpenConsole = false
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         if tank.picked then
@@ -97,17 +99,17 @@ function SelectionMouseReleased(x, y, button)
         Selection.active = false
         Selection.endX = x
         Selection.endY = y
-    end
-    if Selection.startX ~= Selection.endX and Selection.startY ~= Selection.endY then
-        for i, tank in ipairs(CurrentPlace.exsist_tank) do
-            local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
-            if ((x > Selection.startX and x < Selection.endX) or (x < Selection.startX and x > Selection.endX)) and 
-            ((y > Selection.startY and y < Selection.endY) or (y < Selection.startY and y > Selection.endY)) then
-                if tank.type == 'friendly' then
-                    tank.picked = true
+        if Selection.startX ~= Selection.endX and Selection.startY ~= Selection.endY then
+            for i, tank in ipairs(CurrentPlace.exsist_tank) do
+                local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
+                if ((x > Selection.startX and x < Selection.endX) or (x < Selection.startX and x > Selection.endX)) and 
+                ((y > Selection.startY and y < Selection.endY) or (y < Selection.startY and y > Selection.endY)) then
+                    if tank.type == 'friendly' then
+                        tank.picked = true
+                    end
+                else
+                    tank.picked = false
                 end
-            else
-                tank.picked = false
             end
         end
     end

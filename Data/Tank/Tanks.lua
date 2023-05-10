@@ -20,7 +20,7 @@ Tanks = {
         crew = 3,
         max_f_speed = 60,
         max_r_speed = -4,
-        turret_t_speed = 20,
+        turret_t_speed = 25,
         vision = 600,
         steel_cost = 7,
         oil_cost = 3,
@@ -28,7 +28,7 @@ Tanks = {
         firing_time = 0.7,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
+            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 415},
             {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
             {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
         },
@@ -38,8 +38,8 @@ Tanks = {
         },
         innerstructure = {
             htl = 0.7,
-            hull = {crew = 0.7, ammo = 0.5, engine = 0.3, fuel = 0.5},
-            turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
+            hull = {crew = 0.5, ammo = 0.5, engine = 0.3, fuel = 0.5},
+            turret = {crew = 0.7, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull.png'),
         hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull_line.png'),
@@ -118,7 +118,7 @@ Tanks = {
         crew = 3,
         max_f_speed = 60,
         max_r_speed = -4,
-        turret_t_speed = 20,
+        turret_t_speed = 25,
         vision = 600,
         steel_cost = 7,
         oil_cost = 3,
@@ -126,7 +126,7 @@ Tanks = {
         firing_time = 0.7,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 425},
+            {name = '3bm42', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 457},
             {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
             {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
         },
@@ -136,8 +136,8 @@ Tanks = {
         },
         innerstructure = {
             htl = 0.7,
-            hull = {crew = 0.7, ammo = 0.5, engine = 0.3, fuel = 0.5},
-            turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
+            hull = {crew = 0.5, ammo = 0.5, engine = 0.3, fuel = 0.5},
+            turret = {crew = 0.7, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_Hull.png'),
         hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_Hull_line.png'),
@@ -240,7 +240,7 @@ Tanks = {
         crew = 3,
         max_f_speed = 60,
         max_r_speed = -4,
-        turret_t_speed = 20,
+        turret_t_speed = 25,
         vision = 700,
         steel_cost = 7,
         oil_cost = 3,
@@ -258,8 +258,8 @@ Tanks = {
     },
     innerstructure = {
         htl = 0.7,
-        hull = {crew = 0.7, ammo = 0.5, engine = 0.3, fuel = 0.5},
-        turret = {crew = 0.9, ammo = 0, engine = 0, fuel = 0}
+        hull = {crew = 0.5, ammo = 0.5, engine = 0.3, fuel = 0.5},
+        turret = {crew = 0.7, ammo = 0, engine = 0, fuel = 0}
     },
     hull_image = love.graphics.newImage('Assets/tanks/soviet/T-90/T90_hull.png'),
     hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-90/T90_hull_line.png'),
@@ -430,7 +430,7 @@ Tanks = {
         crew = 4,
         max_f_speed = 72,
         max_r_speed = 38,
-        turret_t_speed = 30,
+        turret_t_speed = 35,
         vision = 800,
         steel_cost = 0,
         oil_cost = 0,
@@ -446,14 +446,14 @@ Tanks = {
         },
         innerstructure = {
             htl = 0.6,
-            hull = {crew = 0.7, ammo = 0, engine = 0.4, fuel = 0.4},
-            turret = {crew = 0.8, ammo = 0.3, engine = 0, fuel = 0}
+            hull = {crew = 0.5, ammo = 0, engine = 0.4, fuel = 0.4},
+            turret = {crew = 0.6, ammo = 0.3, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/usa/M1/M1_Hull.png'),
-        hull_image_line = Image_in_progress,
+        hull_image_line = love.graphics.newImage('Assets/tanks/usa/M1/M1_Hull_line.png'),
         hull_image_broken = Blank_line,
         turret_image = love.graphics.newImage('Assets/tanks/usa/M1/M1_Turret.png'),
-        turret_image_line = Image_in_progress,
+        turret_image_line = love.graphics.newImage('Assets/tanks/usa/M1/M1_Turret_line.png'),
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/usa/M1/M1_firingsprite.png'),
         accessories = {
@@ -537,7 +537,7 @@ SPGs = {
         },
         innerstructure = {
         htl = 0.8,
-        hull = {crew = 0.8, ammo = 0.2, engine = 0.5, fuel = 0.5},
+        hull = {crew = 0.7, ammo = 0.2, engine = 0.5, fuel = 0.5},
         turret = {crew = 0, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_Hull.png'),

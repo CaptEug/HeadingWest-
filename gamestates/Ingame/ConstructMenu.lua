@@ -6,9 +6,20 @@ function ConstructMenu:load()
     ConstructMenu.window = {x = 0, y = 64, w = 640, h = 64}
     ConstructMenu.dragging = false
     CurrentPlace.openConstructMenu = false
-    CurrentPlace.CMbuttons = buttons.new()
+    ConstructMenu.Buttons = buttons.new()
     ConstructurePicked = false
     ConstructureSelected = {}
+
+    Close = buttons.newWindowToolButton(
+            Close_icon,
+            function ()
+                CurrentPlace.openConstructMenu = false
+            end,
+            ConstructMenu.window,
+            ConstructMenu.Buttons,
+            625,
+            18
+        )
 
     for i, constructure in ipairs(CurrentPlace.constructurelist) do
         buttons.newWindowToolButton(
@@ -18,8 +29,9 @@ function ConstructMenu:load()
                 ConstructureSelected = constructure
             end,
             ConstructMenu.window,
-            CurrentPlace.CMbuttons,
-            204 + 156*((i-1)%3), 129 + 118*math.floor((i-1)/3)
+            ConstructMenu.Buttons,
+            204 + 156*((i-1)%3),
+            129 + 118*math.floor((i-1)/3)
         )
     end
 end
@@ -41,7 +53,7 @@ function ConstructMenu:draw()
     if CurrentPlace.openConstructMenu then
         love.graphics.setCanvas(CMscreen)
         love.graphics.draw(ConstructMenu_screen)
-        CurrentPlace.CMbuttons:use()
+        ConstructMenu.Buttons:use()
         for i, constructure in ipairs(CurrentPlace.constructurelist) do
             love.graphics.draw(contructure_box, 128 + 156*((i-1)%3), 72 + 118*math.floor((i-1)/3))
             love.graphics.setColor(0,179/255,0)

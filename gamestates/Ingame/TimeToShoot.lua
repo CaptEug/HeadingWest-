@@ -129,9 +129,17 @@ function RicochetCheck(shell, Target)
     local hitPart = 'none'
     local hitArmorside = 'none'
     local ricochet = false
-    local ra = 80*0.0174533
+    local ra = 90 * math.pi/180
     local vangle = math.atan2(vy, vx)
     local impact_angle = 0
+
+    if shell.type == 'HEAT' then
+        ra = 90 * math.pi/180
+    elseif shell.type == 'APFSDS' then
+        ra = 80 * math.pi/180
+    elseif shell.type == 'APCBC' then
+        ra = 65 * math.pi/180
+    end
 
     if hitvalue < Target.innerstructure.htl then
         hitPart = 'Hull'
@@ -321,6 +329,9 @@ function DamageCheck(Target, penpart)
         table.remove(Datapool.hitmodule, 1)
     end
     Datapool.crewknockout = 0
+
+    Target.survivor = Target.survivor - 1
+    Datapool.crewknockout = Datapool.crewknockout + 1
 
     if penpart == 'Hull' then
         crew = Target.innerstructure.hull.crew

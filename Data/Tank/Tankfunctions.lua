@@ -135,10 +135,10 @@ ManualControlfunction = function(tank, dt)
         tank.collider:applyForce(-fx, -fy)
     end
     if not tank.deployed and love.keyboard.isDown('a') then
-        tank.collider:applyTorque(-5*hp)
+        tank.collider:applyTorque(-4*hp)
     end
     if not tank.deployed and love.keyboard.isDown('d') then
-        tank.collider:applyTorque(5*hp)
+        tank.collider:applyTorque(4*hp)
     end
 
     if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
@@ -226,16 +226,16 @@ function Tank:FacePosition(x, y)
 
     if not self.deployed and ha > angle_to_target then
         if ha - angle_to_target <= math.pi then
-            self.collider:applyTorque(5*hp)
+            self.collider:applyTorque(4*hp)
         else
-            self.collider:applyTorque(-5*hp)
+            self.collider:applyTorque(-4*hp)
         end
     end
     if not self.deployed and ha < angle_to_target then
         if angle_to_target - ha <= math.pi then
-            self.collider:applyTorque(-5*hp)
+            self.collider:applyTorque(-4*hp)
         else
-            self.collider:applyTorque(5*hp)
+            self.collider:applyTorque(4*hp)
         end
     end
 end

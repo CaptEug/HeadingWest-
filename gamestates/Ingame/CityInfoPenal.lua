@@ -6,7 +6,7 @@ function CityInfoPenal:load()
     CityInfoPenal.dragging = false
     CurrentPlace.openCityInfoPenal = false
     CurrentPlace.cityinfopenalmode = false
-    CurrentPlace.AEbuttons = buttons.new()
+    CityInfoPenal.Buttons = buttons.new()
     CurrentPlace.Army.Abuttons = buttons.new()
     DivisionNum = 1
     
@@ -21,7 +21,7 @@ function CityInfoPenal:load()
             end
         end,
         CityInfoPenal.window,
-        CurrentPlace.AEbuttons,
+        CityInfoPenal.Buttons,
         0 + 363,
         0 + 53,
         Edit_button,
@@ -67,7 +67,7 @@ function CityInfoPenal:draw()
         love.graphics.setFont(Rheadfont)
         love.graphics.print('Army in '..CurrentPlace.name, 0 + 32, 0 + 40)
         love.graphics.setFont(Rtextfont)
-        CurrentPlace.AEbuttons:use()
+        CityInfoPenal.Buttons:use()
         
         DivisionHight = 72
         for i, division in ipairs(CurrentPlace.Army) do

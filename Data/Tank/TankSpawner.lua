@@ -13,14 +13,9 @@ function TankSpawner:loadtank(place, tank)
         buttons.newCampicButton(
             invisible_button,
             function ()
+                tank.picked = true
                 TankPanelopen = true
                 TankChoosen = tank
-                TankChoosen.picked = true
-                for i, tank in ipairs(CurrentPlace.exsist_tank) do
-                    if tank ~= TankChoosen and tank.picked then
-                        tank.picked = false
-                    end
-                end
             end,
             tank.Infobuttons
         )

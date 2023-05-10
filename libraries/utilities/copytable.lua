@@ -18,5 +18,4 @@ function add3dmatrix(t1, t2)
         end
     end
     return instance
-    
 end

@@ -4,167 +4,167 @@ function TankDesigner:load()
     TDscreen = love.graphics.newCanvas(640, 480)
     TankDesigner.window = {x = 0, y = 32, w = 640, h = 64}
     TankDesigner.dragging = false
-    CurrentPlace.openTankDesigner = false
-    CurrentPlace.Fbuttons = buttons.new()
-    CurrentPlace.tankindex = 1
-    CurrentPlace.Pageshown = 'Armor'
-    CurrentPlace.ProductionQueue = {}
-    CurrentPlace.ProductionNumber = 0
+    TankDesigner.Buttons = buttons.new()
+    TankDesigner.tankindex = 1
+    TankDesigner.PageShown = 'Armor'
     TankDesigner.tank_steel_cost = 0
     TankDesigner.tank_oil_cost = 0
+    CurrentPlace.openTankDesigner = false
+    CurrentPlace.ProductionQueue = {}
+    CurrentPlace.ProductionNumber = 0
 
     --load buttons
-        Close = buttons.newWindowToolButton(
-            Close_icon,
-            function ()
-                CurrentPlace.openTankDesigner = false
-            end,
-            TankDesigner.window,
-            CurrentPlace.Fbuttons,
-            0 + 625,
-            0 + 18
-        )
+    Close = buttons.newWindowToolButton(
+        Close_icon,
+        function ()
+            CurrentPlace.openTankDesigner = false
+        end,
+        TankDesigner.window,
+        TankDesigner.Buttons,
+        0 + 625,
+        0 + 18
+    )
 
-        Next = buttons.newWindowToolButton(
-            rightArrow,
-            function ()
-                if CurrentPlace.tankindex < #CurrentPlace.tanklist then
-                    CurrentPlace.tankindex = CurrentPlace.tankindex + 1
-                else
-                    CurrentPlace.tankindex = 1
-                end
-            end,
-            TankDesigner.window,
-            CurrentPlace.Fbuttons,
-            0 + 311,
-            0 + 331
-        )
-
-        Previous = buttons.newWindowToolButton(
-            leftArrow,
-            function ()
-                if CurrentPlace.tankindex > 1 then
-                    CurrentPlace.tankindex = CurrentPlace.tankindex - 1
-                else
-                    CurrentPlace.tankindex = #CurrentPlace.tanklist
-                end
-            end,
-            TankDesigner.window,
-            CurrentPlace.Fbuttons,
-            0 + 56,
-            0 + 331
-        )
-
-        for i, tank in ipairs(CurrentPlace.tanklist) do
-            tank.equipment = {}
-            tank.equipment.armor = tank.accessories[1][1] or Blank_Gear
-            tank.equipment.aim = tank.accessories[2][1] or Blank_Gear
-            tank.equipment.mob = tank.accessories[3][1] or Blank_Gear
-            tank.ammorack = {}
-            tank.ammunition.Abuttons = buttons.new()
-            tank.ammunition.isopen = false
-            if tank.accessories then
-                for i, accessory in ipairs(tank.accessories) do
-                    accessory.Abuttons = buttons.new()
-                    accessory.isopen = false
-                    for i, equipment in ipairs(accessory) do
-                        local Equip = buttons.newWindowToolButton(
-                        EquipmentSelect,
-                        function ()
-                            if equipment.tag == 'Armor' then
-                                tank.equipment.armor = equipment
-                            end
-                            if equipment.tag == 'Aim' then
-                                tank.equipment.aim = equipment
-                            end
-                            if equipment.tag == 'Mob' then
-                                tank.equipment.mob = equipment
-                            end
-                        end,
-                        TankDesigner.window,
-                        accessory.Abuttons,
-                        0 + 386,
-                        0 + 46 + 46*i,
-                        EquipmentSelectHot
-                    )
-                    end
-                end
+    Next = buttons.newWindowToolButton(
+        rightArrow,
+        function ()
+            if TankDesigner.tankindex < #CurrentPlace.tanklist then
+                TankDesigner.tankindex = TankDesigner.tankindex + 1
+            else
+                TankDesigner.tankindex = 1
             end
-            --ammo system
-            for i, ammo in ipairs(tank.ammunition) do
-               ammo.add = buttons.newWindowToolButton(
-                    plus_icon,
+        end,
+        TankDesigner.window,
+        TankDesigner.Buttons,
+        0 + 311,
+        0 + 331
+    )
+
+    Previous = buttons.newWindowToolButton(
+        leftArrow,
+        function ()
+            if TankDesigner.tankindex > 1 then
+                TankDesigner.tankindex = TankDesigner.tankindex - 1
+            else
+                TankDesigner.tankindex = #CurrentPlace.tanklist
+            end
+        end,
+        TankDesigner.window,
+        TankDesigner.Buttons,
+        0 + 56,
+        0 + 331
+    )
+
+    for i, tank in ipairs(CurrentPlace.tanklist) do
+        tank.equipment = {}
+        tank.equipment.armor = tank.accessories[1][1] or Blank_Gear
+        tank.equipment.aim = tank.accessories[2][1] or Blank_Gear
+        tank.equipment.mob = tank.accessories[3][1] or Blank_Gear
+        tank.ammorack = {}
+        tank.ammunition.Abuttons = buttons.new()
+        tank.ammunition.isopen = false
+        if tank.accessories then
+            for i, accessory in ipairs(tank.accessories) do
+                accessory.Abuttons = buttons.new()
+                accessory.isopen = false
+                for i, equipment in ipairs(accessory) do
+                    local Equip = buttons.newWindowToolButton(
+                    EquipmentSelect,
                     function ()
-                        if #tank.ammorack < tank.ammorack_size then
-                            table.insert(tank.ammorack, ammo)
+                        if equipment.tag == 'Armor' then
+                            tank.equipment.armor = equipment
+                        end
+                        if equipment.tag == 'Aim' then
+                            tank.equipment.aim = equipment
+                        end
+                        if equipment.tag == 'Mob' then
+                            tank.equipment.mob = equipment
                         end
                     end,
                     TankDesigner.window,
-                    tank.ammunition.Abuttons,
-                    0 + 429,
-                    0 + 56 + 46*i
-               )
-               ammo.remove = buttons.newWindowToolButton(
-                    minus_icon,
-                    function ()
-                        for i, bullet in ipairs(tank.ammorack) do
-                            if bullet.name == ammo.name then
-                                table.remove(tank.ammorack, i)
-                                break
-                            end
-                        end
-                    end,
-                    TankDesigner.window,
-                    tank.ammunition.Abuttons,
-                    0 + 407,
-                    0 + 56 + 46*i
-               )
+                    accessory.Abuttons,
+                    0 + 386,
+                    0 + 46 + 46*i,
+                    EquipmentSelectHot
+                )
+                end
             end
         end
+        --ammo system
+        for i, ammo in ipairs(tank.ammunition) do
+            ammo.add = buttons.newWindowToolButton(
+                plus_icon,
+                function ()
+                    if #tank.ammorack < tank.ammorack_size then
+                        table.insert(tank.ammorack, ammo)
+                    end
+                end,
+                TankDesigner.window,
+                tank.ammunition.Abuttons,
+                0 + 429,
+                0 + 56 + 46*i
+            )
+            ammo.remove = buttons.newWindowToolButton(
+                minus_icon,
+                function ()
+                    for i, bullet in ipairs(tank.ammorack) do
+                        if bullet.name == ammo.name then
+                            table.remove(tank.ammorack, i)
+                            break
+                        end
+                    end
+                end,
+                TankDesigner.window,
+                tank.ammunition.Abuttons,
+                0 + 407,
+                0 + 56 + 46*i
+            )
+        end
+    end
 
-        Armor = buttons.newWindowToolButton(
-            Armor_icon,
-            function ()
-                CurrentPlace.Pageshown = 'Armor'
-            end,
-            TankDesigner.window,
-            CurrentPlace.Fbuttons,
-            0 + 72,
-            0 + 391
-        )
+    Armor = buttons.newWindowToolButton(
+        Armor_icon,
+        function ()
+            TankDesigner.PageShown = 'Armor'
+        end,
+        TankDesigner.window,
+        TankDesigner.Buttons,
+        0 + 72,
+        0 + 391
+    )
 
-        Aiming = buttons.newWindowToolButton(
-            Aiming_icon,
-            function ()
-                CurrentPlace.Pageshown = 'Aim'
-            end,
-            TankDesigner.window,
-            CurrentPlace.Fbuttons,
-            0 + 126,
-            0 + 391
-        )
+    Aiming = buttons.newWindowToolButton(
+        Aiming_icon,
+        function ()
+            TankDesigner.PageShown = 'Aim'
+        end,
+        TankDesigner.window,
+        TankDesigner.Buttons,
+        0 + 126,
+        0 + 391
+    )
 
-        Mobility = buttons.newWindowToolButton(
-            Mobility_icon,
-            function ()
-                CurrentPlace.Pageshown = 'Mob'
-            end,
-            TankDesigner.window,
-            CurrentPlace.Fbuttons,
-            0 + 180,
-            0 + 391
-        )
+    Mobility = buttons.newWindowToolButton(
+        Mobility_icon,
+        function ()
+            TankDesigner.PageShown = 'Mob'
+        end,
+        TankDesigner.window,
+        TankDesigner.Buttons,
+        0 + 180,
+        0 + 391
+    )
 
-        Ammunition = buttons.newWindowToolButton(
-            Ammo_icon,
-            function ()
-                CurrentPlace.Pageshown = 'Ammo'
-            end,
-            TankDesigner.window,
-            CurrentPlace.Fbuttons,
-            0 + 234,
-            0 + 391
-        )
+    Ammunition = buttons.newWindowToolButton(
+        Ammo_icon,
+        function ()
+            TankDesigner.PageShown = 'Ammo'
+        end,
+        TankDesigner.window,
+        TankDesigner.Buttons,
+        0 + 234,
+        0 + 391
+    )
 
     Build = buttons.newWindowToolButton(
         Build_icon,
@@ -175,7 +175,7 @@ function TankDesigner:load()
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
         end,
         TankDesigner.window,
-        CurrentPlace.Fbuttons,
+        TankDesigner.Buttons,
         0 + 405,
         0 + 391,
         Build_icon,
@@ -188,7 +188,7 @@ function TankDesigner:load()
             table.remove(CurrentPlace.ProductionQueue, 1)
         end,
         TankDesigner.window,
-        CurrentPlace.Fbuttons,
+        TankDesigner.Buttons,
         0 + 567,
         0 + 79
     )
@@ -198,9 +198,9 @@ end
 
 function TankDesigner:update(dt)
     --pageshown detection
-    if CurrentPlace.Pageshown == 'Armor' then
-        CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
-        for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
+    if TankDesigner.PageShown == 'Armor' then
+        CurrentPlace.tanklist[TankDesigner.tankindex].ammunition.isopen = false
+        for i, accessory in ipairs(CurrentPlace.tanklist[TankDesigner.tankindex].accessories) do
             if i == 1 then
                 accessory.isopen = true
             else
@@ -208,9 +208,9 @@ function TankDesigner:update(dt)
             end
         end
     end
-    if CurrentPlace.Pageshown == 'Aim' then
-        CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
-        for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
+    if TankDesigner.PageShown == 'Aim' then
+        CurrentPlace.tanklist[TankDesigner.tankindex].ammunition.isopen = false
+        for i, accessory in ipairs(CurrentPlace.tanklist[TankDesigner.tankindex].accessories) do
             if i == 2 then
                 accessory.isopen = true
             else
@@ -218,9 +218,9 @@ function TankDesigner:update(dt)
             end
         end
     end
-    if CurrentPlace.Pageshown == 'Mob' then
-        CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = false
-        for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
+    if TankDesigner.PageShown == 'Mob' then
+        CurrentPlace.tanklist[TankDesigner.tankindex].ammunition.isopen = false
+        for i, accessory in ipairs(CurrentPlace.tanklist[TankDesigner.tankindex].accessories) do
             if i == 3 then
                 accessory.isopen = true
             else
@@ -228,11 +228,11 @@ function TankDesigner:update(dt)
             end
         end
     end
-    if CurrentPlace.Pageshown == 'Ammo' then
-        for i, accessory in ipairs(CurrentPlace.tanklist[CurrentPlace.tankindex].accessories) do
+    if TankDesigner.PageShown == 'Ammo' then
+        for i, accessory in ipairs(CurrentPlace.tanklist[TankDesigner.tankindex].accessories) do
             accessory.isopen = false
         end
-        CurrentPlace.tanklist[CurrentPlace.tankindex].ammunition.isopen = true
+        CurrentPlace.tanklist[TankDesigner.tankindex].ammunition.isopen = true
     end
     --tank production process
     for i, tank in ipairs(CurrentPlace.ProductionQueue) do
@@ -253,91 +253,91 @@ end
 
 function TankDesigner:draw()
 
-    TankPresent = CurrentPlace.tanklist[CurrentPlace.tankindex]
+    TankPresent = CurrentPlace.tanklist[TankDesigner.tankindex]
 
-        if CurrentPlace.openTankDesigner then
-        love.graphics.setCanvas(TDscreen)
-            TankDesigner.tank_steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.mob.steel_cost
-            TankDesigner.tank_oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.mob.oil_cost
-            love.graphics.draw(TankDesigner_screen, 0, 0)
-            love.graphics.setFont(Rbuttonfont)
-            love.graphics.print(CurrentPlace.factory, 0 + 40, 0)
-            love.graphics.setFont(Rtextfont)
-            love.graphics.setColor(0,179/255,0)
-            love.graphics.print(TankPresent.name, 0 + 40 + 6, 0 + 64 + 6)
-            love.graphics.print(tostring(TankDesigner.tank_steel_cost), 0 + 40 + 246, 0 + 64 + 6)
-            love.graphics.print(tostring(TankDesigner.tank_oil_cost), 0 + 40 + 246, 0 + 64 + 26)
-            love.graphics.setColor(1,1,1)
+    if CurrentPlace.openTankDesigner then
+    love.graphics.setCanvas(TDscreen)
+        TankDesigner.tank_steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.mob.steel_cost
+        TankDesigner.tank_oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.mob.oil_cost
+        love.graphics.draw(TankDesigner_screen, 0, 0)
+        love.graphics.setFont(Rbuttonfont)
+        love.graphics.print(CurrentPlace.factory, 0 + 40, 0)
+        love.graphics.setFont(Rtextfont)
+        love.graphics.setColor(0,179/255,0)
+        love.graphics.print(TankPresent.name, 0 + 40 + 6, 0 + 64 + 6)
+        love.graphics.print(tostring(TankDesigner.tank_steel_cost), 0 + 40 + 246, 0 + 64 + 6)
+        love.graphics.print(tostring(TankDesigner.tank_oil_cost), 0 + 40 + 246, 0 + 64 + 26)
+        love.graphics.setColor(1,1,1)
 
-            if TankPresent.accessories then
-                for i, accessory in ipairs(TankPresent.accessories) do
-                    if accessory.isopen then
-                        accessory.Abuttons:use()
-                        for i, equipment in ipairs(accessory) do
-                            love.graphics.setFont(Rtextfont)
+        if TankPresent.accessories then
+            for i, accessory in ipairs(TankPresent.accessories) do
+                if accessory.isopen then
+                    accessory.Abuttons:use()
+                    for i, equipment in ipairs(accessory) do
+                        love.graphics.setFont(Rtextfont)
+                        love.graphics.setColor(0,179/255,0)
+                        love.graphics.print(equipment.name, 0 + 336, 0 + 24 + 46*i)
+                        if equipment == TankPresent.equipment.armor or equipment == TankPresent.equipment.aim or equipment == TankPresent.equipment.mob then
                             love.graphics.setColor(0,179/255,0)
+                            love.graphics.rectangle("fill", 0 + 332, 0 + 24 + 46*i, 108, 44)
+                            love.graphics.setColor(34/255,32/255,52/255)
                             love.graphics.print(equipment.name, 0 + 336, 0 + 24 + 46*i)
-                            if equipment == TankPresent.equipment.armor or equipment == TankPresent.equipment.aim or equipment == TankPresent.equipment.mob then
-                                love.graphics.setColor(0,179/255,0)
-                                love.graphics.rectangle("fill", 0 + 332, 0 + 24 + 46*i, 108, 44)
-                                love.graphics.setColor(34/255,32/255,52/255)
-                                love.graphics.print(equipment.name, 0 + 336, 0 + 24 + 46*i)
-                            end
-                            love.graphics.setColor(1,1,1)
                         end
+                        love.graphics.setColor(1,1,1)
                     end
                 end
             end
-
-            if TankPresent.ammunition.isopen then
-                TankPresent.ammunition.Abuttons:use()
-                love.graphics.setColor(0,179/255,0)
-                love.graphics.print('Rounds:'..#TankPresent.ammorack..'/'..TankPresent.ammorack_size, 0 + 328 + 6, 0 + 64 + 6)
-                
-                for i, ammo in ipairs(TankPresent.ammunition) do
-                    local n = 0
-                    for i, bullet in ipairs(TankPresent.ammorack) do
-                        if bullet.name == ammo.name then
-                            n = n + 1
-                        end
-                    end
-                    love.graphics.print(ammo.name, 0 + 328 + 6, 0 + 46 + 46*i)
-                    love.graphics.print(n, 0 + 328 + 6, 0 + 56 + 46*i)
-                end
-                love.graphics.setColor(1,1,1)
-            end
-
-            love.graphics.draw(TankPresent.hull_image_line, 0 + 40, 0 + 64)
-            love.graphics.draw(TankPresent.equipment.armor.hull_image_line, 0 + 40, 0 + 64)
-            love.graphics.draw(TankPresent.turret_image_line, 0 + 40, 0 + 64)
-            love.graphics.draw(TankPresent.equipment.armor.turret_image_line, 0 + 40, 0 + 64)
-            love.graphics.draw(TankPresent.equipment.aim.line_image, 0 + 40, 0 + 64)
-            love.graphics.draw(TankPresent.equipment.mob.line_image, 0 + 40, 0 + 64)
-
-            for i, tank in ipairs(CurrentPlace.ProductionQueue) do
-                love.graphics.draw(production_box,0 + 452, 0 + 62 + 28*i)
-                love.graphics.setColor(0,179/255,0)
-                love.graphics.print(tank.name, 0 + 456, 0 + 66 + 28*i)
-                love.graphics.rectangle('fill', 0 + 456, 0 + 80 + 28*i, 132 - (132*tank.buildtime/tank.fixedbuildtime), 4)
-                love.graphics.setColor(1,1,1)
-            end
-
-            CurrentPlace.Fbuttons:use()
-            if CurrentPlace.Pageshown == 'Armor' then
-                love.graphics.draw(Armor_Hot, 0 + 46, 0 + 356)
-            end
-            if CurrentPlace.Pageshown == 'Aim' then
-                love.graphics.draw(Aiming_Hot, 0 + 100, 0 + 356)
-            end
-            if CurrentPlace.Pageshown == 'Mob' then
-                love.graphics.draw(Mobility_Hot, 0 + 154, 0 + 356)
-            end
-            if CurrentPlace.Pageshown == 'Ammo' then
-                love.graphics.draw(Ammo_Hot, 0 + 208, 0 + 356)
-            end
-        love.graphics.setCanvas()
-            love.graphics.draw(TDscreen, TankDesigner.window.x, TankDesigner.window.y)
         end
+
+        if TankPresent.ammunition.isopen then
+            TankPresent.ammunition.Abuttons:use()
+            love.graphics.setColor(0,179/255,0)
+            love.graphics.print('Rounds:'..#TankPresent.ammorack..'/'..TankPresent.ammorack_size, 0 + 328 + 6, 0 + 64 + 6)
+            
+            for i, ammo in ipairs(TankPresent.ammunition) do
+                local n = 0
+                for i, bullet in ipairs(TankPresent.ammorack) do
+                    if bullet.name == ammo.name then
+                        n = n + 1
+                    end
+                end
+                love.graphics.print(ammo.name, 0 + 328 + 6, 0 + 46 + 46*i)
+                love.graphics.print(n, 0 + 328 + 6, 0 + 56 + 46*i)
+            end
+            love.graphics.setColor(1,1,1)
+        end
+
+        love.graphics.draw(TankPresent.hull_image_line, 0 + 40, 0 + 64)
+        love.graphics.draw(TankPresent.equipment.armor.hull_image_line, 0 + 40, 0 + 64)
+        love.graphics.draw(TankPresent.turret_image_line, 0 + 40, 0 + 64)
+        love.graphics.draw(TankPresent.equipment.armor.turret_image_line, 0 + 40, 0 + 64)
+        love.graphics.draw(TankPresent.equipment.aim.line_image, 0 + 40, 0 + 64)
+        love.graphics.draw(TankPresent.equipment.mob.line_image, 0 + 40, 0 + 64)
+
+        for i, tank in ipairs(CurrentPlace.ProductionQueue) do
+            love.graphics.draw(production_box,0 + 452, 0 + 62 + 28*i)
+            love.graphics.setColor(0,179/255,0)
+            love.graphics.print(tank.name, 0 + 456, 0 + 66 + 28*i)
+            love.graphics.rectangle('fill', 0 + 456, 0 + 80 + 28*i, 132 - (132*tank.buildtime/tank.fixedbuildtime), 4)
+            love.graphics.setColor(1,1,1)
+        end
+
+        TankDesigner.Buttons:use()
+        if TankDesigner.PageShown == 'Armor' then
+            love.graphics.draw(Armor_Hot, 0 + 46, 0 + 356)
+        end
+        if TankDesigner.PageShown == 'Aim' then
+            love.graphics.draw(Aiming_Hot, 0 + 100, 0 + 356)
+        end
+        if TankDesigner.PageShown == 'Mob' then
+            love.graphics.draw(Mobility_Hot, 0 + 154, 0 + 356)
+        end
+        if TankDesigner.PageShown == 'Ammo' then
+            love.graphics.draw(Ammo_Hot, 0 + 208, 0 + 356)
+        end
+    love.graphics.setCanvas()
+        love.graphics.draw(TDscreen, TankDesigner.window.x, TankDesigner.window.y)
+    end
 end
 
 function TankDesigner:slot_distribution(place)
