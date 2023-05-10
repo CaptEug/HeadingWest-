@@ -3,8 +3,8 @@ TankInfoPanel = {}
 
 function TankInfoPanel:load()
     --add tankinfopanel button
-    TPscreen = love.graphics.newCanvas(288, 288)
-    TankInfoPanel.window = {x = ww - 288, y = wh - 320, w = 288, h = 288}
+    TPscreen = love.graphics.newCanvas(288, 352)
+    TankInfoPanel.window = {x = 0, y = 256, w = 288, h = 352}
     TankInfoPanel.dragging = false
     TankPanelopen = false
     TankChoosen = {}
@@ -28,7 +28,7 @@ function TankInfoPanel:load()
         TankInfoPanel.window,
         TankInfoPanel.Buttons,
         256,
-        256
+        256+64
     )
 
     Deploy = buttons.newWindowToolButton(
@@ -39,7 +39,7 @@ function TankInfoPanel:load()
         TankInfoPanel.window,
         TankInfoPanel.SPGButtons,
         256,
-        208
+        208+64
     )
 end
 
@@ -80,15 +80,20 @@ function TankInfoPanel:draw()
         love.graphics.draw(TankChoosen.turret_image_line, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
         love.graphics.draw(TankChoosen.aim.line_image, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
         love.graphics.draw(TankChoosen.armor.turret_image_line, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
+        love.graphics.draw(Fuel_icon, 259, 8)
+        love.graphics.setColor(0,179/255,0)
+        love.graphics.rectangle("fill", 259, 32, 24, -24*TankChoosen.fuel/TankChoosen.fuel_capacity)
+        love.graphics.setColor(1,1,1)
+        love.graphics.draw(Fuel_mask, 259, 8)
         love.graphics.setFont(Rtextfont)
         love.graphics.setColor(0,179/255,0)
         love.graphics.print(TankChoosen.name..' No.'..TankChoosen.number, 0 + 4, 0 + 4)
-        love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', 0 + 4, 0 + 268)
+        love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', 0 + 4, 0 + 332)
         if TankChoosen.reload_timer >= 0 then
-            love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s', 0 + 128, 0 + 268)
+            love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s',  144 - Rtextfont:getWidth('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s')/2, 0 + 240)
         end
         if TankChoosen.deploy_timer >= 0 then
-            love.graphics.print('Deploying '..string.format("%.1f", TankChoosen.deploy_timer)..' s', 0 + 128, 0 + 254)
+            love.graphics.print('Deploying '..string.format("%.1f", TankChoosen.deploy_timer)..' s', 0 + 128, 0 + 332)
         end
         love.graphics.setColor(1,1,1)
 
@@ -109,11 +114,11 @@ function TankCrewDraw()
     local m = 0
 
     while n < TankChoosen.crew do
-        love.graphics.draw(injured_crew_icon, 144 - 28*TankChoosen.crew/2 + 28*n, 220)
+        love.graphics.draw(injured_crew_icon, 144 - 28*TankChoosen.crew/2 + 28*n, 255)
         n = n + 1
     end
     while m < TankChoosen.survivor do
-        love.graphics.draw(crew_icon, 144 - 28*TankChoosen.crew/2 + 28*m, 220)
+        love.graphics.draw(crew_icon, 144 - 28*TankChoosen.crew/2 + 28*m, 255)
         m = m + 1
     end
 end
@@ -121,9 +126,9 @@ end
 function TankAmmoDraw()
     love.graphics.setColor(0,179/255,0)
     if #TankChoosen.ammorack == 0 then
-        love.graphics.print('NO AMMO', 0 + 4, 0 + 254)
+        love.graphics.print('NO AMMO', 0 + 4, 0 + 318)
     else
-        love.graphics.print('AMMO '..#TankChoosen.ammorack..'/'..TankChoosen.ammorack_size, 0 + 4, 0 + 254)
+        love.graphics.print('AMMO '..#TankChoosen.ammorack..'/'..TankChoosen.ammorack_size, 0 + 4, 0 + 318)
     end
     love.graphics.setColor(1,1,1)
 end
@@ -145,10 +150,10 @@ function TankStateDraw()
     end
     
     if TankChoosen.functions.move == ManualControlfunction then
-        love.graphics.draw(ManualControlOn_icon, 0 + 232, 0 + 232)
+        love.graphics.draw(ManualControlOn_icon, 0 + 232, 0 + 232+64)
     end
     if TankChoosen.deployed then
-        love.graphics.draw(DeployOn_icon, 0 + 232, 0 + 184)
+        love.graphics.draw(DeployOn_icon, 0 + 232, 0 + 184+64)
     end
 end
 

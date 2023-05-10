@@ -17,6 +17,9 @@ function Buildtank(place, tank, type, x, y)
         reload_timer = tank.reload_time,
         deploy_time = tank.deploy_time or nil,
         deploy_timer = -1,
+        fuel = tank.fuel_capacity,
+        fuel_capacity = tank.fuel_capacity,
+        fuel_cosumption = tank.fuel_cosumption,
         ammorack_size = tank.ammorack_size,
         ammorack = copytable(tank.ammorack or {}),
         armorthickness = tank.armorthickness,
@@ -36,7 +39,7 @@ function Buildtank(place, tank, type, x, y)
         turret_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         deploy_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
-        hull_offset = tank.hull_offset,
+        image_offset = tank.image_offset,
         turret_offset = tank.turret_offset,
         gun_offset = tank.gun_offset,
         engine_offset = tank.engine_offset,
@@ -256,7 +259,7 @@ function Tank:CheckStatus(i)
         self.particles.onfire:stop()
     end
 
-    if self.status.immobilized[1] then
+    if self.status.immobilized[1] or self.fuel == 0 then
         self.mob.hp = 0
         self.particles.enginesmoke:stop()
     end
@@ -273,8 +276,8 @@ function Tank:Update(dt)
     local vx, vy = self.collider:getLinearVelocity()
     self.velocity = {vx = vx, vy = vy, v = math.sqrt(vx^2 + vy^2)}
     self.location = {x = x, y = y, hull_angle = hull_angle}
-    self.image_location.x, self.image_location.y = x + self.hull_offset*math.sin(hull_angle), y - self.hull_offset*math.cos(hull_angle)     --adjust collider's and image's location
-    self.turret_location.x, self.turret_location.y = x - self.turret_offset*math.sin(hull_angle), y + self.turret_offset*math.cos(hull_angle)
+    self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)     --adjust collider's and image's location
+    self.turret_location.x, self.turret_location.y = self.image_location.x - self.turret_offset*math.sin(hull_angle), self.image_location.y + self.turret_offset*math.cos(hull_angle)
     self.gun_location.x, self.gun_location.y = self.turret_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
                                                self.turret_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
     self.engine_location.x, self.engine_location.y = self.image_location.x + (self.engine_offset)*math.sin(hull_angle),
@@ -285,6 +288,8 @@ function Tank:Update(dt)
         self.exhaust_location2.x, self.exhaust_location2.y = self.image_location.x + self.exhaust_offset2.y*math.sin(hull_angle) + self.exhaust_offset2.x*math.cos(hull_angle),
                                                              self.image_location.y - self.exhaust_offset2.y*math.cos(hull_angle) + self.exhaust_offset2.x*math.sin(hull_angle)
     end
+
+    --timer update
     self.reload_timer = self.reload_timer - dt
     self.firing_timer = self.firing_timer - dt
     if self.class == 'spg' then
@@ -293,6 +298,12 @@ function Tank:Update(dt)
 
     --functions update
     self.functions.move(self,dt)
+    if self.velocity.v > 0 then
+        self.fuel = self.fuel - self.fuel_cosumption*dt/100
+    end
+    if self.fuel < 0 then
+        self.fuel = 0
+    end
 
     --ainme update
     if self.class == 'spg' then

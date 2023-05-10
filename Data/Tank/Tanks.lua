@@ -11,7 +11,7 @@ Tanks = {
         width = 64,
         length = 127,
         turret_offset = 0,
-        hull_offset = 0,
+        image_offset = 0,
         gun_offset = 109,
         engine_offset = -43,
         exhaust_offset = {x = -34, y = -34},
@@ -26,6 +26,8 @@ Tanks = {
         oil_cost = 3,
         reload_time = 7,
         firing_time = 0.7,
+        fuel_capacity = 12,
+        fuel_cosumption = 3.5,
         ammorack_size = 40,
         ammunition = {
             {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 415},
@@ -109,7 +111,7 @@ Tanks = {
         width = 64,
         length = 127,
         turret_offset = 0,
-        hull_offset = 0,
+        image_offset = 0,
         gun_offset = 109,
         engine_offset = -43,
         exhaust_offset = {x = -34, y = -34},
@@ -124,6 +126,8 @@ Tanks = {
         oil_cost = 3,
         reload_time = 7,
         firing_time = 0.7,
+        fuel_capacity = 12,
+        fuel_cosumption = 3.8,
         ammorack_size = 40,
         ammunition = {
             {name = '3bm42', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 457},
@@ -231,7 +235,7 @@ Tanks = {
         width = 64,
         length = 127,
         turret_offset = 0,
-        hull_offset = 0,
+        image_offset = 0,
         gun_offset = 109,
         engine_offset = -43,
         exhaust_offset = {x = -34, y = -34},
@@ -246,6 +250,8 @@ Tanks = {
         oil_cost = 3,
         reload_time = 7,
         firing_time = 0.7,
+        fuel_capacity = 12,
+        fuel_cosumption = 3.8,
         ammorack_size = 40,
     ammunition = {
         {name = '3bm42', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 457},
@@ -340,27 +346,41 @@ Tanks = {
 
     --German
     Leopard2A4 = {
-    name = 'Leopard2A4',
-    class = 'tank',
-    width = 64,
-    length = 134,
-    turret_offset = 0,
-    hull_offset=10,
-    gun_offset = 94,
-    weight = 60,
-    crew = 4,
-    max_f_speed = 65,
-    max_r_speed = -20,
-    steel_cost = 8,
-    oil_cost = 3,
-    reload_time = 6,
-    ammorack_size = 40,
-    ammunition = {
-
-    },
-    armorthickness = {
-        
-    },
+        name = 'Leopard2A4',
+        class = 'tank',
+        width = 68,
+        length = 136,
+        turret_offset = 0,
+        image_offset = 9,
+        gun_offset = 94,
+        engine_offset = -49,
+        exhaust_offset = {x = 0, y = -78},
+        exhaust_angle = math.pi/2,
+        weight = 60,
+        crew = 4,
+        max_f_speed = 72,
+        max_r_speed = 38,
+        turret_t_speed = 35,
+        vision = 800,
+        steel_cost = 0,
+        oil_cost = 0,
+        reload_time = 6,
+        firing_time = 0.7,
+        fuel_capacity = 19,
+        fuel_cosumption = 4.5,
+        ammorack_size = 40,
+        ammunition = {
+            {name = 'DM53', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 652},
+        },
+        armorthickness = {
+            hull = {front = {400, 750}, side = {60, 60}, back = {30, 30}},
+            turret = {front = {410, 800}, side = {200, 350}, back = {20, 20}}
+        },
+        innerstructure = {
+            htl = 0.6,
+            hull = {crew = 0.5, ammo = 0, engine = 0.4, fuel = 0.4},
+            turret = {crew = 0.6, ammo = 0.3, engine = 0, fuel = 0}
+        },
     hull_image = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_hull.png'),
     hull_image_line = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_hull_line.png'),
     turret_image = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_turret.png'),
@@ -397,7 +417,7 @@ Tanks = {
     },
     --aim
     {
-
+        Blank_Gear
     },
     --mob
     {
@@ -421,7 +441,7 @@ Tanks = {
         width = 66,
         length = 140,
         turret_offset = 0,
-        hull_offset = 7,
+        image_offset = 7,
         gun_offset = 94,
         engine_offset = -49,
         exhaust_offset = {x = 0, y = -78},
@@ -436,6 +456,8 @@ Tanks = {
         oil_cost = 0,
         reload_time = 6,
         firing_time = 0.7,
+        fuel_capacity = 19,
+        fuel_cosumption = 4.5,
         ammorack_size = 40,
         ammunition = {
             {name = 'M900', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 530},
@@ -507,7 +529,7 @@ SPGs = {
         class = 'spg',
         width = 60,
         length = 158,
-        hull_offset = 0,
+        image_offset = 0,
         turret_offset = 60,
         gun_offset = 150,
         engine_offset = 24,
@@ -527,6 +549,8 @@ SPGs = {
         reload_time = 15,
         firing_time = 0.7,
         deploy_time = 1.2,
+        fuel_capacity = 12,
+        fuel_cosumption = 3.8,
         ammorack_size = 40,
         ammunition = {
         {name = '203mmHE', type = 'HE', pentype = 'CE', velocity = 960, mass = 0.2, pen = 203, TNT_eq = 27}
@@ -591,5 +615,5 @@ table.insert(Nizhny_Tagil.tanklist, Tanks.T72A)
 table.insert(Nizhny_Tagil.tanklist, Tanks.T72B)
 table.insert(Nizhny_Tagil.tanklist, Tanks.T90)
 table.insert(Nizhny_Tagil.tanklist, SPGs.Pion2S7)
-table.insert(Nizhny_Tagil.tanklist, Tanks.Leopard2A4)
---table.insert(Nizhny_Tagil.tanklist, Tanks.M1)
+--table.insert(Nizhny_Tagil.tanklist, Tanks.Leopard2A4)
+table.insert(Nizhny_Tagil.tanklist, Tanks.M1)
