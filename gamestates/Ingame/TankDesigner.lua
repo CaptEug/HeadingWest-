@@ -56,15 +56,15 @@ function TankDesigner:load()
     )
 
     for i, tank in ipairs(CurrentPlace.tanklist) do
-        tank.equipment = {}
-        tank.equipment.armor = tank.accessories[1][1] or Blank_Gear
-        tank.equipment.aim = tank.accessories[2][1] or Blank_Gear
-        tank.equipment.mob = tank.accessories[3][1] or Blank_Gear
+        tank.armor_num = 1
+        tank.aim_num = 1
+        tank.mob_num = 1
+
         tank.ammorack = {}
         tank.ammunition.Abuttons = buttons.new()
         tank.ammunition.isopen = false
         if tank.accessories then
-            for i, accessory in ipairs(tank.accessories) do
+            for n, accessory in ipairs(tank.accessories) do
                 accessory.Abuttons = buttons.new()
                 accessory.isopen = false
                 for i, equipment in ipairs(accessory) do
@@ -72,13 +72,13 @@ function TankDesigner:load()
                     EquipmentSelect,
                     function ()
                         if equipment.tag == 'Armor' then
-                            tank.equipment.armor = equipment
+                            tank.armor_num = i
                         end
                         if equipment.tag == 'Aim' then
-                            tank.equipment.aim = equipment
+                            tank.aim_num = i
                         end
                         if equipment.tag == 'Mob' then
-                            tank.equipment.mob = equipment
+                            tank.mob_num = i
                         end
                     end,
                     TankDesigner.window,
@@ -257,8 +257,8 @@ function TankDesigner:draw()
 
     if CurrentPlace.openTankDesigner then
     love.graphics.setCanvas(TDscreen)
-        TankDesigner.tank_steel_cost = TankPresent.steel_cost + TankPresent.equipment.armor.steel_cost + TankPresent.equipment.aim.steel_cost + TankPresent.equipment.mob.steel_cost
-        TankDesigner.tank_oil_cost = TankPresent.oil_cost + TankPresent.equipment.armor.oil_cost + TankPresent.equipment.aim.oil_cost + TankPresent.equipment.mob.oil_cost
+        TankDesigner.tank_steel_cost = TankPresent.steel_cost + TankPresent.accessories[1][TankPresent.armor_num].steel_cost + TankPresent.accessories[2][TankPresent.aim_num].steel_cost + TankPresent.accessories[3][TankPresent.mob_num].steel_cost
+        TankDesigner.tank_oil_cost = TankPresent.oil_cost + TankPresent.accessories[1][TankPresent.armor_num].oil_cost + TankPresent.accessories[2][TankPresent.aim_num].oil_cost + TankPresent.accessories[3][TankPresent.mob_num].oil_cost
         love.graphics.draw(TankDesigner_screen, 0, 0)
         love.graphics.setFont(Rbuttonfont)
         love.graphics.print(CurrentPlace.factory, 0 + 40, 0)
@@ -277,7 +277,7 @@ function TankDesigner:draw()
                         love.graphics.setFont(Rtextfont)
                         love.graphics.setColor(0,179/255,0)
                         love.graphics.print(equipment.name, 0 + 336, 0 + 24 + 46*i)
-                        if equipment == TankPresent.equipment.armor or equipment == TankPresent.equipment.aim or equipment == TankPresent.equipment.mob then
+                        if equipment == TankPresent.accessories[1][TankPresent.armor_num] or equipment == TankPresent.accessories[2][TankPresent.aim_num] or equipment == TankPresent.accessories[3][TankPresent.mob_num] then
                             love.graphics.setColor(0,179/255,0)
                             love.graphics.rectangle("fill", 0 + 332, 0 + 24 + 46*i, 108, 44)
                             love.graphics.setColor(34/255,32/255,52/255)
@@ -308,11 +308,11 @@ function TankDesigner:draw()
         end
 
         love.graphics.draw(TankPresent.hull_image_line, 0 + 40, 0 + 64)
-        love.graphics.draw(TankPresent.equipment.armor.hull_image_line, 0 + 40, 0 + 64)
+        love.graphics.draw(TankPresent.accessories[1][TankPresent.armor_num].hull_image_line, 0 + 40, 0 + 64)
         love.graphics.draw(TankPresent.turret_image_line, 0 + 40, 0 + 64)
-        love.graphics.draw(TankPresent.equipment.armor.turret_image_line, 0 + 40, 0 + 64)
-        love.graphics.draw(TankPresent.equipment.aim.line_image, 0 + 40, 0 + 64)
-        love.graphics.draw(TankPresent.equipment.mob.line_image, 0 + 40, 0 + 64)
+        love.graphics.draw(TankPresent.accessories[1][TankPresent.armor_num].turret_image_line, 0 + 40, 0 + 64)
+        love.graphics.draw(TankPresent.accessories[2][TankPresent.aim_num].line_image, 0 + 40, 0 + 64)
+        love.graphics.draw(TankPresent.accessories[3][TankPresent.mob_num].line_image, 0 + 40, 0 + 64)
 
         for i, tank in ipairs(CurrentPlace.ProductionQueue) do
             love.graphics.draw(production_box,0 + 452, 0 + 62 + 28*i)

@@ -85,7 +85,7 @@ Tanks = {
             },
             --aim
             {
-
+                Blank_Gear
             },
             --mob
             {
@@ -199,7 +199,7 @@ Tanks = {
             },
             --aim
             {
-
+                Blank_Gear
             },
             --mob
             {
@@ -477,7 +477,7 @@ Tanks = {
             },
             --aim
             {
-
+                Blank_Gear
             },
             --mob
             {
@@ -568,7 +568,7 @@ SPGs = {
         },
         --aim
         {
-
+            Blank_Gear
         },
         --mob
         {
@@ -592,4 +592,4 @@ table.insert(Nizhny_Tagil.tanklist, Tanks.T72B)
 table.insert(Nizhny_Tagil.tanklist, Tanks.T90)
 table.insert(Nizhny_Tagil.tanklist, SPGs.Pion2S7)
 table.insert(Nizhny_Tagil.tanklist, Tanks.Leopard2A4)
-table.insert(Nizhny_Tagil.tanklist, Tanks.M1)
+--table.insert(Nizhny_Tagil.tanklist, Tanks.M1)

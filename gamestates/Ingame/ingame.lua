@@ -10,17 +10,15 @@ require 'gamestates.Ingame.TimeToShoot'
 require 'gamestates/Ingame/TimeToBomb'
 function ingame:init()
     DestroyAll()
-
     local map=Maps[MapNumber]
     loadMap(map)
     ingameUI:load()
-
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1500, 500)
+    Buildtank(CurrentPlace, Tanks.T90, 'friendly', 500, 500)
     BuildConstructure(CurrentPlace, Constructures.Maxim_Gorky, 'enemy', 2000, 3000)
 end
 
 function ingame:update(dt)
-    ingameUI:update(dt)
     world:update(dt)
     particleworld:update(dt)
     TankSpawner:update(dt)
@@ -28,6 +26,7 @@ function ingame:update(dt)
     TankProjectiles:update(dt)
     Explosives:update(dt)
     Fragments:update(dt)
+    ingameUI:update(dt)
     --cam contral
     if cam.scale > 2 then
         cam:zoomTo(2)

@@ -33,7 +33,7 @@ function Buildtank(place, tank, type, x, y)
         turret_image_line = tank.turret_image_line,
         turret_image_broken = tank.turret_image_broken,
         anime_sheet = tank.anime_sheet,
-        turret_anime = {},
+        turret_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         deploy_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
         hull_offset = tank.hull_offset,
@@ -45,12 +45,11 @@ function Buildtank(place, tank, type, x, y)
         exhaust_angle = tank.exhaust_angle,
         exhaust_angle2 = tank.exhaust_angle2 or nil,
         turret_angle = 0,
-        armor = copytable(tank.equipment.armor or tank.accessories[1][1] or Blank_Gear),
-        aim = copytable(tank.equipment.aim or tank.accessories[2][1] or Blank_Gear),
-        mob = copytable(tank.equipment.mob or tank.accessories[3][1] or Blank_Gear),
-        buildtime = tank.buildtime,
-        velocity = {},
-        location = {x = x, y = y},
+        armor = copytable(tank.accessories[1][tank.armor_num or 1] or Blank_Gear),
+        aim = copytable(tank.accessories[2][tank.aim_num or 1] or Blank_Gear),
+        mob = copytable(tank.accessories[3][tank.mob_num or 1] or Blank_Gear),
+        velocity = {vx = 0, vy = 0, v = 0},
+        location = {x = x, y = y, hull_angle = 0},
         image_location = {},
         turret_location = {},
         gun_location = {},
@@ -273,8 +272,7 @@ function Tank:Update(dt)
     local hull_angle = self.collider:getAngle()
     local vx, vy = self.collider:getLinearVelocity()
     self.velocity = {vx = vx, vy = vy, v = math.sqrt(vx^2 + vy^2)}
-    self.location = {x = x, y = y}
-    self.location.hull_angle = hull_angle
+    self.location = {x = x, y = y, hull_angle = hull_angle}
     self.image_location.x, self.image_location.y = x + self.hull_offset*math.sin(hull_angle), y - self.hull_offset*math.cos(hull_angle)     --adjust collider's and image's location
     self.turret_location.x, self.turret_location.y = x - self.turret_offset*math.sin(hull_angle), y + self.turret_offset*math.cos(hull_angle)
     self.gun_location.x, self.gun_location.y = self.turret_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
