@@ -15,6 +15,8 @@ function Buildtank(place, tank, type, x, y)
         survivor = tank.crew,
         reload_time = tank.reload_time,
         reload_timer = tank.reload_time,
+        m_reload_time = tank.m_reload_time or nil,
+        m_reload_timer = tank.m_reload_time or nil,
         deploy_time = tank.deploy_time or nil,
         deploy_timer = -1,
         fuel = tank.fuel_capacity,
@@ -22,6 +24,7 @@ function Buildtank(place, tank, type, x, y)
         fuel_cosumption = tank.fuel_cosumption,
         ammorack_size = tank.ammorack_size,
         ammorack = copytable(tank.ammorack or {}),
+        missilerack = copytable(tank.missilerack or {}),
         armorthickness = tank.armorthickness,
         innerstructure = tank.innerstructure,
         max_f_speed = tank.max_f_speed,
@@ -151,6 +154,9 @@ ManualControlfunction = function(tank, dt)
         else
             Shoot(tank)
         end
+    end
+    if Cursormode == 'firing' and love.mouse.isDown(2) and #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
+        LaunchMissile(tank)
     end
 end
 
@@ -292,6 +298,9 @@ function Tank:Update(dt)
     --timer update
     self.reload_timer = self.reload_timer - dt
     self.firing_timer = self.firing_timer - dt
+    if self.m_reload_timer then
+        self.m_reload_timer = self.m_reload_timer - dt
+    end
     if self.class == 'spg' then
         self.deploy_timer = self.deploy_timer - dt
     end

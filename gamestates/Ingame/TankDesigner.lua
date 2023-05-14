@@ -61,6 +61,9 @@ function TankDesigner:load()
         tank.mob_num = 1
 
         tank.ammorack = {}
+        if tank.missilerack_size then
+            tank.missilerack = {}
+        end
         tank.ammunition.Abuttons = buttons.new()
         tank.ammunition.isopen = false
         if tank.accessories then
@@ -92,33 +95,63 @@ function TankDesigner:load()
         end
         --ammo system
         for i, ammo in ipairs(tank.ammunition) do
-            ammo.add = buttons.newWindowToolButton(
-                plus_icon,
-                function ()
-                    while #tank.ammorack < tank.ammorack_size do
-                        table.insert(tank.ammorack, ammo)
-                    end
-                end,
-                TankDesigner.window,
-                tank.ammunition.Abuttons,
-                0 + 429,
-                0 + 56 + 46*i
-            )
-            ammo.remove = buttons.newWindowToolButton(
-                minus_icon,
-                function ()
-                    for i, bullet in ipairs(tank.ammorack) do
-                        if bullet.name == ammo.name then
-                            table.remove(tank.ammorack, i)
-                            break
+            if ammo.type == 'Missile' then
+                ammo.add = buttons.newWindowToolButton(
+                    plus_icon,
+                    function ()
+                        while #tank.missilerack < tank.missilerack_size do
+                            table.insert(tank.missilerack, ammo)
                         end
-                    end
-                end,
-                TankDesigner.window,
-                tank.ammunition.Abuttons,
-                0 + 407,
-                0 + 56 + 46*i
-            )
+                    end,
+                    TankDesigner.window,
+                    tank.ammunition.Abuttons,
+                    0 + 429,
+                    0 + 56 + 46*i
+                )
+                ammo.remove = buttons.newWindowToolButton(
+                    minus_icon,
+                    function ()
+                        for n, missile in ipairs(tank.missilerack) do
+                            if missile.name == ammo.name then
+                                table.remove(tank.missilerack, n)
+                                break
+                            end
+                        end
+                    end,
+                    TankDesigner.window,
+                    tank.ammunition.Abuttons,
+                    0 + 407,
+                    0 + 56 + 46*i
+                )
+            else
+                ammo.add = buttons.newWindowToolButton(
+                    plus_icon,
+                    function ()
+                        while #tank.ammorack < tank.ammorack_size do
+                            table.insert(tank.ammorack, ammo)
+                        end
+                    end,
+                    TankDesigner.window,
+                    tank.ammunition.Abuttons,
+                    0 + 429,
+                    0 + 56 + 46*i
+                )
+                ammo.remove = buttons.newWindowToolButton(
+                    minus_icon,
+                    function ()
+                        for n, bullet in ipairs(tank.ammorack) do
+                            if bullet.name == ammo.name then
+                                table.remove(tank.ammorack, n)
+                                break
+                            end
+                        end
+                    end,
+                    TankDesigner.window,
+                    tank.ammunition.Abuttons,
+                    0 + 407,
+                    0 + 56 + 46*i
+                )
+            end
         end
     end
 
@@ -299,6 +332,13 @@ function TankDesigner:draw()
                 for i, bullet in ipairs(TankPresent.ammorack) do
                     if bullet.name == ammo.name then
                         n = n + 1
+                    end
+                end
+                if TankPresent.missilerack then
+                    for i, missile in ipairs(TankPresent.missilerack) do
+                        if missile.name == ammo.name then
+                            n = n + 1
+                        end
                     end
                 end
                 love.graphics.print(ammo.name, 0 + 328 + 6, 0 + 46 + 46*i)

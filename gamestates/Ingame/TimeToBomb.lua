@@ -67,8 +67,12 @@ function Explode(explosive)
         fragment:setLinearDamping(1)
         fragment:applyLinearImpulse(math.random(-explosive.TNT_eq/10, explosive.TNT_eq/10), math.random(-explosive.TNT_eq/10, explosive.TNT_eq/10))
         fragment.life = 1
-        fragment.pen = explosive.pen
-        fragment.pentype = explosive.pentype
+        if explosive.type == 'Missile' then
+            fragment.pen = explosive.TNT_eq * 10
+        else
+            fragment.pen = explosive.pen
+        end
+        fragment.pentype = 'CE'
         table.insert(Fragments, fragment)
         n = n + 1
     end

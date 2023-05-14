@@ -24,7 +24,7 @@ function Shoot(tank)
     shell:setMass(round.mass)
     shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
     shell.from = tank
-    shell.life = 5
+    shell.life = 10
     shell.type = round.type
     shell.pen = round.pen
     shell.pentype = round.pentype
@@ -54,10 +54,10 @@ function TankProjectiles:update(dt)
             local collision_data = shell:getEnterCollisionData('Hull')
             local Target = collision_data.collider:getObject()
 
-            if Target == shell.from then
+            if Target == shell.from and shell.life > 9 then
                 break
             end
-            
+
             if shell.type == 'HE' then
                 Explode(shell)
                 shell:destroy()
@@ -79,7 +79,7 @@ function TankProjectiles:update(dt)
             end
         end
 
-        if #shell.trail > 20 then
+        if #shell.trail > 10 then
             table.remove(shell.trail, 1)
         end
 
@@ -138,12 +138,15 @@ function RicochetCheck(shell, Target)
     local vangle = math.atan2(vy, vx)
     local impact_angle = 0
 
-    if shell.type == 'HEAT' then
+    if shell.type == 'HEAT' or shell.type == 'Missile' then
         ra = 90 * math.pi/180
     elseif shell.type == 'APFSDS' then
         ra = 80 * math.pi/180
     elseif shell.type == 'APDS' then
         ra = 70 * math.pi/180
+    end
+    if shell.type == 'Missile' then
+        vangle = shell:getAngle() + shell.face + math.pi
     end
 
     if hitvalue < Target.innerstructure.htl then

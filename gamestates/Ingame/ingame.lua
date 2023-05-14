@@ -8,12 +8,15 @@ require 'Data.Tank.TankSpawner'
 require 'Data.Constructure.ConstructureSpawner'
 require 'gamestates.Ingame.TimeToShoot'
 require 'gamestates/Ingame/TimeToBomb'
+require 'gamestates/Ingame/TimeToLaunchMissile'
+
 function ingame:init()
     DestroyAll()
     local map=Maps[MapNumber]
     loadMap(map)
     ingameUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1500, 500)
+    Buildtank(CurrentPlace, IFVs.BMP2, 'enemy', 1500, 0)
     Buildtank(CurrentPlace, Tanks.T90, 'friendly', 500, 500)
     BuildConstructure(CurrentPlace, Constructures.Maxim_Gorky, 'enemy', 2000, 3000)
 end
@@ -24,6 +27,7 @@ function ingame:update(dt)
     TankSpawner:update(dt)
     ConstructureSpawner:update(dt)
     TankProjectiles:update(dt)
+    Missiles:update(dt)
     Explosives:update(dt)
     Fragments:update(dt)
     ingameUI:update(dt)
