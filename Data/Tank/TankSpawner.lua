@@ -7,6 +7,7 @@ function TankSpawner:loadtank(place, tank)
     tank.collider:setMass(tank.weight)
     tank.collider:setRestitution(0.1)
     tank.collider:setLinearDamping(3)
+    tank.collider:setInertia(500*tank.weight)
     tank.collider:setAngularDamping(5)
     if tank.type == 'friendly' then
         tank.Infobuttons = buttons.new()

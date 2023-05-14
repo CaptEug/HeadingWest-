@@ -6,7 +6,7 @@ function Bomb(unit, x, y)
     local ix, iy = math.cos(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x)),
                    math.sin(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x))
     local distance = math.sqrt((x - unit.gun_location.x)^2 + (y - unit.gun_location.y)^2)
-    local explosive = particleworld:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 3)
+    local explosive = particleworld:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 2)
     explosive:setMass(bomb.mass)
     explosive:setBullet(true)
     explosive:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
@@ -17,7 +17,7 @@ function Bomb(unit, x, y)
     explosive.TNT_eq = bomb.TNT_eq
     table.insert(Explosives, explosive)
     if unit.gun_location2 then
-        local explosive2 = particleworld:newCircleCollider(unit.gun_location2.x, unit.gun_location2.y, 3)
+        local explosive2 = particleworld:newCircleCollider(unit.gun_location2.x, unit.gun_location2.y, 2)
         explosive2:setMass(bomb.mass)
         explosive2:setBullet(true)
         explosive2:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
@@ -29,7 +29,7 @@ function Bomb(unit, x, y)
         table.insert(Explosives, explosive2)
     end
     if unit.gun_location3 then
-        local explosive3 = particleworld:newCircleCollider(unit.gun_location3.x, unit.gun_location3.y, 3)
+        local explosive3 = particleworld:newCircleCollider(unit.gun_location3.x, unit.gun_location3.y, 2)
         explosive3:setMass(bomb.mass)
         explosive3:setBullet(true)
         explosive3:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
@@ -50,6 +50,7 @@ function Explosives:update(dt)
         explosive.timer = explosive.timer - dt
         if explosive.timer <= 0 then
             Explode(explosive)
+            explosive:destroy()
             table.remove(self, i)
         end
     end
@@ -64,7 +65,7 @@ function Explode(explosive)
         fragment:setBullet(true)
         fragment:setRestitution(0.5)
         fragment:setLinearDamping(1)
-        fragment:applyLinearImpulse(math.random(-explosive.TNT_eq, explosive.TNT_eq), math.random(-explosive.TNT_eq, explosive.TNT_eq))
+        fragment:applyLinearImpulse(math.random(-explosive.TNT_eq/10, explosive.TNT_eq/10), math.random(-explosive.TNT_eq/10, explosive.TNT_eq/10))
         fragment.life = 1
         fragment.pen = explosive.pen
         fragment.pentype = explosive.pentype

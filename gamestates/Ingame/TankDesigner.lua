@@ -95,7 +95,7 @@ function TankDesigner:load()
             ammo.add = buttons.newWindowToolButton(
                 plus_icon,
                 function ()
-                    if #tank.ammorack < tank.ammorack_size then
+                    while #tank.ammorack < tank.ammorack_size do
                         table.insert(tank.ammorack, ammo)
                     end
                 end,

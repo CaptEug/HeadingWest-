@@ -16,13 +16,14 @@ function Shoot(tank)
     local round = tank.ammorack[1]
     local ix, iy = math.cos(tank.location.hull_angle+tank.turret_angle-math.pi/2),
                    math.sin(tank.location.hull_angle+tank.turret_angle-math.pi/2)
-    local shell = world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 2)
+    local shell = world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 1)
     shell:setCollisionClass(round.type)
     shell:setBullet(true)
     shell:setRestitution(0.5)
     shell:setLinearDamping(0.01)
     shell:setMass(round.mass)
     shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
+    shell.from = tank
     shell.life = 5
     shell.type = round.type
     shell.pen = round.pen
@@ -53,6 +54,10 @@ function TankProjectiles:update(dt)
             local collision_data = shell:getEnterCollisionData('Hull')
             local Target = collision_data.collider:getObject()
 
+            if Target == shell.from then
+                break
+            end
+            
             if shell.type == 'HE' then
                 Explode(shell)
                 shell:destroy()
@@ -129,7 +134,7 @@ function RicochetCheck(shell, Target)
     local hitPart = 'none'
     local hitArmorside = 'none'
     local ricochet = false
-    local ra = 90 * math.pi/180
+    local ra = 65 * math.pi/180
     local vangle = math.atan2(vy, vx)
     local impact_angle = 0
 
@@ -137,8 +142,8 @@ function RicochetCheck(shell, Target)
         ra = 90 * math.pi/180
     elseif shell.type == 'APFSDS' then
         ra = 80 * math.pi/180
-    elseif shell.type == 'APCBC' then
-        ra = 65 * math.pi/180
+    elseif shell.type == 'APDS' then
+        ra = 70 * math.pi/180
     end
 
     if hitvalue < Target.innerstructure.htl then

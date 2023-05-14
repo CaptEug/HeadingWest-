@@ -40,7 +40,7 @@ Tanks = {
         },
         innerstructure = {
             htl = 0.7,
-            hull = {crew = 0.5, ammo = 0.5, engine = 0.3, fuel = 0.5},
+            hull = {crew = 0.5, ammo = 0.4, engine = 0.3, fuel = 0.5},
             turret = {crew = 0.7, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull.png'),
@@ -140,7 +140,7 @@ Tanks = {
         },
         innerstructure = {
             htl = 0.7,
-            hull = {crew = 0.5, ammo = 0.5, engine = 0.3, fuel = 0.5},
+            hull = {crew = 0.5, ammo = 0.4, engine = 0.3, fuel = 0.5},
             turret = {crew = 0.7, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_Hull.png'),
@@ -264,7 +264,7 @@ Tanks = {
     },
     innerstructure = {
         htl = 0.7,
-        hull = {crew = 0.5, ammo = 0.5, engine = 0.3, fuel = 0.5},
+        hull = {crew = 0.5, ammo = 0.4, engine = 0.3, fuel = 0.5},
         turret = {crew = 0.7, ammo = 0, engine = 0, fuel = 0}
     },
     hull_image = love.graphics.newImage('Assets/tanks/soviet/T-90/T90_hull.png'),
@@ -519,7 +519,88 @@ Tanks = {
 }
 
 IFVs = {
-
+    --USSR
+    BMP2 = {
+        name = 'BMP-2',
+        class = 'ifv',
+        width = 56,
+        length = 117,
+        turret_offset = 0,
+        image_offset = -16,
+        gun_offset = 57,
+        engine_offset = 40,
+        exhaust_offset = {x = 27, y = 28},
+        exhaust_angle = 0,
+        weight = 14,
+        crew = 3,
+        max_f_speed = 65,
+        max_r_speed = -10,
+        turret_t_speed = 50,
+        vision = 600,
+        steel_cost = 5,
+        oil_cost = 3,
+        reload_time = 0.12,
+        firing_time = 0.2,
+        fuel_capacity = 4.6,
+        fuel_cosumption = 0.8,
+        ammorack_size = 500,
+        ammunition = {
+            {name = '3ubr8', type = 'APDS', pentype = 'KE', velocity = 1000, mass = 0.01, pen = 82}
+        },
+        armorthickness = {
+            hull = {front = {50, 50}, side = {15, 15}, back = {16, 16}},
+            turret = {front = {50, 50}, side = {30, 30}, back = {10, 10}}
+        },
+        innerstructure = {
+            htl = 0.8,
+            hull = {crew = 0.5, ammo = 0.4, engine = 0.3, fuel = 0.5},
+            turret = {crew = 0.7, ammo = 0.1, engine = 0, fuel = 0}
+        },
+        hull_image = love.graphics.newImage('Assets/tanks/soviet/BMP2/BMP2_Hull.png'),
+        hull_image_line = love.graphics.newImage('Assets/tanks/soviet/BMP2/BMP2_Hull_line.png'),
+        hull_image_broken = Blank_line,
+        turret_image = love.graphics.newImage('Assets/tanks/soviet/BMP2/BMP2_Turret.png'),
+        turret_image_line = love.graphics.newImage('Assets/tanks/soviet/BMP2/BMP2_Turret_line.png'),
+        turret_image_broken = Blank_line,
+        anime_sheet = love.graphics.newImage('Assets/tanks/soviet/BMP2/BMP2_firingsprite.png'),
+        accessories = {
+        --armor
+            {
+                {
+                    name = 'BASE_ARMOR',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
+                        turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
+                    },
+                    hull_image = Blank_line,
+                    hull_image_line = Blank_line,
+                    turret_image = Blank_line,
+                    turret_image_line = Blank_line,
+                    tag = 'Armor',
+                    type = 'Alloy'
+                }
+            },
+            --aim
+            {
+                Blank_Gear
+            },
+            --mob
+            {
+                {
+                    name = 'UTD_20/3',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    line_image = Blank_line,
+                    hp = 300,
+                    tag = 'Mob'
+                }
+            }
+        },
+        buildtime = 2,
+        fixedbuildtime = 2
+    }
 }
 
 SPGs = {
@@ -614,6 +695,7 @@ SPGs = {
 table.insert(Nizhny_Tagil.tanklist, Tanks.T72A)
 table.insert(Nizhny_Tagil.tanklist, Tanks.T72B)
 table.insert(Nizhny_Tagil.tanklist, Tanks.T90)
+table.insert(Nizhny_Tagil.tanklist, IFVs.BMP2)
 table.insert(Nizhny_Tagil.tanklist, SPGs.Pion2S7)
 --table.insert(Nizhny_Tagil.tanklist, Tanks.Leopard2A4)
 table.insert(Nizhny_Tagil.tanklist, Tanks.M1)
