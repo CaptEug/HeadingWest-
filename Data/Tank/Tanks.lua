@@ -548,7 +548,7 @@ IFVs = {
         missilerack_size = 4,
         ammunition = {
             {name = '3ubr8', type = 'APDS', pentype = 'KE', velocity = 1000, mass = 0.01, pen = 82},
-            {name = '9m113', type = 'Missile', pentype = 'CE', velocity = 400, turningtorque = 120, mass = 0.5, pen = 500, TNT_eq = 4, pic = love.graphics.newImage('Assets/tanks/soviet/Weapons/9M113Konkurs.png')}
+            {name = '9m113', type = 'ATGM', pentype = 'CE', velocity = 400, turningtorque = 120, mass = 0.5, pen = 500, TNT_eq = 4, pic = love.graphics.newImage('Assets/tanks/soviet/Weapons/9M113Konkurs.png')}
         },
         armorthickness = {
             hull = {front = {50, 50}, side = {15, 15}, back = {16, 16}},

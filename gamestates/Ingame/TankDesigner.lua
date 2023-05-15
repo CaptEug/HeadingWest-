@@ -95,7 +95,7 @@ function TankDesigner:load()
         end
         --ammo system
         for i, ammo in ipairs(tank.ammunition) do
-            if ammo.type == 'Missile' then
+            if ammo.type == 'ATGM' then
                 ammo.add = buttons.newWindowToolButton(
                     plus_icon,
                     function ()

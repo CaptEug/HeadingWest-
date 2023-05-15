@@ -24,6 +24,7 @@ function Buildtank(place, tank, type, x, y)
         fuel_cosumption = tank.fuel_cosumption,
         ammorack_size = tank.ammorack_size,
         ammorack = copytable(tank.ammorack or {}),
+        missilerack_size = tank.missilerack_size,
         missilerack = copytable(tank.missilerack or {}),
         armorthickness = tank.armorthickness,
         innerstructure = tank.innerstructure,
@@ -80,6 +81,15 @@ function Buildtank(place, tank, type, x, y)
         while #tanky.ammorack < tanky.ammorack_size do
             table.insert(tanky.ammorack, tank.ammunition[1])
         end
+        if tank.missilerack_size then
+            while #tanky.missilerack < tanky.missilerack_size do
+                for i, ammo in ipairs(tank.ammunition) do
+                    if ammo.type == 'ATGM' then
+                        table.insert(tanky.missilerack, ammo)
+                    end
+                end
+            end
+        end
     end
     setmetatable(tanky, Tank)
     Tank.__index = Tank
@@ -117,6 +127,9 @@ AutoControlfunction = function(tank, dt)
             else
                 Shoot(tank)
             end
+        end
+        if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
+            LaunchMissile(tank, enemy)
         end
     end
 end

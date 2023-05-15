@@ -3,7 +3,7 @@ Missiles = {}
 function LaunchMissile(unit, target)
     local instance = unit.missilerack[1]
     local missile = world:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 2)
-    missile:setCollisionClass('Missile')
+    missile:setCollisionClass('ATGM')
     missile:setBullet(true)
     missile:setRestitution(0.5)
     missile:setAngularDamping(5)
@@ -70,6 +70,7 @@ function Missiles:update(dt)
         end
 
         if missile.life <= 0 then
+            Explode(missile)
             missile:destroy()
             table.remove(self, i)
         end
@@ -91,12 +92,14 @@ end
 function Tracking(missile)
     local missile_angle = missile:getAngle() + missile.face
     local x, y = missile:getPosition()
-    local tx, ty = cam:mousePosition()
-    local angle_to_target = math.atan2(y - ty, x - tx)
-
+    local tx, ty
     if missile.target then
         tx, ty = missile.target.location.x, missile.target.location.y
+    else
+        tx, ty = cam:mousePosition()
     end
+    local angle_to_target = math.atan2(y - ty, x - tx)
+
     if angle_to_target <= 0 then
         angle_to_target = angle_to_target + math.pi*2
     end

@@ -139,14 +139,14 @@ function RicochetCheck(shell, Target)
     local vangle = math.atan2(vy, vx)
     local impact_angle = 0
 
-    if shell.type == 'HEAT' or shell.type == 'Missile' then
+    if shell.type == 'HEAT' or shell.type == 'ATGM' then
         ra = 90 * math.pi/180
     elseif shell.type == 'APFSDS' then
         ra = 80 * math.pi/180
     elseif shell.type == 'APDS' then
         ra = 70 * math.pi/180
     end
-    if shell.type == 'Missile' then
+    if shell.type == 'ATGM' then
         vangle = shell:getAngle() + shell.face + math.pi
     end
 
