@@ -26,9 +26,9 @@ function LaunchMissile(unit, target)
     missile.smoke:setParticleLifetime(0.5)
 	missile.smoke:setEmissionRate(50)
 	missile.smoke:setSizeVariation(0.5)
-    missile.smoke:setSizes(1, 0.2)
+    missile.smoke:setSizes(0.8, 0.2)
     missile.smoke:setLinearDamping(5)
-	missile.smoke:setColors(1, 0.6, 0, 1, 1, 0, 0, 0.6, 1, 0, 0, 0.1)
+	missile.smoke:setColors(1, 0.5, 0, 1, 1, 0, 0, 0.5)
     
     table.insert(Missiles, missile)
     unit.m_reload_timer = unit.m_reload_time
