@@ -100,6 +100,7 @@ function TankProjectiles:draw()
         end
         love.graphics.setLineWidth(1)
     end
+    love.graphics.setColor(1, 1, 1)
 end
 
 function PenetrateLog()

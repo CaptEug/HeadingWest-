@@ -11,15 +11,25 @@ function LaunchMissile(unit, target)
     missile:setInertia(10)
     missile.from = unit
     missile.face = unit.location.hull_angle + unit.turret_angle - math.pi/2
+    missile:applyLinearImpulse(100*math.cos(missile.face), 100*math.sin(missile.face))
     missile.target = target or nil
     missile.velocity = instance.velocity
-    missile.turningspeed = instance.turningspeed
+    missile.turningtorque = instance.turningtorque
     missile.type = instance.type
     missile.pen = instance.pen
     missile.pentype = instance.pentype
     missile.TNT_eq = instance.TNT_eq
+    missile.pic = instance.pic
     missile.life = 30
 
+    missile.smoke = love.graphics.newParticleSystem(Smoke)
+    missile.smoke:setParticleLifetime(0.5)
+	missile.smoke:setEmissionRate(50)
+	missile.smoke:setSizeVariation(0.5)
+    missile.smoke:setSizes(1, 0.2)
+    missile.smoke:setLinearDamping(5)
+	missile.smoke:setColors(1, 0.6, 0, 1, 1, 0, 0, 0.6, 1, 0, 0, 0.1)
+    
     table.insert(Missiles, missile)
     unit.m_reload_timer = unit.m_reload_time
 end
@@ -27,6 +37,7 @@ end
 function Missiles:update(dt)
     for i, missile in ipairs(self) do
         missile.life = missile.life - dt
+        missile.smoke:update(dt) 
 
         Tracking(missile)
 
@@ -65,6 +76,18 @@ function Missiles:update(dt)
     end
 end
 
+function Missiles:draw()
+    for i, missile in ipairs(self) do
+        local missile_angle = missile:getAngle() + missile.face
+        local x, y = missile:getPosition()
+        local w, h = missile.pic:getDimensions()
+        love.graphics.draw(missile.pic, x, y, missile_angle + math.pi/2, 1, 1, w/2, h/2)
+        missile.smoke:setPosition(x - math.sin(missile_angle + math.pi/2)*h/2, y + math.cos(missile_angle + math.pi/2)*h/2)
+        missile.smoke:setLinearAcceleration(1000*math.cos(missile_angle - math.pi),1000*math.sin(missile_angle - math.pi))
+        love.graphics.draw(missile.smoke)
+    end
+end
+
 function Tracking(missile)
     local missile_angle = missile:getAngle() + missile.face
     local x, y = missile:getPosition()
@@ -86,16 +109,16 @@ function Tracking(missile)
 
     if missile_angle > angle_to_target then
         if missile_angle - angle_to_target <= math.pi then
-            missile:applyTorque(missile.turningspeed)
+            missile:applyTorque(missile.turningtorque)
         else
-            missile:applyTorque(-missile.turningspeed)
+            missile:applyTorque(-missile.turningtorque)
         end
     end
     if missile_angle < angle_to_target then
         if angle_to_target - missile_angle <= math.pi then
-            missile:applyTorque(-missile.turningspeed)
+            missile:applyTorque(-missile.turningtorque)
         else
-            missile:applyTorque(missile.turningspeed)
+            missile:applyTorque(missile.turningtorque)
         end
     end
     missile:setLinearVelocity(math.cos(missile_angle)*missile.velocity, math.sin(missile_angle)*missile.velocity)

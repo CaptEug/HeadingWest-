@@ -540,7 +540,7 @@ IFVs = {
         steel_cost = 5,
         oil_cost = 3,
         reload_time = 0.12,
-        m_reload_time = 5,
+        m_reload_time = 2,
         firing_time = 0.2,
         fuel_capacity = 4.6,
         fuel_cosumption = 0.8,
@@ -548,7 +548,7 @@ IFVs = {
         missilerack_size = 4,
         ammunition = {
             {name = '3ubr8', type = 'APDS', pentype = 'KE', velocity = 1000, mass = 0.01, pen = 82},
-            {name = '9m113', type = 'Missile', pentype = 'CE', velocity = 500, turningspeed = 120, mass = 0.5, pen = 500, TNT_eq = 4}
+            {name = '9m113', type = 'Missile', pentype = 'CE', velocity = 400, turningtorque = 120, mass = 0.5, pen = 500, TNT_eq = 4, pic = love.graphics.newImage('Assets/tanks/soviet/Weapons/9M113Konkurs.png')}
         },
         armorthickness = {
             hull = {front = {50, 50}, side = {15, 15}, back = {16, 16}},
