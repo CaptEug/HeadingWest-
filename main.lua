@@ -165,6 +165,8 @@ end
 
 
 function cammovement()
+
+    
     if love.keyboard.isDown("w") then
         cam:move(0,-5)
     end
@@ -178,17 +180,27 @@ function cammovement()
         cam:move(5,0)
     end
 
+    camx,camy = cam:position()
+    if camx > Worldw then
+        cam:move(-Worldw,0)
+    end
+    if camx < 0 then 
+        cam:move(Worldw,0)
+    end
+
     function love.wheelmoved(x, y)
         if y > 0 then
             cam:zoom(1.1)
         elseif y < 0 then
-            cam:zoom(0.9)
+            cam:zoom(0.9) 
         end
     end
 end
 
 function DrawEarth()
     love.graphics.draw(Earth, 0, 0)
+    love.graphics.draw(Earth, Worldw, 0)
+    love.graphics.draw(Earth, -Worldw, 0)
 end
 
 function DrawCountries()
