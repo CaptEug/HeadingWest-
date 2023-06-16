@@ -77,20 +77,21 @@ Nizhny_Tagil.slot_info = {
 table.insert(Cities, Baku)]]
 
 --German
---[[Berlin = {
-    x = 1035,
-    y = 605,
-    country = {},
-    name = 'Berlin',
-    type = 'Capital',
-    factory = false,
-    labtory = true,
-    state ='Battlefield',
-    map = 1,
-    exsist_tank={},
-    Army = {},
-    broken_tank={}
-}]]
+Berlin = {}
+Berlin.x = 1035
+Berlin.y = 605
+Berlin.country = {}
+Berlin.name = 'Berlin'
+Berlin.type = 'Capital'
+Berlin.factory = false
+Berlin.labtory = true
+Berlin.state ='Battlefield'
+Berlin.map = 1
+Berlin.exsist_tank={}
+Berlin.Army = {}
+Berlin.broken_tank={}
+Berlin.exsist_building = {}
+
 
 --RadioList
 TestSonglist = {
@@ -108,8 +109,9 @@ function Cities:load()
     setmetatable(Nizhny_Tagil, City)
     table.insert(Cities, Nizhny_Tagil)
     
-    --table.insert(Cities, Berlin)
-    --Berlin.country = {USSR_flag, US_flag, UK_flag, FR_flag}
+    table.insert(Cities, Berlin)
+    setmetatable(Berlin, City)
+    Berlin.country = {USSR_flag, US_flag, UK_flag, FR_flag}
 end
 
 function Cities:playRadio(songlist)

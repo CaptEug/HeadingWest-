@@ -64,7 +64,7 @@ function Pause:draw()
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("PAUSE", love.graphics.getWidth() /2 - Rtitlefont:getWidth("PAUSE") / 2, love.graphics.getHeight() / 13)
     Pbuttons:use()
-    if self.from == city then
+    if self.from == CurrentPlace then
         Pbuttonsforcity:use()
     end
     love.graphics.setFont(Rtextfont)
