@@ -40,10 +40,8 @@ function WorldmapUI:load()
         city.Go = buttons.newToolButton(
             Go,
             function ()
-                MapNumber = city.map
-                Map_type = city.type
                 CurrentPlace = city
-                Gamestate.switch(ingame)
+                Gamestate.switch(city)
             end,
             city.Gobuttons,
             city.x + 208,

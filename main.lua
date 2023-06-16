@@ -17,7 +17,6 @@ require 'libraries/shaders'
 require "NewSaving"
 --Gamestates required
 require 'gamestates/mainmenu'
-require 'gamestates.Ingame.ingame'
 require 'gamestates/pause'
 require 'gamestates.Worldmap.Worldmap'
 require 'gamestates/SettingMenu'

@@ -38,8 +38,8 @@ function Saving:fileload ()
     if love.filesystem.getInfo(file[Filenumber])==nil then
         Saving:createsave(Filenumber)
     end
-    ingame:init()
-    Gamestate.switch(ingame)
+    city:init()
+    Gamestate.switch(city)
 end
 
 function Saving:getdata(filenum)

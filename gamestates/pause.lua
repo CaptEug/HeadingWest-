@@ -7,7 +7,7 @@ end
 
 function Pause:init()
     Pbuttons = buttons.new()
-    Pbuttonsforingame = buttons.new()
+    Pbuttonsforcity = buttons.new()
     Continue = buttons.newButton(
         "Continue",
         function()
@@ -32,7 +32,7 @@ function Pause:init()
         function()
             Gamestate.switch(Worldmap)
         end,
-        Pbuttonsforingame
+        Pbuttonsforcity
     )
 
     Settings_button = buttons.newButton(
@@ -64,14 +64,14 @@ function Pause:draw()
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("PAUSE", love.graphics.getWidth() /2 - Rtitlefont:getWidth("PAUSE") / 2, love.graphics.getHeight() / 13)
     Pbuttons:use()
-    if self.from == ingame then
-        Pbuttonsforingame:use()
+    if self.from == city then
+        Pbuttonsforcity:use()
     end
     love.graphics.setFont(Rtextfont)
 end
 
 function love.keypressed(key)
-    if key == 'escape' and (Gamestate.current() == ingame or Gamestate.current()== Worldmap) then
+    if key == 'escape' and (Gamestate.current() == city or Gamestate.current()== Worldmap) then
         return Gamestate.push(Pause)
     end
 end

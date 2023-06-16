@@ -2,11 +2,18 @@ Worldmap = {}
 Worldmap = Gamestate.new()
 
 require 'gamestates/Worldmap/WorldmapUI'
-require 'Data/Cities'
+require 'gamestates.City.Cities'
 require 'Data.Tank.Tanks'
 require 'Data.Tank.Tankfunctions'
 require 'Data/Constructure/Constructures'
 require 'Data/Constructure/Constructurefunctions'
+require 'gamestates.city.cityUI'
+require 'gamestates/city/Mapdrawer'
+require 'Data.Tank.TankSpawner'
+require 'Data.Constructure.ConstructureSpawner'
+require 'gamestates.city.TimeToShoot'
+require 'gamestates/city/TimeToBomb'
+require 'gamestates/city/TimeToLaunchMissile'
 
 function Worldmap:init()
     Year = 1946

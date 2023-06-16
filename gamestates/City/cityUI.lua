@@ -1,23 +1,24 @@
-ingameUI={}
-require 'gamestates/Ingame/Console'
-require 'gamestates.Ingame.TankDesigner'
-require 'gamestates.Ingame.TankInfoPanel'
-require 'gamestates.Ingame.CityInfoPenal'
-require 'gamestates.Ingame.ConstructMenu'
+cityUI={}
+citybuttons = {}
+require 'gamestates/city/Console'
+require 'gamestates.city.TankDesigner'
+require 'gamestates.city.TankInfoPanel'
+require 'gamestates.city.CityInfoPenal'
+require 'gamestates.city.ConstructMenu'
 
-function ingameUI:load()
+function cityUI:load()
     Console:load()
     TankInfoPanel:load()
     CityInfoPenal:load()
 
     --buttons in captured
-    Ingamebuttons.DefButtons = buttons.new()
+    citybuttons.DefButtons = buttons.new()
     Settings = buttons.newToolButton(
         Gear,
         function()
             Gamestate.push(Pause)
         end,
-        Ingamebuttons.DefButtons,
+        citybuttons.DefButtons,
         16,
         wh - 16
     )
@@ -26,7 +27,7 @@ function ingameUI:load()
         function ()
             Cities:playRadio(CurrentPlace.songlist)
         end,
-        Ingamebuttons.DefButtons,
+        citybuttons.DefButtons,
         ww - 16,
         wh - 16
     )
@@ -39,12 +40,12 @@ function ingameUI:load()
                 CurrentPlace.openCityInfoPenal = true
             end
         end,
-        Ingamebuttons.DefButtons
+        citybuttons.DefButtons
     )
 
     if CurrentPlace.state == 'Peace' then
         ConstructMenu:load()
-        Ingamebuttons.ConstructButtons = buttons.new()
+        citybuttons.ConstructButtons = buttons.new()
         ConstructMenu_button = buttons.newToolButton(
             Constructmenu_icon,
             function ()
@@ -54,12 +55,12 @@ function ingameUI:load()
                     CurrentPlace.openConstructMenu = true
                 end
             end,
-            Ingamebuttons.ConstructButtons,
+            citybuttons.ConstructButtons,
             80
         )
         if CurrentPlace.factory then
             TankDesigner:load()
-            Ingamebuttons.TankFacButtons = buttons.new()
+            citybuttons.TankFacButtons = buttons.new()
             FacDesigner = buttons.newToolButton(
                 Tankdesigner_icon,
                 function ()
@@ -69,7 +70,7 @@ function ingameUI:load()
                         CurrentPlace.openTankDesigner = true
                     end
                 end,
-                Ingamebuttons.TankFacButtons,
+                citybuttons.TankFacButtons,
                 48
             )
         end
@@ -79,7 +80,7 @@ function ingameUI:load()
     end
 end
 
-function ingameUI:update(dt)
+function cityUI:update(dt)
     Console:update(dt)
     TankInfoPanel:update(dt)
     CityInfoPenal:update(dt)
@@ -94,16 +95,16 @@ function ingameUI:update(dt)
     end
 end
 
-function ingameUI:draw()
-    Ingamebuttons.DefButtons:use()
+function cityUI:draw()
+    citybuttons.DefButtons:use()
     Console:draw()
     TankInfoPanel:draw()
     CityInfoPenal:draw()
     if CurrentPlace.state == 'Peace' then
-        Ingamebuttons.ConstructButtons:use()
+        citybuttons.ConstructButtons:use()
         ConstructMenu:draw()
         if CurrentPlace.factory then
-            Ingamebuttons.TankFacButtons:use()
+            citybuttons.TankFacButtons:use()
             TankDesigner:draw()
         end
     end
