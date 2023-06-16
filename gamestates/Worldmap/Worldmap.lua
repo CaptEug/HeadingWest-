@@ -17,6 +17,8 @@ require 'gamestates/city/TimeToLaunchMissile'
 
 function Worldmap:init()
     Year = 1946
+    SteelProduction = 0
+    OilProduction = 0
     Cities:load()
 
     NewSaving:LoadFile(Filenumber)

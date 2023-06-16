@@ -25,9 +25,7 @@ end
 function NewSaving:LoadResource() --use this after LoadFile()
 
     local Resources = SaveData.Resources
-    OilProduction = Resources.OilProduction
     Oil = Resources.Oil
-    SteelProduction = Resources.SteelProduction
     Steel = Resources.Steel
 
 end
@@ -58,9 +56,7 @@ function NewSaving:Save(Number)
 
     filedata.Resources={
         Oil = Oil;
-        OilProduction = OilProduction;
         Steel = Steel;
-        SteelProduction = SteelProduction;
     }
 
     filedata.FileNumber = Filenumber
