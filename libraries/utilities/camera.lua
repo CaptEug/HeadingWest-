@@ -216,11 +216,13 @@ function camera:lockcamera(x, y, x2, y2, x_min, x_max, y_min, y_max, smoother, .
 	local x, y = self:cameraCoords(x,y)
 	local x2, y2 = self:cameraCoords(x2,y2)
 	local dx, dy = 0,0
+
 	-- if x > x_min then
 	-- 	dx = x - x_min
 	-- elseif x2 < x_max then
 	-- 	dx = x2 - x_max
 	-- end
+
 	if y > y_min then
 		dy = y - y_min
 	elseif y2 < y_max then

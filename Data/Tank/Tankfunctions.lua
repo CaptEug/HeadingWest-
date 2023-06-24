@@ -106,6 +106,12 @@ AutoControlfunction = function(tank, dt)
     local alert = false
     --enemy confirmation
     local enemy = {}
+
+    
+
+    
+
+
     for i, target in ipairs(CurrentPlace.exsist_tank) do
         if math.sqrt((target.location.x - tank.location.x)^2 + (target.location.y - tank.location.y)^2) < tank.vision then
             if target.type ~= tank.type then
