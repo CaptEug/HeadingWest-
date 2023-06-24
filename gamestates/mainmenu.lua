@@ -106,7 +106,15 @@ function MainMenu:update(dt)
     FILE3.by = wh *(1 / 2)
     BackL.bx = ww / 2
     BackL.by = wh *(12 / 13)
-    cam:move(0.2,0)
+    cam:move(-0.2,0)
+
+    camx,camy = cam:position()
+    if camx > Worldw then
+        cam:move(-Worldw,0)
+    end
+    if camx < 0 then 
+        cam:move(Worldw,0)
+    end
 
     if cam.scale > 4 then
         cam:zoomTo(4)
