@@ -40,7 +40,6 @@ function WorldmapUI:load()
         city.Go = buttons.newToolButton(
             Go,
             function ()
-                DestroyAll()
                 CurrentPlace = city
                 Gamestate.push(city)
             end,

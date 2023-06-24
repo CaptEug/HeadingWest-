@@ -4,22 +4,25 @@ City.__index = City
 
 --Cities
 --USSR
---[[Moskva = {
-    x = 1160,
-    y = 580,
-    country = {},
-    name = 'Moskva',
-    type = 'Capital',
-    factory = false,
-    labtory = true,
-    state = 'Peace',
-    map = 2,
-    constructurelist = {},
-    exsist_tank = {},
-    exsist_building = {},
-    Army = {},
-    broken_tank={}
-}]]
+Moskva = {}
+Moskva = Gamestate.new()
+Moskva.x = 1160
+Moskva.y = 580
+Moskva.country = {}
+Moskva.name = 'Moskva'
+Moskva.type = 'Capital'
+Moskva.factory = false
+Moskva.labtory = true
+Moskva.state = 'Peace'
+Moskva.map = sti("Assets/maps/Testmap.lua")
+Moskva.Structure = {}
+Moskva.Obstacles = {}
+Moskva.constructurelist = {}
+Moskva.exsist_tank = {}
+Moskva.exsist_building = {}
+Moskva.Army = {}
+Moskva.broken_tank={}
+
 
 Nizhny_Tagil = {}
 Nizhny_Tagil = Gamestate.new()
@@ -31,7 +34,9 @@ Nizhny_Tagil.type = 'Normal'
 Nizhny_Tagil.factory = 'UralVagonZavod'
 Nizhny_Tagil.labtory = false
 Nizhny_Tagil.state = 'Peace'
-Nizhny_Tagil.map = 3
+Nizhny_Tagil.map = sti("Assets/maps/UVZfac.lua")
+Nizhny_Tagil.Structure = {}
+Nizhny_Tagil.Obstacles = {}
 Nizhny_Tagil.tanklist = {}
 Nizhny_Tagil.constructurelist = {}
 Nizhny_Tagil.Army = {}
@@ -87,7 +92,9 @@ Berlin.type = 'Capital'
 Berlin.factory = false
 Berlin.labtory = true
 Berlin.state ='Battlefield'
-Berlin.map = 1
+Berlin.map = sti("Assets/maps/checkpointC.lua")
+Berlin.Structure = {}
+Berlin.Obstacles = {}
 Berlin.exsist_tank={}
 Berlin.Army = {}
 Berlin.broken_tank={}
@@ -102,8 +109,9 @@ TestSonglist = {
 }
 
 function Cities:load()
-    --table.insert(Cities, Moskva)
-    --Moskva.country = {USSR_flag}
+    Moskva.country = {USSR_flag}
+    setmetatable(Moskva, City)
+    table.insert(Cities, Moskva)
     
     Nizhny_Tagil.country = {USSR_flag}
     Nizhny_Tagil.songlist = TestSonglist
@@ -129,7 +137,7 @@ function Cities:playRadio(songlist)
 end
 
 function City:init()
-    loadMap(Maps[self.map])
+    self:loadmap()
     cityUI:load()
 end
 
@@ -200,10 +208,10 @@ end
 
 function City:draw()
     cam:attach()
-        DrawMapDown()
+        self:DrawMapDown()
         TankSpawner:drawtank()
         ConstructureSpawner:drawbuilding()
-        DrawMapUp()
+        self:DrawMapUp()
         world:draw()
         particleworld:draw()
         TankProjectiles:draw()
@@ -215,9 +223,9 @@ end
 
 function City:drawWithoutUI()
     cam:attach()
-        DrawMapDown()
+        self:DrawMapDown()
         TankSpawner:drawtank()
-        DrawMapUp()
+        self:DrawMapUp()
         world:draw()
         particleworld:draw()
         TankProjectiles:draw()
@@ -225,4 +233,60 @@ function City:drawWithoutUI()
     cam:detach()
 end
 
+function City:loadmap()
+    if self.map.layers['Structure'] then
+        for i, j in pairs(self.map.layers['Structure'].objects) do
+            local Collider = world:newRectangleCollider(j.x, j.y, j.width, j.height)
+            Collider.width = j.width
+            Collider.height = j.height
+            Collider:setType('static')
+            Collider:setCollisionClass('Wall')
+            table.insert(self.Structure, Collider)
+        end
+    end
 
+    if self.map.layers['Obstacles'] then
+        for i, j in pairs(self.map.layers['Obstacles'].objects) do
+            local Collider = world:newRectangleCollider(j.x, j.y, j.width, j.height)
+            Collider.width = j.width
+            Collider.height = j.height
+            table.insert(self.Obstacles, Collider)
+        end
+    end
+end
+
+function City:DrawMapDown()
+    if self.map.layers["Ground"] then
+        self.map:drawLayer(self.map.layers["Ground"])
+    end
+
+    if self.map.layers["Objects"] then
+        self.map:drawLayer(self.map.layers["Objects"])
+    end
+
+    if self.map.layers["Buildings"] then
+        self.map:drawLayer(self.map.layers["Buildings"])
+    end
+
+    for i, j in pairs(self.Obstacles) do
+        local collider_x,collider_y = j:getPosition()
+        local collider_angle = j:getAngle()
+        love.graphics.draw(love.graphics.newImage("Assets/objects/Spike1.png"), collider_x,collider_y, collider_angle, 1, 1, j.width/2, j.height/2)
+    end
+end
+
+function City:DrawMapUp()
+    if self.map.layers["Ceiling"] then
+        self.map:drawLayer(self.map.layers["Ceiling"])
+    end
+
+    if self.map.layers["Roof"] and cam.scale < 1 then
+        love.graphics.setColor(1,1,1,0.5/cam.scale)
+        self.map:drawLayer(self.map.layers["Roof"])
+        love.graphics.setColor(1,1,1)
+    end
+
+    if self.map.layers["Sky"] then
+        self.map:drawLayer(self.map.layers["Sky"])
+    end
+end
