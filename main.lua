@@ -12,7 +12,6 @@ require 'libraries/utilities/buttons'
 require 'libraries/utilities/DestroyAll'
 require 'libraries/utilities/show'
 require 'libraries/utilities/copytable'
-
 require "NewSaving"
 --Gamestates required
 require 'gamestates/mainmenu'
