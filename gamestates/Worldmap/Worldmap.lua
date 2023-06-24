@@ -43,6 +43,14 @@ function Worldmap:update(dt)
     end
     cam:lockcamera(0, 0, Worldw, Worldh, 0, ww, 0, wh)
 
+    camx,camy = cam:position()
+    if camx > Worldw then
+        cam:move(-Worldw,0)
+    end
+    if camx < 0 then 
+        cam:move(Worldw,0)
+    end
+
     --resources update
     Steel = Steel + SteelProduction*dt
     Oil = Oil + OilProduction*dt

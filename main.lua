@@ -172,10 +172,10 @@ function cammovement()
         cam:move(0,5)
     end
     if love.keyboard.isDown("a") then
-        cam:move(-5,0)
+        cam:move(-4.8,0)
     end
     if love.keyboard.isDown("d") then
-        cam:move(5,0)
+        cam:move(5.2,0)
     end
 
 
