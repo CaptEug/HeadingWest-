@@ -107,13 +107,8 @@ AutoControlfunction = function(tank, dt)
     local alert = false
     --enemy confirmation
     local enemy = {}
-Q
+
     
-    if love.mouse.isDown(1) then
-        local mouseX, mouseY = love.mouse.getPosition()
-        local targetDir = ( mouseX - tank.location.x,  mouseY - tank.location.y)
-        local targetAngle = math.atan2(targetDir.y, targetDir.x)
-    end
 
     
 
