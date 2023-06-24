@@ -1,6 +1,5 @@
 Cities = {}
 City = {}
-City = Gamestate.new()
 City.__index = City
 
 --Cities
@@ -23,6 +22,7 @@ City.__index = City
 }]]
 
 Nizhny_Tagil = {}
+Nizhny_Tagil = Gamestate.new()
 Nizhny_Tagil.x = 1280
 Nizhny_Tagil.y = 555
 Nizhny_Tagil.country = {}
@@ -78,6 +78,7 @@ table.insert(Cities, Baku)]]
 
 --German
 Berlin = {}
+Berlin = Gamestate.new()
 Berlin.x = 1035
 Berlin.y = 605
 Berlin.country = {}

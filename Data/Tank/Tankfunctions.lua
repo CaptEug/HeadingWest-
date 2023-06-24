@@ -1,5 +1,5 @@
 Tank = {}
-
+Tank.__index = Tank
 
 
 function Buildtank(place, tank, type, x, y)
@@ -92,7 +92,6 @@ function Buildtank(place, tank, type, x, y)
         end
     end
     setmetatable(tanky, Tank)
-    Tank.__index = Tank
     table.insert(place.exsist_tank, tanky)
     TankSpawner:loadtank(place, tanky)
 end

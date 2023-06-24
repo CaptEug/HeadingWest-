@@ -42,7 +42,7 @@ function WorldmapUI:load()
             function ()
                 DestroyAll()
                 CurrentPlace = city
-                Gamestate.switch(city)
+                Gamestate.push(city)
             end,
             city.Gobuttons,
             city.x + 208,

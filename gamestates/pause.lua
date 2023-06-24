@@ -27,7 +27,7 @@ function Pause:init()
         Pbuttons
     )
 
-    BacktoWMenu = buttons.newButton(
+    BacktoWMap = buttons.newButton(
         "Worldmap",
         function()
             Gamestate.switch(Worldmap)
@@ -53,8 +53,8 @@ function Pause:update(dt)
     BacktoMMenu.by = wh * 4/8
     Settings_button.bx=ww/2
     Settings_button.by=wh* 5/8
-    BacktoWMenu.bx = ww / 2
-    BacktoWMenu.by = wh * 6/8
+    BacktoWMap.bx = ww / 2
+    BacktoWMap.by = wh * 6/8
 end
 
 function Pause:draw()
@@ -71,7 +71,7 @@ function Pause:draw()
 end
 
 function love.keypressed(key)
-    if key == 'escape' and (Gamestate.current() == city or Gamestate.current()== Worldmap) then
+    if key == 'escape' and (Gamestate.current() == CurrentPlace or Gamestate.current()== Worldmap) then
         return Gamestate.push(Pause)
     end
 end
