@@ -92,6 +92,7 @@ function Buildtank(place, tank, type, x, y)
         end
     end
     setmetatable(tanky, Tank)
+    Tank.__index = Tank
     table.insert(place.exsist_tank, tanky)
     TankSpawner:loadtank(place, tanky)
 end
@@ -107,9 +108,18 @@ AutoControlfunction = function(tank, dt)
     --enemy confirmation
     local enemy = {}
 
-    
-
-    
+    if not tank.deployed and love.keyboard.isDown('w') and speed <= max_f then
+        tank.collider:applyForce(fx, fy)
+    end
+    if not tank.deployed and love.keyboard.isDown('s') and speed <= max_r then
+        tank.collider:applyForce(-fx, -fy)
+    end
+    if not tank.deployed and love.keyboard.isDown('a') then
+        tank.collider:applyTorque(-5*hp)
+    end
+    if not tank.deployed and love.keyboard.isDown('d') then
+        tank.collider:applyTorque(5*hp)
+    end
 
 
     for i, target in ipairs(CurrentPlace.exsist_tank) do
