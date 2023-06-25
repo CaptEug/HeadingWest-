@@ -37,14 +37,26 @@ function NewSaving:SaveTanks()
     for i, city in ipairs(Cities) do
         local cityTanks = city.exsist_tank
         local cityName = city.name
+        local tanks = {}
         for i, tank in ipairs(cityTanks) do
             local tankInfo = {}
-            tankInfo.data = tank.data
             tankInfo.location = tank.location
-            tankInfo.status = tank.status
+            --tankInfo.status = tank.status
+            tankInfo.name = tank.name
+            tankInfo.armor = tank.armor.name
+            table.insert(tanks,tankInfo)
         end
 
-    end --tankData.UVZ.
+        local city = {}
+        city.cityName = cityName
+        city.tankData = tanks
+        table.insert(tankData,city)
+
+    end --tankData[1].tankinfo
+
+    --[[tank: location, status, armor]]
+    --load: search tanklist, match name, spawn
+
     return tankData
 end
 
@@ -131,7 +143,7 @@ end
 ---@param table table
 ---@param tableName string
 ---@return string
-function TableToString(table,tableName) --convert table to string (prototype)
+function TableToString(table,tableName) --convert table to string
 
     local function Convert(input,layer)
 
@@ -139,6 +151,12 @@ function TableToString(table,tableName) --convert table to string (prototype)
         for key, value in pairs(input) do
             
             local keyName = tostring(key)
+            
+            if type(key) == "number" then
+                keyName = "["..tostring(key).."]"
+            end
+            
+
             local keyValue = ""
             local convertedKey
             if type(value) ~= "table" then
