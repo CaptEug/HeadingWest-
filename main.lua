@@ -132,6 +132,9 @@ Maps={'checkpointC','Testmap','UVZfac'}
 MapNumber=1
 Filenumber=1
 
+local mousex = 0
+local mousey = 0
+
 function love.load()
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
