@@ -129,6 +129,9 @@ Rtextfont = love.graphics.newFont('Assets/fonts/pixelfont.otf')
 
 Filenumber=1
 
+local mousex = 0
+local mousey = 0
+
 function love.load()
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)

@@ -107,20 +107,37 @@ AutoControlfunction = function(tank, dt)
     local alert = false
     --enemy confirmation
     local enemy = {}
+    local mouseX = mousex
+    local mouseY = mousey
 
-    if not tank.deployed and love.keyboard.isDown('w') and speed <= max_f then
-        tank.collider:applyForce(fx, fy)
-    end
-    if not tank.deployed and love.keyboard.isDown('s') and speed <= max_r then
-        tank.collider:applyForce(-fx, -fy)
-    end
-    if not tank.deployed and love.keyboard.isDown('a') then
-        tank.collider:applyTorque(-5*hp)
-    end
-    if not tank.deployed and love.keyboard.isDown('d') then
-        tank.collider:applyTorque(5*hp)
+    
+    if love.mouse.isDown(2) then
+        mousex, mousey = cam:mousePosition()
     end
 
+
+    if not tank.deployed and mouseX ~= nil  then
+        local angle_to_mouse = math.atan2(mouseY - tank.location.y, mouseX - tank.location.x)
+        local distance_to_mouse = math.sqrt((mouseX - tank.location.x)^2 + (mouseY - tank.location.y)^2)
+        if distance_to_mouse >= 100 then
+            if tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi and tank.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
+                tank.collider:applyForce(fx, fy)
+            else
+                tank.collider:applyForce(fx/3, fy/3)
+            end
+        end
+       
+        if tank.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.1 * math.pi then
+            tank.collider:applyTorque(-5*hp)
+        elseif  0 < tank.location.hull_angle - 0.5*math.pi - angle_to_mouse and tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi then
+            tank.collider:applyTorque(-1*hp)
+        elseif 0 > tank.location.hull_angle - 0.5*math.pi - angle_to_mouse and tank.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
+            tank.collider:applyTorque(1*hp)
+        elseif  tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < -0.1 * math.pi then
+            tank.collider:applyTorque(5*hp)
+        end
+    end
+    
 
     for i, target in ipairs(CurrentPlace.exsist_tank) do
         if math.sqrt((target.location.x - tank.location.x)^2 + (target.location.y - tank.location.y)^2) < tank.vision then
