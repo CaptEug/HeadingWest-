@@ -127,9 +127,6 @@ Rbuttonfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 50)
 Rheadfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 20)
 Rtextfont = love.graphics.newFont('Assets/fonts/pixelfont.otf')
 
-
-Maps={'checkpointC','Testmap','UVZfac'}
-MapNumber=1
 Filenumber=1
 
 function love.load()
@@ -163,7 +160,6 @@ end
 
 function cammovement()
 
-    
     if love.keyboard.isDown("w") then
         cam:move(0,-5)
     end
