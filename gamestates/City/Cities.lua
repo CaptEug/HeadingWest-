@@ -138,8 +138,10 @@ end
 
 function City:init()
     self:loadmap()
+
     cityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
+    NewSaving:LoadTanks()
 end
 
 function City:update(dt)
