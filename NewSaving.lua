@@ -156,14 +156,12 @@ function TableToString(table,tableName) --convert table to string
         local str = ""
         for key, value in pairs(input) do
             
-            local keyName = tostring(key)
-            
+            local keyValue = ""
+            local convertedKey = ""
+            local keyName = tostring(key)      
             if type(key) == "number" then
                 keyName = "["..tostring(key).."]"
             end
-            
-            local keyValue = ""
-            local convertedKey
             if type(value) ~= "table" then
                 if type(value) ~= "string" then
                     keyValue = tostring(value)
@@ -191,11 +189,8 @@ function TableToString(table,tableName) --convert table to string
         layer = layer - 1
         return str,layer
     end
-
     local str = tableName.." = {\n"..Convert(table,0).."};\n"
-
     return str
-
 end
 
 function NewSaving:LoadTanks()
@@ -207,13 +202,11 @@ function NewSaving:LoadTanks()
             break
         end
     end
-
     for tankNumber, data in ipairs(tankdata) do     --select tank
 
         local name = data.name
         local tank = {}
         for i, t in pairs(Tanks) do                 --match tank 
-            
             if t.name == name and t.accessories~=nil then
                 tank = Tanks[i]
                 for i, armor in pairs(tank.accessories[1]) do
@@ -222,7 +215,6 @@ function NewSaving:LoadTanks()
                         break
                     end
                 end
-
                 for i, aim in pairs(tank.accessories[2]) do
                     if  data.aim==aim.name then
                         data.aim = copytable(aim)
@@ -231,20 +223,16 @@ function NewSaving:LoadTanks()
 
                     end
                 end
-
                 for i, mob in pairs(tank.accessories[3]) do
                     if  data.mob==mob.name then
                         data.mob = copytable(mob)
                         break
                     end
                 end
-
             end
-            
         end
         self:Loadtank(CurrentPlace, tank, data, data.type, data.location.x, data.location.y)
     end
-
 end
 
 function NewSaving:Loadtank(place, tank, data, type, x, y)
