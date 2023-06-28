@@ -9,6 +9,7 @@ function TankSpawner:loadtank(place, tank)
     tank.collider:setLinearDamping(3)
     tank.collider:setInertia(500*tank.weight)
     tank.collider:setAngularDamping(5)
+    tank.collider:setAngle(tank.location.hull_angle)
     if tank.type == 'friendly' then
         tank.Infobuttons = buttons.new()
         buttons.newCampicButton(

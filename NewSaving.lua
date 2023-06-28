@@ -42,6 +42,7 @@ function NewSaving:SaveTanks()
             local tankInfo = {}
             tankInfo.location = {}
             tankInfo.location.x, tankInfo.location.y = tank.location.x-tank.width/2, tank.location.y-tank.length/2
+            tankInfo.location.hull_angle = tank.location.hull_angle
             --tankInfo.status = tank.status
             tankInfo.name = tank.name
             tankInfo.type = tank.type
@@ -301,7 +302,7 @@ function NewSaving:Loadtank(place, tank, data, type, x, y)
         aim = copytable(tank.accessories[2][tank.aim_num or 1] or Blank_Gear),
         mob = data.mob,
         velocity = {vx = 0, vy = 0, v = 0},
-        location = {x = x, y = y, hull_angle = 0},
+        location = {x = x, y = y, hull_angle = data.location.hull_angle},
         image_location = {},
         turret_location = {},
         gun_location = {},
