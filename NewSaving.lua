@@ -162,7 +162,6 @@ function TableToString(table,tableName) --convert table to string
                 keyName = "["..tostring(key).."]"
             end
             
-
             local keyValue = ""
             local convertedKey
             if type(value) ~= "table" then
