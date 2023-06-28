@@ -45,7 +45,10 @@ function NewSaving:SaveTanks()
             --tankInfo.status = tank.status
             tankInfo.name = tank.name
             tankInfo.type = tank.type
+            tankInfo.number = tank.number
             tankInfo.armor = tank.armor.name
+            tankInfo.aim = tank.aim.name
+            tankInfo.mob = tank.mob.name
             table.insert(tanks,tankInfo)
         end
 
@@ -205,26 +208,49 @@ function NewSaving:LoadTanks()
         end
     end
 
-    for tankNumber, data in ipairs(tankdata) do
+    for tankNumber, data in ipairs(tankdata) do     --select tank
 
         local name = data.name
         local tank = {}
-        for i, t in pairs(Tanks) do
+        for i, t in pairs(Tanks) do                 --match tank 
             
             if t.name == name and t.accessories~=nil then
                 tank = Tanks[i]
+                for i, armor in pairs(tank.accessories[1]) do
+                    if  data.armor==armor.name then
+                        data.armor = copytable(armor)
+                        break
+                    end
+                end
+
+                for i, aim in pairs(tank.accessories[2]) do
+                    if  data.aim==aim.name then
+                        data.aim = copytable(aim)
+                        break
+                    else
+
+                    end
+                end
+
+                for i, mob in pairs(tank.accessories[3]) do
+                    if  data.mob==mob.name then
+                        data.mob = copytable(mob)
+                        break
+                    end
+                end
+
             end
             
         end
-        Loadtank(CurrentPlace, tank, data.type, data.location.x, data.location.y)
+        self:Loadtank(CurrentPlace, tank, data, data.type, data.location.x, data.location.y)
     end
 
 end
 
-function Loadtank(place, tank, type, x, y)
+function NewSaving:Loadtank(place, tank, data, type, x, y)
     local tanky = {
         type = type,
-        number = tostring(math.random(000,999)),
+        number = data.number,
         name = tank.name,
         class = tank.class,
         width = tank.width,
@@ -271,9 +297,9 @@ function Loadtank(place, tank, type, x, y)
         exhaust_angle = tank.exhaust_angle,
         exhaust_angle2 = tank.exhaust_angle2 or nil,
         turret_angle = 0,
-        armor = copytable(tank.accessories[1][tank.armor_num or 1] or Blank_Gear),
+        armor = data.armor,
         aim = copytable(tank.accessories[2][tank.aim_num or 1] or Blank_Gear),
-        mob = copytable(tank.accessories[3][tank.mob_num or 1] or Blank_Gear),
+        mob = data.mob,
         velocity = {vx = 0, vy = 0, v = 0},
         location = {x = x, y = y, hull_angle = 0},
         image_location = {},
