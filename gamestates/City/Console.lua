@@ -27,7 +27,7 @@ function Console:load()
         function ()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
                 if tank.picked and tank.type == 'friendly' then
-                    tank.functions.move = AutoControlfunction
+                    tank.functions.move = mauseControlfunction
                 end
             end
         end,

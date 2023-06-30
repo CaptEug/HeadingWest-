@@ -10,7 +10,9 @@ function TankSpawner:loadtank(place, tank)
     tank.collider:setInertia(500*tank.weight)
     tank.collider:setAngularDamping(5)
     tank.collider:setAngle(tank.location.hull_angle)
+    tank.functions.move = AutoControlfunction
     if tank.type == 'friendly' then
+        tank.functions.move = mauseControlfunction
         tank.Infobuttons = buttons.new()
         buttons.newCampicButton(
             invisible_button,
@@ -20,12 +22,14 @@ function TankSpawner:loadtank(place, tank)
                 TankChoosen = tank
             end,
             tank.Infobuttons
+            
         )
+        
     end
     if tank.armor.type == 'ERA' then
         tank.status.era[1] = true
     end
-    tank.functions.move = AutoControlfunction
+    
     tank:CreatParticles()
 end
 

@@ -22,7 +22,7 @@ function TankInfoPanel:load()
             if TankChoosen.functions.move ~= ManualControlfunction then
                 TankChoosen.functions.move = ManualControlfunction
             else
-                TankChoosen.functions.move = AutoControlfunction
+                TankChoosen.functions.move = mauseControlfunction
             end
         end,
         TankInfoPanel.window,
