@@ -211,13 +211,13 @@ function NewSaving:LoadTanks()
                 tank = Tanks[i]
                 for i, armor in pairs(tank.accessories[1]) do
                     if  data.armor==armor.name then
-                        data.armor = copytable(armor)
+                        tank.armor = copytable(armor)
                         break
                     end
                 end
                 for i, aim in pairs(tank.accessories[2]) do
                     if  data.aim==aim.name then
-                        data.aim = copytable(aim)
+                        tank.aim = copytable(aim)
                         break
                     else
 
@@ -225,17 +225,17 @@ function NewSaving:LoadTanks()
                 end
                 for i, mob in pairs(tank.accessories[3]) do
                     if  data.mob==mob.name then
-                        data.mob = copytable(mob)
+                        tank.mob = copytable(mob)
                         break
                     end
                 end
             end
         end
-        self:Loadtank(CurrentPlace, tank, data, data.type, data.location.x, data.location.y)
+        Buildtank(CurrentPlace, tank, data.type, data.location.x, data.location.y)
     end
 end
 
-function NewSaving:Loadtank(place, tank, data, type, x, y)
+--[[function NewSaving:Loadtank(place, tank, data, type, x, y)
     local tanky = {
         type = type,
         number = data.number,
@@ -328,4 +328,4 @@ function NewSaving:Loadtank(place, tank, data, type, x, y)
     setmetatable(tanky, Tank)
     table.insert(place.exsist_tank, tanky)
     TankSpawner:loadtank(place, tanky)
-end
+end]]
