@@ -108,6 +108,46 @@ AutoControlfunction = function(tank, dt)
     local alert = false
     --enemy confirmation
     local enemy = {}
+    
+    
+
+    for i, target in ipairs(CurrentPlace.exsist_tank) do
+        if math.sqrt((target.location.x - tank.location.x)^2 + (target.location.y - tank.location.y)^2) < tank.vision then
+            if target.type ~= tank.type then
+                enemy = target
+                alert = true
+                break
+            end
+        end
+    end
+    if alert then
+        tank:FacePosition(enemy.location.x, enemy.location.y)
+        local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
+        if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
+            if tank.class == 'spg' then
+                if tank.deployed then
+                    Bomb(tank, enemy.location.x, enemy.location.y)
+                end
+            else
+                Shoot(tank)
+            end
+        end
+        if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
+            LaunchMissile(tank, enemy)
+        end
+    end
+end
+
+mauseControlfunction = function(tank, dt)
+    local hp = 50*tank.mob.hp*0.745
+    local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
+    local fy = hp*math.sin(tank.location.hull_angle - 0.5*math.pi)
+    local max_f = tank.max_f_speed
+    local max_r = math.abs(tank.max_r_speed)
+    local speed = tank.velocity.v/5
+    local alert = false
+    --enemy confirmation
+    local enemy = {}
     local mouseX = mousex
     local mouseY = mousey
 
@@ -140,31 +180,31 @@ AutoControlfunction = function(tank, dt)
     end
     
 
-    for i, target in ipairs(CurrentPlace.exsist_tank) do
-        if math.sqrt((target.location.x - tank.location.x)^2 + (target.location.y - tank.location.y)^2) < tank.vision then
-            if target.type ~= tank.type then
-                enemy = target
-                alert = true
-                break
-            end
-        end
-    end
-    if alert then
-        tank:FacePosition(enemy.location.x, enemy.location.y)
-        local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
-        if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
-            if tank.class == 'spg' then
-                if tank.deployed then
-                    Bomb(tank, enemy.location.x, enemy.location.y)
-                end
-            else
-                Shoot(tank)
-            end
-        end
-        if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
-            LaunchMissile(tank, enemy)
-        end
-    end
+    -- for i, target in ipairs(CurrentPlace.exsist_tank) do
+    --     if math.sqrt((target.location.x - tank.location.x)^2 + (target.location.y - tank.location.y)^2) < tank.vision then
+    --         if target.type ~= tank.type then
+    --             enemy = target
+    --             alert = true
+    --             break
+    --         end
+    --     end
+    -- end
+    -- if alert then
+    --     tank:FacePosition(enemy.location.x, enemy.location.y)
+    --     local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
+    --     if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
+    --         if tank.class == 'spg' then
+    --             if tank.deployed then
+    --                 Bomb(tank, enemy.location.x, enemy.location.y)
+    --             end
+    --         else
+    --             Shoot(tank)
+    --         end
+    --     end
+    --     if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
+    --         LaunchMissile(tank, enemy)
+    --     end
+    -- end
 end
 
 ManualControlfunction = function(tank, dt)
@@ -328,7 +368,7 @@ function Tank:Update(dt)
     local vx, vy = self.collider:getLinearVelocity()
     self.velocity = {vx = vx, vy = vy, v = math.sqrt(vx^2 + vy^2)}
     self.location = {x = x, y = y, hull_angle = hull_angle}
-    self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)     --adjust collider's and image's location and offset
+    self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)     --adjust collider's and image's location
     self.turret_location.x, self.turret_location.y = self.image_location.x - self.turret_offset*math.sin(hull_angle), self.image_location.y + self.turret_offset*math.cos(hull_angle)
     self.gun_location.x, self.gun_location.y = self.turret_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
                                                self.turret_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
