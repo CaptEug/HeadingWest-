@@ -276,6 +276,7 @@ function NewSaving:Loadtank(place, tank, data, type, x, y)
         turret_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         deploy_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
+        gun_sound = tank.gun_sound:clone(),
         image_offset = tank.image_offset,
         turret_offset = tank.turret_offset,
         gun_offset = tank.gun_offset,
@@ -325,7 +326,6 @@ function NewSaving:Loadtank(place, tank, data, type, x, y)
         end
     end
     setmetatable(tanky, Tank)
-    --Tank.__index = Tank
     table.insert(place.exsist_tank, tanky)
     TankSpawner:loadtank(place, tanky)
 end

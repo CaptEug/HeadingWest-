@@ -2,6 +2,7 @@ Blank_line = love.graphics.newImage('Assets/tanks/Blank_line.png')
 Image_in_progress = love.graphics.newImage('Assets/tanks/ImageInProgress.png')
 Blank_Gear = {name = 'Blank', steel_cost = 0, oil_cost = 0, line_image = Blank_line, turret_image = Blank_line, hull_image = Blank_line}
 Tank_Grid = anim8.newGrid(288, 288, 288*7, 288*2)
+BigGunOpenFire = love.audio.newSource('Assets/audio/sound/DeathFlash.flac', 'static')
 
 Tanks = {
     --USSR
@@ -50,6 +51,7 @@ Tanks = {
         turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_line.png'),
         turret_image_broken = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_Broken.png'),
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
+        gun_sound = BigGunOpenFire,
         accessories = {
         --armor
             {
@@ -150,6 +152,7 @@ Tanks = {
         turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_Turret_line.png'),
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_firingsprite.png'),
+        gun_sound = BigGunOpenFire,
         accessories = {
             --armor
             {
@@ -274,6 +277,7 @@ Tanks = {
     turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-90/T90_turret_line.png'),
     turret_image_broken = Blank_line,
     anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-90/T90_firingsprite.png'),
+    gun_sound = BigGunOpenFire,
     accessories = {
         --armor
         {
@@ -385,6 +389,7 @@ Tanks = {
     hull_image_line = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_hull_line.png'),
     turret_image = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_turret.png'),
     turret_image_line = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_turret_line.png'),
+    gun_sound = BigGunOpenFire,
     accessories = {
     --armor
     {
@@ -478,6 +483,7 @@ Tanks = {
         turret_image_line = love.graphics.newImage('Assets/tanks/usa/M1/M1_Turret_line.png'),
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/usa/M1/M1_firingsprite.png'),
+        gun_sound = BigGunOpenFire,
         accessories = {
             --armor
             {

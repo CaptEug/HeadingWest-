@@ -34,6 +34,8 @@ function Shoot(tank)
     table.remove(tank.ammorack, 1)
     tank.firing_timer = tank.firing_time
     tank.reload_timer = tank.reload_time
+
+    tank.gun_sound:play()
 end
 
 function TankProjectiles:update(dt)

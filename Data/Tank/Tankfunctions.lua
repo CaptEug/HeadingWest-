@@ -43,6 +43,7 @@ function Buildtank(place, tank, type, x, y)
         turret_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         deploy_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
+        gun_sound = tank.gun_sound:clone(),
         image_offset = tank.image_offset,
         turret_offset = tank.turret_offset,
         gun_offset = tank.gun_offset,
