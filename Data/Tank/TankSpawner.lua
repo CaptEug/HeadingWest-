@@ -12,7 +12,6 @@ function TankSpawner:loadtank(place, tank)
     tank.collider:setAngle(tank.location.hull_angle)
     tank.functions.move = AutoControlfunction
     if tank.type == 'friendly' then
-        tank.functions.move = mauseControlfunction
         tank.Infobuttons = buttons.new()
         buttons.newCampicButton(
             invisible_button,

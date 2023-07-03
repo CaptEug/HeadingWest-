@@ -7,27 +7,13 @@ function Console:load()
 
     Console.Buttons = buttons.new()
     
-    Offence = buttons.newWindowToolButton(
-        Offence_icon,
-        function ()
-            for i, tank in ipairs(CurrentPlace.exsist_tank) do
-                if tank.picked and tank.type == 'friendly' then
-                    
-                end
-            end
-        end,
-        Console.window,
-        Console.Buttons,
-        128,
-        32
-    )
 
     Fortify = buttons.newWindowToolButton(
         Fortify_icon,
         function ()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
                 if tank.picked and tank.type == 'friendly' then
-                    tank.functions.move = mauseControlfunction
+                    tank.functions.move = AutoControlfuntion
                 end
             end
         end,
@@ -64,7 +50,7 @@ function Console:update(dt)
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         if tank.picked then
             OpenConsole = true
-        end
+        end 
     end
 end
 
@@ -76,6 +62,7 @@ function Console:draw()
         love.mouse.getX() - Selection.startX, love.mouse.getY() - Selection.startY)
         love.graphics.setColor(1,1,1)
     end
+
 
     if OpenConsole then
         love.graphics.setCanvas(Consolescreen)

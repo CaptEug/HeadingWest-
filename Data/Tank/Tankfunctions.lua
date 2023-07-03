@@ -138,7 +138,7 @@ AutoControlfunction = function(tank, dt)
     end
 end
 
-mauseControlfunction = function(tank, dt)
+MouseControlfunction = function(tank, dt)
     local hp = 50*tank.mob.hp*0.745
     local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
     local fy = hp*math.sin(tank.location.hull_angle - 0.5*math.pi)
@@ -180,31 +180,7 @@ mauseControlfunction = function(tank, dt)
     end
     
 
-    -- for i, target in ipairs(CurrentPlace.exsist_tank) do
-    --     if math.sqrt((target.location.x - tank.location.x)^2 + (target.location.y - tank.location.y)^2) < tank.vision then
-    --         if target.type ~= tank.type then
-    --             enemy = target
-    --             alert = true
-    --             break
-    --         end
-    --     end
-    -- end
-    -- if alert then
-    --     tank:FacePosition(enemy.location.x, enemy.location.y)
-    --     local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
-    --     if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
-    --         if tank.class == 'spg' then
-    --             if tank.deployed then
-    --                 Bomb(tank, enemy.location.x, enemy.location.y)
-    --             end
-    --         else
-    --             Shoot(tank)
-    --         end
-    --     end
-    --     if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
-    --         LaunchMissile(tank, enemy)
-    --     end
-    -- end
+   
 end
 
 ManualControlfunction = function(tank, dt)
