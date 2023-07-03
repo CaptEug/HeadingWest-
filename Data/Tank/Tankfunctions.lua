@@ -58,6 +58,7 @@ function Buildtank(place, tank, type, x, y)
         mob = tank.mob or copytable(tank.accessories[3][tank.mob_num or 1] or Blank_Gear),
         velocity = {vx = 0, vy = 0, v = 0},
         location = {x = x, y = y, hull_angle = 0},
+        destination = {x = x, y = y},
         image_location = {},
         turret_location = {},
         gun_location = {},
@@ -148,18 +149,17 @@ MouseControlfunction = function(tank, dt)
     local alert = false
     --enemy confirmation
     local enemy = {}
-    local mouseX = mousex
-    local mouseY = mousey
+
 
     
     if love.mouse.isDown(2) then
-        mousex, mousey = cam:mousePosition()
+        tank.destination.x, tank.destination.y = cam:mousePosition()
     end
 
 
-    if not tank.deployed and mouseX ~= nil  then
-        local angle_to_mouse = math.atan2(mouseY - tank.location.y, mouseX - tank.location.x)
-        local distance_to_mouse = math.sqrt((mouseX - tank.location.x)^2 + (mouseY - tank.location.y)^2)
+    if not tank.deployed and tank.destination.x ~= tank.location.x  then
+        local angle_to_mouse = math.atan2(tank.destination.y - tank.location.y, tank.destination.x - tank.location.x)
+        local distance_to_mouse = math.sqrt((tank.destination.x - tank.location.x)^2 + (tank.destination.y - tank.location.y)^2)
         if distance_to_mouse >= 100 then
             if tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi and tank.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
                 tank.collider:applyForce(fx, fy)
@@ -176,6 +176,32 @@ MouseControlfunction = function(tank, dt)
             tank.collider:applyTorque(1*hp)
         elseif  tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < -0.1 * math.pi then
             tank.collider:applyTorque(5*hp)
+        end
+    end
+
+    for i, target in ipairs(CurrentPlace.exsist_tank) do
+        if math.sqrt((target.location.x - tank.location.x)^2 + (target.location.y - tank.location.y)^2) < tank.vision then
+            if target.type ~= tank.type then
+                enemy = target
+                alert = true
+                break
+            end
+        end
+    end
+    if alert then
+        tank:FacePosition(enemy.location.x, enemy.location.y)
+        local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
+        if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
+            if tank.class == 'spg' then
+                if tank.deployed then
+                    Bomb(tank, enemy.location.x, enemy.location.y)
+                end
+            else
+                Shoot(tank)
+            end
+        end
+        if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
+            LaunchMissile(tank, enemy)
         end
     end
     

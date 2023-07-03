@@ -7,14 +7,28 @@ function Console:load()
 
     Console.Buttons = buttons.new()
     
+    Offence = buttons.newWindowToolButton(
+        Offence_icon,
+        function ()
+            for i, tank in ipairs(CurrentPlace.exsist_tank) do
+                if tank.picked and tank.type == 'friendly' and  tank.functions.move ~= MouseControlfunction then
+                    tank.functions.move = MouseControlfunction 
+                else  
+                    tank.functions.move = AutoControlfunction
+                end
+            end
+        end,
+        Console.window,
+        Console.Buttons,
+        128,
+        32
+    )
 
     Fortify = buttons.newWindowToolButton(
         Fortify_icon,
         function ()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
-                if tank.picked and tank.type == 'friendly' then
-                    tank.functions.move = AutoControlfuntion
-                end
+
             end
         end,
         Console.window,

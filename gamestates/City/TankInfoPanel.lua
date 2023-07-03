@@ -31,22 +31,6 @@ function TankInfoPanel:load()
         256+64
     )
 
-    Offence = buttons.newWindowToolButton(
-        Offence_icon,
-        function ()
-            for i, tank in ipairs(CurrentPlace.exsist_tank) do
-                if tank.picked and tank.type == 'friendly' and  tank.functions.move ~= MouseControlfunction then
-                    tank.functions.move = MouseControlfunction 
-                else  
-                    tank.functions.move = AutoControlfunction
-                end
-            end
-        end,
-        Console.window,
-        Console.Buttons,
-        128,
-        32
-    )
 
     Deploy = buttons.newWindowToolButton(
         Deploy_icon,
