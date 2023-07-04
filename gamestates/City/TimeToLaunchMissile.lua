@@ -2,7 +2,7 @@ Missiles = {}
 
 function LaunchMissile(unit, target)
     local instance = unit.missilerack[1]
-    local missile = world:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 2)
+    local missile = world:newCircleCollider(unit.luncher_location.x, unit.luncher_location.y, 2)
     missile:setCollisionClass('ATGM')
     missile:setBullet(true)
     missile:setRestitution(0.5)
