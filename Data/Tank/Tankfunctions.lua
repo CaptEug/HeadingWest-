@@ -73,10 +73,12 @@ function Buildtank(place, tank, type, x, y)
             dead = {false},
             onfire = {false, Onfire_icon},
             immobilized = {false, Immobilized_icon},
-            era = {false, ERA_icon}
+            era = {false, ERA_icon},
+            penetrated = false
         },
         firing_time = tank.firing_time,
         firing_timer = 0,
+        pen_timer = 0,
         picked = false,
         incomp = false,
         deployed = false
@@ -338,7 +340,7 @@ function Tank:FacePosition(x, y)
     end
 end
 
-function Tank:CheckStatus(i)
+function Tank:CheckStatus(i, dt)
     if self.status.era[1] then
         if self.armor.life <= 0 then
             self.armor.hull_image = Blank_line
@@ -362,6 +364,14 @@ function Tank:CheckStatus(i)
 
     if self.survivor <= 0 then
         table.insert(CurrentPlace.broken_tank, table.remove(CurrentPlace.exsist_tank, i))
+    end
+
+    if self.status.penetrated then
+        self.pen_timer = self.pen_timer + dt
+        if self.pen_timer >= 1 then
+            self.status.penetrated = false
+            self.pen_timer = 0
+        end
     end
 end
 

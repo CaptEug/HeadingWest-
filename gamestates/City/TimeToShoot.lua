@@ -73,7 +73,10 @@ function TankProjectiles:update(dt)
                     table.remove(self, i)
                 end
                 if ispen then
+                    Target.status.penetrated = true
                     DamageCheck(Target, hitPart)
+                else
+                    Clang:clone():play()
                 end
                 if Target.status.era[1] then
                     Target.armor.life = Target.armor.life - 1

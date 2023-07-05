@@ -116,6 +116,8 @@ Fire = love.graphics.newImage('Assets/pictures/particles/Fire.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
+--sound
+Clang = love.audio.newSource('Assets/audio/sound/clang - Marker #10.wav','static')
 --cursor
 pointcursor = love.mouse.newCursor('Assets/pictures/cursors/PointCursor.png', 0, 0)
 handcursor = love.mouse.newCursor('Assets/pictures/cursors/HandCursor.png', 7, 0)

@@ -35,7 +35,7 @@ end
 function TankSpawner:update(dt)
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         tank:Update(dt)
-        tank:CheckStatus(i)
+        tank:CheckStatus(i, dt)
         tank:ParticleUpdate(dt)
     end
 end

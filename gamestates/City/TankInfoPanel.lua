@@ -10,6 +10,10 @@ function TankInfoPanel:load()
     TankChoosen = {}
     TankInfoPanel.Buttons = buttons.new()
     TankInfoPanel.SPGButtons = buttons.new()
+    TankInfoPanel.blinkTimer = 0
+    TankInfoPanel.blinkInterval = 0.2
+    TankInfoPanel.iconVisible = true
+
 
     ManulControl = buttons.newWindowToolButton(
         ManualControl_icon,
@@ -51,6 +55,8 @@ function TankInfoPanel:update(dt)
             button.bx, button.by = tank.image_location.x, tank.image_location.y
         end
     end
+    --blinkTimer update
+    TankInfoPanel.blinkTimer = TankInfoPanel.blinkTimer + dt
 end
 
 function TankInfoPanel:draw()
@@ -114,14 +120,17 @@ function TankCrewDraw()
     local n = 0
     local m = 0
 
-    while n < TankChoosen.crew do
-        love.graphics.draw(injured_crew_icon, 144 - 28*TankChoosen.crew/2 + 28*n, 255)
-        n = n + 1
+    if TankInfoPanel.iconVisible then
+        while n < TankChoosen.crew do
+            love.graphics.draw(injured_crew_icon, 144 - 28*TankChoosen.crew/2 + 28*n, 255)
+            n = n + 1
+        end
+        while m < TankChoosen.survivor do
+            love.graphics.draw(crew_icon, 144 - 28*TankChoosen.crew/2 + 28*m, 255)
+            m = m + 1
+        end
     end
-    while m < TankChoosen.survivor do
-        love.graphics.draw(crew_icon, 144 - 28*TankChoosen.crew/2 + 28*m, 255)
-        m = m + 1
-    end
+    
 end
 
 function TankAmmoDraw()
@@ -149,11 +158,19 @@ function TankStateDraw()
         love.graphics.draw(TankChoosen.status.immobilized[2], 0 + 16, 0 + 48*s)
         s = s + 1
     end
-    
+    -- Check if it's time to toggle the icon's visibility
+    if TankChoosen.status.penetrated then
+        if TankInfoPanel.blinkTimer >= TankInfoPanel.blinkInterval and TankChoosen.status.penetrated then
+            TankInfoPanel.blinkTimer = 0
+            TankInfoPanel.iconVisible = not TankInfoPanel.iconVisible
+        end
+    else
+        TankInfoPanel.iconVisible = true
+    end
+
     if TankChoosen.functions.move == ManualControlfunction then
         love.graphics.draw(ManualControlOn_icon, 0 + 232, 0 + 232+64)
     end
-
 
     if TankChoosen.deployed then
         love.graphics.draw(DeployOn_icon, 0 + 232, 0 + 184+64)
