@@ -114,7 +114,6 @@ function buttons:use()
             button.last = button.now
             if button.Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
-                love.mouse.setCursor(handcursor)
                 Cursormode = 'button'
             end
             button.now = love.mouse.isDown(1)
@@ -131,7 +130,6 @@ function buttons:use()
             button.last = button.now
             if button.Hot then
                 ButtonColor ={1, 0.1, 0.1, 1}
-                love.mouse.setCursor(handcursor)
                 Cursormode = 'button'
             end
             button.now = love.mouse.isDown(1)
@@ -148,7 +146,6 @@ function buttons:use()
             button.last = button.now
             button.now = love.mouse.isDown(1)
             if button.Hot then
-                love.mouse.setCursor(handcursor)
                 Cursormode = 'button'
                 button.pic = button.pictureHot
             else
@@ -180,7 +177,6 @@ function buttons:use()
             button.last = button.now
             button.now = love.mouse.isDown(1)
             if button.Hot then
-                love.mouse.setCursor(handcursor)
                 Cursormode = 'button'
                 button.pic = button.pictureHot
             else
@@ -212,7 +208,6 @@ function buttons:use()
             button.Hot = cmx>=x-button.w/(2*cam.scale) and cmx<=x+button.w/(2*cam.scale) and cmy>=y-button.h/(2*cam.scale) and cmy<=y+button.h/(2*cam.scale)
             button.last = button.now
             if button.Hot then
-                love.mouse.setCursor(handcursor)
                 Cursormode = 'button'
                 button.pic = button.pictureHot
             else

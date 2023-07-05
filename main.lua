@@ -121,7 +121,7 @@ pointcursor = love.mouse.newCursor('Assets/pictures/cursors/PointCursor.png', 0,
 handcursor = love.mouse.newCursor('Assets/pictures/cursors/HandCursor.png', 7, 0)
 sightcursor = love.mouse.newCursor('Assets/pictures/cursors/SightCursor.png', 16, 16)
 emptycursor = love.mouse.newCursor('Assets/pictures/cursors/EmptyCursor.png', 2, 16)
---font
+--fontss
 Rtitlefont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 100)
 Rbuttonfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 50)
 Rheadfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 20)
@@ -153,10 +153,8 @@ end
 
 
 function love.draw()
+    CursorDecision()
     --cg1:playCG()
-    --keep cursor 
-    love.mouse.setCursor(pointcursor)
-    Cursormode = 'normal'
 end
 
 
@@ -210,4 +208,18 @@ function addCollisionClass()
     world:addCollisionClass('Wall')
     world:addCollisionClass('Fregment', {ignores = {'Fregment'}})
     world:addCollisionClass('Hull')
+end
+
+function CursorDecision()
+    --keep cursor 
+    if Cursormode == 'button' then
+        love.mouse.setCursor(handcursor)
+    elseif Cursormode == 'Constructing' then
+        love.mouse.setCursor(emptycursor)
+    elseif Cursormode == 'firing' then
+        love.mouse.setCursor(sightcursor)
+    else
+        love.mouse.setCursor(pointcursor)
+    end
+    Cursormode = 'normal'
 end

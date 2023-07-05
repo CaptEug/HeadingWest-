@@ -50,7 +50,6 @@ function TankSpawner:drawtank()
 
         --decide cursor
         if tank.functions.move == ManualControlfunction then
-            love.mouse.setCursor(sightcursor)
             Cursormode = 'firing'
         end
 
