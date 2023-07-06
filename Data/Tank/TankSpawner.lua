@@ -26,7 +26,7 @@ function TankSpawner:loadtank(place, tank)
         
     end
     if tank.armor.type == 'ERA' then
-        tank.status.era[1] = true
+        tank.status.era = true
     end
     
     tank:CreatParticles()

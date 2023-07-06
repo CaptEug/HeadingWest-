@@ -146,16 +146,16 @@ end
 function TankStateDraw()
     --tank status update
     local s = 1
-    if TankChoosen.status.era[1] then
-        love.graphics.draw(TankChoosen.status.era[2], 0 + 16, 0 + 48*s)
+    if TankChoosen.status.era then
+        love.graphics.draw(ERA_icon, 0 + 16, 0 + 48*s)
         s = s + 1
     end
-    if TankChoosen.status.onfire[1] then
-        love.graphics.draw(TankChoosen.status.onfire[2], 0 + 16, 0 + 48*s)
+    if TankChoosen.status.onfire then
+        love.graphics.draw(Onfire_icon, 0 + 16, 0 + 48*s)
         s = s + 1
     end
-    if TankChoosen.status.immobilized[1] then
-        love.graphics.draw(TankChoosen.status.immobilized[2], 0 + 16, 0 + 48*s)
+    if TankChoosen.status.immobilized then
+        love.graphics.draw(Immobilized_icon, 0 + 16, 0 + 48*s)
         s = s + 1
     end
     -- Check if it's time to toggle the icon's visibility

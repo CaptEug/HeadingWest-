@@ -70,10 +70,10 @@ function Buildtank(place, tank, type, x, y)
         functions = {},
         Infobuttons = {},
         status = {
-            dead = {false},
-            onfire = {false, Onfire_icon},
-            immobilized = {false, Immobilized_icon},
-            era = {false, ERA_icon},
+            dead = false,
+            onfire = false,
+            immobilized = false,
+            era = false,
             penetrated = false
         },
         firing_time = tank.firing_time,
@@ -341,23 +341,23 @@ function Tank:FacePosition(x, y)
 end
 
 function Tank:CheckStatus(i, dt)
-    if self.status.era[1] then
+    if self.status.era then
         if self.armor.life <= 0 then
             self.armor.hull_image = Blank_line
             self.armor.turret_image = Blank_line
             self.armor.hull_image_line = Blank_line
             self.armor.turret_image_line = Blank_line
-            self.status.era[1] = false
+            self.status.era = false
         end
     end
 
-    if self.status.onfire[1] then
+    if self.status.onfire then
         self.particles.onfire:start()
     else
         self.particles.onfire:stop()
     end
 
-    if self.status.immobilized[1] or self.fuel == 0 then
+    if self.status.immobilized or self.fuel == 0 then
         self.mob.hp = 0
         self.particles.enginesmoke:stop()
     end
