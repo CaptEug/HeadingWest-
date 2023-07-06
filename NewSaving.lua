@@ -43,7 +43,13 @@ function NewSaving:SaveTanks()
             tankInfo.location = {}
             tankInfo.location.x, tankInfo.location.y = tank.location.x-tank.width/2, tank.location.y-tank.length/2
             tankInfo.location.hull_angle = tank.location.hull_angle
-            --tankInfo.status = tank.status
+            tankInfo.status = tank.status
+            for i, status in pairs(tankInfo.status) do
+                if type(status) ~="boolean" and #status>1 then
+                    status = table.remove(status,2)
+                end
+            end
+
             tankInfo.name = tank.name
             tankInfo.type = tank.type
             tankInfo.number = tank.number
@@ -58,11 +64,7 @@ function NewSaving:SaveTanks()
         city.tankData = tanks
         table.insert(tankData,city)
 
-    end --tankData[1].tankinfo
-
-    --[[tank: location, status, armor]]
-    --load: search tanklist, match name, spawn
-
+    end
     return tankData
 end
 
@@ -206,8 +208,8 @@ function NewSaving:LoadTanks()
 
         local name = data.name
         local tank = {}
-        for i, t in pairs(Tanks) do                 --match tank 
-            if t.name == name and t.accessories~=nil then
+        for i, t in pairs(Tanks) do                 --match default tank 
+            if t.name == name and t.accessories~=nil then               --match accessories
                 tank = Tanks[i]
                 for i, armor in pairs(tank.accessories[1]) do
                     if  data.armor==armor.name then
@@ -230,8 +232,13 @@ function NewSaving:LoadTanks()
                     end
                 end
             end
+
+
         end
-        Buildtank(CurrentPlace, tank, data.type, data.location.x, data.location.y)
+
+        
+
+        Buildtank(CurrentPlace, tank, data.type, data.location.x, data.location.y,data)
     end
 end
 
