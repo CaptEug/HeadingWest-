@@ -96,6 +96,14 @@ function cityUI:update(dt)
 end
 
 function cityUI:draw()
+    love.graphics.setFont(Rtextfont)
+    love.graphics.draw(Steel_icon, ww-128)
+    love.graphics.print(tostring(math.floor(Steel)), ww-96)
+    love.graphics.print('+'..SteelProduction, ww-96, 16)
+    love.graphics.draw(Oil_icon, ww-128, 32)
+    love.graphics.print(tostring(math.floor(Oil)), ww-96, 32)
+    love.graphics.print('+'..OilProduction, ww-96, 48)
+
     citybuttons.DefButtons:use()
     Console:draw()
     TankInfoPanel:draw()
