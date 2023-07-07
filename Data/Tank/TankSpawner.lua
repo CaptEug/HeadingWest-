@@ -26,8 +26,12 @@ function TankSpawner:loadtank(place, tank)
         tank.functions.move = MouseControlfunction
     end
     if tank.armor.type == 'ERA' then
+<<<<<<< HEAD
         tank.status.era[1] = true
 
+=======
+        tank.status.era = true
+>>>>>>> 70487b7973de5df7a3d6233e5e7d6db4ab740fc7
     end
     
     tank:CreatParticles()

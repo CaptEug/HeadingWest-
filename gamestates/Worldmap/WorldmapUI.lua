@@ -66,12 +66,12 @@ function WorldmapUI:draw()
     Worldmapbuttons.Wbuttons:use()
 
     love.graphics.setFont(Rtextfont)
-    love.graphics.draw(Steel_icon)
-    love.graphics.print(tostring(math.floor(Steel)), 32)
-    love.graphics.print('+'..SteelProduction, 32, 16)
-    love.graphics.draw(Oil_icon, 0, 32)
-    love.graphics.print(tostring(math.floor(Oil)), 32, 32)
-    love.graphics.print('+'..OilProduction, 32, 48)
+    love.graphics.draw(Steel_icon, ww-128)
+    love.graphics.print(tostring(math.floor(Steel)), ww-96)
+    love.graphics.print('+'..SteelProduction, ww-96, 16)
+    love.graphics.draw(Oil_icon, ww-128, 32)
+    love.graphics.print(tostring(math.floor(Oil)), ww-96, 32)
+    love.graphics.print('+'..OilProduction, ww-96, 48)
 
     if cam.scale >= 1.5 then
         for i, city in ipairs(Cities) do

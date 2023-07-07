@@ -78,7 +78,7 @@ function TankProjectiles:update(dt)
                 else
                     Clang:clone():play()
                 end
-                if Target.status.era[1] then
+                if Target.status.era then
                     Target.armor.life = Target.armor.life - 1
                 end
             end
@@ -278,34 +278,34 @@ function PenCheck(shell, Target, hitPart, hitArmorside, angle)
     if hitPart == 'Hull' then
         if hitArmorside == 'Front' then
             armorpart = Target.armorthickness.hull.front
-            if Target.status.era[1] then
+            if Target.status.era then
                 erapart = Target.armor.armorthickness.hull.front
             end
         elseif hitArmorside == 'Left' or hitArmorside == 'Right' then
             armorpart = Target.armorthickness.hull.side
-                if Target.status.era[1] then
+                if Target.status.era then
                     erapart = Target.armor.armorthickness.hull.side
                 end
         elseif hitArmorside == 'Back' then
             armorpart = Target.armorthickness.hull.back
-                if Target.status.era[1] then
+                if Target.status.era then
                     erapart = Target.armor.armorthickness.hull.back
                 end
         end
     elseif hitPart == 'Turret' then
         if hitArmorside == 'Front' then
             armorpart = Target.armorthickness.turret.front
-            if Target.status.era[1] then
+            if Target.status.era then
                 erapart = Target.armor.armorthickness.turret.front
             end
         elseif hitArmorside == 'Left' or hitArmorside == 'Right' then
             armorpart = Target.armorthickness.turret.side
-                if Target.status.era[1] then
+                if Target.status.era then
                     erapart = Target.armor.armorthickness.turret.side
                 end
         elseif hitArmorside == 'Back' then
             armorpart = Target.armorthickness.turret.back
-                if Target.status.era[1] then
+                if Target.status.era then
                     erapart = Target.armor.armorthickness.turret.back
                 end
         end
@@ -313,12 +313,12 @@ function PenCheck(shell, Target, hitPart, hitArmorside, angle)
 
     if pentype == 'KE' then
         armorthickness = armorpart[1]
-        if Target.status.era[1] then
+        if Target.status.era then
             erathickness = erapart[1]
         end
     elseif pentype == 'CE' then
         armorthickness = armorpart[2]
-        if Target.status.era[1] then
+        if Target.status.era then
             erathickness = erapart[2]
         end
     end
@@ -366,11 +366,11 @@ function DamageCheck(Target, penpart)
     else
         Killcrew(Target, crew)
         if math.random() <= engine then
-            Target.status.immobilized[1] = true
+            Target.status.immobilized = true
             table.insert(Datapool.hitmodule, 'engine')
         end
         if math.random() <= fuel then
-            Target.status.onfire[1] = true
+            Target.status.onfire = true
             table.insert(Datapool.hitmodule, 'fuel tank')
         end
     end
