@@ -44,18 +44,14 @@ function NewSaving:SaveTanks()
             tankInfo.location.x, tankInfo.location.y = tank.location.x-tank.width/2, tank.location.y-tank.length/2
             tankInfo.location.hull_angle = tank.location.hull_angle
             tankInfo.status = tank.status
-            for i, status in pairs(tankInfo.status) do
-                if type(status) ~="boolean" and #status>1 then
-                    status = table.remove(status,2)
-                end
-            end
-
             tankInfo.name = tank.name
             tankInfo.type = tank.type
             tankInfo.number = tank.number
             tankInfo.armor = tank.armor.name
             tankInfo.aim = tank.aim.name
             tankInfo.mob = tank.mob.name
+            tankInfo.crew = tank.crew
+            tankInfo.ammorack = tank.ammorack
             table.insert(tanks,tankInfo)
         end
 
@@ -232,13 +228,8 @@ function NewSaving:LoadTanks()
                     end
                 end
             end
-
-
         end
-
-        
-
-        Buildtank(CurrentPlace, tank, data.type, data.location.x, data.location.y,data)
+        Buildtank(CurrentPlace, tank, data.type, data.location.x, data.location.y, data.status)
     end
 end
 
