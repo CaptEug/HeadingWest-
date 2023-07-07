@@ -21,12 +21,15 @@ function TankInfoPanel:load()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
                 if tank ~= TankChoosen and tank.functions.move == ManualControlfunction then
                     tank.functions.move = AutoControlfunction
+                    tank.leader = false
                 end
             end
             if TankChoosen.functions.move ~= ManualControlfunction then
                 TankChoosen.functions.move = ManualControlfunction
+                TankChoosen.leader = true
             else
                 TankChoosen.functions.move = AutoControlfunction
+                TankChoosen.leader = false
             end
         end,
         TankInfoPanel.window,
@@ -54,6 +57,9 @@ function TankInfoPanel:update(dt)
         for n, button in ipairs(tank.Infobuttons) do
             button.bx, button.by = tank.image_location.x, tank.image_location.y
         end
+        if tank.picked == true and tank.leader ==  false then 
+            tank.functions.move = MouseControlfunction
+        end 
     end
     --blinkTimer update
     TankInfoPanel.blinkTimer = TankInfoPanel.blinkTimer + dt

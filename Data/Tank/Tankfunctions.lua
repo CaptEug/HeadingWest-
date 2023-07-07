@@ -80,6 +80,7 @@ function Buildtank(place, tank, type, x, y)
         firing_timer = 0,
         pen_timer = 0,
         picked = false,
+        leader = false,
         incomp = false,
         deployed = false
     }
@@ -97,6 +98,19 @@ function Buildtank(place, tank, type, x, y)
             end
         end
     end
+    if tanky.ammorack_size then
+        for i, ammo in ipairs(tanky.ammorack) do
+            ammo.add = nil
+            ammo.remove = nil
+        end
+    end
+    if tanky.missilerack_size then
+        for i, missile in ipairs(tanky.missilerack) do
+            missile.add = nil
+            missile.remove = nil
+        end
+    end
+    
     setmetatable(tanky, Tank)
     --Tank.__index = Tank
     table.insert(place.exsist_tank, tanky)
