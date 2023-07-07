@@ -11,11 +11,6 @@ function Console:load()
         Offence_icon,
         function ()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
-                if tank.picked and tank.type == 'friendly' and  tank.functions.move ~= MouseControlfunction then
-                    tank.functions.move = MouseControlfunction 
-                else  
-                    tank.functions.move = AutoControlfunction
-                end
             end
         end,
         Console.window,
