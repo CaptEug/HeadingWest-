@@ -16,7 +16,7 @@ function Shoot(tank)
     local round = tank.ammorack[1]
     local ix, iy = math.cos(tank.location.hull_angle+tank.turret_angle-math.pi/2),
                    math.sin(tank.location.hull_angle+tank.turret_angle-math.pi/2)
-    local shell = world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 1)
+    local shell = CurrentPlace.world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 1)
     shell:setCollisionClass(round.type)
     shell:setBullet(true)
     shell:setRestitution(0.5)
