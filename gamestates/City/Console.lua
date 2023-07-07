@@ -108,5 +108,12 @@ function SelectionMouseReleased(x, y, button)
                 end
             end
         end
+        for i, tank in ipairs(CurrentPlace.exsist_tank) do
+            if tank.picked == true then
+                tank.functions.move = MouseControlfunction
+            else
+                tank.functions.move = AutoControlfunction
+            end
+        end  
     end
 end

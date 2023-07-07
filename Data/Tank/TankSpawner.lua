@@ -23,7 +23,6 @@ function TankSpawner:loadtank(place, tank)
             tank.Infobuttons
             
         )
-        tank.functions.move = MouseControlfunction
     end
     if tank.armor.type == 'ERA' then
         tank.status.era = true
