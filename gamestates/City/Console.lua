@@ -106,6 +106,7 @@ function SelectionMouseReleased(x, y, button)
                     end
                 else
                     tank.picked = false
+                    tank.functions.move = AutoControlfunction
                 end
             end
         end
