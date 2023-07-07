@@ -129,10 +129,7 @@ Rbuttonfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 50)
 Rheadfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 20)
 Rtextfont = love.graphics.newFont('Assets/fonts/pixelfont.otf')
 
-Filenumber=1
-
-local mousex = 0
-local mousey = 0
+Filenumber = 1
 
 function love.load()
     Gamestate.registerEvents()
