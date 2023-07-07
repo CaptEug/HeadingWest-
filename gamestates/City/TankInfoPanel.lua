@@ -72,6 +72,7 @@ function TankInfoPanel:draw()
         if tank.picked then
             local x,y = cam:cameraCoords(tank.location.x, tank.location.y)
             love.graphics.draw(Picked_icon, x - 10, y  + 32*cam.scale)
+            tank.functions.move = MouseControlfunction
         end
     end
     if TankPanelopen then

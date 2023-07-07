@@ -102,13 +102,18 @@ function SelectionMouseReleased(x, y, button)
                 ((y > Selection.startY and y < Selection.endY) or (y < Selection.startY and y > Selection.endY)) then
                     if tank.type == 'friendly' then
                         tank.picked = true
-                        tank.functions.move = MouseControlfunction
                     end
                 else
                     tank.picked = false
-                    tank.functions.move = AutoControlfunction
                 end
             end
         end
+        for i, tank in ipairs(CurrentPlace.exsist_tank) do
+            if tank.picked == true then
+                tank.functions.move = MouseControlfunction
+            else
+                tank.functions.move = AutoControlfunction
+            end
+        end  
     end
 end
