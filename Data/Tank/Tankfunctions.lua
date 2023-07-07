@@ -2,7 +2,8 @@ Tank = {}
 Tank.__index = Tank
 
 
-function Buildtank(place, tank, type, x, y)
+function Buildtank(place, tank, type, x, y, ...)
+    local status = ...
     local tanky = {
         type = type,
         number = tostring(math.random(000,999)),
@@ -69,7 +70,8 @@ function Buildtank(place, tank, type, x, y)
         exhaust_location2 = {},
         functions = {},
         Infobuttons = {},
-        status = {
+        status = status or
+        {
             dead = false,
             onfire = false,
             immobilized = false,
