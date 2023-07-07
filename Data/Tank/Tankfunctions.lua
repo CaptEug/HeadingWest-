@@ -157,7 +157,7 @@ AutoControlfunction = function(tank, dt)
     local alert = false
     --enemy confirmation
     local enemy = {}
-    
+    tank.destination.x, tank.destination.y = tank.location.x, tank.location.y
     
 
     for i, target in ipairs(CurrentPlace.exsist_tank) do
@@ -198,7 +198,6 @@ MouseControlfunction = function(tank, dt)
     --enemy confirmation
     local enemy = {}
 
-
     
     if love.mouse.isDown(2) then
         tank.destination.x, tank.destination.y = cam:mousePosition()
@@ -215,15 +214,17 @@ MouseControlfunction = function(tank, dt)
                 tank.collider:applyForce(fx/3, fy/3)
             end
         end
-       
-        if tank.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.1 * math.pi then
-            tank.collider:applyTorque(-5*hp)
-        elseif  0 < tank.location.hull_angle - 0.5*math.pi - angle_to_mouse and tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi then
-            tank.collider:applyTorque(-1*hp)
-        elseif 0 > tank.location.hull_angle - 0.5*math.pi - angle_to_mouse and tank.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
-            tank.collider:applyTorque(1*hp)
-        elseif  tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < -0.1 * math.pi then
-            tank.collider:applyTorque(5*hp)
+
+        if distance_to_mouse >= 50 then
+            if tank.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.1 * math.pi then
+                tank.collider:applyTorque(-5*hp)
+            elseif  0 < tank.location.hull_angle - 0.5*math.pi - angle_to_mouse and tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi then
+                tank.collider:applyTorque(-1*hp)
+            elseif 0 > tank.location.hull_angle - 0.5*math.pi - angle_to_mouse and tank.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
+                tank.collider:applyTorque(1*hp)
+            elseif  tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < -0.1 * math.pi then
+                tank.collider:applyTorque(5*hp)
+        end
         end
     end
 
@@ -267,7 +268,7 @@ ManualControlfunction = function(tank, dt)
     local mx, my = cam:mousePosition()
     local isaim = tank:AimCheck(mx, my, dt)
     local vx, vy = tank.collider:getLinearVelocity()
-    local oppositeDirection = IsDirectionOpposite(vx, vy, tank.location.hull_angle - 0.5*math.pi)
+    tank.destination.x, tank.destination.y = tank.location.x, tank.location.y
 
     cam:lookAt(tank.location.x, tank.location.y)
 
@@ -277,17 +278,19 @@ ManualControlfunction = function(tank, dt)
     if not tank.deployed and love.keyboard.isDown('s') and speed <= max_r then
         tank.collider:applyForce(-fx, -fy)
     end
-    if not tank.deployed and love.keyboard.isDown('a') and oppositeDirection == false then
-        tank.collider:applyTorque(-5*hp)
+    if not tank.deployed and love.keyboard.isDown('a')  then
+        if love.keyboard.isDown('s') then
+            tank.collider:applyTorque(5*hp)
+        else
+            tank.collider:applyTorque(-5*hp)
+        end
     end
-    if not tank.deployed and love.keyboard.isDown('a') and oppositeDirection  then
-        tank.collider:applyTorque(5*hp)
-    end
-    if not tank.deployed and love.keyboard.isDown('d') and oppositeDirection == false then
-        tank.collider:applyTorque(5*hp)
-    end
-    if not tank.deployed and love.keyboard.isDown('d') and oppositeDirection then
-        tank.collider:applyTorque(-5*hp)
+    if not tank.deployed and love.keyboard.isDown('d')  then
+        if love.keyboard.isDown('s') then
+            tank.collider:applyTorque(-5*hp)
+        else
+            tank.collider:applyTorque(5*hp)
+        end
     end
 
     if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
