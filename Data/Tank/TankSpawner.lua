@@ -1,7 +1,7 @@
 TankSpawner = {}
 
 function TankSpawner:loadtank(place, tank)
-    tank.collider = world:newRectangleCollider(tank.location.x, tank.location.y, tank.width, tank.length)
+    tank.collider = place.world:newRectangleCollider(tank.location.x, tank.location.y, tank.width, tank.length)
     tank.collider:setCollisionClass('Hull')
     tank.collider:setObject(tank)
     tank.collider:setMass(tank.weight)

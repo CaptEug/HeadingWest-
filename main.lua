@@ -137,10 +137,8 @@ local mousey = 0
 function love.load()
     Gamestate.registerEvents()
     Gamestate.switch(MainMenu)
-    world = wf.newWorld(0, 0)
+    --world = wf.newWorld(0, 0)
     particleworld = wf.newWorld(0, 0)
-
-    addCollisionClass()
 
     NewSaving:LoadSettings()
 end
@@ -198,18 +196,6 @@ function DrawCountries()
     for i, country in pairs(Countries) do
         love.graphics.draw(country, 0, 0)
     end
-end
-
-function addCollisionClass()
-    world:addCollisionClass('APCBC')
-    world:addCollisionClass('HE')
-    world:addCollisionClass('HEAT')
-    world:addCollisionClass('APDS')
-    world:addCollisionClass('APFSDS')
-    world:addCollisionClass('ATGM')
-    world:addCollisionClass('Wall')
-    world:addCollisionClass('Fregment', {ignores = {'Fregment'}})
-    world:addCollisionClass('Hull')
 end
 
 function CursorDecision()

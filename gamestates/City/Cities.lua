@@ -15,6 +15,7 @@ Moskva.factory = false
 Moskva.labtory = true
 Moskva.state = 'Peace'
 Moskva.map = sti("Assets/maps/Testmap.lua")
+Moskva.world = wf.newWorld(0, 0)
 Moskva.Structure = {}
 Moskva.Obstacles = {}
 Moskva.constructurelist = {}
@@ -35,6 +36,7 @@ Nizhny_Tagil.factory = 'UVZ'
 Nizhny_Tagil.labtory = false
 Nizhny_Tagil.state = 'Peace'
 Nizhny_Tagil.map = sti("Assets/maps/UVZfac.lua")
+Nizhny_Tagil.world = wf.newWorld(0, 0)
 Nizhny_Tagil.Structure = {}
 Nizhny_Tagil.Obstacles = {}
 Nizhny_Tagil.tanklist = {}
@@ -93,11 +95,12 @@ Berlin.factory = false
 Berlin.labtory = true
 Berlin.state ='Battlefield'
 Berlin.map = sti("Assets/maps/checkpointC.lua")
+Berlin.world = wf.newWorld(0, 0)
 Berlin.Structure = {}
 Berlin.Obstacles = {}
-Berlin.exsist_tank={}
+Berlin.exsist_tank = {}
 Berlin.Army = {}
-Berlin.broken_tank={}
+Berlin.broken_tank = {}
 Berlin.exsist_building = {}
 
 
@@ -137,15 +140,23 @@ function Cities:playRadio(songlist)
 end
 
 function City:init()
+    self.world:addCollisionClass('APCBC')
+    self.world:addCollisionClass('HE')
+    self.world:addCollisionClass('HEAT')
+    self.world:addCollisionClass('APDS')
+    self.world:addCollisionClass('APFSDS')
+    self.world:addCollisionClass('ATGM')
+    self.world:addCollisionClass('Wall')
+    self.world:addCollisionClass('Fregment', {ignores = {'Fregment'}})
+    self.world:addCollisionClass('Hull')
     self:loadmap()
-
     cityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
     NewSaving:LoadTanks()
 end
 
 function City:update(dt)
-    world:update(dt)
+    self.world:update(dt)
     particleworld:update(dt)
     TankSpawner:update(dt)
     ConstructureSpawner:update(dt)
@@ -215,7 +226,7 @@ function City:draw()
         TankSpawner:drawtank()
         ConstructureSpawner:drawbuilding()
         self:DrawMapUp()
-        world:draw()
+        self.world:draw()
         particleworld:draw()
         TankProjectiles:draw()
         Missiles:draw()
@@ -229,7 +240,7 @@ function City:drawWithoutUI()
         self:DrawMapDown()
         TankSpawner:drawtank()
         self:DrawMapUp()
-        world:draw()
+        self.world:draw()
         particleworld:draw()
         TankProjectiles:draw()
         Missiles:draw()
@@ -239,7 +250,7 @@ end
 function City:loadmap()
     if self.map.layers['Structure'] then
         for i, j in pairs(self.map.layers['Structure'].objects) do
-            local Collider = world:newRectangleCollider(j.x, j.y, j.width, j.height)
+            local Collider = self.world:newRectangleCollider(j.x, j.y, j.width, j.height)
             Collider.width = j.width
             Collider.height = j.height
             Collider:setType('static')
@@ -250,7 +261,7 @@ function City:loadmap()
 
     if self.map.layers['Obstacles'] then
         for i, j in pairs(self.map.layers['Obstacles'].objects) do
-            local Collider = world:newRectangleCollider(j.x, j.y, j.width, j.height)
+            local Collider = self.world:newRectangleCollider(j.x, j.y, j.width, j.height)
             Collider.width = j.width
             Collider.height = j.height
             table.insert(self.Obstacles, Collider)
