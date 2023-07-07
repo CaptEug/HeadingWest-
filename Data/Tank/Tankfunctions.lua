@@ -119,6 +119,34 @@ function Buildtank(place, tank, type, x, y, ...)
     TankSpawner:loadtank(place, tanky)
 end
 
+CalculateAngleBetweenVectors = function(x1, y1, x2, y2)
+    local dotProduct = x1 * x2 + y1 * y2
+    local magnitude1 = math.sqrt(x1 * x1 + y1 * y1)
+    local magnitude2 = math.sqrt(x2 * x2 + y2 * y2)
+    local cosAngle = dotProduct / (magnitude1 * magnitude2)
+    local angle = math.acos(cosAngle)
+    return angle
+end
+
+IsDirectionOpposite = function(x_speed, y_speed, angle)
+    -- 将速度向量和角度向量归一化
+    local speedMagnitude = math.sqrt(x_speed * x_speed + y_speed * y_speed)
+    local normalizedXSpeed = x_speed / speedMagnitude
+    local normalizedYSpeed = y_speed / speedMagnitude
+    local angleVectorX = math.cos(angle)
+    local angleVectorY = math.sin(angle)
+
+    -- 计算夹角
+    local angleBetweenVectors = CalculateAngleBetweenVectors(normalizedXSpeed, normalizedYSpeed, angleVectorX, angleVectorY)
+
+    -- 判断夹角是否接近于 180 度（相反方向）
+    local tolerance = 0.5
+    local isOppositeDirection = math.abs(angleBetweenVectors - math.pi) < tolerance
+
+    return isOppositeDirection
+end
+
+
 AutoControlfunction = function(tank, dt)
     local hp = 50*tank.mob.hp*0.745
     local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
@@ -238,6 +266,8 @@ ManualControlfunction = function(tank, dt)
     local speed = tank.velocity.v/5
     local mx, my = cam:mousePosition()
     local isaim = tank:AimCheck(mx, my, dt)
+    local vx, vy = tank.collider:getLinearVelocity()
+    local oppositeDirection = IsDirectionOpposite(vx, vy, tank.location.hull_angle - 0.5*math.pi)
 
     cam:lookAt(tank.location.x, tank.location.y)
 
@@ -247,11 +277,17 @@ ManualControlfunction = function(tank, dt)
     if not tank.deployed and love.keyboard.isDown('s') and speed <= max_r then
         tank.collider:applyForce(-fx, -fy)
     end
-    if not tank.deployed and love.keyboard.isDown('a') then
+    if not tank.deployed and love.keyboard.isDown('a') and oppositeDirection == false then
         tank.collider:applyTorque(-5*hp)
     end
-    if not tank.deployed and love.keyboard.isDown('d') then
+    if not tank.deployed and love.keyboard.isDown('a') and oppositeDirection  then
         tank.collider:applyTorque(5*hp)
+    end
+    if not tank.deployed and love.keyboard.isDown('d') and oppositeDirection == false then
+        tank.collider:applyTorque(5*hp)
+    end
+    if not tank.deployed and love.keyboard.isDown('d') and oppositeDirection then
+        tank.collider:applyTorque(-5*hp)
     end
 
     if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
