@@ -60,7 +60,7 @@ function Explode(explosive)
     local n = 0
     while n < explosive.TNT_eq do
         local x, y = explosive:getPosition()
-        local fragment = world:newCircleCollider(x, y, 1)
+        local fragment = CurrentPlace.world:newCircleCollider(x, y, 1)
         fragment:setCollisionClass('Fregment')
         fragment:setBullet(true)
         fragment:setRestitution(0.5)
