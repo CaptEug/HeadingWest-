@@ -80,6 +80,7 @@ function Buildtank(place, tank, type, x, y)
         firing_timer = 0,
         pen_timer = 0,
         picked = false,
+        leader = false,
         incomp = false,
         deployed = false
     }
