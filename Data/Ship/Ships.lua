@@ -5,10 +5,6 @@ Tank_Grid = anim8.newGrid(288, 288, 288*7, 288*2)
 BigGunOpenFire = love.audio.newSource('Assets/audio/sound/DeathFlash.flac', 'static')
 AutoGunOpenFire = love.audio.newSource('Assets/audio/sound/synthetic_explosion_1.flac', 'static')
 
-
-
-
-
 Ships = {
     --USA
     Montana = {
@@ -16,6 +12,7 @@ Ships = {
         class = 'ship',
         width = 64, 
         length = 127,
+        turret_offset = 0,
         image_offset = 0,
         gun_offset = 150,
         main_turret_number = 2,

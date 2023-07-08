@@ -542,7 +542,7 @@ function Tank:Draw()
             local turret_x_start, turret_y_start = array[i][1] , array[i][2] 
             local turret_y = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + self.location.y
             local turret_x = turret_x_start * math.sin(hull_angle) - turret_y_start * math.cos(hull_angle) + self.location.x
-            self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144)    --draw turret/*+self.turret_offset*/
+            self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144+self.turret_offset)    --draw turret/*+self.turret_offset*/
             love.graphics.draw(self.aim.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
             love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
         end

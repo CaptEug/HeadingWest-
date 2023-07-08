@@ -5,6 +5,7 @@ citybuttons = {}
 require 'gamestates.city.cityUI'
 require 'gamestates/city/Mapdrawer'
 require 'Data.Tank.TankSpawner'
+require 'Data.Ship.ShipSpawner'
 require 'Data.Constructure.ConstructureSpawner'
 require 'gamestates.city.TimeToShoot'
 require 'gamestates/city/TimeToBomb'
@@ -25,6 +26,7 @@ function city:update(dt)
     world:update(dt)
     particleworld:update(dt)
     TankSpawner:update(dt)
+    ShipSpawner:update(dt)
     ConstructureSpawner:update(dt)
     TankProjectiles:update(dt)
     Missiles:update(dt)
