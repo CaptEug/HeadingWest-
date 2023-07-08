@@ -117,7 +117,7 @@ function Buildship(place, ship, type, x, y, ...)
     setmetatable(shipy, ship)
     --ship.__index = ship
     table.insert(place.exsist_ship, shipy)
-    shipSpawner:loadship(place, shipy)
+    ShipSpawner:loadship(place, shipy)
 end
 
 
@@ -300,7 +300,7 @@ function Ship:CheckStatus(i, dt)
     end
 
     if self.survivor <= 0 then
-        table.insert(CurrentPlace.broken_tank, table.remove(CurrentPlace.exsist_tank, i))
+        table.insert(CurrentPlace.broken_tank, table.remove(CurrentPlace.exsist_ship, i))
     end
 
     if self.status.penetrated then

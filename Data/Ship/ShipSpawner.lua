@@ -10,7 +10,7 @@ function ShipSpawner:loadship(place, ship)
     ship.collider:setInertia(500*ship.weight)
     ship.collider:setAngularDamping(5)
     ship.collider:setAngle(ship.location.hull_angle)
-    ship.functions.move = AutoControlfunction
+    ship.functions.move = MouseControlfunction
     if ship.type == 'friendly' then
         ship.Infobuttons = buttons.new()
         buttons.newCampicButton(
@@ -29,7 +29,7 @@ function ShipSpawner:loadship(place, ship)
 
     end
     
-    ship:CreatParticles()
+    --ship:CreatParticles()
 end
 
 function ShipSpawner:update(dt)
