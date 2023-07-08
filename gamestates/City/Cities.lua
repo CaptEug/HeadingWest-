@@ -20,6 +20,7 @@ Moskva.Structure = {}
 Moskva.Obstacles = {}
 Moskva.constructurelist = {}
 Moskva.exsist_tank = {}
+Moskva.exsist_ship = {}
 Moskva.exsist_building = {}
 Moskva.Army = {}
 Moskva.broken_tank={}
@@ -43,6 +44,7 @@ Nizhny_Tagil.tanklist = {}
 Nizhny_Tagil.constructurelist = {}
 Nizhny_Tagil.Army = {}
 Nizhny_Tagil.exsist_tank = {}
+Nizhny_Tagil.exsist_ship = {}
 Nizhny_Tagil.broken_tank = {}
 Nizhny_Tagil.exsist_building = {}
 Nizhny_Tagil.building_slot = 16
@@ -99,6 +101,7 @@ Berlin.world = wf.newWorld(0, 0)
 Berlin.Structure = {}
 Berlin.Obstacles = {}
 Berlin.exsist_tank = {}
+Berlin.exsist_ship = {}
 Berlin.Army = {}
 Berlin.broken_tank = {}
 Berlin.exsist_building = {}
@@ -152,6 +155,7 @@ function City:init()
     self:loadmap()
     cityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
+    --Buildship(CurrentPlace, Ships.Montana,'enemy', 1000, 1500)
     NewSaving:LoadTanks()
 end
 
@@ -159,6 +163,7 @@ function City:update(dt)
     self.world:update(dt)
     particleworld:update(dt)
     TankSpawner:update(dt)
+    ShipSpawner:update(dt)
     ConstructureSpawner:update(dt)
     TankProjectiles:update(dt)
     Missiles:update(dt)

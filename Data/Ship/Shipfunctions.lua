@@ -1,64 +1,64 @@
-Tank = {}
-Tank.__index = Tank
+Ship = {}
+Ship.__index = Ship
 
 
-function Buildtank(place, tank, type, x, y, ...)
+function Buildship(place, ship, type, x, y, ...)
     local status = ...
-    local tanky = {
+    local shipy = {
         type = type,
         number = tostring(math.random(000,999)),
-        name = tank.name,
-        class = tank.class,
-        width = tank.width,
-        length = tank.length,
-        weight = tank.weight,
-        crew = tank.crew,
-        survivor = tank.crew,
-        reload_time = tank.reload_time,
-        reload_timer = tank.reload_time,
-        m_reload_time = tank.m_reload_time or nil,
-        m_reload_timer = tank.m_reload_time or nil,
-        deploy_time = tank.deploy_time or nil,
+        name = ship.name,
+        class = ship.class,
+        width = ship.width,
+        length = ship.length,
+        weight = ship.weight,
+        crew = ship.crew,
+        survivor = ship.crew,
+        reload_time = ship.reload_time,
+        reload_timer = ship.reload_time,
+        m_reload_time = ship.m_reload_time or nil,
+        m_reload_timer = ship.m_reload_time or nil,
+        deploy_time = ship.deploy_time or nil,
         deploy_timer = -1,
-        fuel = tank.fuel_capacity,
-        fuel_capacity = tank.fuel_capacity,
-        fuel_cosumption = tank.fuel_cosumption,
-        ammorack_size = tank.ammorack_size,
-        ammorack = copytable(tank.ammorack or {}),
-        missilerack_size = tank.missilerack_size,
-        missilerack = copytable(tank.missilerack or {}),
-        armorthickness = tank.armorthickness,
-        innerstructure = tank.innerstructure,
-        max_f_speed = tank.max_f_speed,
-        max_r_speed = tank.max_r_speed,
-        turret_t_speed = tank.turret_t_speed,
-        turret_t_angle = tank.turret_t_angle or nil,
-        vision = tank.vision,
-        hull_image = tank.hull_image,
-        hull_image_line = tank.hull_image_line,
-        hull_image_broken = tank.hull_image_broken,
-        turret_image = tank.turret_image,
-        turret_image_line = tank.turret_image_line,
-        turret_image_broken = tank.turret_image_broken,
-        anime_sheet = tank.anime_sheet,
+        fuel = ship.fuel_capacity,
+        fuel_capacity = ship.fuel_capacity,
+        fuel_cosumption = ship.fuel_cosumption,
+        ammorack_size = ship.ammorack_size,
+        ammorack = copytable(ship.ammorack or {}),
+        missilerack_size = ship.missilerack_size,
+        missilerack = copytable(ship.missilerack or {}),
+        armorthickness = ship.armorthickness,
+        innerstructure = ship.innerstructure,
+        max_f_speed = ship.max_f_speed,
+        max_r_speed = ship.max_r_speed,
+        turret_t_speed = ship.turret_t_speed,
+        turret_t_angle = ship.turret_t_angle or nil,
+        vision = ship.vision,
+        hull_image = ship.hull_image,
+        hull_image_line = ship.hull_image_line,
+        hull_image_broken = ship.hull_image_broken,
+        turret_image = ship.turret_image,
+        turret_image_line = ship.turret_image_line,
+        turret_image_broken = ship.turret_image_broken,
+        anime_sheet = ship.anime_sheet,
         turret_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
         deploy_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
-        gun_sound = tank.gun_sound:clone(),
-        image_offset = tank.image_offset,
-        turret_offset = tank.turret_offset,
-        gun_offset = tank.gun_offset or nil,
-        luncher_offset = tank.luncher_offset or nil,
-        engine_offset = tank.engine_offset,
-        exhaust_offset = tank.exhaust_offset,
-        exhaust_offset2 = tank.exhaust_offset2 or nil,
-        exhaust_angle = tank.exhaust_angle,
-        exhaust_angle2 = tank.exhaust_angle2 or nil,
-        main_turret_offset = tank.main_turret_offset or nil,
+        gun_sound = ship.gun_sound:clone(),
+        image_offset = ship.image_offset,
+        turret_offset = ship.turret_offset,
+        gun_offset = ship.gun_offset or nil,
+        luncher_offset = ship.luncher_offset or nil,
+        engine_offset = ship.engine_offset,
+        exhaust_offset = ship.exhaust_offset,
+        exhaust_offset2 = ship.exhaust_offset2 or nil,
+        exhaust_angle = ship.exhaust_angle,
+        exhaust_angle2 = ship.exhaust_angle2 or nil,
+        main_turret_offset = ship.main_turret_offset or nil,
         turret_angle = 0,
-        armor = tank.armor or copytable(tank.accessories[1][tank.armor_num or 1] or Blank_Gear),
-        aim = tank.aim or copytable(tank.accessories[2][tank.aim_num or 1] or Blank_Gear),
-        mob = tank.mob or copytable(tank.accessories[3][tank.mob_num or 1] or Blank_Gear),
+        armor = ship.armor or copytable(ship.accessories[1][ship.armor_num or 1] or Blank_Gear),
+        aim = ship.aim or copytable(ship.accessories[2][ship.aim_num or 1] or Blank_Gear),
+        mob = ship.mob or copytable(ship.accessories[3][ship.mob_num or 1] or Blank_Gear),
         velocity = {vx = 0, vy = 0, v = 0},
         location = {x = x, y = y, hull_angle = 0},
         destination = {x = x, y = y},
@@ -79,7 +79,7 @@ function Buildtank(place, tank, type, x, y, ...)
             era = false,
             penetrated = false
         },
-        firing_time = tank.firing_time,
+        firing_time = ship.firing_time,
         firing_timer = 0,
         pen_timer = 0,
         picked = false,
@@ -88,150 +88,83 @@ function Buildtank(place, tank, type, x, y, ...)
         deployed = false
     }
     if type == 'enemy' then
-        while #tanky.ammorack < tanky.ammorack_size do
-            table.insert(tanky.ammorack, tank.ammunition[1])
+        while #shipy.ammorack < shipy.ammorack_size do
+            table.insert(shipy.ammorack, ship.ammunition[1])
         end
-        if tank.missilerack_size then
-            while #tanky.missilerack < tanky.missilerack_size do
-                for i, ammo in ipairs(tank.ammunition) do
+        if ship.missilerack_size then
+            while #shipy.missilerack < shipy.missilerack_size do
+                for i, ammo in ipairs(ship.ammunition) do
                     if ammo.type == 'ATGM' then
-                        table.insert(tanky.missilerack, ammo)
+                        table.insert(shipy.missilerack, ammo)
                     end
                 end
             end
         end
     end
-    if tanky.ammorack_size then
-        for i, ammo in ipairs(tanky.ammorack) do
+    if shipy.ammorack_size then
+        for i, ammo in ipairs(shipy.ammorack) do
             ammo.add = nil
             ammo.remove = nil
         end
     end
-    if tanky.missilerack_size then
-        for i, missile in ipairs(tanky.missilerack) do
+    if shipy.missilerack_size then
+        for i, missile in ipairs(shipy.missilerack) do
             missile.add = nil
             missile.remove = nil
         end
     end
     
-    setmetatable(tanky, Tank)
-    --Tank.__index = Tank
-    table.insert(place.exsist_tank, tanky)
-    TankSpawner:loadtank(place, tanky)
-end
-
-CalculateAngleBetweenVectors = function(x1, y1, x2, y2)
-    local dotProduct = x1 * x2 + y1 * y2
-    local magnitude1 = math.sqrt(x1 * x1 + y1 * y1)
-    local magnitude2 = math.sqrt(x2 * x2 + y2 * y2)
-    local cosAngle = dotProduct / (magnitude1 * magnitude2)
-    local angle = math.acos(cosAngle)
-    return angle
-end
-
-IsDirectionOpposite = function(x_speed, y_speed, angle)
-    -- 将速度向量和角度向量归一化
-    local speedMagnitude = math.sqrt(x_speed * x_speed + y_speed * y_speed)
-    local normalizedXSpeed = x_speed / speedMagnitude
-    local normalizedYSpeed = y_speed / speedMagnitude
-    local angleVectorX = math.cos(angle)
-    local angleVectorY = math.sin(angle)
-
-    -- 计算夹角
-    local angleBetweenVectors = CalculateAngleBetweenVectors(normalizedXSpeed, normalizedYSpeed, angleVectorX, angleVectorY)
-
-    -- 判断夹角是否接近于 180 度（相反方向）
-    local tolerance = 0.5
-    local isOppositeDirection = math.abs(angleBetweenVectors - math.pi) < tolerance
-
-    return isOppositeDirection
+    setmetatable(shipy, ship)
+    --ship.__index = ship
+    table.insert(place.exsist_ship, shipy)
+    ShipSpawner:loadship(place, shipy)
 end
 
 
-AutoControlfunction = function(tank, dt)
-    local hp = 50*tank.mob.hp*0.745
-    local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
-    local fy = hp*math.sin(tank.location.hull_angle - 0.5*math.pi)
-    local max_f = tank.max_f_speed
-    local max_r = math.abs(tank.max_r_speed)
-    local speed = tank.velocity.v/5
-    local alert = false
-    --enemy confirmation
-    local enemy = {}
-    tank.destination.x, tank.destination.y = tank.location.x, tank.location.y
-    
-
-    for i, target in ipairs(CurrentPlace.exsist_tank) do
-        if math.sqrt((target.location.x - tank.location.x)^2 + (target.location.y - tank.location.y)^2) < tank.vision then
-            if target.type ~= tank.type then
-                enemy = target
-                alert = true
-                break
-            end
-        end
-    end
-    if alert then
-        tank:FacePosition(enemy.location.x, enemy.location.y)
-        local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
-        if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
-            if tank.class == 'spg' then
-                if tank.deployed then
-                    Bomb(tank, enemy.location.x, enemy.location.y)
-                end
-            else
-                Shoot(tank)
-            end
-        end
-        if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
-            LaunchMissile(tank, enemy)
-        end
-    end
-end
-
-MouseControlfunction = function(tank, dt)
-    local hp = 50*tank.mob.hp*0.745
-    local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
-    local fy = hp*math.sin(tank.location.hull_angle - 0.5*math.pi)
-    local max_f = tank.max_f_speed
-    local max_r = math.abs(tank.max_r_speed)
-    local speed = tank.velocity.v/5
+MouseControlfunction = function(ship, dt)
+    local hp = 50*ship.mob.hp*0.745
+    local fx = hp*math.cos(ship.location.hull_angle - 0.5*math.pi)
+    local fy = hp*math.sin(ship.location.hull_angle - 0.5*math.pi)
+    local max_f = ship.max_f_speed
+    local max_r = math.abs(ship.max_r_speed)
+    local speed = ship.velocity.v/5
     local alert = false
     --enemy confirmation
     local enemy = {}
 
     
     if love.mouse.isDown(2) then
-        tank.destination.x, tank.destination.y = cam:mousePosition()
+        ship.destination.x, ship.destination.y = cam:mousePosition()
     end
 
 
-    if not tank.deployed and tank.destination.x ~= tank.location.x  then
-        local angle_to_mouse = math.atan2(tank.destination.y - tank.location.y, tank.destination.x - tank.location.x)
-        local distance_to_mouse = math.sqrt((tank.destination.x - tank.location.x)^2 + (tank.destination.y - tank.location.y)^2)
+    if not ship.deployed and ship.destination.x ~= ship.location.x  then
+        local angle_to_mouse = math.atan2(ship.destination.y - ship.location.y, ship.destination.x - ship.location.x)
+        local distance_to_mouse = math.sqrt((ship.destination.x - ship.location.x)^2 + (ship.destination.y - ship.location.y)^2)
         if distance_to_mouse >= 100 then
-            if tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi and tank.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
-                tank.collider:applyForce(fx, fy)
+            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
+                ship.collider:applyForce(fx, fy)
             else
-                tank.collider:applyForce(fx/3, fy/3)
+                ship.collider:applyForce(fx/3, fy/3)
             end
         end
 
         if distance_to_mouse >= 50 then
-            if tank.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.1 * math.pi then
-                tank.collider:applyTorque(-5*hp)
-            elseif  0 < tank.location.hull_angle - 0.5*math.pi - angle_to_mouse and tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi then
-                tank.collider:applyTorque(-1*hp)
-            elseif 0 > tank.location.hull_angle - 0.5*math.pi - angle_to_mouse and tank.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
-                tank.collider:applyTorque(1*hp)
-            elseif  tank.location.hull_angle - 0.5*math.pi - angle_to_mouse < -0.1 * math.pi then
-                tank.collider:applyTorque(5*hp)
+            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.1 * math.pi then
+                ship.collider:applyTorque(-5*hp)
+            elseif  0 < ship.location.hull_angle - 0.5*math.pi - angle_to_mouse and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi then
+                ship.collider:applyTorque(-1*hp)
+            elseif 0 > ship.location.hull_angle - 0.5*math.pi - angle_to_mouse and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
+                ship.collider:applyTorque(1*hp)
+            elseif  ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < -0.1 * math.pi then
+                ship.collider:applyTorque(5*hp)
         end
         end
     end
 
-    for i, target in ipairs(CurrentPlace.exsist_tank) do
-        if math.sqrt((target.location.x - tank.location.x)^2 + (target.location.y - tank.location.y)^2) < tank.vision then
-            if target.type ~= tank.type then
+    for i, target in ipairs(CurrentPlace.exsist_ship) do
+        if math.sqrt((target.location.x - ship.location.x)^2 + (target.location.y - ship.location.y)^2) < ship.vision then
+            if target.type ~= ship.type then
                 enemy = target
                 alert = true
                 break
@@ -239,76 +172,24 @@ MouseControlfunction = function(tank, dt)
         end
     end
     if alert then
-        tank:FacePosition(enemy.location.x, enemy.location.y)
-        local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
-        if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
-            if tank.class == 'spg' then
-                if tank.deployed then
-                    Bomb(tank, enemy.location.x, enemy.location.y)
+        ship:FacePosition(enemy.location.x, enemy.location.y)
+        local isaim = ship:AimCheck(enemy.location.x, enemy.location.y, dt)
+        if #ship.ammorack > 0 and isaim and ship.reload_timer <= 0 then
+            if ship.class == 'spg' then
+                if ship.deployed then
+                    Bomb(ship, enemy.location.x, enemy.location.y)
                 end
             else
-                Shoot(tank)
+                Shoot(ship)
             end
         end
-        if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
-            LaunchMissile(tank, enemy)
+        if #ship.missilerack > 0 and isaim and ship.m_reload_timer <= 0 then
+            LaunchMissile(ship, enemy)
         end
-    end
-    
-
-   
-end
-
-ManualControlfunction = function(tank, dt)
-    local hp = 50*tank.mob.hp*0.745
-    local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
-    local fy = hp*math.sin(tank.location.hull_angle - 0.5*math.pi)
-    local max_f = tank.max_f_speed
-    local max_r = math.abs(tank.max_r_speed)
-    local speed = tank.velocity.v/5
-    local mx, my = cam:mousePosition()
-    local isaim = tank:AimCheck(mx, my, dt)
-    local vx, vy = tank.collider:getLinearVelocity()
-    tank.destination.x, tank.destination.y = tank.location.x, tank.location.y
-
-    cam:lookAt(tank.location.x, tank.location.y)
-
-    if not tank.deployed and love.keyboard.isDown('w') and speed <= max_f then
-        tank.collider:applyForce(fx, fy)
-    end
-    if not tank.deployed and love.keyboard.isDown('s') and speed <= max_r then
-        tank.collider:applyForce(-fx, -fy)
-    end
-    if not tank.deployed and love.keyboard.isDown('a')  then
-        if love.keyboard.isDown('s') then
-            tank.collider:applyTorque(5*hp)
-        else
-            tank.collider:applyTorque(-5*hp)
-        end
-    end
-    if not tank.deployed and love.keyboard.isDown('d')  then
-        if love.keyboard.isDown('s') then
-            tank.collider:applyTorque(-5*hp)
-        else
-            tank.collider:applyTorque(5*hp)
-        end
-    end
-
-    if Cursormode == 'firing' and love.mouse.isDown(1) and #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
-        if tank.class == 'spg' then
-            if tank.deployed then
-                Bomb(tank, mx, my)
-            end
-        else
-            Shoot(tank)
-        end
-    end
-    if Cursormode == 'firing' and love.mouse.isDown(2) and #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
-        LaunchMissile(tank)
     end
 end
 
-function Tank:Setdeployed()
+function Ship:Setdeployed()
     if self.deployed then
         self.deploy_timer = -1
         self.deployed = false
@@ -317,7 +198,7 @@ function Tank:Setdeployed()
     end
 end
 
-function Tank:AimCheck(x, y, dt)
+function Ship:AimCheck(x, y, dt)
     local isaim = false
     local tx, ty = self.turret_location.x, self.turret_location.y
     local angle_to_target = math.atan2(y - ty, x - tx)
@@ -364,7 +245,7 @@ function Tank:AimCheck(x, y, dt)
     return isaim
 end
 
-function Tank:FacePosition(x, y)
+function Ship:FacePosition(x, y)
     local hp = 50*self.mob.hp*0.745
     local ha = self.location.hull_angle + math.pi/2
     local hx, hy = self.location.x, self.location.y
@@ -396,7 +277,7 @@ function Tank:FacePosition(x, y)
     end
 end
 
-function Tank:CheckStatus(i, dt)
+function Ship:CheckStatus(i, dt)
     if self.status.era then
         if self.armor.life <= 0 then
             self.armor.hull_image = Blank_line
@@ -419,7 +300,7 @@ function Tank:CheckStatus(i, dt)
     end
 
     if self.survivor <= 0 then
-        table.insert(CurrentPlace.broken_tank, table.remove(CurrentPlace.exsist_tank, i))
+        table.insert(CurrentPlace.broken_tank, table.remove(CurrentPlace.exsist_ship, i))
     end
 
     if self.status.penetrated then
@@ -431,7 +312,7 @@ function Tank:CheckStatus(i, dt)
     end
 end
 
-function Tank:Update(dt)
+function Ship:Update(dt)
     --location update
     local x,y = self.collider:getPosition()
     local hull_angle = self.collider:getAngle()
@@ -529,7 +410,7 @@ function Tank:Update(dt)
     self.turret_anime:update(dt)
 end
 
-function Tank:Draw()
+function Ship:Draw()
     local x, y = self.image_location.x, self.image_location.y
     local hull_angle = self.collider:getAngle() - math.pi/2
     local a = self.location.hull_angle
@@ -542,7 +423,7 @@ function Tank:Draw()
             local turret_x_start, turret_y_start = array[i][1] , array[i][2] 
             local turret_y = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + self.location.y
             local turret_x = turret_x_start * math.sin(hull_angle) - turret_y_start * math.cos(hull_angle) + self.location.x
-            self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144+self.turret_offset)    --draw turret/*+self.turret_offset*/
+            self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144)    --draw turret/*+self.turret_offset*/
             love.graphics.draw(self.aim.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
             love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
         end
@@ -554,18 +435,18 @@ function Tank:Draw()
     end
 end
 
-function Tank:DrawBrokenTank()
+function Ship:DrawBrokenship()
     local x, y = self.collider:getPosition()
     local a = self.collider:getAngle()
     love.graphics.draw(self.hull_image_broken,x,y,a,1,1,144,144)
     love.graphics.draw(self.turret_image_broken,x,y,a+self.turret_angle,1,1,144,144)
 end
 
-function Tank:Detonate()
+function Ship:Detonate()
     
 end
 
-function Tank:CreatParticles()
+function Ship:CreatParticles()
     self.particles = {
         muzzlesmoke = love.graphics.newParticleSystem(Smoke),
         enginesmoke = love.graphics.newParticleSystem(ExhaustGas),
@@ -598,7 +479,7 @@ function Tank:CreatParticles()
     self.particles.onfire:stop()
 end
 
-function Tank:ParticleUpdate(dt)
+function Ship:ParticleUpdate(dt)
     local ix, iy = math.cos(self.location.hull_angle+self.turret_angle-math.pi/2),
                     math.sin(self.location.hull_angle+self.turret_angle-math.pi/2)
     local hx, hy = math.cos(self.location.hull_angle+self.exhaust_angle), math.sin(self.location.hull_angle+self.exhaust_angle)
@@ -622,7 +503,7 @@ function Tank:ParticleUpdate(dt)
     self.particles.onfire:update(dt)
 end
 
-function Tank:ParticleDraw()
+function Ship:ParticleDraw()
     if self.firing_timer > 0 and self.firing_timer < 0.2 then
         self.particles.muzzlesmoke:start()
     end
