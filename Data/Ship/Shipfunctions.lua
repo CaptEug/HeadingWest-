@@ -135,10 +135,10 @@ Mouse_Controlfunction = function(ship, dt)
     local speedMagnitude = math.sqrt((ship.destination.x - ship.location.x)^2 + (ship.destination.y - ship.location.y)^2)
     local tx = ((ship.destination.x - ship.location.x) / speedMagnitude)*hp
     local ty = ((ship.destination.y - ship.location.y) / speedMagnitude)*hp
-    local sx = hp*math.cos(ship.location.hull_angle - 0.7*math.pi)
-    local sy = hp*math.sin(ship.location.hull_angle - 0.7*math.pi)
-    local rx = hp*math.cos(ship.location.hull_angle - 0.3*math.pi)
-    local ry = hp*math.sin(ship.location.hull_angle - 0.3*math.pi)
+    local sx = hp*math.cos(ship.location.hull_angle - 0.6*math.pi)
+    local sy = hp*math.sin(ship.location.hull_angle - 0.6*math.pi)
+    local rx = hp*math.cos(ship.location.hull_angle - 0.4*math.pi)
+    local ry = hp*math.sin(ship.location.hull_angle - 0.4*math.pi)
 
     
     if love.mouse.isDown(2) then
