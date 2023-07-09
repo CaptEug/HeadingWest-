@@ -132,6 +132,14 @@ Mouse_Controlfunction = function(ship, dt)
     --enemy confirmation
     local enemy = {}
 
+    local speedMagnitude = math.sqrt((ship.destination.x - ship.location.x)^2 + (ship.destination.y - ship.location.y)^2)
+    local tx = ((ship.destination.x - ship.location.x) / speedMagnitude)*hp
+    local ty = ((ship.destination.y - ship.location.y) / speedMagnitude)*hp
+    local sx = hp*math.cos(ship.location.hull_angle - 0.7*math.pi)
+    local sy = hp*math.sin(ship.location.hull_angle - 0.7*math.pi)
+    local rx = hp*math.cos(ship.location.hull_angle - 0.3*math.pi)
+    local ry = hp*math.sin(ship.location.hull_angle - 0.3*math.pi)
+
     
     if love.mouse.isDown(2) then
         ship.destination.x, ship.destination.y = cam:mousePosition()
@@ -141,24 +149,30 @@ Mouse_Controlfunction = function(ship, dt)
     if not ship.deployed and ship.destination.x ~= ship.location.x  then
         local angle_to_mouse = math.atan2(ship.destination.y - ship.location.y, ship.destination.x - ship.location.x)
         local distance_to_mouse = math.sqrt((ship.destination.x - ship.location.x)^2 + (ship.destination.y - ship.location.y)^2)
-        if distance_to_mouse >= 100 then
-            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
-                ship.collider:applyForce(fx, fy)
-            else
-                ship.collider:applyForce(fx/3, fy/3)
-            end
-        end
+        -- if distance_to_mouse >= 100 then
+        --     if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
+        --         ship.collider:applyForce(fx, fy)
+        --     else
+        --         ship.collider:applyForce(fx/3, fy/3)
+        --     end
+        -- end
 
-        if distance_to_mouse >= 50 then
-            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.1 * math.pi then
-                ship.collider:applyTorque(-5*hp)
-            elseif  0 < ship.location.hull_angle - 0.5*math.pi - angle_to_mouse and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi then
+        if distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi then
+            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
+                ship.collider:applyForce(tx, ty)
                 ship.collider:applyTorque(-1*hp)
-            elseif 0 > ship.location.hull_angle - 0.5*math.pi - angle_to_mouse and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
+            else
+                ship.collider:applyForce(tx, ty)
                 ship.collider:applyTorque(1*hp)
-            elseif  ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < -0.1 * math.pi then
-                ship.collider:applyTorque(5*hp)
-        end
+            end
+        elseif distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.2 * math.pi then
+            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
+                ship.collider:applyForce(sx, sy)
+                ship.collider:applyTorque(-3*hp)
+            else
+                ship.collider:applyForce(rx, ry)
+                ship.collider:applyTorque(3*hp)
+            end
         end
     end
 
@@ -375,9 +389,7 @@ function Ship:Update(dt)
     if self.m_reload_timer then
         self.m_reload_timer = self.m_reload_timer - dt
     end
-    if self.class == 'spg' then
-        self.deploy_timer = self.deploy_timer - dt
-    end
+    
 
     --functions update
     self.functions.move(self,dt)
@@ -412,7 +424,7 @@ end
 
 function Ship:Draw()
     local x, y = self.image_location.x, self.image_location.y
-    local hull_angle = self.collider:getAngle() - math.pi/2
+    local hull_angle = self.collider:getAngle()
     local a = self.location.hull_angle
     local array = self.main_turret_offset
     love.graphics.draw(self.hull_image,x,y,a,1,1,144,144)
@@ -421,8 +433,8 @@ function Ship:Draw()
         local rows = #array
         for i = 1, rows do
             local turret_x_start, turret_y_start = array[i][1] , array[i][2] 
-            local turret_y = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + self.location.y
-            local turret_x = turret_x_start * math.sin(hull_angle) - turret_y_start * math.cos(hull_angle) + self.location.x
+            local turret_y = turret_y_start * math.cos(hull_angle) + turret_x_start * math.sin(hull_angle) + self.location.y
+            local turret_x = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + self.location.x
             self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144)    --draw turret/*+self.turret_offset*/
             love.graphics.draw(self.aim.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
             love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
