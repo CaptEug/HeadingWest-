@@ -51,7 +51,7 @@ function NewSaving:SaveTanks()
             tankInfo.aim = tank.aim.name
             tankInfo.mob = tank.mob.name
             tankInfo.crew = tank.crew
-            tankInfo.ammorack = tank.ammorack
+            tankInfo.ammorack = self:ScanAmmo(tank.ammorack)
             table.insert(tanks,tankInfo)
         end
 
@@ -231,6 +231,25 @@ function NewSaving:LoadTanks()
         end
         Buildtank(CurrentPlace, tank, data.type, data.location.x, data.location.y, data.status)
     end
+end
+
+function NewSaving:ScanAmmo(ammorack)
+    local ammos = {}
+    for i, ammo in pairs(ammorack) do
+        local match = false
+        for j, a in pairs(ammos) do      --search name, match
+            if ammo.name == a.name then
+                match = true
+                a.number = a.number +1
+            end
+        end
+        if match == false and ammo ~= nil then
+            local amm = copytable(ammo)
+            amm.number = 1
+            table.insert(ammos,amm)
+        end
+    end
+    return ammos
 end
 
 --[[function NewSaving:Loadtank(place, tank, data, type, x, y)
