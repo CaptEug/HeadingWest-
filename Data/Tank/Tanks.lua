@@ -6,7 +6,7 @@ BigGunOpenFire = love.audio.newSource('Assets/audio/sound/DeathFlash.flac', 'sta
 AutoGunOpenFire = love.audio.newSource('Assets/audio/sound/synthetic_explosion_1.flac', 'static')
 
 Tanks = {
-    --USSR
+    --USSR--
     T72A = {
         name = 'T-72a',
         class = 'tank',
@@ -816,5 +816,5 @@ table.insert(Nizhny_Tagil.tanklist, Tanks.T72B)
 table.insert(Nizhny_Tagil.tanklist, Tanks.T90)
 table.insert(Nizhny_Tagil.tanklist, IFVs.BMP2)
 table.insert(Nizhny_Tagil.tanklist, SPGs.Pion2S7)
-table.insert(Nizhny_Tagil.tanklist, Ships.Montana)
+--table.insert(Nizhny_Tagil.tanklist, Ships.Montana)
 table.insert(Nizhny_Tagil.tanklist, Tanks.M1)

@@ -29,7 +29,7 @@ function ShipSpawner:loadship(place, ship)
 
     end
     
-    --ship:CreatParticles()
+    ship:CreatParticles()
 end
 
 function ShipSpawner:update(dt)
@@ -56,7 +56,7 @@ function ShipSpawner:drawship()
         --draw vision circle
         love.graphics.circle("line", ship.location.x, ship.location.y, ship.vision)
     end
-    for i, ship in ipairs(CurrentPlace.broken_ship) do
+    for i, ship in ipairs(CurrentPlace.broken_tank) do
         ship:DrawBrokenShip()
     end
 end
