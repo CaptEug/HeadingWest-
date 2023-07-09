@@ -155,7 +155,7 @@ function City:init()
     self:loadmap()
     cityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
-    Buildship(CurrentPlace, Ships.Montana,'enemy', 1000, 1500)
+    Buildship(CurrentPlace, Ships.Atlanta,'enemy', 1000, 1500)
     NewSaving:LoadTanks()
 end
 

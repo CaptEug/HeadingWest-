@@ -114,14 +114,14 @@ function Buildship(place, ship, type, x, y, ...)
         end
     end
     
-    setmetatable(shipy, ship)
+    setmetatable(shipy, Ship)
     --ship.__index = ship
     table.insert(place.exsist_ship, shipy)
     ShipSpawner:loadship(place, shipy)
 end
 
 
-MouseControlfunction = function(ship, dt)
+Mouse_Controlfunction = function(ship, dt)
     local hp = 50*ship.mob.hp*0.745
     local fx = hp*math.cos(ship.location.hull_angle - 0.5*math.pi)
     local fy = hp*math.sin(ship.location.hull_angle - 0.5*math.pi)
@@ -132,6 +132,14 @@ MouseControlfunction = function(ship, dt)
     --enemy confirmation
     local enemy = {}
 
+    local speedMagnitude = math.sqrt((ship.destination.x - ship.location.x)^2 + (ship.destination.y - ship.location.y)^2)
+    local tx = ((ship.destination.x - ship.location.x) / speedMagnitude)*hp
+    local ty = ((ship.destination.y - ship.location.y) / speedMagnitude)*hp
+    local sx = hp*math.cos(ship.location.hull_angle - 0.6*math.pi)
+    local sy = hp*math.sin(ship.location.hull_angle - 0.6*math.pi)
+    local rx = hp*math.cos(ship.location.hull_angle - 0.4*math.pi)
+    local ry = hp*math.sin(ship.location.hull_angle - 0.4*math.pi)
+
     
     if love.mouse.isDown(2) then
         ship.destination.x, ship.destination.y = cam:mousePosition()
@@ -141,24 +149,30 @@ MouseControlfunction = function(ship, dt)
     if not ship.deployed and ship.destination.x ~= ship.location.x  then
         local angle_to_mouse = math.atan2(ship.destination.y - ship.location.y, ship.destination.x - ship.location.x)
         local distance_to_mouse = math.sqrt((ship.destination.x - ship.location.x)^2 + (ship.destination.y - ship.location.y)^2)
-        if distance_to_mouse >= 100 then
-            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
-                ship.collider:applyForce(fx, fy)
-            else
-                ship.collider:applyForce(fx/3, fy/3)
-            end
-        end
+        -- if distance_to_mouse >= 100 then
+        --     if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
+        --         ship.collider:applyForce(fx, fy)
+        --     else
+        --         ship.collider:applyForce(fx/3, fy/3)
+        --     end
+        -- end
 
-        if distance_to_mouse >= 50 then
-            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.1 * math.pi then
-                ship.collider:applyTorque(-5*hp)
-            elseif  0 < ship.location.hull_angle - 0.5*math.pi - angle_to_mouse and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi then
+        if distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi then
+            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
+                ship.collider:applyForce(tx, ty)
                 ship.collider:applyTorque(-1*hp)
-            elseif 0 > ship.location.hull_angle - 0.5*math.pi - angle_to_mouse and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
+            else
+                ship.collider:applyForce(tx, ty)
                 ship.collider:applyTorque(1*hp)
-            elseif  ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < -0.1 * math.pi then
-                ship.collider:applyTorque(5*hp)
-        end
+            end
+        elseif distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.2 * math.pi then
+            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
+                ship.collider:applyForce(sx, sy)
+                ship.collider:applyTorque(-3*hp)
+            else
+                ship.collider:applyForce(rx, ry)
+                ship.collider:applyTorque(3*hp)
+            end
         end
     end
 
@@ -375,9 +389,7 @@ function Ship:Update(dt)
     if self.m_reload_timer then
         self.m_reload_timer = self.m_reload_timer - dt
     end
-    if self.class == 'spg' then
-        self.deploy_timer = self.deploy_timer - dt
-    end
+    
 
     --functions update
     self.functions.move(self,dt)
@@ -412,7 +424,7 @@ end
 
 function Ship:Draw()
     local x, y = self.image_location.x, self.image_location.y
-    local hull_angle = self.collider:getAngle() - math.pi/2
+    local hull_angle = self.collider:getAngle()
     local a = self.location.hull_angle
     local array = self.main_turret_offset
     love.graphics.draw(self.hull_image,x,y,a,1,1,144,144)
@@ -421,8 +433,8 @@ function Ship:Draw()
         local rows = #array
         for i = 1, rows do
             local turret_x_start, turret_y_start = array[i][1] , array[i][2] 
-            local turret_y = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + self.location.y
-            local turret_x = turret_x_start * math.sin(hull_angle) - turret_y_start * math.cos(hull_angle) + self.location.x
+            local turret_y = turret_y_start * math.cos(hull_angle) + turret_x_start * math.sin(hull_angle) + self.location.y
+            local turret_x = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + self.location.x
             self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144)    --draw turret/*+self.turret_offset*/
             love.graphics.draw(self.aim.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
             love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
@@ -435,94 +447,94 @@ function Ship:Draw()
     end
 end
 
-function Ship:DrawBrokenship()
-    local x, y = self.collider:getPosition()
-    local a = self.collider:getAngle()
-    love.graphics.draw(self.hull_image_broken,x,y,a,1,1,144,144)
-    love.graphics.draw(self.turret_image_broken,x,y,a+self.turret_angle,1,1,144,144)
-end
+-- function Ship:DrawBrokenship()
+--     local x, y = self.collider:getPosition()
+--     local a = self.collider:getAngle()
+--     love.graphics.draw(self.hull_image_broken,x,y,a,1,1,144,144)
+--     love.graphics.draw(self.turret_image_broken,x,y,a+self.turret_angle,1,1,144,144)
+-- end
 
 function Ship:Detonate()
     
 end
 
-function Ship:CreatParticles()
-    self.particles = {
-        muzzlesmoke = love.graphics.newParticleSystem(Smoke),
-        enginesmoke = love.graphics.newParticleSystem(ExhaustGas),
-        onfire = love.graphics.newParticleSystem(Fire),
-    }
-    self.particles.muzzlesmoke:setEmitterLifetime(1.5)
-    self.particles.muzzlesmoke:setParticleLifetime(2)
-	self.particles.muzzlesmoke:setEmissionRate(50)
-	self.particles.muzzlesmoke:setSizeVariation(0.5)
-    self.particles.muzzlesmoke:setSizes(0.2, 1)
-    self.particles.muzzlesmoke:setLinearDamping(5)
-	self.particles.muzzlesmoke:setColors(1, 1, 1, 1, 1, 1, 1, 0)
-    self.particles.muzzlesmoke:stop()
+-- function Ship:CreatParticles()
+--     self.particles = {
+--         muzzlesmoke = love.graphics.newParticleSystem(Smoke),
+--         enginesmoke = love.graphics.newParticleSystem(ExhaustGas),
+--         onfire = love.graphics.newParticleSystem(Fire),
+--     }
+--     self.particles.muzzlesmoke:setEmitterLifetime(1.5)
+--     self.particles.muzzlesmoke:setParticleLifetime(2)
+-- 	self.particles.muzzlesmoke:setEmissionRate(50)
+-- 	self.particles.muzzlesmoke:setSizeVariation(0.5)
+--     self.particles.muzzlesmoke:setSizes(0.2, 1)
+--     self.particles.muzzlesmoke:setLinearDamping(5)
+-- 	self.particles.muzzlesmoke:setColors(1, 1, 1, 1, 1, 1, 1, 0)
+--     self.particles.muzzlesmoke:stop()
 
-    self.particles.enginesmoke:setParticleLifetime(0.5)
-	self.particles.enginesmoke:setSizeVariation(0.5)
-    self.particles.enginesmoke:setSizes(0.4, 1)
-    self.particles.enginesmoke:setLinearDamping(5)
-	self.particles.enginesmoke:setColors(1, 1, 1, 1, 1, 1, 1, 0)
-    if self.exhaust_offset2 then
-        self.particles.enginesmoke2 = self.particles.enginesmoke:clone()
-    end
+--     self.particles.enginesmoke:setParticleLifetime(0.5)
+-- 	self.particles.enginesmoke:setSizeVariation(0.5)
+--     self.particles.enginesmoke:setSizes(0.4, 1)
+--     self.particles.enginesmoke:setLinearDamping(5)
+-- 	self.particles.enginesmoke:setColors(1, 1, 1, 1, 1, 1, 1, 0)
+--     if self.exhaust_offset2 then
+--         self.particles.enginesmoke2 = self.particles.enginesmoke:clone()
+--     end
 
-    self.particles.onfire:setParticleLifetime(1)
-	self.particles.onfire:setEmissionRate(50)
-	self.particles.onfire:setSizeVariation(1)
-    self.particles.onfire:setSizes(0.2, 1)
-    self.particles.onfire:setLinearDamping(5)
-	self.particles.onfire:setColors(1, 1, 1, 1, 1, 0.2, 0, 1, 0, 0, 0, 0)
-    self.particles.onfire:stop()
-end
+--     self.particles.onfire:setParticleLifetime(1)
+-- 	self.particles.onfire:setEmissionRate(50)
+-- 	self.particles.onfire:setSizeVariation(1)
+--     self.particles.onfire:setSizes(0.2, 1)
+--     self.particles.onfire:setLinearDamping(5)
+-- 	self.particles.onfire:setColors(1, 1, 1, 1, 1, 0.2, 0, 1, 0, 0, 0, 0)
+--     self.particles.onfire:stop()
+-- end
 
-function Ship:ParticleUpdate(dt)
-    local ix, iy = math.cos(self.location.hull_angle+self.turret_angle-math.pi/2),
-                    math.sin(self.location.hull_angle+self.turret_angle-math.pi/2)
-    local hx, hy = math.cos(self.location.hull_angle+self.exhaust_angle), math.sin(self.location.hull_angle+self.exhaust_angle)
-    self.particles.muzzlesmoke:setPosition(self.gun_location.x + 4*math.sin(self.location.hull_angle+self.turret_angle),
-                                           self.gun_location.y - 4*math.cos(self.location.hull_angle+self.turret_angle))
-	self.particles.muzzlesmoke:setLinearAcceleration(150*ix+math.random(-30,30), 150*iy+math.random(-30,30))
-    self.particles.muzzlesmoke:update(dt)
+-- function Ship:ParticleUpdate(dt)
+--     local ix, iy = math.cos(self.location.hull_angle+self.turret_angle-math.pi/2),
+--                     math.sin(self.location.hull_angle+self.turret_angle-math.pi/2)
+--     local hx, hy = math.cos(self.location.hull_angle+self.exhaust_angle), math.sin(self.location.hull_angle+self.exhaust_angle)
+--     self.particles.muzzlesmoke:setPosition(self.gun_location.x + 4*math.sin(self.location.hull_angle+self.turret_angle),
+--                                            self.gun_location.y - 4*math.cos(self.location.hull_angle+self.turret_angle))
+-- 	self.particles.muzzlesmoke:setLinearAcceleration(150*ix+math.random(-30,30), 150*iy+math.random(-30,30))
+--     self.particles.muzzlesmoke:update(dt)
 
-    self.particles.enginesmoke:setPosition(self.exhaust_location.x, self.exhaust_location.y)
-    self.particles.enginesmoke:setLinearAcceleration(150*hx+math.random(-50,50), 150*hy+math.random(-50,50))
-    self.particles.enginesmoke:update(dt)
-    if self.exhaust_offset2 then
-        local hx2, hy2 = math.cos(self.location.hull_angle+self.exhaust_angle2), math.sin(self.location.hull_angle+self.exhaust_angle2)
-        self.particles.enginesmoke2:setPosition(self.exhaust_location2.x, self.exhaust_location2.y)
-        self.particles.enginesmoke2:setLinearAcceleration(150*hx2+math.random(-50,50), 150*hy2+math.random(-50,50))
-        self.particles.enginesmoke2:update(dt)
-    end
+--     self.particles.enginesmoke:setPosition(self.exhaust_location.x, self.exhaust_location.y)
+--     self.particles.enginesmoke:setLinearAcceleration(150*hx+math.random(-50,50), 150*hy+math.random(-50,50))
+--     self.particles.enginesmoke:update(dt)
+--     if self.exhaust_offset2 then
+--         local hx2, hy2 = math.cos(self.location.hull_angle+self.exhaust_angle2), math.sin(self.location.hull_angle+self.exhaust_angle2)
+--         self.particles.enginesmoke2:setPosition(self.exhaust_location2.x, self.exhaust_location2.y)
+--         self.particles.enginesmoke2:setLinearAcceleration(150*hx2+math.random(-50,50), 150*hy2+math.random(-50,50))
+--         self.particles.enginesmoke2:update(dt)
+--     end
 
-    self.particles.onfire:setPosition(self.engine_location.x + math.random(-3,3), self.engine_location.y + math.random(-3,3))
-    self.particles.onfire:setLinearAcceleration(50, 50, -50, -50)
-    self.particles.onfire:update(dt)
-end
+--     self.particles.onfire:setPosition(self.engine_location.x + math.random(-3,3), self.engine_location.y + math.random(-3,3))
+--     self.particles.onfire:setLinearAcceleration(50, 50, -50, -50)
+--     self.particles.onfire:update(dt)
+-- end
 
-function Ship:ParticleDraw()
-    if self.firing_timer > 0 and self.firing_timer < 0.2 then
-        self.particles.muzzlesmoke:start()
-    end
-    love.graphics.draw(self.particles.muzzlesmoke)
+-- function Ship:ParticleDraw()
+--     if self.firing_timer > 0 and self.firing_timer < 0.2 then
+--         self.particles.muzzlesmoke:start()
+--     end
+--     love.graphics.draw(self.particles.muzzlesmoke)
 
-    if self.velocity.v > 5 or math.abs(self.collider:getAngularVelocity()) > 0 then
-        self.particles.enginesmoke:setEmissionRate(50)
-        if self.exhaust_offset2 then
-            self.particles.enginesmoke2:setEmissionRate(50)
-        end
-    else
-        self.particles.enginesmoke:setEmissionRate(10)
-        if self.exhaust_offset2 then
-            self.particles.enginesmoke2:setEmissionRate(10)
-        end
-    end
-    love.graphics.draw(self.particles.enginesmoke)
-    if self.exhaust_offset2 then
-        love.graphics.draw(self.particles.enginesmoke2)
-    end
-    love.graphics.draw(self.particles.onfire)
-end
+--     if self.velocity.v > 5 or math.abs(self.collider:getAngularVelocity()) > 0 then
+--         self.particles.enginesmoke:setEmissionRate(50)
+--         if self.exhaust_offset2 then
+--             self.particles.enginesmoke2:setEmissionRate(50)
+--         end
+--     else
+--         self.particles.enginesmoke:setEmissionRate(10)
+--         if self.exhaust_offset2 then
+--             self.particles.enginesmoke2:setEmissionRate(10)
+--         end
+--     end
+--     love.graphics.draw(self.particles.enginesmoke)
+--     if self.exhaust_offset2 then
+--         love.graphics.draw(self.particles.enginesmoke2)
+--     end
+--     love.graphics.draw(self.particles.onfire)
+-- end
