@@ -204,8 +204,9 @@ function NewSaving:LoadTanks()
 
         local name = data.name
         local tank = {}
+        local ammorack = {}
         for i, t in pairs(Tanks) do                 --match default tank 
-            if t.name == name and t.accessories~=nil then               --match accessories
+            if t.name == name and t.accessories ~= nil then               --match accessories
                 tank = Tanks[i]
                 for i, armor in pairs(tank.accessories[1]) do
                     if  data.armor==armor.name then
@@ -229,6 +230,18 @@ function NewSaving:LoadTanks()
                 end
             end
         end
+
+        for i, ammo in pairs(data.ammorack) do
+            for j = 1, ammo.number, 1 do
+                local a = copytable(ammo)
+                a.number = nil
+                table.insert(ammorack,a)
+            end
+        end
+        tank.ammorack = ammorack
+        tank.crew = data.crew
+
+
         Buildtank(CurrentPlace, tank, data.type, data.location.x, data.location.y, data.status)
     end
 end
