@@ -1,8 +1,6 @@
 require "ExampleSaving"
 
-NewSaving = {
-    
-}
+NewSaving = {}
 
 function NewSaving:CreateFile(Number)
 
