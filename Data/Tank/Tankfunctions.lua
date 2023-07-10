@@ -5,7 +5,7 @@ Tank.__index = Tank
 function Buildtank(place, tank, type, x, y, ...)
     local tanky = {
         type = tank.type or type,
-        number = tostring(math.random(000,999)),
+        number = tank.number or tostring(math.random(000,999)),
         name = tank.name,
         class = tank.class,
         width = tank.width,
