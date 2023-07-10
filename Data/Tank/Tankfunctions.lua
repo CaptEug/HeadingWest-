@@ -60,7 +60,7 @@ function Buildtank(place, tank, type, x, y, ...)
         aim = tank.aim or copytable(tank.accessories[2][tank.aim_num or 1] or Blank_Gear),
         mob = tank.mob or copytable(tank.accessories[3][tank.mob_num or 1] or Blank_Gear),
         velocity = {vx = 0, vy = 0, v = 0},
-        location = {x = x, y = y, hull_angle = 0},
+        location = tank.location or {x = x, y = y, hull_angle = 0},
         destination = {x = x, y = y},
         image_location = {},
         turret_location = {},
@@ -71,7 +71,7 @@ function Buildtank(place, tank, type, x, y, ...)
         exhaust_location2 = {},
         functions = {},
         Infobuttons = {},
-        status = status or
+        status = tank.status or
         {
             dead = false,
             onfire = false,

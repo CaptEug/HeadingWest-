@@ -230,7 +230,6 @@ function NewSaving:LoadTanks()
                 end
             end
         end
-
         for i, ammo in pairs(data.ammorack) do
             for j = 1, ammo.number, 1 do
                 local a = copytable(ammo)
@@ -240,9 +239,10 @@ function NewSaving:LoadTanks()
         end
         tank.ammorack = ammorack
         tank.crew = data.crew
-
-
-        Buildtank(CurrentPlace, tank, data.type, data.location.x, data.location.y, data.status)
+        tank.number = data.number
+        tank.status = data.status
+        tank.location = data.location
+        Buildtank(CurrentPlace, tank, data.type, data.location.x, data.location.y)
     end
 end
 
