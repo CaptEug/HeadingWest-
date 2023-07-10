@@ -55,10 +55,10 @@ function NewSaving:SaveTanks()
             table.insert(tanks,tankInfo)
         end
 
-        local city = {}
-        city.cityName = cityName
-        city.tankData = tanks
-        table.insert(tankData,city)
+        local citydata = {}
+        citydata.cityName = cityName
+        citydata.tankData = tanks
+        table.insert(tankData,citydata)
 
     end
     return tankData
