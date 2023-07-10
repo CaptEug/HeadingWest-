@@ -242,7 +242,8 @@ function NewSaving:LoadTanks()
         tank.number = data.number
         tank.status = data.status
         tank.location = data.location
-        Buildtank(CurrentPlace, tank, data.type, data.location.x, data.location.y)
+        tank.type = data.type
+        Buildtank(CurrentPlace, tank)
     end
 end
 
