@@ -3,7 +3,6 @@ Tank.__index = Tank
 
 
 function Buildtank(place, tank, type, x, y, ...)
-    local status = ...
     local tanky = {
         type = tank.type or type,
         number = tostring(math.random(000,999)),
