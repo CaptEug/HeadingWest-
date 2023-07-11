@@ -142,6 +142,7 @@ Mouse_Controlfunction = function(ship, dt)
     local rx = hp*math.cos(ship.location.hull_angle - 0.4*math.pi)
     local ry = hp*math.sin(ship.location.hull_angle - 0.4*math.pi)
     local turnspeed = ship.turnspeed
+    local turnspeedf = turnspeed*-1
     local fs = ship.frontspeed
     local angle_to_mouse = math.atan2(ship.destination.y - ship.location.y, ship.destination.x - ship.location.x)
     local distance_to_mouse = math.sqrt((ship.destination.x - ship.location.x)^2 + (ship.destination.y - ship.location.y)^2)
@@ -151,25 +152,37 @@ Mouse_Controlfunction = function(ship, dt)
         ship.destination.x, ship.destination.y = cam:mousePosition()
     end
 
-    if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
-        turnspeed = turnspeed - hp*dt
-        ship.turnspeed = turnspeed
+    if speed >= 0 then 
+        if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
+            turnspeed = turnspeed - hp*dt
+            ship.turnspeed = turnspeed
+        else
+            turnspeed = turnspeed + hp*dt
+            ship.turnspeed = turnspeed
+        end
     else
-        turnspeed = turnspeed + hp*dt
-        ship.turnspeed = turnspeed
+        if ship.location.hull_angle + 0.5*math.pi - angle_to_mouse > 0 then
+            turnspeedf = turnspeedf + hp*dt
+            ship.turnspeed = turnspeedf*-1
+        else
+            turnspeedf = turnspeedf - hp*dt
+            ship.turnspeed = turnspeedf*-1
+        end
     end
 
-    if speed <= max_f/2 then 
-        if turnspeed >= 5*hp or turnspeed >= 5*hp*speed then
+    local speeda = math.abs(speed)
+
+    if speeda <= max_f/2 then 
+        if turnspeed >= 5*hp or turnspeed >= 5*hp*speeda then
             turnspeed = turnspeed - hp*dt
-        elseif turnspeed <= -5*hp or turnspeed <= -5*hp*speed then
+        elseif turnspeed <= -5*hp or turnspeed <= -5*hp*speeda then
             turnspeed = turnspeed + hp*dt
         end
         ship.turnspeed = turnspeed
     else
-        if turnspeed >= 3*hp or turnspeed >= 3*hp*speed then
+        if turnspeed >= 3*hp or turnspeed >= 3*hp*speeda then
             turnspeed = turnspeed - hp*dt
-        elseif turnspeed <= -3*hp or turnspeed <= -3*hp*speed then
+        elseif turnspeed <= -3*hp or turnspeed <= -3*hp*speeda then
             turnspeed = turnspeed + hp*dt
         end
         ship.turnspeed = turnspeed
@@ -181,21 +194,39 @@ Mouse_Controlfunction = function(ship, dt)
         ship.frontspeed.x = fs.x
         ship.frontspeed.y = fs.y
     elseif turnspeed >= 3*hp or turnspeed >= 3*hp*speed and speed > max_f*2/5 then 
-        fs.x = fs.x - hp*dt*math.cos(ship.location.hull_angle - 0.5*math.pi)
-        fs.y = fs.y - hp*dt*math.sin(ship.location.hull_angle - 0.5*math.pi)
+        fs.x = fs.x - hp*dt*math.cos(ship.location.hull_angle - 0.5*math.pi)*0.3
+        fs.y = fs.y - hp*dt*math.sin(ship.location.hull_angle - 0.5*math.pi)*0.3
         ship.frontspeed.x = fs.x
         ship.frontspeed.y = fs.y
     else
-        fs.x = fs.x + hp*dt*math.cos(ship.location.hull_angle - 0.5*math.pi)
-        fs.y = fs.y + hp*dt*math.sin(ship.location.hull_angle - 0.5*math.pi)
+        fs.x = fs.x + hp*dt*math.cos(ship.location.hull_angle - 0.5*math.pi)*0.3
+        fs.y = fs.y + hp*dt*math.sin(ship.location.hull_angle - 0.5*math.pi)*0.3
         ship.frontspeed.x = fs.x
         ship.frontspeed.y = fs.y
     end
+
     
 
     if not ship.deployed and ship.destination.x ~= ship.location.x  and distance_to_mouse >= 500 then
+        if speed >= 0 then 
             ship.collider:applyForce(fs.x, fs.y)
             ship.collider:applyTorque(turnspeed)
+        else
+            ship.collider:applyForce(fs.x, fs.y)
+            ship.collider:applyTorque(turnspeedf)
+        end
+    else
+        if speed >= 0 then 
+            fs.x = fs.x - hp*dt*math.cos(ship.location.hull_angle - 0.5*math.pi)*0.3
+            fs.y = fs.y - hp*dt*math.sin(ship.location.hull_angle - 0.5*math.pi)*0.3
+            ship.frontspeed.x = fs.x
+            ship.frontspeed.y = fs.y
+        else
+            fs.x = fs.x + hp*dt*math.cos(ship.location.hull_angle - 0.5*math.pi)*0.3
+            fs.y = fs.y + hp*dt*math.sin(ship.location.hull_angle - 0.5*math.pi)*0.3
+            ship.frontspeed.x = fs.x
+            ship.frontspeed.y = fs.y
+        end
     end
 
     for i, target in ipairs(CurrentPlace.exsist_ship) do

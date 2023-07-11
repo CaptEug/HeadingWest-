@@ -2,7 +2,7 @@ ShipSpawner = {}
 
 
 function ShipSpawner:loadship(place, ship)
-    ship.collider = place.world:newRectangleCollider(ship.location.x, ship.location.y, ship.width, ship.length)
+    ship.collider = place.world:newRectangleCollider(ship.location.x - ship.width/2, ship.location.y - ship.length/2, ship.width, ship.length)
     ship.collider:setCollisionClass('Hull')
     ship.collider:setObject(ship)
     ship.collider:setMass(ship.weight)
