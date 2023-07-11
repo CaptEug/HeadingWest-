@@ -180,7 +180,7 @@ Mouse_Controlfunction = function(ship, dt)
         fs.y = 0
         ship.frontspeed.x = fs.x
         ship.frontspeed.y = fs.y
-    elseif turnspeed >= 3*hp or turnspeed >= 3*hp*speed then 
+    elseif turnspeed >= 3*hp or turnspeed >= 3*hp*speed and speed > max_f*2/5 then 
         fs.x = fs.x - hp*dt*math.cos(ship.location.hull_angle - 0.5*math.pi)
         fs.y = fs.y - hp*dt*math.sin(ship.location.hull_angle - 0.5*math.pi)
         ship.frontspeed.x = fs.x
@@ -193,7 +193,7 @@ Mouse_Controlfunction = function(ship, dt)
     end
     
 
-    if not ship.deployed and ship.destination.x ~= ship.location.x  then
+    if not ship.deployed and ship.destination.x ~= ship.location.x  and distance_to_mouse >= 500 then
             ship.collider:applyForce(fs.x, fs.y)
             ship.collider:applyTorque(turnspeed)
     end
