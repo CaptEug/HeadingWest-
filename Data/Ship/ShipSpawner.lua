@@ -1,6 +1,5 @@
 ShipSpawner = {}
 
-require 'Data.Ship.Shipfunctions'
 
 function ShipSpawner:loadship(place, ship)
     ship.collider = place.world:newRectangleCollider(ship.location.x, ship.location.y, ship.width, ship.length)
@@ -8,9 +7,9 @@ function ShipSpawner:loadship(place, ship)
     ship.collider:setObject(ship)
     ship.collider:setMass(ship.weight)
     ship.collider:setRestitution(0.1)
-    ship.collider:setLinearDamping(3)
+    ship.collider:setLinearDamping(0.5)
     ship.collider:setInertia(500*ship.weight)
-    ship.collider:setAngularDamping(5)
+    ship.collider:setAngularDamping(20)
     ship.collider:setAngle(ship.location.hull_angle)
     ship.functions.move = Mouse_Controlfunction
     -- if ship.type == 'friendly' then

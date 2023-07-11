@@ -31,6 +31,8 @@ function Buildship(place, ship, type, x, y, ...)
         innerstructure = ship.innerstructure,
         max_f_speed = ship.max_f_speed,
         max_r_speed = ship.max_r_speed,
+        turnspeed = ship.turnspeed,
+        frontspeed = ship.frontspeed,
         turret_t_speed = ship.turret_t_speed,
         turret_t_angle = ship.turret_t_angle or nil,
         vision = ship.vision,
@@ -139,41 +141,61 @@ Mouse_Controlfunction = function(ship, dt)
     local sy = hp*math.sin(ship.location.hull_angle - 0.6*math.pi)
     local rx = hp*math.cos(ship.location.hull_angle - 0.4*math.pi)
     local ry = hp*math.sin(ship.location.hull_angle - 0.4*math.pi)
+    local turnspeed = ship.turnspeed
+    local fs = ship.frontspeed
+    local angle_to_mouse = math.atan2(ship.destination.y - ship.location.y, ship.destination.x - ship.location.x)
+    local distance_to_mouse = math.sqrt((ship.destination.x - ship.location.x)^2 + (ship.destination.y - ship.location.y)^2)
 
     
     if love.mouse.isDown(2) then
         ship.destination.x, ship.destination.y = cam:mousePosition()
     end
 
+    if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
+        turnspeed = turnspeed - hp*dt
+        ship.turnspeed = turnspeed
+    else
+        turnspeed = turnspeed + hp*dt
+        ship.turnspeed = turnspeed
+    end
+
+    if speed <= max_f/2 then 
+        if turnspeed >= 5*hp or turnspeed >= 5*hp*speed then
+            turnspeed = turnspeed - hp*dt
+        elseif turnspeed <= -5*hp or turnspeed <= -5*hp*speed then
+            turnspeed = turnspeed + hp*dt
+        end
+        ship.turnspeed = turnspeed
+    else
+        if turnspeed >= 3*hp or turnspeed >= 3*hp*speed then
+            turnspeed = turnspeed - hp*dt
+        elseif turnspeed <= -3*hp or turnspeed <= -3*hp*speed then
+            turnspeed = turnspeed + hp*dt
+        end
+        ship.turnspeed = turnspeed
+    end
+
+    if speed > max_f then
+        fs.x = 0
+        fs.y = 0
+        ship.frontspeed.x = fs.x
+        ship.frontspeed.y = fs.y
+    elseif turnspeed >= 3*hp or turnspeed >= 3*hp*speed then 
+        fs.x = fs.x - hp*dt*math.cos(ship.location.hull_angle - 0.5*math.pi)
+        fs.y = fs.y - hp*dt*math.sin(ship.location.hull_angle - 0.5*math.pi)
+        ship.frontspeed.x = fs.x
+        ship.frontspeed.y = fs.y
+    else
+        fs.x = fs.x + hp*dt*math.cos(ship.location.hull_angle - 0.5*math.pi)
+        fs.y = fs.y + hp*dt*math.sin(ship.location.hull_angle - 0.5*math.pi)
+        ship.frontspeed.x = fs.x
+        ship.frontspeed.y = fs.y
+    end
+    
 
     if not ship.deployed and ship.destination.x ~= ship.location.x  then
-        local angle_to_mouse = math.atan2(ship.destination.y - ship.location.y, ship.destination.x - ship.location.x)
-        local distance_to_mouse = math.sqrt((ship.destination.x - ship.location.x)^2 + (ship.destination.y - ship.location.y)^2)
-        -- if distance_to_mouse >= 100 then
-        --     if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > -0.2 * math.pi then
-        --         ship.collider:applyForce(fx, fy)
-        --     else
-        --         ship.collider:applyForce(fx/3, fy/3)
-        --     end
-        -- end
-
-        if distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.1 * math.pi then
-            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
-                ship.collider:applyForce(tx/2, ty/2)
-                ship.collider:applyTorque(-1*hp)
-            else
-                ship.collider:applyForce(tx/2, ty/2)
-                ship.collider:applyTorque(1*hp)
-            end
-        elseif distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.1 * math.pi then
-            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0 then
-                ship.collider:applyForce(sx/2, sy/2)
-                ship.collider:applyTorque(-3*hp)
-            else
-                ship.collider:applyForce(rx/2, ry/2)
-                ship.collider:applyTorque(-3*hp)
-            end
-        end
+            ship.collider:applyForce(fs.x, fs.y)
+            ship.collider:applyTorque(turnspeed)
     end
 
     for i, target in ipairs(CurrentPlace.exsist_ship) do

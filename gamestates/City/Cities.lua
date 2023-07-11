@@ -154,8 +154,8 @@ function City:init()
     self.world:addCollisionClass('Hull')
     self:loadmap()
     cityUI:load()
-    Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
-    Buildship(CurrentPlace, Ships.Atlanta,'enemy', 1000, 1500)
+    --Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
+    Buildship(CurrentPlace, Ships.Montana,'friendly', 1000, 1500)
     NewSaving:LoadTanks()
 end
 
