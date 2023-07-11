@@ -1,8 +1,6 @@
 require "ExampleSaving"
 
-NewSaving = {
-    
-}
+NewSaving = {}
 
 function NewSaving:CreateFile(Number)
 
@@ -55,10 +53,10 @@ function NewSaving:SaveTanks()
             table.insert(tanks,tankInfo)
         end
 
-        local city = {}
-        city.cityName = cityName
-        city.tankData = tanks
-        table.insert(tankData,city)
+        local citydata = {}
+        citydata.cityName = cityName
+        citydata.tankData = tanks
+        table.insert(tankData,citydata)
 
     end
     return tankData
@@ -230,7 +228,6 @@ function NewSaving:LoadTanks()
                 end
             end
         end
-
         for i, ammo in pairs(data.ammorack) do
             for j = 1, ammo.number, 1 do
                 local a = copytable(ammo)
@@ -240,9 +237,11 @@ function NewSaving:LoadTanks()
         end
         tank.ammorack = ammorack
         tank.crew = data.crew
-
-
-        Buildtank(CurrentPlace, tank, data.type, data.location.x, data.location.y, data.status)
+        tank.number = data.number
+        tank.status = data.status
+        tank.location = data.location
+        tank.type = data.type
+        Buildtank(CurrentPlace, tank)
     end
 end
 
@@ -264,98 +263,3 @@ function NewSaving:ScanAmmo(ammorack)
     end
     return ammos
 end
-
---[[function NewSaving:Loadtank(place, tank, data, type, x, y)
-    local tanky = {
-        type = type,
-        number = data.number,
-        name = tank.name,
-        class = tank.class,
-        width = tank.width,
-        length = tank.length,
-        weight = tank.weight,
-        crew = tank.crew,
-        survivor = tank.crew,
-        reload_time = tank.reload_time,
-        reload_timer = tank.reload_time,
-        m_reload_time = tank.m_reload_time or nil,
-        m_reload_timer = tank.m_reload_time or nil,
-        deploy_time = tank.deploy_time or nil,
-        deploy_timer = -1,
-        fuel = tank.fuel_capacity,
-        fuel_capacity = tank.fuel_capacity,
-        fuel_cosumption = tank.fuel_cosumption,
-        ammorack_size = tank.ammorack_size,
-        ammorack = copytable(tank.ammorack or {}),
-        missilerack_size = tank.missilerack_size,
-        missilerack = copytable(tank.missilerack or {}),
-        armorthickness = tank.armorthickness,
-        innerstructure = tank.innerstructure,
-        max_f_speed = tank.max_f_speed,
-        max_r_speed = tank.max_r_speed,
-        turret_t_speed = tank.turret_t_speed,
-        turret_t_angle = tank.turret_t_angle or nil,
-        vision = tank.vision,
-        hull_image = tank.hull_image,
-        hull_image_line = tank.hull_image_line,
-        hull_image_broken = tank.hull_image_broken,
-        turret_image = tank.turret_image,
-        turret_image_line = tank.turret_image_line,
-        turret_image_broken = tank.turret_image_broken,
-        anime_sheet = tank.anime_sheet,
-        turret_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
-        firing_anime = anim8.newAnimation(Tank_Grid('1-7', 1), 0.1),
-        deploy_anime = anim8.newAnimation(Tank_Grid('1-7', 2), 0.2),
-        gun_sound = tank.gun_sound:clone(),
-        image_offset = tank.image_offset,
-        turret_offset = tank.turret_offset,
-        gun_offset = tank.gun_offset,
-        engine_offset = tank.engine_offset,
-        exhaust_offset = tank.exhaust_offset,
-        exhaust_offset2 = tank.exhaust_offset2 or nil,
-        exhaust_angle = tank.exhaust_angle,
-        exhaust_angle2 = tank.exhaust_angle2 or nil,
-        turret_angle = 0,
-        armor = data.armor,
-        aim = copytable(tank.accessories[2][tank.aim_num or 1] or Blank_Gear),
-        mob = data.mob,
-        velocity = {vx = 0, vy = 0, v = 0},
-        location = {x = x, y = y, hull_angle = data.location.hull_angle},
-        image_location = {},
-        turret_location = {},
-        gun_location = {},
-        engine_location = {},
-        exhaust_location = {},
-        exhaust_location2 = {},
-        functions = {},
-        Infobuttons = {},
-        status = {
-            dead = {false},
-            onfire = {false, Onfire_icon},
-            immobilized = {false, Immobilized_icon},
-            era = {false, ERA_icon}
-        },
-        firing_time = tank.firing_time,
-        firing_timer = 0,
-        picked = false,
-        incomp = false,
-        deployed = false
-    }
-    if type == 'enemy' then
-        while #tanky.ammorack < tanky.ammorack_size do
-            table.insert(tanky.ammorack, tank.ammunition[1])
-        end
-        if tank.missilerack_size then
-            while #tanky.missilerack < tanky.missilerack_size do
-                for i, ammo in ipairs(tank.ammunition) do
-                    if ammo.type == 'ATGM' then
-                        table.insert(tanky.missilerack, ammo)
-                    end
-                end
-            end
-        end
-    end
-    setmetatable(tanky, Tank)
-    table.insert(place.exsist_tank, tanky)
-    TankSpawner:loadtank(place, tanky)
-end]]
