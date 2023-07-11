@@ -119,7 +119,12 @@ Ships = {
         image_offset = 0,
         gun_offset = 150,
         main_turret_number = 2,
-        main_turret_offset = {{0, 34}, {0, -34}, {0, 90}, {0, -90}, {100, 0}},
+        main_turret_offset = {
+            {x = 0, y = -1308, ahead = 1, height = 1},
+            {x = 0, y = -954, ahead = 1, height = 2},
+            {x = 0, y = 762, ahead = 0, height = 2},
+            {x = 0, y = 1116, ahead = 0, height = 1}
+        },
         engine_offset = -43,
         exhaust_offset = {x = -34, y = -34},
         exhaust_angle = math.pi,
@@ -150,12 +155,8 @@ Ships = {
             hull = {crew = 0.5, ammo = 0.4, engine = 0.3, fuel = 0.5},
             turret = {crew = 0.7, ammo = 0, engine = 0, fuel = 0}
         },
-        hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull.png'),
-        hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull_line.png'),
-        hull_image_broken = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull_Broken.png'),
-        turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret.png'),
-        turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_line.png'),
-        turret_image_broken = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_Broken.png'),
+        hull_image = love.graphics.newImage('Assets/ships/usa/Montana/Montana.png'),
+        turret_image = love.graphics.newImage('Assets/ships/usa/Montana/406mmMk7.png'),
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
         gun_sound = BigGunOpenFire,
         accessories = {

@@ -157,21 +157,21 @@ Mouse_Controlfunction = function(ship, dt)
         --     end
         -- end
 
-        if distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi then
+        if distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.1 * math.pi then
             if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
                 ship.collider:applyForce(tx/2, ty/2)
-                ship.collider:applyTorque(-2*hp)
+                ship.collider:applyTorque(-1*hp)
             else
                 ship.collider:applyForce(tx/2, ty/2)
-                ship.collider:applyTorque(2*hp)
+                ship.collider:applyTorque(1*hp)
             end
-        elseif distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.2 * math.pi then
-            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
+        elseif distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.1 * math.pi then
+            if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0 then
                 ship.collider:applyForce(sx/2, sy/2)
-                ship.collider:applyTorque(-5*hp)
+                ship.collider:applyTorque(-3*hp)
             else
                 ship.collider:applyForce(rx/2, ry/2)
-                ship.collider:applyTorque(5*hp)
+                ship.collider:applyTorque(-3*hp)
             end
         end
     end
@@ -422,28 +422,41 @@ function Ship:Update(dt)
     self.turret_anime:update(dt)
 end
 
+
+function compareTurrets(a, b)
+    return a.height < b.height
+end
+
 function Ship:Draw()
     local x, y = self.image_location.x, self.image_location.y
     local hull_angle = self.collider:getAngle()
     local a = self.location.hull_angle
     local array = self.main_turret_offset
-    love.graphics.draw(self.hull_image,x,y,a,1,1,144,144)
-    love.graphics.draw(self.armor.hull_image,x,y,a,1,1,144,144)
+    local image = self.hull_image
+    local width = image:getWidth()
+    local height = image:getHeight()
+    love.graphics.draw(image,x,y,a,1,1,width/2,height/2)
+    local image1 = self.turret_image
+    local width1 = image1:getWidth()
+    local height1 = image1:getHeight()
+
     if array then
-        local rows = #array
-        for i = 1, rows do
-            local turret_x_start, turret_y_start = array[i][1] , array[i][2] 
+
+        table.sort(array, compareTurrets) 
+        for i, turret in ipairs(array) do
+            local turret_x_start, turret_y_start = turret.x , turret.y 
             local turret_y = turret_y_start * math.cos(hull_angle) + turret_x_start * math.sin(hull_angle) + self.location.y
             local turret_x = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + self.location.x
-            self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144)    --draw turret/*+self.turret_offset*/
-            love.graphics.draw(self.aim.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
-            love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
+            if array[i].ahead == 1 then
+                love.graphics.draw(self.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,width1/2,height1/2)
+            elseif array[i].ahead == 0 then
+                love.graphics.draw(self.turret_image,turret_x,turret_y,a+self.turret_angle + math.pi,1,1,width1/2,height1/2)
+            end
         end
     else
         local turret_x, turret_y = self.turret_location.x, self.turret_location.y
-        self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144+self.turret_offset)    --draw turret/*+self.turret_offset*/
-        love.graphics.draw(self.aim.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
-        love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
+        
+        love.graphics.draw(self.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,width/2,height/2)
     end
 end
 
