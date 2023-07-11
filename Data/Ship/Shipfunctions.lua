@@ -159,19 +159,19 @@ Mouse_Controlfunction = function(ship, dt)
 
         if distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse < 0.2 * math.pi then
             if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
-                ship.collider:applyForce(tx, ty)
-                ship.collider:applyTorque(-1*hp)
+                ship.collider:applyForce(tx/2, ty/2)
+                ship.collider:applyTorque(-2*hp)
             else
-                ship.collider:applyForce(tx, ty)
-                ship.collider:applyTorque(1*hp)
+                ship.collider:applyForce(tx/2, ty/2)
+                ship.collider:applyTorque(2*hp)
             end
         elseif distance_to_mouse >= 100 and ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0.2 * math.pi then
             if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
-                ship.collider:applyForce(sx, sy)
-                ship.collider:applyTorque(-3*hp)
+                ship.collider:applyForce(sx/2, sy/2)
+                ship.collider:applyTorque(-5*hp)
             else
-                ship.collider:applyForce(rx, ry)
-                ship.collider:applyTorque(3*hp)
+                ship.collider:applyForce(rx/2, ry/2)
+                ship.collider:applyTorque(5*hp)
             end
         end
     end
