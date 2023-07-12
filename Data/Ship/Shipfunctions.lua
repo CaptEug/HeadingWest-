@@ -64,6 +64,7 @@ function Buildship(place, ship, type, x, y, ...)
         velocity = {vx = 0, vy = 0, v = 0},
         location = {x = x, y = y, hull_angle = 0},
         destination = {x = x, y = y},
+        target1 = {x = nil, y = nil},
         image_location = {},
         turret_location = {},
         gun_location = {},
@@ -122,6 +123,26 @@ function Buildship(place, ship, type, x, y, ...)
     ShipSpawner:loadship(place, shipy)
 end
 
+nor = function(angle)
+    while angle > math.pi do
+        angle = angle - 2 * math.pi
+    end
+    while angle < -math.pi do
+        angle = angle + 2 * math.pi
+    end
+    return angle
+end
+
+nor2 = function(angle)
+    while angle >= 2*math.pi do
+        angle = angle - 2 * math.pi
+    end
+    while angle < 0 do
+        angle = angle + 2 * math.pi
+    end
+    return angle
+end
+
 
 Mouse_Controlfunction = function(ship, dt)
     local hp = 50*ship.mob.hp*0.745
@@ -133,24 +154,77 @@ Mouse_Controlfunction = function(ship, dt)
     local alert = false
     --enemy confirmation
     local enemy = {}
+    local hull_angle = ship.location.hull_angle
+    local a = ship.location.hull_angle - 0.5*math.pi
 
-    local speedMagnitude = math.sqrt((ship.destination.x - ship.location.x)^2 + (ship.destination.y - ship.location.y)^2)
-    local tx = ((ship.destination.x - ship.location.x) / speedMagnitude)*hp
-    local ty = ((ship.destination.y - ship.location.y) / speedMagnitude)*hp
-    local sx = hp*math.cos(ship.location.hull_angle - 0.6*math.pi)
-    local sy = hp*math.sin(ship.location.hull_angle - 0.6*math.pi)
-    local rx = hp*math.cos(ship.location.hull_angle - 0.4*math.pi)
-    local ry = hp*math.sin(ship.location.hull_angle - 0.4*math.pi)
     local turnspeed = ship.turnspeed
     local turnspeedf = turnspeed*-1
     local fs = ship.frontspeed
     local angle_to_mouse = math.atan2(ship.destination.y - ship.location.y, ship.destination.x - ship.location.x)
     local distance_to_mouse = math.sqrt((ship.destination.x - ship.location.x)^2 + (ship.destination.y - ship.location.y)^2)
-
-    
+    local array = ship.main_turret_offset
+    local tspeed = ship.turret_t_speed * math.pi/180
     if love.mouse.isDown(2) then
         ship.destination.x, ship.destination.y = cam:mousePosition()
     end
+
+    if love.keyboard.isDown("e") then
+        ship.target1.x, ship.target1.y = cam:mousePosition()
+    end
+    
+    if ship.target1.x ~= nil and ship.target1.y ~= nil then
+        for i, turret in ipairs(array) do
+            array[i].angle1 = nor(array[i].angle1)
+            local turret_x_start, turret_y_start = turret.x , turret.y 
+            local turret_y = turret_y_start * math.cos(hull_angle) + turret_x_start * math.sin(hull_angle) + ship.location.y
+            local turret_x = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + ship.location.x
+            local angle_to_mouse1 = nor(math.atan2(ship.target1.y - turret_y, ship.target1.x - turret_x))
+            local angle_to_mouse2 = nor(math.atan2(ship.target1.y - ship.location.y, ship.target1.x - ship.location.x))
+            local contral = array[i].angle1 + math.pi - array[i].fwangle
+            if nor(angle_to_mouse2 - a) >= 0 then
+                if array[i].angle1 == 0 then
+                    if array[i].angle > nor(angle_to_mouse1 - a) then
+                        array[i].angle = array[i].angle - tspeed*dt
+                    elseif array[i].angle < nor(angle_to_mouse1 - a) then 
+                        if array[i].angle <= math.pi - array[i].fwangle - array[i].angle1 then
+                            array[i].angle = array[i].angle + tspeed*dt
+                        end
+                    end
+                end
+                if array[i].angle1 == math.pi then
+                    if array[i].angle > nor(angle_to_mouse1 - a) then
+                        if array[i].angle >= array[i].fwangle then
+                            array[i].angle = array[i].angle - tspeed*dt
+                        end
+                    elseif array[i].angle < nor(angle_to_mouse1 - a) then 
+                            array[i].angle = array[i].angle + tspeed*dt
+                    end
+                end
+            end
+            if nor(angle_to_mouse2 - a) <= 0 then
+                if array[i].angle1 == 0 then
+                    if array[i].angle < nor(angle_to_mouse1 - a) then
+                        array[i].angle = array[i].angle + tspeed*dt
+                    elseif array[i].angle > nor(angle_to_mouse1 - a) then 
+                        if array[i].angle >= array[i].fwangle - math.pi then
+                            array[i].angle = array[i].angle - tspeed*dt
+                        end
+                    end
+                end
+                if array[i].angle1 == math.pi then
+                    if nor2(array[i].angle) > nor2(angle_to_mouse1 - a) then
+                        array[i].angle = nor2(array[i].angle - tspeed*dt)
+                    else
+                        if array[i].angle <= math.pi*2 - array[i].fwangle then
+                            array[i].angle = nor2(array[i].angle + tspeed*dt)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+
 
     if speed >= 0 then 
         if ship.location.hull_angle - 0.5*math.pi - angle_to_mouse > 0 then
@@ -216,17 +290,10 @@ Mouse_Controlfunction = function(ship, dt)
             ship.collider:applyTorque(turnspeedf)
         end
     else
-        if speed >= 0 then 
-            fs.x = fs.x - hp*dt*math.cos(ship.location.hull_angle - 0.5*math.pi)*0.3
-            fs.y = fs.y - hp*dt*math.sin(ship.location.hull_angle - 0.5*math.pi)*0.3
-            ship.frontspeed.x = fs.x
-            ship.frontspeed.y = fs.y
-        else
-            fs.x = fs.x + hp*dt*math.cos(ship.location.hull_angle - 0.5*math.pi)*0.3
-            fs.y = fs.y + hp*dt*math.sin(ship.location.hull_angle - 0.5*math.pi)*0.3
-            ship.frontspeed.x = fs.x
-            ship.frontspeed.y = fs.y
-        end
+        fs.x = 0
+        fs.y = 0
+        ship.frontspeed.x = fs.x
+        ship.frontspeed.y = fs.y
     end
 
     for i, target in ipairs(CurrentPlace.exsist_ship) do
@@ -264,6 +331,8 @@ function Ship:Setdeployed()
         self.deploy_timer = self.deploy_time
     end
 end
+
+
 
 function Ship:AimCheck(x, y, dt)
     local isaim = false
@@ -388,55 +457,7 @@ function Ship:Update(dt)
     self.location = {x = x, y = y, hull_angle = hull_angle}
     local array = self.main_turret_offset
     self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)  
-    -- if array then 
-    --     local rows = #array
-    --     for i = 1, rows do  --adjust collider's and image's location
-    --         self.turret_location.x, self.turret_location.y = array[i][1], array[i][2]
-    --         self.turret_offset = array[i][2]
-    --         self.turret_location.x, self.turret_location.y = self.image_location.x - self.turret_offset*math.sin(hull_angle), self.image_location.y + self.turret_offset*math.cos(hull_angle)
-    --         if self.gun_offset then
-    --             self.gun_location.x, self.gun_location.y = self.turret_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
-    --                                                self.turret_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
-    --         end
-    --         if self.luncher_offset then
-    --             self.luncher_location.x, self.luncher_location.y = self.turret_location.x + (self.luncher_offset.y)*math.sin(hull_angle+self.turret_angle) + self.luncher_offset.x*math.cos(hull_angle+self.turret_angle),
-    --                                                        self.turret_location.y - (self.luncher_offset.y)*math.cos(hull_angle+self.turret_angle) + self.luncher_offset.x*math.sin(hull_angle+self.turret_angle)
-    --         end
-    
-    --         self.engine_location.x, self.engine_location.y = self.image_location.x + (self.engine_offset)*math.sin(hull_angle),
-    --                                                  self.image_location.y - (self.engine_offset)*math.cos(hull_angle)
-    --         self.exhaust_location.x, self.exhaust_location.y = self.image_location.x + self.exhaust_offset.y*math.sin(hull_angle) + self.exhaust_offset.x*math.cos(hull_angle),
-    --                                                    self.image_location.y - self.exhaust_offset.y*math.cos(hull_angle) + self.exhaust_offset.x*math.sin(hull_angle)
-    --         if self.exhaust_offset2 then
-    --             self.exhaust_location2.x, self.exhaust_location2.y = self.image_location.x + self.exhaust_offset2.y*math.sin(hull_angle) + self.exhaust_offset2.x*math.cos(hull_angle),
-    --                                                          self.image_location.y - self.exhaust_offset2.y*math.cos(hull_angle) + self.exhaust_offset2.x*math.sin(hull_angle)
-    --         end
-    --     end
-    -- else
-    --     self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)     --adjust collider's and image's location
-    --     self.turret_location.x, self.turret_location.y = self.image_location.x - self.turret_offset*math.sin(hull_angle), self.image_location.y + self.turret_offset*math.cos(hull_angle)
-    --     if self.gun_offset then
-    --         self.gun_location.x, self.gun_location.y = self.turret_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
-    --                                                self.turret_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
-    --     end
-    --     if self.luncher_offset then
-    --         self.luncher_location.x, self.luncher_location.y = self.turret_location.x + (self.luncher_offset.y)*math.sin(hull_angle+self.turret_angle) + self.luncher_offset.x*math.cos(hull_angle+self.turret_angle),
-    --                                                        self.turret_location.y - (self.luncher_offset.y)*math.cos(hull_angle+self.turret_angle) + self.luncher_offset.x*math.sin(hull_angle+self.turret_angle)
-    --     end
-    
-    --     self.engine_location.x, self.engine_location.y = self.image_location.x + (self.engine_offset)*math.sin(hull_angle),
-    --                                                      self.image_location.y - (self.engine_offset)*math.cos(hull_angle)
-    --     self.exhaust_location.x, self.exhaust_location.y = self.image_location.x + self.exhaust_offset.y*math.sin(hull_angle) + self.exhaust_offset.x*math.cos(hull_angle),
-    --                                                       self.image_location.y - self.exhaust_offset.y*math.cos(hull_angle) + self.exhaust_offset.x*math.sin(hull_angle)
-    --     if self.exhaust_offset2 then
-    --     self.exhaust_location2.x, self.exhaust_location2.y = self.image_location.x + self.exhaust_offset2.y*math.sin(hull_angle) + self.exhaust_offset2.x*math.cos(hull_angle),
-    --                                                          self.image_location.y - self.exhaust_offset2.y*math.cos(hull_angle) + self.exhaust_offset2.x*math.sin(hull_angle)
-    --     end
-    -- end
 
-    
-
-    --timer update
     self.reload_timer = self.reload_timer - dt
     self.firing_timer = self.firing_timer - dt
     if self.m_reload_timer then
@@ -494,17 +515,18 @@ function Ship:Draw()
     local height1 = image1:getHeight()
 
     if array then
-
         table.sort(array, compareTurrets) 
         for i, turret in ipairs(array) do
             local turret_x_start, turret_y_start = turret.x , turret.y 
             local turret_y = turret_y_start * math.cos(hull_angle) + turret_x_start * math.sin(hull_angle) + self.location.y
             local turret_x = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + self.location.x
-            if array[i].ahead == 1 then
-                love.graphics.draw(self.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,width1/2,height1/2)
-            elseif array[i].ahead == 0 then
-                love.graphics.draw(self.turret_image,turret_x,turret_y,a+self.turret_angle + math.pi,1,1,width1/2,height1/2)
-            end
+            love.graphics.draw(self.turret_image,turret_x,turret_y,a+array[i].angle,1,1,width1/2,height1/2)
+            love.graphics.setColor(1, 0, 0)
+            local length = 10000
+            local end_x = turret_x + length * math.cos(a+array[i].angle-0.5*math.pi)
+            local end_y = turret_y + length * math.sin(a+array[i].angle-0.5*math.pi)
+            love.graphics.line(turret_x,turret_y, end_x, end_y)
+            love.graphics.setColor(1, 1, 1, 1)
         end
     else
         local turret_x, turret_y = self.turret_location.x, self.turret_location.y

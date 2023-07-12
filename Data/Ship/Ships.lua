@@ -15,12 +15,12 @@ Ships = {
         turret_offset = 0,
         image_offset = 0,
         gun_offset = 150,
-        main_turret_number = 2,
+        main_turret_number = 4,
         main_turret_offset = {
-            {x = 0, y = -1308, ahead = 1, height = 1},
-            {x = 0, y = -954, ahead = 1, height = 2},
-            {x = 0, y = 762, ahead = 0, height = 2},
-            {x = 0, y = 1116, ahead = 0, height = 1}
+            {x = 0, y = -1308, height = 1, angle = 0, angle1 = 0, fwangle = 35/180*math.pi},
+            {x = 0, y = -954, height = 2, angle = 0, angle1 = 0, fwangle = 35/180*math.pi},
+            {x = 0, y = 762, height = 2, angle = math.pi, angle1 = math.pi, fwangle = 35/180*math.pi},
+            {x = 0, y = 1116, height = 1, angle = math.pi,angle1 = math.pi,  fwangle = 35/180*math.pi}
         },
         engine_offset = -43,
         exhaust_offset = {x = -34, y = -34},
@@ -31,7 +31,7 @@ Ships = {
         max_r_speed = -4,
         turnspeed = 0,
         frontspeed = {x = 0, y = 0},
-        turret_t_speed = 25,
+        turret_t_speed = 50,
         vision = 600,
         steel_cost = 7,
         oil_cost = 3,
