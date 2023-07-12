@@ -31,7 +31,7 @@ Ships = {
         max_r_speed = -4,
         turnspeed = 0,
         frontspeed = {x = 0, y = 0},
-        turret_t_speed = 50,
+        turret_t_speed = 5,
         vision = 600,
         steel_cost = 7,
         oil_cost = 3,
