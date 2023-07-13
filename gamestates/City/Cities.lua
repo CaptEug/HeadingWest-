@@ -277,6 +277,17 @@ function City:loadmap()
             table.insert(self.Obstacles, Collider)
         end
     end
+
+    if self.map.layers['Coast water'] then
+        for i, j in pairs(self.map.layers['Coast water'].objects) do
+            local Collider = self.world:newRectangleCollider(j.x, j.y, j.width, j.height)
+            Collider.width = j.width
+            Collider.height = j.height
+            Collider:setType('static')
+            Collider:setCollisionClass('Coast water')
+            table.insert(self.Obstacles, Collider)
+        end
+    end
 end
 
 function City:DrawMapDown()
