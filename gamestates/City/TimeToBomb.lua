@@ -66,7 +66,7 @@ end
 
 function Explosions:draw()
     for i, explosion in ipairs(self) do
-        explosion.anime:draw(Explosion_sheet, explosion.x, explosion.y)
+        explosion.anime:draw(Explosion_sheet, explosion.x, explosion.y, 0, 1, 1, 50, 50)
     end
 end
 
