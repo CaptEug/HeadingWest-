@@ -155,7 +155,6 @@ Mouse_Controlfunction = function(ship, dt)
     --enemy confirmation
     local enemy = {}
     local hull_angle = ship.location.hull_angle
-    local a = ship.location.hull_angle - 0.5*math.pi
 
     local turnspeed = ship.turnspeed
     local turnspeedf = turnspeed*-1
@@ -170,58 +169,6 @@ Mouse_Controlfunction = function(ship, dt)
 
     if love.keyboard.isDown("e") then
         ship.target1.x, ship.target1.y = cam:mousePosition()
-    end
-    
-    if ship.target1.x ~= nil and ship.target1.y ~= nil then
-        for i, turret in ipairs(array) do
-            array[i].angle1 = nor(array[i].angle1)
-            local turret_x_start, turret_y_start = turret.x , turret.y 
-            local turret_y = turret_y_start * math.cos(hull_angle) + turret_x_start * math.sin(hull_angle) + ship.location.y
-            local turret_x = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + ship.location.x
-            local angle_to_mouse1 = nor(math.atan2(ship.target1.y - turret_y, ship.target1.x - turret_x))
-            local angle_to_mouse2 = nor(math.atan2(ship.target1.y - ship.location.y, ship.target1.x - ship.location.x))
-            local contral = array[i].angle1 + math.pi - array[i].fwangle
-            if nor(angle_to_mouse2 - a) >= 0 then
-                if array[i].angle1 == 0 then
-                    if array[i].angle > nor(angle_to_mouse1 - a) then
-                        array[i].angle = array[i].angle - tspeed*dt
-                    elseif array[i].angle < nor(angle_to_mouse1 - a) then 
-                        if array[i].angle <= math.pi - array[i].fwangle - array[i].angle1 then
-                            array[i].angle = array[i].angle + tspeed*dt
-                        end
-                    end
-                end
-                if array[i].angle1 == math.pi then
-                    if array[i].angle > nor(angle_to_mouse1 - a) then
-                        if array[i].angle >= array[i].fwangle then
-                            array[i].angle = array[i].angle - tspeed*dt
-                        end
-                    elseif array[i].angle < nor(angle_to_mouse1 - a) then 
-                            array[i].angle = array[i].angle + tspeed*dt
-                    end
-                end
-            end
-            if nor(angle_to_mouse2 - a) <= 0 then
-                if array[i].angle1 == 0 then
-                    if array[i].angle < nor(angle_to_mouse1 - a) then
-                        array[i].angle = array[i].angle + tspeed*dt
-                    elseif array[i].angle > nor(angle_to_mouse1 - a) then 
-                        if array[i].angle >= array[i].fwangle - math.pi then
-                            array[i].angle = array[i].angle - tspeed*dt
-                        end
-                    end
-                end
-                if array[i].angle1 == math.pi then
-                    if nor2(array[i].angle) > nor2(angle_to_mouse1 - a) then
-                        array[i].angle = nor2(array[i].angle - tspeed*dt)
-                    else
-                        if array[i].angle <= math.pi*2 - array[i].fwangle then
-                            array[i].angle = nor2(array[i].angle + tspeed*dt)
-                        end
-                    end
-                end
-            end
-        end
     end
 
 
@@ -296,31 +243,9 @@ Mouse_Controlfunction = function(ship, dt)
         ship.frontspeed.y = fs.y
     end
 
-    for i, target in ipairs(CurrentPlace.exsist_ship) do
-        if math.sqrt((target.location.x - ship.location.x)^2 + (target.location.y - ship.location.y)^2) < ship.vision then
-            if target.type ~= ship.type then
-                enemy = target
-                alert = true
-                break
-            end
-        end
-    end
-    if alert then
-        ship:FacePosition(enemy.location.x, enemy.location.y)
-        local isaim = ship:AimCheck(enemy.location.x, enemy.location.y, dt)
-        if #ship.ammorack > 0 and isaim and ship.reload_timer <= 0 then
-            if ship.class == 'spg' then
-                if ship.deployed then
-                    Bomb(ship, enemy.location.x, enemy.location.y)
-                end
-            else
-                Shoot(ship)
-            end
-        end
-        if #ship.missilerack > 0 and isaim and ship.m_reload_timer <= 0 then
-            LaunchMissile(ship, enemy)
-        end
-    end
+
+
+    ship:AimCheck(ship.target1.x, ship.target1.y, dt)
 end
 
 function Ship:Setdeployed()
@@ -336,47 +261,67 @@ end
 
 function Ship:AimCheck(x, y, dt)
     local isaim = false
-    local tx, ty = self.turret_location.x, self.turret_location.y
-    local angle_to_target = math.atan2(y - ty, x - tx)
     local hull_angle = self.location.hull_angle
     local ta = self.turret_angle + hull_angle - 0.5*math.pi
     local tspeed = self.turret_t_speed * math.pi/180
+    local array = self.main_turret_offset
+    local a = self.location.hull_angle - 0.5*math.pi
 
-    if angle_to_target <= 0 then
-        angle_to_target = angle_to_target + math.pi*2
-    end
-    while ta > 2*math.pi do
-        ta = ta - 2*math.pi
-    end
-    while ta < 0 do
-        ta = ta + 2*math.pi
-    end
-
-    if ta > angle_to_target then
-        if ta - angle_to_target <= math.pi then
-            self.turret_angle = self.turret_angle - tspeed*dt
-        else
-            self.turret_angle = self.turret_angle + tspeed*dt
+    if x ~= nil and y ~= nil then
+        for i, turret in ipairs(array) do
+            turret.angle1 = nor(turret.angle1)
+            local turret_x_start, turret_y_start = turret.x , turret.y 
+            local turret_y = turret_y_start * math.cos(hull_angle) + turret_x_start * math.sin(hull_angle) + self.location.y
+            local turret_x = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + self.location.x
+            local angle_to_mouse1 = nor(math.atan2(y - turret_y, x - turret_x))
+            local angle_to_mouse2 = nor(math.atan2(y - self.location.y, x - self.location.x))
+            local contral = array[i].angle1 + math.pi - array[i].fwangle
+            if nor(angle_to_mouse2 - a) >= 0 then
+                if array[i].angle1 == 0 then
+                    if array[i].angle > nor(angle_to_mouse1 - a) then
+                        array[i].angle = array[i].angle - tspeed*dt
+                    elseif array[i].angle < nor(angle_to_mouse1 - a) then 
+                        if array[i].angle <= math.pi - array[i].fwangle - array[i].angle1 then
+                            array[i].angle = array[i].angle + tspeed*dt
+                        end
+                    end
+                end
+                if array[i].angle1 == math.pi then
+                    if array[i].angle > nor(angle_to_mouse1 - a) then
+                        if array[i].angle >= array[i].fwangle then
+                            array[i].angle = array[i].angle - tspeed*dt
+                        end
+                    elseif array[i].angle < nor(angle_to_mouse1 - a) then 
+                            array[i].angle = array[i].angle + tspeed*dt
+                    end
+                end
+            end
+            if nor(angle_to_mouse2 - a) <= 0 then
+                if array[i].angle1 == 0 then
+                    if array[i].angle < nor(angle_to_mouse1 - a) then
+                        array[i].angle = array[i].angle + tspeed*dt
+                    elseif array[i].angle > nor(angle_to_mouse1 - a) then 
+                        if array[i].angle >= array[i].fwangle - math.pi then
+                            array[i].angle = array[i].angle - tspeed*dt
+                        end
+                    end
+                end
+                if array[i].angle1 == math.pi then
+                    if nor2(array[i].angle) > nor2(angle_to_mouse1 - a) then
+                        array[i].angle = nor2(array[i].angle - tspeed*dt)
+                    else
+                        if array[i].angle <= math.pi*2 - array[i].fwangle then
+                            array[i].angle = nor2(array[i].angle + tspeed*dt)
+                        end
+                    end
+                end
+            end
+            local tx, ty = turret_x, turret_y
+            local angle_to_target = math.atan2(y - ty, x - tx)
+            if ta < angle_to_target + math.pi/36 and ta > angle_to_target - math.pi/36 then
+                isaim = true
+            end
         end
-    end
-    if ta < angle_to_target then
-        if angle_to_target - ta <= math.pi then
-            self.turret_angle = self.turret_angle + tspeed*dt
-        else
-            self.turret_angle = self.turret_angle - tspeed*dt
-        end
-    end
-    if self.turret_t_angle then
-        local l, r = self.turret_t_angle.l/180*math.pi, self.turret_t_angle.r/180*math.pi
-        if self.turret_angle > l then
-            self.turret_angle = l
-        end
-        if self.turret_angle < -r then
-            self.turret_angle = -r
-        end
-    end
-    if ta < angle_to_target + math.pi/36 and ta > angle_to_target - math.pi/36 then
-        isaim = true
     end
     return isaim
 end
