@@ -31,8 +31,8 @@ function Buildship(place, ship, type, x, y, ...)
         image_location = {},
         turret_location = {},
         functions = {},
-        reload_time = ship.reload_time
-        battery = {}
+        reload_time = ship.reload_time,
+        battery = {},
     }
     for i, turret in ipairs(shipy.main_turret_offset) do
         table.insert(shipy.turret_location, turret.id, {ID = turret.id,x = x - turret.x, y = y - turret.y, height = turret.height})
