@@ -280,18 +280,9 @@ function City:loadmap()
 end
 
 function City:DrawMapDown()
-    if self.map.layers["Ground"] then
-        self.map:drawLayer(self.map.layers["Ground"])
+    for i, layer in ipairs(self.map.layers) do
+        self.map:drawLayer(layer)
     end
-
-    if self.map.layers["Objects"] then
-        self.map:drawLayer(self.map.layers["Objects"])
-    end
-
-    if self.map.layers["Buildings"] then
-        self.map:drawLayer(self.map.layers["Buildings"])
-    end
-
     for i, j in pairs(self.Obstacles) do
         local collider_x,collider_y = j:getPosition()
         local collider_angle = j:getAngle()
