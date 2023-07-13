@@ -9,8 +9,8 @@ return {
   height = 100,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 10,
-  nextobjectid = 11,
+  nextlayerid = 12,
+  nextobjectid = 15,
   properties = {},
   tilesets = {
     {
@@ -1278,6 +1278,64 @@ return {
             48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48,
             48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48
           }
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 10,
+      name = "Coast water",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 11,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 2048,
+          y = -512,
+          width = 512,
+          height = 4096,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 11,
+      name = "Ocean water",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 13,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 2560,
+          y = -512,
+          width = 512,
+          height = 4096,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
