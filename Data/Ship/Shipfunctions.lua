@@ -31,6 +31,7 @@ function Buildship(place, ship, type, x, y, ...)
         image_location = {},
         turret_location = {},
         functions = {},
+        reload_time = ship.reload_time
     }
     for i, turret in ipairs(shipy.main_turret_offset) do
         table.insert(shipy.turret_location, turret.id, {ID = turret.id,x = x - turret.x, y = y - turret.y, height = turret.height})
@@ -160,8 +161,11 @@ Mouse_Controlfunction = function(ship, dt)
         ship.frontspeed.y = fs.y
     end
 
-
-    ship:AimCheck(ship.target1.x, ship.target1.y, dt)
+    local isaim = false
+    isaim = ship:AimCheck(ship.target1.x, ship.target1.y, dt)
+    if isaim and building.reload_timer <= 0 then
+        Bomb(building, ship.destination.x, ship.destination.y)
+    end
 end
 
 
