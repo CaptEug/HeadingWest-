@@ -1,4 +1,5 @@
 Explosives = {}
+Explosions = {}
 Fragments = {}
 
 function Bomb(unit, x, y)
@@ -54,12 +55,30 @@ function Explosives:update(dt)
             table.remove(self, i)
         end
     end
+    for i, explosion in ipairs(Explosions) do
+        explosion.anime:update(dt)
+        explosion.timer = explosion.timer - dt
+        if explosion.timer <= 0 then
+            table.remove(Explosions, i)
+        end
+    end
+end
+
+function Explosions:draw()
+    for i, explosion in ipairs(self) do
+        explosion.anime:draw(Explosion_sheet, explosion.x, explosion.y)
+    end
 end
 
 function Explode(explosive)
     local n = 0
+    local x, y = explosive:getPosition()
+    local explosion = {}
+    explosion.anime = anim8.newAnimation(Explosion_Grid('1-9','1-9'), 0.05)
+    explosion.x, explosion.y = x, y
+    explosion.timer = 4.05
+    table.insert(Explosions, explosion)
     while n < explosive.TNT_eq do
-        local x, y = explosive:getPosition()
         local fragment = CurrentPlace.world:newCircleCollider(x, y, 1)
         fragment:setCollisionClass('Fregment')
         fragment:setBullet(true)
@@ -99,7 +118,7 @@ function Fragments:update(dt)
                 DamageCheck(Target, hitPart)
             end
 
-            if Target.status.era[1] then
+            if Target.status.era then
                 Target.armor.life = Target.armor.life - 1
             end
         end
