@@ -15,6 +15,7 @@ Ships = {
             {x = 0, y = 762, height = 2, angle = math.pi, angle1 = math.pi, fwangle = 35/180*math.pi, get = false, id = 3},
             {x = 0, y = 1116, height = 1, angle = math.pi,angle1 = math.pi,  fwangle = 35/180*math.pi, get = false, id = 4}
         },
+        gun_offset = {{-52, 325}, {0, 325}, {52, 325}},
         weight = 70000,
         crew = 2700,
         max_f_speed = 60,
@@ -27,5 +28,9 @@ Ships = {
         hull_image = love.graphics.newImage('Assets/ships/usa/Montana/Montana.png'),
         turret_image = love.graphics.newImage('Assets/ships/usa/Montana/406mmMk7.png'),
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
+        ammorack = {
+            {name = '406mmHE', type = 'HE', pentype = 'CE', velocity = 820, mass = 1, pen = 406, TNT_eq = 100}
+        },
+        reload_time = 30,
     }
 }
