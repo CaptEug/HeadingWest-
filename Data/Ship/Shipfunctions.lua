@@ -262,7 +262,7 @@ function Ship:Update(dt)
             else
                 table.insert(self.turret_location, turret.id, {ID = turret.id, x = turret_x, y = turret_y, height = turret.height})
             end
-            table.insert(battery, i, {batter_offset = {x = turret_x, y = turret_y }})
+            table.insert(self.battery, i, {batter_offset = {x = turret_x, y = turret_y }})
         end
     end
 
