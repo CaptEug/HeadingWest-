@@ -437,52 +437,26 @@ function Tank:Update(dt)
     local vx, vy = self.collider:getLinearVelocity()
     self.velocity = {vx = vx, vy = vy, v = math.sqrt(vx^2 + vy^2)}
     self.location = {x = x, y = y, hull_angle = hull_angle}
-    local array = self.main_turret_offset
     self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)  
-    if array then 
-        local rows = #array
-        for i = 1, rows do  --adjust collider's and image's location
-            self.turret_location.x, self.turret_location.y = array[i][1], array[i][2]
-            self.turret_offset = array[i][2]
-            self.turret_location.x, self.turret_location.y = self.image_location.x - self.turret_offset*math.sin(hull_angle), self.image_location.y + self.turret_offset*math.cos(hull_angle)
-            if self.gun_offset then
-                self.gun_location.x, self.gun_location.y = self.turret_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
-                                                   self.turret_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
-            end
-            if self.luncher_offset then
-                self.luncher_location.x, self.luncher_location.y = self.turret_location.x + (self.luncher_offset.y)*math.sin(hull_angle+self.turret_angle) + self.luncher_offset.x*math.cos(hull_angle+self.turret_angle),
-                                                           self.turret_location.y - (self.luncher_offset.y)*math.cos(hull_angle+self.turret_angle) + self.luncher_offset.x*math.sin(hull_angle+self.turret_angle)
-            end
+
+    self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)     --adjust collider's and image's location
+    self.turret_location.x, self.turret_location.y = self.image_location.x - self.turret_offset*math.sin(hull_angle), self.image_location.y + self.turret_offset*math.cos(hull_angle)
+    if self.gun_offset then
+        self.gun_location.x, self.gun_location.y = self.turret_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
+                                                self.turret_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
+    end
+    if self.luncher_offset then
+        self.luncher_location.x, self.luncher_location.y = self.turret_location.x + (self.luncher_offset.y)*math.sin(hull_angle+self.turret_angle) + self.luncher_offset.x*math.cos(hull_angle+self.turret_angle),
+                                                        self.turret_location.y - (self.luncher_offset.y)*math.cos(hull_angle+self.turret_angle) + self.luncher_offset.x*math.sin(hull_angle+self.turret_angle)
+    end
     
-            self.engine_location.x, self.engine_location.y = self.image_location.x + (self.engine_offset)*math.sin(hull_angle),
-                                                     self.image_location.y - (self.engine_offset)*math.cos(hull_angle)
-            self.exhaust_location.x, self.exhaust_location.y = self.image_location.x + self.exhaust_offset.y*math.sin(hull_angle) + self.exhaust_offset.x*math.cos(hull_angle),
-                                                       self.image_location.y - self.exhaust_offset.y*math.cos(hull_angle) + self.exhaust_offset.x*math.sin(hull_angle)
-            if self.exhaust_offset2 then
-                self.exhaust_location2.x, self.exhaust_location2.y = self.image_location.x + self.exhaust_offset2.y*math.sin(hull_angle) + self.exhaust_offset2.x*math.cos(hull_angle),
-                                                             self.image_location.y - self.exhaust_offset2.y*math.cos(hull_angle) + self.exhaust_offset2.x*math.sin(hull_angle)
-            end
-        end
-    else
-        self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)     --adjust collider's and image's location
-        self.turret_location.x, self.turret_location.y = self.image_location.x - self.turret_offset*math.sin(hull_angle), self.image_location.y + self.turret_offset*math.cos(hull_angle)
-        if self.gun_offset then
-            self.gun_location.x, self.gun_location.y = self.turret_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
-                                                   self.turret_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
-        end
-        if self.luncher_offset then
-            self.luncher_location.x, self.luncher_location.y = self.turret_location.x + (self.luncher_offset.y)*math.sin(hull_angle+self.turret_angle) + self.luncher_offset.x*math.cos(hull_angle+self.turret_angle),
-                                                           self.turret_location.y - (self.luncher_offset.y)*math.cos(hull_angle+self.turret_angle) + self.luncher_offset.x*math.sin(hull_angle+self.turret_angle)
-        end
-    
-        self.engine_location.x, self.engine_location.y = self.image_location.x + (self.engine_offset)*math.sin(hull_angle),
-                                                         self.image_location.y - (self.engine_offset)*math.cos(hull_angle)
-        self.exhaust_location.x, self.exhaust_location.y = self.image_location.x + self.exhaust_offset.y*math.sin(hull_angle) + self.exhaust_offset.x*math.cos(hull_angle),
-                                                          self.image_location.y - self.exhaust_offset.y*math.cos(hull_angle) + self.exhaust_offset.x*math.sin(hull_angle)
-        if self.exhaust_offset2 then
-        self.exhaust_location2.x, self.exhaust_location2.y = self.image_location.x + self.exhaust_offset2.y*math.sin(hull_angle) + self.exhaust_offset2.x*math.cos(hull_angle),
-                                                             self.image_location.y - self.exhaust_offset2.y*math.cos(hull_angle) + self.exhaust_offset2.x*math.sin(hull_angle)
-        end
+    self.engine_location.x, self.engine_location.y = self.image_location.x + (self.engine_offset)*math.sin(hull_angle),
+                                                        self.image_location.y - (self.engine_offset)*math.cos(hull_angle)
+    self.exhaust_location.x, self.exhaust_location.y = self.image_location.x + self.exhaust_offset.y*math.sin(hull_angle) + self.exhaust_offset.x*math.cos(hull_angle),
+                                                        self.image_location.y - self.exhaust_offset.y*math.cos(hull_angle) + self.exhaust_offset.x*math.sin(hull_angle)
+    if self.exhaust_offset2 then
+    self.exhaust_location2.x, self.exhaust_location2.y = self.image_location.x + self.exhaust_offset2.y*math.sin(hull_angle) + self.exhaust_offset2.x*math.cos(hull_angle),
+                                                             elf.image_location.y - self.exhaust_offset2.y*math.cos(hull_angle) + self.exhaust_offset2.x*math.sin(hull_angle)
     end
 
     
@@ -532,25 +506,12 @@ function Tank:Draw()
     local x, y = self.image_location.x, self.image_location.y
     local hull_angle = self.collider:getAngle() - math.pi/2
     local a = self.location.hull_angle
-    local array = self.main_turret_offset
     love.graphics.draw(self.hull_image,x,y,a,1,1,144,144)
     love.graphics.draw(self.armor.hull_image,x,y,a,1,1,144,144)
-    if array then
-        local rows = #array
-        for i = 1, rows do
-            local turret_x_start, turret_y_start = array[i][1] , array[i][2] 
-            local turret_y = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle) + self.location.y
-            local turret_x = turret_x_start * math.sin(hull_angle) - turret_y_start * math.cos(hull_angle) + self.location.x
-            self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144+self.turret_offset)    --draw turret/*+self.turret_offset*/
-            love.graphics.draw(self.aim.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
-            love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
-        end
-    else
-        local turret_x, turret_y = self.turret_location.x, self.turret_location.y
-        self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144+self.turret_offset)    --draw turret/*+self.turret_offset*/
-        love.graphics.draw(self.aim.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
-        love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
-    end
+    local turret_x, turret_y = self.turret_location.x, self.turret_location.y
+    self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144+self.turret_offset)    --draw turret/*+self.turret_offset*/
+    love.graphics.draw(self.aim.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
+    love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
 end
 
 function Tank:DrawBrokenTank()
