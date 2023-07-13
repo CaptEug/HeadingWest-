@@ -40,6 +40,7 @@ Nizhny_Tagil.map = sti("Assets/maps/UVZfac.lua")
 Nizhny_Tagil.world = wf.newWorld(0, 0)
 Nizhny_Tagil.Structure = {}
 Nizhny_Tagil.Obstacles = {}
+Nizhny_Tagil.Coast = {}
 Nizhny_Tagil.tanklist = {}
 Nizhny_Tagil.constructurelist = {}
 Nizhny_Tagil.Army = {}
@@ -150,6 +151,7 @@ function City:init()
     self.world:addCollisionClass('APFSDS')
     self.world:addCollisionClass('ATGM')
     self.world:addCollisionClass('Wall')
+    self.world:addCollisionClass('Coast')
     self.world:addCollisionClass('Fregment', {ignores = {'Fregment'}})
     self.world:addCollisionClass('Hull')
     self:loadmap()
@@ -278,14 +280,14 @@ function City:loadmap()
         end
     end
 
-    if self.map.layers['Coast water'] then
-        for i, j in pairs(self.map.layers['Coast water'].objects) do
+    if self.map.layers['Coast'] then
+        for i, j in pairs(self.map.layers['Coast'].objects) do
             local Collider = self.world:newRectangleCollider(j.x, j.y, j.width, j.height)
             Collider.width = j.width
-            Collider.height = j.height
+            Collider.height = j.heights
             Collider:setType('static')
-            Collider:setCollisionClass('Coast water')
-            table.insert(self.Obstacles, Collider)
+            Collider:setCollisionClass('Coast')
+            table.insert(self.Coast, Collider)
         end
     end
 end
