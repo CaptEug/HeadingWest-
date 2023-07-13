@@ -66,7 +66,7 @@ end
 
 function Explosions:draw()
     for i, explosion in ipairs(self) do
-        explosion.anime:draw(Explosion_sheet, explosion.x, explosion.y)
+        explosion.anime:draw(Explosion_sheet, explosion.x, explosion.y, 0, 1, 1, 50, 50)
     end
 end
 
@@ -106,8 +106,8 @@ function Fragments:update(dt)
             table.remove(self, i)
         end
 
-        if fragment:enter('Hull') then
-            local collision_data = fragment:getEnterCollisionData('Hull')
+        if fragment:enter('TankHull') then
+            local collision_data = fragment:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
             local hitPart, hitArmorside = OverPressureCheck(fragment, Target)
             local ispen = PenCheck(fragment, Target, hitPart, hitArmorside, 0)

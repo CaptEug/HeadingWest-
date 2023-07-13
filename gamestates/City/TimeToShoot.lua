@@ -52,8 +52,8 @@ function TankProjectiles:update(dt)
             table.remove(self, i)
         end
 
-        if shell:enter('Hull') then
-            local collision_data = shell:getEnterCollisionData('Hull')
+        if shell:enter('TankHull') then
+            local collision_data = shell:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
             if Target == shell.from and shell.life > 9 then

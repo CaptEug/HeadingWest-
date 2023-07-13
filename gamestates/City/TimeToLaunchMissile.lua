@@ -47,8 +47,8 @@ function Missiles:update(dt)
             table.remove(self, i)
         end
 
-        if missile:enter('Hull') then
-            local collision_data = missile:getEnterCollisionData('Hull')
+        if missile:enter('TankHull') then
+            local collision_data = missile:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
             if Target == missile.from and missile.life > 29 then
