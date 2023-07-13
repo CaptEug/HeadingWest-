@@ -32,10 +32,12 @@ function Buildship(place, ship, type, x, y, ...)
         turret_location = {},
         functions = {},
         reload_time = ship.reload_time
+        battery = {}
     }
     for i, turret in ipairs(shipy.main_turret_offset) do
         table.insert(shipy.turret_location, turret.id, {ID = turret.id,x = x - turret.x, y = y - turret.y, height = turret.height})
     end 
+
     setmetatable(shipy, Ship)
     table.insert(place.exsist_ship, shipy)
     ShipSpawner:loadship(place, shipy)
@@ -161,10 +163,9 @@ Mouse_Controlfunction = function(ship, dt)
         ship.frontspeed.y = fs.y
     end
 
-    local isaim = false
-    isaim = ship:AimCheck(ship.target1.x, ship.target1.y, dt)
-    if isaim and building.reload_timer <= 0 then
-        Bomb(building, ship.destination.x, ship.destination.y)
+    ship:AimCheck(ship.target1.x, ship.target1.y, dt)
+    if isaim and ship.reload_timer <= 0 then
+        Bomb(ship, ship.destination.x, ship.destination.y)
     end
 end
 
@@ -261,8 +262,10 @@ function Ship:Update(dt)
             else
                 table.insert(self.turret_location, turret.id, {ID = turret.id, x = turret_x, y = turret_y, height = turret.height})
             end
+            table.insert(battery, i, {batter_offset = {x = turret_x, y = turret_y }})
         end
     end
+
 
     --functions update
     self.functions.move(self,dt)
