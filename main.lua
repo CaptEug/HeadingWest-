@@ -113,6 +113,8 @@ Smoke = love.graphics.newImage('Assets/pictures/particles/smoke.png')
 ExhaustGas = love.graphics.newImage('Assets/pictures/particles/exhaust_gas.png')
 Spark = love.graphics.newImage('Assets/pictures/particles/Spark.png')
 Fire = love.graphics.newImage('Assets/pictures/particles/Fire.png')
+Explosion_Grid = anim8.newGrid(100, 100, 100*9, 100*9)
+Explosion_sheet = love.graphics.newImage('Assets/pictures/particles/explosion.png')
 --audio
 cg1 = CG.new('Assets/audio/OP.ogv')
 Letsgo = love.audio.newSource('Assets/audio/music/俄罗斯军队模范亚历山德罗夫红旗歌舞团 - В путь.mp3', 'stream')
@@ -123,7 +125,7 @@ pointcursor = love.mouse.newCursor('Assets/pictures/cursors/PointCursor.png', 0,
 handcursor = love.mouse.newCursor('Assets/pictures/cursors/HandCursor.png', 7, 0)
 sightcursor = love.mouse.newCursor('Assets/pictures/cursors/SightCursor.png', 16, 16)
 emptycursor = love.mouse.newCursor('Assets/pictures/cursors/EmptyCursor.png', 2, 16)
---fontss
+--fonts
 Rtitlefont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 100)
 Rbuttonfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 50)
 Rheadfont = love.graphics.newFont('Assets/fonts/pixelfont.otf', 20)
