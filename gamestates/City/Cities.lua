@@ -154,7 +154,7 @@ function City:init()
     self.world:addCollisionClass('Hull')
     self:loadmap()
     cityUI:load()
-    --Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
+    Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
     Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
     NewSaving:LoadTanks()
 end
@@ -231,6 +231,7 @@ function City:draw()
         TankSpawner:drawtank()
         ShipSpawner:drawship()
         ConstructureSpawner:drawbuilding()
+        Explosions:draw()
         self:DrawMapUp()
         self.world:draw()
         particleworld:draw()
@@ -246,6 +247,8 @@ function City:drawWithoutUI()
         self:DrawMapDown()
         TankSpawner:drawtank()
         ShipSpawner:drawship()
+        ConstructureSpawner:drawbuilding()
+        Explosions:draw()
         self:DrawMapUp()
         self.world:draw()
         particleworld:draw()
@@ -277,18 +280,9 @@ function City:loadmap()
 end
 
 function City:DrawMapDown()
-    if self.map.layers["Ground"] then
-        self.map:drawLayer(self.map.layers["Ground"])
+    for i, layer in ipairs(self.map.layers) do
+        self.map:drawLayer(layer)
     end
-
-    if self.map.layers["Objects"] then
-        self.map:drawLayer(self.map.layers["Objects"])
-    end
-
-    if self.map.layers["Buildings"] then
-        self.map:drawLayer(self.map.layers["Buildings"])
-    end
-
     for i, j in pairs(self.Obstacles) do
         local collider_x,collider_y = j:getPosition()
         local collider_angle = j:getAngle()
