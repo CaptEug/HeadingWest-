@@ -41,6 +41,7 @@ Nizhny_Tagil.world = wf.newWorld(0, 0)
 Nizhny_Tagil.Structure = {}
 Nizhny_Tagil.Obstacles = {}
 Nizhny_Tagil.Coast = {}
+Nizhny_Tagil.Ocean = {}
 Nizhny_Tagil.tanklist = {}
 Nizhny_Tagil.constructurelist = {}
 Nizhny_Tagil.Army = {}
@@ -152,6 +153,7 @@ function City:init()
     self.world:addCollisionClass('ATGM')
     self.world:addCollisionClass('Wall')
     self.world:addCollisionClass('Coast')
+    self.world:addCollisionClass('Ocean')
     self.world:addCollisionClass('Fregment', {ignores = {'Fregment'}})
     self.world:addCollisionClass('TankHull')
     self.world:addCollisionClass('ShipHull')
@@ -289,6 +291,17 @@ function City:loadmap()
             Collider:setType('static')
             Collider:setCollisionClass('Coast')
             table.insert(self.Coast, Collider)
+        end
+    end
+
+    if self.map.layers['Ocean'] then
+        for i, j in pairs(self.map.layers['Ocean'].objects) do
+            local Collider = self.world:newRectangleCollider(j.x, j.y, j.width, j.height)
+            Collider.width = j.width
+            Collider.height = j.heights
+            Collider:setType('static')
+            Collider:setCollisionClass('Ocean')
+            table.insert(self.Ocean, Collider)
         end
     end
 end
