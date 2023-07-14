@@ -38,7 +38,7 @@ function Buildship(place, ship, type, x, y, ...)
     }
     for i, turret in ipairs(shipy.main_turret_offset) do
         table.insert(shipy.turret_location, turret.id, {ID = turret.id,x = x - turret.x, y = y - turret.y, height = turret.height})
-        table.insert(shipy.battery, i, {battery_location = {x = turret.x, y = turret.y}, reload_time = shipy.reload_time, reload_timer = shipy.reload_time, aready = true, gun = {}})
+        table.insert(shipy.battery, i, {battery_location = {x = turret.x, y = turret.y}, reload_time = shipy.reload_time, reload_timer = shipy.reload_time, aready = true, gun = {}, battery_angle = 0})
         shipy.battery[i].ammorack = shipy.ammorack
     end 
 
@@ -258,6 +258,7 @@ function Ship:Update(dt)
     local x,y = self.collider:getPosition()
     local hull_angle = self.collider:getAngle()
     local vx, vy = self.collider:getLinearVelocity()
+    local a = self.location.hull_angle
     self.velocity = {vx = vx, vy = vy, v = math.sqrt(vx^2 + vy^2)}
     self.location = {x = x, y = y, hull_angle = hull_angle}
     local array = self.main_turret_offset
@@ -278,9 +279,10 @@ function Ship:Update(dt)
             end
             for j, gunl in ipairs(gun) do
                 local x, y = gunl.x, gunl.y
-                local x1, y1 = gunoffset(x, y, turret.angle)
+                local x1, y1 = gunoffset(x, y, a+turret.angle)
                 self.battery[i].gun[j] =  {x = x1 + turret_x, y = y1 + turret_y}
             end
+            self.battery[i].battery_angle = a+turret.angle
             self.battery[i].battery_location = {x = turret_x, y = turret_y}
             self.battery[i].reload_timer = self.battery[i].reload_timer - dt
             if self.battery[i].reload_timer <= 0 then

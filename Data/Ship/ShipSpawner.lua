@@ -15,6 +15,7 @@ end
 
 function ShipSpawner:update(dt)
     for i, ship in ipairs(CurrentPlace.exsist_ship) do
+        ship.location.x, ship.location.y = ship.collider:getPosition()
         ship:Update(dt)
     end
 end
