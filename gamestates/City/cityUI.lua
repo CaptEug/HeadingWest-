@@ -58,7 +58,7 @@ function cityUI:load()
             citybuttons.ConstructButtons,
             80
         )
-        if CurrentPlace.factory then
+        if CurrentPlace.tankfactory then
             TankDesigner:load()
             citybuttons.TankFacButtons = buttons.new()
             FacDesigner = buttons.newToolButton(
@@ -86,7 +86,7 @@ function cityUI:update(dt)
     CityInfoPenal:update(dt)
     if CurrentPlace.state == 'Peace' then
         ConstructMenu:update(dt)
-        if CurrentPlace.factory then
+        if CurrentPlace.tankfactory then
             TankDesigner:update(dt)
         end
     end
@@ -111,7 +111,7 @@ function cityUI:draw()
     if CurrentPlace.state == 'Peace' then
         citybuttons.ConstructButtons:use()
         ConstructMenu:draw()
-        if CurrentPlace.factory then
+        if CurrentPlace.tankfactory then
             citybuttons.TankFacButtons:use()
             TankDesigner:draw()
         end
