@@ -100,7 +100,7 @@ function Explosives:update(dt)
         if #explosive.trail == 0 then
             table.remove(self, i)
         end
-        if #explosive.trail > 1000 then
+        if #explosive.trail > 300 then
             table.remove(explosive.trail, 1)
         end
     end
