@@ -309,8 +309,20 @@ function City:loadmap()
 end
 
 function City:DrawMapDown()
-    for i, layer in ipairs(self.map.layers) do
-        self.map:drawLayer(layer)
+    if self.map.layers["Ground"] then
+        self.map:drawLayer(self.map.layers["Ground"])
+    end
+    if self.map.layers["Objects"] then
+        self.map:drawLayer(self.map.layers["Objects"])
+    end
+    if self.map.layers["Buildings"] then
+        self.map:drawLayer(self.map.layers["Buildings"])
+    end
+    if self.map.layers["Coast water"] then
+        self.map:drawLayer(self.map.layers["Coast water"])
+    end
+    if self.map.layers["Ocean water"] then
+        self.map:drawLayer(self.map.layers["Ocean water"])
     end
     for i, j in pairs(self.Obstacles) do
         local collider_x,collider_y = j:getPosition()
