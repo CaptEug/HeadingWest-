@@ -22,14 +22,14 @@ Ships = {
         max_r_speed = -4,
         turnspeed = 0,
         frontspeed = {x = 0, y = 0},
-        turret_t_speed = 50,
+        turret_t_speed = 5,
         vision = 6000,
         engine_output = 172000,
         hull_image = love.graphics.newImage('Assets/ships/usa/Montana/Montana.png'),
         turret_image = love.graphics.newImage('Assets/ships/usa/Montana/406mmMk7.png'),
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
         ammorack = {
-            {name = '406mmHE', type = 'HE', pentype = 'CE', velocity = 820, mass = 1, pen = 406, TNT_eq = 10}
+            {name = '406mmHE', type = 'HE', pentype = 'CE', velocity = 820, mass = 1, pen = 68, TNT_eq = 10}
         },
         reload_time = 3,
     }
