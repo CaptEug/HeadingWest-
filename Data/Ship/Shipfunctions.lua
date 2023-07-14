@@ -25,6 +25,7 @@ function Buildship(place, ship, type, x, y, ...)
         main_turret_offset = ship.main_turret_offset,
         turret_t_speed = ship.turret_t_speed,
         ammorack = ship.ammorack,
+        gun_offset = ship.gun_offset,
         velocity = {vx = 0, vy = 0, v = 0},
         location = {x = x, y = y, hull_angle = 0},
         destination = {x = x, y = y},
@@ -37,7 +38,7 @@ function Buildship(place, ship, type, x, y, ...)
     }
     for i, turret in ipairs(shipy.main_turret_offset) do
         table.insert(shipy.turret_location, turret.id, {ID = turret.id,x = x - turret.x, y = y - turret.y, height = turret.height})
-        table.insert(shipy.battery, i, {battery_location = {x = turret.x, y = turret.y}, reload_time = shipy.reload_time, reload_timer = shipy.reload_time, aready = true})
+        table.insert(shipy.battery, i, {battery_location = {x = turret.x, y = turret.y}, reload_time = shipy.reload_time, reload_timer = shipy.reload_time, aready = true, gun = {}})
         shipy.battery[i].ammorack = shipy.ammorack
     end 
 
@@ -167,7 +168,7 @@ Mouse_Controlfunction = function(ship, dt)
     end
     ship:AimCheck(ship.target1.x, ship.target1.y, dt)
     for i, turret in ipairs(array) do
-        if turret.get == true and ship.battery[i].gun_location ~= nil and ship.battery[i].aready == true then
+        if turret.get == true and ship.battery[i].aready == true then
             Bomb(ship.battery[i], ship.target1.x, ship.target1.y)
             ship.battery[i].aready = false
         end
@@ -246,7 +247,11 @@ function Ship:AimCheck(x, y, dt)
     end
 end
 
-
+function gunoffset(turret_x_start, turret_y_start, hull_angle)
+    local turret_x = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle)
+    local turret_y = turret_y_start * math.cos(hull_angle) + turret_x_start * math.sin(hull_angle)
+    return turret_x, turret_y
+end
 
 function Ship:Update(dt)
     --location update
@@ -256,6 +261,7 @@ function Ship:Update(dt)
     self.velocity = {vx = vx, vy = vy, v = math.sqrt(vx^2 + vy^2)}
     self.location = {x = x, y = y, hull_angle = hull_angle}
     local array = self.main_turret_offset
+    local gun = self.gun_offset
     self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)  
 
     if array then
@@ -270,7 +276,12 @@ function Ship:Update(dt)
             else
                 table.insert(self.turret_location, turret.id, {ID = turret.id, x = turret_x, y = turret_y, height = turret.height})
             end
-            self.battery[i].gun_location = {x = turret_x, y = turret_y }
+            for j, gunl in ipairs(gun) do
+                local x, y = gunl.x, gunl.y
+                local x1, y1 = gunoffset(x, y, turret.angle)
+                self.battery[i].gun[j] =  {x = x1 + turret_x, y = y1 + turret_y}
+            end
+            self.battery[i].battery_location = {x = turret_x, y = turret_y}
             self.battery[i].reload_timer = self.battery[i].reload_timer - dt
             if self.battery[i].reload_timer <= 0 then
                 self.battery[i].aready = true
