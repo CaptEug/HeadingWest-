@@ -31,6 +31,6 @@ Ships = {
         ammorack = {
             {name = '406mmHE', type = 'HE', pentype = 'CE', velocity = 820, mass = 1, pen = 406, TNT_eq = 10, shells = love.graphics.newImage('Assets/ships/usa/Weapons/406mmHCShells.png')}
         },
-        reload_time = 3,
+        reload_time = 30,
     }
 }

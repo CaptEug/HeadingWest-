@@ -16,13 +16,14 @@ function Shoot(tank)
     local round = tank.ammorack[1]
     local ix, iy = math.cos(tank.location.hull_angle+tank.turret_angle-math.pi/2),
                    math.sin(tank.location.hull_angle+tank.turret_angle-math.pi/2)
-    local shell = CurrentPlace.world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 1)
-    shell:setCollisionClass(round.type)
-    shell:setBullet(true)
-    shell:setRestitution(0.5)
-    shell:setLinearDamping(0.01)
-    shell:setMass(round.mass)
-    shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
+    local shell = {}
+    shell.shell = CurrentPlace.world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 1)
+    shell.shell:setCollisionClass(round.type)
+    shell.shell:setBullet(true)
+    shell.shell:setRestitution(0.5)
+    shell.shell:setLinearDamping(0.01)
+    shell.shell:setMass(round.mass)
+    shell.shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
     shell.from = tank
     shell.life = 10
     shell.type = round.type
@@ -41,19 +42,19 @@ end
 function TankProjectiles:update(dt)
     for i, shell in ipairs(self) do
         shell.life = shell.life - dt
-        local sx, sy = shell:getPosition()
+        local sx, sy = shell.shell:getPosition()
         table.insert(shell.trail, {x = sx, y = sy})
 
-        if shell:enter('Wall') then
+        if shell.shell:enter('Wall') then
             if shell.type == 'HE' then
                 Explode(shell)
             end
-            shell:destroy()
+            shell.shell:destroy()
             table.remove(self, i)
         end
 
-        if shell:enter('TankHull') then
-            local collision_data = shell:getEnterCollisionData('TankHull')
+        if shell.shell:enter('TankHull') then
+            local collision_data = shell.shell:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
             if Target == shell.from and shell.life > 9 then
@@ -62,14 +63,14 @@ function TankProjectiles:update(dt)
 
             if shell.type == 'HE' then
                 Explode(shell)
-                shell:destroy()
+                shell.shell:destroy()
                 table.remove(self, i)
             else
                 local ricochet, hitPart, hitArmorside, angle = RicochetCheck(shell, Target)
                 local ispen = false
                 if not ricochet then
                     ispen = PenCheck(shell, Target, hitPart, hitArmorside, angle)
-                    shell:destroy()
+                    shell.shell:destroy()
                     table.remove(self, i)
                 end
                 if ispen then
@@ -89,7 +90,7 @@ function TankProjectiles:update(dt)
         end
 
         if shell.life <= 0 then
-            shell:destroy()
+            shell.shell:destroy()
             table.remove(self, i)
         end
     end
@@ -134,8 +135,8 @@ end
 
 function RicochetCheck(shell, Target)
     --position_angle acquire and armor side check
-    local x, y = shell:getPosition()
-    local vx, vy = shell:getLinearVelocity()
+    local x, y = shell.shell:getPosition()
+    local vx, vy = shell.shell:getLinearVelocity()
     local hitvalue = math.random()
     local hitPart = 'none'
     local hitArmorside = 'none'

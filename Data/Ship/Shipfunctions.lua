@@ -325,12 +325,6 @@ function Ship:Draw()
             local turret_x = turl[i].x
             local turret_y = turl[i].y
             love.graphics.draw(self.turret_image,turret_x,turret_y,a+array[i].angle,1,1,width1/2,height1/2)
-            love.graphics.setColor(1, 0, 0)
-            local length = 10000
-            local end_x = turret_x + length * math.cos(a+array[i].angle-0.5*math.pi)
-            local end_y = turret_y + length * math.sin(a+array[i].angle-0.5*math.pi)
-            love.graphics.line(turret_x,turret_y, end_x, end_y)
-            love.graphics.setColor(1, 1, 1, 1)
         end
     end
 end
