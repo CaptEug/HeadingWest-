@@ -8,59 +8,73 @@ function Bomb(unit, x, y)
         local ix, iy = math.cos(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x)),
                    math.sin(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x))
         local distance = math.sqrt((x - unit.gun_location.x)^2 + (y - unit.gun_location.y)^2)
-        local explosive = particleworld:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 2)
-        explosive:setMass(bomb.mass)
-        explosive:setBullet(true)
-        explosive:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
-        explosive.timer = distance/bomb.velocity
-        explosive.type = bomb.type
-        explosive.pen = bomb.pen
-        explosive.pentype = bomb.pentype
-        explosive.TNT_eq = bomb.TNT_eq
-        table.insert(Explosives, explosive)
-    end
-    if unit.gun_location2 then
-        local explosive2 = particleworld:newCircleCollider(unit.gun_location2.x, unit.gun_location2.y, 2)
-        explosive2:setMass(bomb.mass)
-        explosive2:setBullet(true)
-        explosive2:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
-        explosive2.timer = distance/bomb.velocity
+        local explosive2 = {}
+        explosive2.explosive3 = particleworld:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 2)
+        explosive2.explosive3:setMass(bomb.mass)
+        explosive2.explosive3:setBullet(true)
+        explosive2.explosive3:setLinearVelocity(ix1*bomb.velocity, iy1*bomb.velocity)
+        explosive2.timer = distance1/bomb.velocity
         explosive2.type = bomb.type
         explosive2.pen = bomb.pen
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
-        table.insert(Explosives, explosive2)
-    end
-    if unit.gun_location3 then
-        local explosive3 = particleworld:newCircleCollider(unit.gun_location3.x, unit.gun_location3.y, 2)
-        explosive3:setMass(bomb.mass)
-        explosive3:setBullet(true)
-        explosive3:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
-        explosive3.timer = distance/bomb.velocity
-        explosive3.type = bomb.type
-        explosive3.pen = bomb.pen
-        explosive3.pentype = bomb.pentype
-        explosive3.TNT_eq = bomb.TNT_eq
+        explosive3.pic = unit.ammorack[1].shells
+        table.insert(Explosives, explosive3)
+    elseif unit.gun_location2 then
+        local ix, iy = math.cos(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x)),
+                   math.sin(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x))
+        local distance = math.sqrt((x - unit.gun_location.x)^2 + (y - unit.gun_location.y)^2)
+        local explosive2 = {}
+        explosive2.explosive3 = particleworld:newCircleCollider(unit.gun_location2.x, unit.gun_location2.y, 2)
+        explosive2.explosive3:setMass(bomb.mass)
+        explosive2.explosive3:setBullet(true)
+        explosive2.explosive3:setLinearVelocity(ix1*bomb.velocity, iy1*bomb.velocity)
+        explosive2.timer = distance1/bomb.velocity
+        explosive2.type = bomb.type
+        explosive2.pen = bomb.pen
+        explosive2.pentype = bomb.pentype
+        explosive2.TNT_eq = bomb.TNT_eq
+        explosive3.pic = unit.ammorack[1].shells
+        table.insert(Explosives, explosive3)
+    elseif unit.gun_location3 then
+        local ix, iy = math.cos(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x)),
+                   math.sin(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x))
+        local distance = math.sqrt((x - unit.gun_location.x)^2 + (y - unit.gun_location.y)^2)
+        local explosive2 = {}
+        explosive2.explosive3 = particleworld:newCircleCollider(unit.gun_location3.x, unit.gun_location3.y, 2)
+        explosive2.explosive3:setMass(bomb.mass)
+        explosive2.explosive3:setBullet(true)
+        explosive2.explosive3:setLinearVelocity(ix1*bomb.velocity, iy1*bomb.velocity)
+        explosive2.timer = distance1/bomb.velocity
+        explosive2.type = bomb.type
+        explosive2.pen = bomb.pen
+        explosive2.pentype = bomb.pentype
+        explosive2.TNT_eq = bomb.TNT_eq
+        explosive3.pic = unit.ammorack[1].shells
         table.insert(Explosives, explosive3)
     end
     if unit.gun then
         for i, gun in ipairs(unit.gun) do
-            local explosive3 = particleworld:newCircleCollider(unit.gun[i].x, unit.gun[i].y, 2)
+            local explosive2 = {}
+            explosive2.explosive3 = particleworld:newCircleCollider(unit.gun[i].x, unit.gun[i].y, 5)
             local ix1, iy1 = math.cos(math.atan2(y - unit.battery_location.y, x - unit.battery_location.x)),
                    math.sin(math.atan2(y - unit.battery_location.y, x - unit.battery_location.x))
             local distance1 = math.sqrt((x - unit.gun[i].x)^2 + (y - unit.gun[i].y)^2)
-            explosive3:setMass(bomb.mass)
-            explosive3:setBullet(true)
-            explosive3:setLinearVelocity(ix1*bomb.velocity, iy1*bomb.velocity)
-            explosive3.timer = distance1/bomb.velocity
-            explosive3.type = bomb.type
-            explosive3.pen = bomb.pen
-            explosive3.pentype = bomb.pentype
-            explosive3.TNT_eq = bomb.TNT_eq
-            local x, y = explosive3:getPosition()
-            table.insert(Explosives, explosive3)
-            love.graphics.setColor(255, 0, 0)
-            love.graphics.circle(x, y)
+            local angle = 0.5*math.pi + math.atan2(y - unit.battery_location.y, x - unit.battery_location.x)
+            explosive2.explosive3:setMass(bomb.mass)
+            explosive2.explosive3:setBullet(true)
+            explosive2.explosive3:setLinearVelocity(ix1*bomb.velocity, iy1*bomb.velocity)
+            explosive2.timer = distance1/bomb.velocity
+            explosive2.type = bomb.type
+            explosive2.pen = bomb.pen
+            explosive2.pentype = bomb.pentype
+            explosive2.TNT_eq = bomb.TNT_eq
+            explosive2.x, explosive2.y = explosive2.explosive3:getPosition()
+            explosive2.angle = angle
+            explosive2.ic = bomb.shells
+            explosive2.trail = {}
+            explosive2.fusee = true
+            table.insert(Explosives, explosive2)
         end
     end
 
@@ -71,11 +85,23 @@ end
 
 function Explosives:update(dt)
     for i, explosive in ipairs(self) do
+        if explosive.ic then
+            local sx, sy = explosive.explosive3:getPosition()
+            table.insert(explosive.trail, {x = sx, y = sy})
+        else
+            table.remove(explosive.trail, 1)
+        end
         explosive.timer = explosive.timer - dt
-        if explosive.timer <= 0 then
+        if explosive.timer <= 0 and explosive.fusee == true then
             Explode(explosive)
-            explosive:destroy()
+            explosive.explosive3:destroy()
+            explosive.ic = false
+        end
+        if #explosive.trail == 0 then
             table.remove(self, i)
+        end
+        if #explosive.trail > 1000 then
+            table.remove(explosive.trail, 1)
         end
     end
     for i, explosion in ipairs(Explosions) do
@@ -87,15 +113,31 @@ function Explosives:update(dt)
     end
 end
 
-function Explosions:draw()
-    for i, explosion in ipairs(self) do
+function Explosives:draw()
+    for i, explosion in ipairs(Explosions) do
         explosion.anime:draw(Explosion_sheet, explosion.x, explosion.y, 0, 1, 1, 50, 50)
+    end
+    for i, explosive in ipairs(self) do 
+        if explosive.ic then
+            local x, y = explosive.explosive3:getPosition()
+            local width1 = explosive.ic:getWidth()
+            local height1 = explosive.ic:getHeight()
+            love.graphics.draw(explosive.ic,x,y,explosive.angle,1,1,width1/2,height1/2)
+        end
+        for i = 1, #explosive.trail - 1 do
+            local p1, p2 = explosive.trail[i], explosive.trail[i+1]
+            love.graphics.setColor(1, 0, 0, i / #explosive.trail) -- Set the color of the line
+            love.graphics.setLineWidth(8)
+            love.graphics.line(p1.x, p1.y, p2.x, p2.y) 
+            love.graphics.setColor(1, 1, 1)-- Draw the line segment
+        end
+        love.graphics.setLineWidth(1)
     end
 end
 
 function Explode(explosive)
     local n = 0
-    local x, y = explosive:getPosition()
+    local x, y = explosive.explosive3:getPosition()
     local explosion = {}
     explosion.anime = anim8.newAnimation(Explosion_Grid('1-9','1-9'), 0.05)
     explosion.x, explosion.y = x, y
@@ -118,6 +160,7 @@ function Explode(explosive)
         table.insert(Fragments, fragment)
         n = n + 1
     end
+    explosive.fusee = false
 end
 
 function Fragments:update(dt)
