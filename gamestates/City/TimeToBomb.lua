@@ -122,7 +122,7 @@ function Explosives:draw()
             local x, y = explosive.explosive3:getPosition()
             local width1 = explosive.ic:getWidth()
             local height1 = explosive.ic:getHeight()
-            love.graphics.draw(explosive.ic,x,y,explosive.angle,1,1,width1/2,height1/2)
+            love.graphics.draw(explosive.ic,x,y,explosive.angle,1,1,width1/2,height1)
         end
         for i = 1, #explosive.trail - 1 do
             local p1, p2 = explosive.trail[i], explosive.trail[i+1]
