@@ -160,6 +160,7 @@ function City:init()
     self:loadmap()
     cityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
+    --BuildConstructure(CurrentPlace, Constructures.Maxim_Gorky, 'enemy', 3000, 1000)
     Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
     NewSaving:LoadTanks()
 end

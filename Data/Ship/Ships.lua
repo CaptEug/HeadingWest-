@@ -31,6 +31,6 @@ Ships = {
         ammorack = {
             {name = '406mmHE', type = 'HE', pentype = 'CE', velocity = 820, mass = 1, pen = 406, TNT_eq = 100}
         },
-        reload_time = 30,
+        reload_time = 3,
     }
 }

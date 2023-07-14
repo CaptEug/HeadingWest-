@@ -24,6 +24,7 @@ function Buildship(place, ship, type, x, y, ...)
         vision = ship.vision,
         main_turret_offset = ship.main_turret_offset,
         turret_t_speed = ship.turret_t_speed,
+        ammorack = ship.ammorack,
         velocity = {vx = 0, vy = 0, v = 0},
         location = {x = x, y = y, hull_angle = 0},
         destination = {x = x, y = y},
@@ -36,6 +37,8 @@ function Buildship(place, ship, type, x, y, ...)
     }
     for i, turret in ipairs(shipy.main_turret_offset) do
         table.insert(shipy.turret_location, turret.id, {ID = turret.id,x = x - turret.x, y = y - turret.y, height = turret.height})
+        table.insert(shipy.battery, i, {battery_location = {x = turret.x, y = turret.y}, reload_time = shipy.reload_time, reload_timer = shipy.reload_time, aready = true})
+        shipy.battery[i].ammorack = shipy.ammorack
     end 
 
     setmetatable(shipy, Ship)
@@ -162,10 +165,12 @@ Mouse_Controlfunction = function(ship, dt)
         ship.frontspeed.x = fs.x
         ship.frontspeed.y = fs.y
     end
-
     ship:AimCheck(ship.target1.x, ship.target1.y, dt)
-    if isaim and ship.reload_timer <= 0 then
-        Bomb(ship, ship.destination.x, ship.destination.y)
+    for i, turret in ipairs(array) do
+        if turret.get == true and ship.battery[i].gun_location ~= nil and ship.battery[i].aready == true then
+            Bomb(ship.battery[i], ship.target1.x, ship.target1.y)
+            ship.battery[i].aready = false
+        end
     end
 end
 
@@ -189,6 +194,7 @@ function Ship:AimCheck(x, y, dt)
             local angle_to_mouse1 = nor(math.atan2(y - turret_y, x - turret_x))
             local angle_to_mouse2 = nor(math.atan2(y - self.location.y, x - self.location.x))
             local contral = array[i].angle1 + math.pi - array[i].fwangle
+            turret.get = false
             if nor(angle_to_mouse2 - a) >= 0 then
                 if array[i].angle1 == 0 then
                     if array[i].angle > nor(angle_to_mouse1 - a) then
@@ -231,8 +237,8 @@ function Ship:AimCheck(x, y, dt)
             end
             local tx, ty = turret_x, turret_y
             local angle_to_target = math.atan2(y - ty, x - tx)
-            if array[i].angle + a < angle_to_target + math.pi/36 and array[i].angle + a > angle_to_target - math.pi/36 then
-                array[i].get = true
+            if nor(turret.angle + a) < nor(angle_to_target + math.pi/36) and nor(turret.angle + a) > nor(angle_to_target - math.pi/36) then
+                turret.get = true
             end
         end
     end
@@ -262,7 +268,11 @@ function Ship:Update(dt)
             else
                 table.insert(self.turret_location, turret.id, {ID = turret.id, x = turret_x, y = turret_y, height = turret.height})
             end
-            table.insert(self.battery, i, {batter_offset = {x = turret_x, y = turret_y }})
+            self.battery[i].gun_location = {x = turret_x, y = turret_y }
+            self.battery[i].reload_timer = self.battery[i].reload_timer - dt
+            if self.battery[i].reload_timer <= 0 then
+                self.battery[i].aready = true
+            end
         end
     end
 

@@ -37,7 +37,7 @@ Constructures = {
         hitpoint = 500,
         armorthickness = 305,
         ammorack = {
-            {name = '305mmHE', type = 'HE', pentype = 'CE', velocity = 1000, mass = 1, pen = 305, TNT_eq = 55}
+            {name = '305mmHE', type = 'HE', pentype = 'CE', velocity = 100, mass = 1, pen = 305, TNT_eq = 55}
         },
         reload_time = 20,
         firing_time = 1,
