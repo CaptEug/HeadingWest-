@@ -65,8 +65,10 @@ function CityInfoPenal:draw()
         love.graphics.draw(CityInfoPenal_screen)
         love.graphics.setColor(0,0,0)
         love.graphics.setFont(Rheadfont)
-        love.graphics.print('Army in '..CurrentPlace.name, 0 + 32, 0 + 40)
+        love.graphics.print('Army in '..CurrentPlace.name, 0 + 32, 0 + 24)
         love.graphics.setFont(Rtextfont)
+        love.graphics.print(CurrentPlace.oil_store, 100, 40)
+        love.graphics.print(CurrentPlace.steel_store, 100, 60)
         CityInfoPenal.Buttons:use()
         
         DivisionHight = 72

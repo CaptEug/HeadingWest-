@@ -11,8 +11,6 @@ Moskva.y = 580
 Moskva.country = {}
 Moskva.name = 'Moskva'
 Moskva.type = 'Capital'
-Moskva.factory = false
-Moskva.labtory = true
 Moskva.state = 'Peace'
 Moskva.map = sti("Assets/maps/Testmap.lua")
 Moskva.world = wf.newWorld(0, 0)
@@ -33,42 +31,47 @@ Nizhny_Tagil.y = 555
 Nizhny_Tagil.country = {}
 Nizhny_Tagil.name = 'Nizhny Tagil'
 Nizhny_Tagil.type = 'Normal'
-Nizhny_Tagil.factory = 'UVZ'
-Nizhny_Tagil.labtory = false
+Nizhny_Tagil.oil_store = 0
+Nizhny_Tagil.steel_store = 0
+Nizhny_Tagil.tankfactory = {
+    name = 'UVZ',
+    tanklist = {},
+    slot_info = {
+        {x=112,y=48,available=true},
+        {x=112,y=48+256*1,available=true},
+        {x=112,y=48+256*2,available=true},
+        {x=112,y=48+256*3,available=true},
+        {x=112,y=48+256*4,available=true},
+        {x=112,y=48+256*5,available=true},
+        {x=112,y=48+256*6,available=true},
+        {x=112,y=48+256*7,available=true},
+        {x=112+544,y=48,available=true},
+        {x=112+544,y=48+256*1,available=true},
+        {x=112+544,y=48+256*2,available=true},
+        {x=112+544,y=48+256*3,available=true},
+        {x=112+544,y=48+256*4,available=true},
+        {x=112+544,y=48+256*5,available=true},
+        {x=112+544,y=48+256*6,available=true},
+        {x=112+544,y=48+256*7,available=true},
+    }
+}
 Nizhny_Tagil.state = 'Peace'
 Nizhny_Tagil.map = sti("Assets/maps/UVZfac.lua")
 Nizhny_Tagil.world = wf.newWorld(0, 0)
+--map collider
 Nizhny_Tagil.Structure = {}
 Nizhny_Tagil.Obstacles = {}
 Nizhny_Tagil.Coast = {}
 Nizhny_Tagil.Ocean = {}
-Nizhny_Tagil.tanklist = {}
+
 Nizhny_Tagil.constructurelist = {}
 Nizhny_Tagil.Army = {}
 Nizhny_Tagil.exsist_tank = {}
 Nizhny_Tagil.exsist_ship = {}
 Nizhny_Tagil.broken_tank = {}
 Nizhny_Tagil.exsist_building = {}
-Nizhny_Tagil.building_slot = 16
 Nizhny_Tagil.songlist = {}
-Nizhny_Tagil.slot_info = {
-    {x=112,y=48,available=true},
-    {x=112,y=48+256*1,available=true},
-    {x=112,y=48+256*2,available=true},
-    {x=112,y=48+256*3,available=true},
-    {x=112,y=48+256*4,available=true},
-    {x=112,y=48+256*5,available=true},
-    {x=112,y=48+256*6,available=true},
-    {x=112,y=48+256*7,available=true},
-    {x=112+544,y=48,available=true},
-    {x=112+544,y=48+256*1,available=true},
-    {x=112+544,y=48+256*2,available=true},
-    {x=112+544,y=48+256*3,available=true},
-    {x=112+544,y=48+256*4,available=true},
-    {x=112+544,y=48+256*5,available=true},
-    {x=112+544,y=48+256*6,available=true},
-    {x=112+544,y=48+256*7,available=true},
-}
+Nizhny_Tagil.
 
 --[[Baku = {
     x = 1220,
@@ -95,8 +98,6 @@ Berlin.y = 605
 Berlin.country = {}
 Berlin.name = 'Berlin'
 Berlin.type = 'Capital'
-Berlin.factory = false
-Berlin.labtory = true
 Berlin.state ='Battlefield'
 Berlin.map = sti("Assets/maps/checkpointC.lua")
 Berlin.world = wf.newWorld(0, 0)

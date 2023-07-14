@@ -811,10 +811,10 @@ Ships = {
     },
 }
 
-table.insert(Nizhny_Tagil.tanklist, Tanks.T72A)
-table.insert(Nizhny_Tagil.tanklist, Tanks.T72B)
-table.insert(Nizhny_Tagil.tanklist, Tanks.T90)
-table.insert(Nizhny_Tagil.tanklist, IFVs.BMP2)
-table.insert(Nizhny_Tagil.tanklist, SPGs.Pion2S7)
---table.insert(Nizhny_Tagil.tanklist, Ships.Montana)
-table.insert(Nizhny_Tagil.tanklist, Tanks.M1)
+table.insert(Nizhny_Tagil.tankfactory.tanklist, Tanks.T72A)
+table.insert(Nizhny_Tagil.tankfactory.tanklist, Tanks.T72B)
+table.insert(Nizhny_Tagil.tankfactory.tanklist, Tanks.T90)
+table.insert(Nizhny_Tagil.tankfactory.tanklist, IFVs.BMP2)
+table.insert(Nizhny_Tagil.tankfactory.tanklist, SPGs.Pion2S7)
+--table.insert(Nizhny_Tagil.tankfactory.tanklist, Ships.Montana)
+table.insert(Nizhny_Tagil.tankfactory.tanklist, Tanks.M1)

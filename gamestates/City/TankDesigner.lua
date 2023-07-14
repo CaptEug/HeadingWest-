@@ -28,7 +28,7 @@ function TankDesigner:load()
     Next = buttons.newWindowToolButton(
         rightArrow,
         function ()
-            if TankDesigner.tankindex < #CurrentPlace.tanklist then
+            if TankDesigner.tankindex < #CurrentPlace.tankfactory.tanklist then
                 TankDesigner.tankindex = TankDesigner.tankindex + 1
             else
                 TankDesigner.tankindex = 1
@@ -46,7 +46,7 @@ function TankDesigner:load()
             if TankDesigner.tankindex > 1 then
                 TankDesigner.tankindex = TankDesigner.tankindex - 1
             else
-                TankDesigner.tankindex = #CurrentPlace.tanklist
+                TankDesigner.tankindex = #CurrentPlace.tankfactory.tanklist
             end
         end,
         TankDesigner.window,
@@ -55,7 +55,7 @@ function TankDesigner:load()
         0 + 331
     )
 
-    for i, tank in ipairs(CurrentPlace.tanklist) do
+    for i, tank in ipairs(CurrentPlace.tankfactory.tanklist) do
         tank.armor_num = 1
         tank.aim_num = 1
         tank.mob_num = 1
@@ -234,8 +234,8 @@ end
 function TankDesigner:update(dt)
     --pageshown detection
     if TankDesigner.PageShown == 'Armor' then
-        CurrentPlace.tanklist[TankDesigner.tankindex].ammunition.isopen = false
-        for i, accessory in ipairs(CurrentPlace.tanklist[TankDesigner.tankindex].accessories) do
+        CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].ammunition.isopen = false
+        for i, accessory in ipairs(CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].accessories) do
             if i == 1 then
                 accessory.isopen = true
             else
@@ -244,8 +244,8 @@ function TankDesigner:update(dt)
         end
     end
     if TankDesigner.PageShown == 'Aim' then
-        CurrentPlace.tanklist[TankDesigner.tankindex].ammunition.isopen = false
-        for i, accessory in ipairs(CurrentPlace.tanklist[TankDesigner.tankindex].accessories) do
+        CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].ammunition.isopen = false
+        for i, accessory in ipairs(CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].accessories) do
             if i == 2 then
                 accessory.isopen = true
             else
@@ -254,8 +254,8 @@ function TankDesigner:update(dt)
         end
     end
     if TankDesigner.PageShown == 'Mob' then
-        CurrentPlace.tanklist[TankDesigner.tankindex].ammunition.isopen = false
-        for i, accessory in ipairs(CurrentPlace.tanklist[TankDesigner.tankindex].accessories) do
+        CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].ammunition.isopen = false
+        for i, accessory in ipairs(CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].accessories) do
             if i == 3 then
                 accessory.isopen = true
             else
@@ -264,10 +264,10 @@ function TankDesigner:update(dt)
         end
     end
     if TankDesigner.PageShown == 'Ammo' then
-        for i, accessory in ipairs(CurrentPlace.tanklist[TankDesigner.tankindex].accessories) do
+        for i, accessory in ipairs(CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].accessories) do
             accessory.isopen = false
         end
-        CurrentPlace.tanklist[TankDesigner.tankindex].ammunition.isopen = true
+        CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].ammunition.isopen = true
     end
     --tank production process
     for i, tank in ipairs(CurrentPlace.ProductionQueue) do
@@ -277,9 +277,9 @@ function TankDesigner:update(dt)
             tank.selected_slot = TankDesigner:slot_distribution(CurrentPlace)
         end
         if tank.buildtime <= 0 then
-            Buildtank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue, i), 'friendly', CurrentPlace.slot_info[tank.selected_slot].x, CurrentPlace.slot_info[tank.selected_slot].y)
+            Buildtank(CurrentPlace, table.remove(CurrentPlace.ProductionQueue, i), 'friendly', CurrentPlace.tankfactory.slot_info[tank.selected_slot].x, CurrentPlace.tankfactory.slot_info[tank.selected_slot].y)
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
-            CurrentPlace.slot_info[tank.selected_slot].available = true
+            CurrentPlace.tankfactory.slot_info[tank.selected_slot].available = true
             tank.selected_slot = nil
         end
     end
@@ -288,7 +288,7 @@ end
 
 function TankDesigner:draw()
 
-    TankPresent = CurrentPlace.tanklist[TankDesigner.tankindex]
+    TankPresent = CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex]
 
     if CurrentPlace.openTankDesigner then
     love.graphics.setCanvas(TDscreen)
@@ -296,7 +296,7 @@ function TankDesigner:draw()
         TankDesigner.tank_oil_cost = TankPresent.oil_cost + TankPresent.accessories[1][TankPresent.armor_num].oil_cost + TankPresent.accessories[2][TankPresent.aim_num].oil_cost + TankPresent.accessories[3][TankPresent.mob_num].oil_cost
         love.graphics.draw(TankDesigner_screen, 0, 0)
         love.graphics.setFont(Rbuttonfont)
-        love.graphics.print(CurrentPlace.factory, 0 + 40, 0)
+        love.graphics.print(CurrentPlace.tankfactory.name, 0 + 40, 0)
         love.graphics.setFont(Rtextfont)
         love.graphics.setColor(0,179/255,0)
         love.graphics.print(TankPresent.name, 0 + 40 + 6, 0 + 64 + 6)
@@ -385,7 +385,7 @@ end
 function TankDesigner:slot_distribution(place)
     local slot_full = true
     local selected_slot
-    for i, slot in ipairs(place.slot_info) do
+    for i, slot in ipairs(place.tankfactory.slot_info) do
         if slot.available==true then
             slot.available=false
             selected_slot=i
