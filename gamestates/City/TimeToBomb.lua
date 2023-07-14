@@ -57,7 +57,10 @@ function Bomb(unit, x, y)
             explosive3.pen = bomb.pen
             explosive3.pentype = bomb.pentype
             explosive3.TNT_eq = bomb.TNT_eq
+            local x, y = explosive3:getPosition()
             table.insert(Explosives, explosive3)
+            love.graphics.setColor(255, 0, 0)
+            love.graphics.circle(x, y)
         end
     end
 
