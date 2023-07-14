@@ -237,7 +237,9 @@ function Ship:AimCheck(x, y, dt)
             end
             local tx, ty = turret_x, turret_y
             local angle_to_target = math.atan2(y - ty, x - tx)
-            if nor(turret.angle + a) < nor(angle_to_target + math.pi/36) and nor(turret.angle + a) > nor(angle_to_target - math.pi/36) then
+            local test1 = nor(turret.angle + a) < nor(angle_to_target + math.pi/36) and nor(turret.angle + a) > nor(angle_to_target - math.pi/36)
+            local test2 = nor2(turret.angle + a) < nor2(angle_to_target + math.pi/36) and nor2(turret.angle + a) > nor2(angle_to_target - math.pi/36)
+            if test1 or test2 then
                 turret.get = true
             end
         end
