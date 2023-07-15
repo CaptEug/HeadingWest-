@@ -159,7 +159,7 @@ function City:init()
     self.world:addCollisionClass('TankHull')
     self.world:addCollisionClass('ShipHull', {ignores = {'Ocean'}})
     self:loadmap()
-    cityUI:load()
+    CityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
     --BuildConstructure(CurrentPlace, Constructures.Maxim_Gorky, 'enemy', 3000, 1000)
     Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
@@ -168,6 +168,7 @@ end
 
 function City:update(dt)
     self.world:update(dt)
+    City:LocationDiscretize()
     particleworld:update(dt)
     TankSpawner:update(dt)
     ShipSpawner:update(dt)
@@ -176,7 +177,7 @@ function City:update(dt)
     Missiles:update(dt)
     Explosives:update(dt)
     Fragments:update(dt)
-    cityUI:update(dt)
+    CityUI:update(dt)
     --cam contral
     if cam.scale > 2 then
         cam:zoomTo(2)
@@ -200,6 +201,12 @@ function City:update(dt)
             TPmousepressed(x, y, button)
         end
     end
+
+    function City:LocationDiscretize()
+        local mouseX,mouseY = cam:mousePosition()
+        IntX, IntY = 32*math.floor(mouseX/32),32*math.floor(mouseY/32)
+    end
+
     function love.mousereleased(x, y, button)
         SelectionMouseReleased(x, y, button)
         if CurrentPlace.openTankDesigner then
@@ -246,7 +253,7 @@ function City:draw()
         Missiles:draw()
     cam:detach()
 
-    cityUI:draw()
+    CityUI:draw()
 end
 
 function City:drawWithoutUI()
@@ -255,7 +262,7 @@ function City:drawWithoutUI()
         TankSpawner:drawtank()
         ShipSpawner:drawship()
         ConstructureSpawner:drawbuilding()
-        Explosions:draw()
+        Explosives:draw()
         self:DrawMapUp()
         self.world:draw()
         particleworld:draw()
@@ -309,8 +316,20 @@ function City:loadmap()
 end
 
 function City:DrawMapDown()
-    for i, layer in ipairs(self.map.layers) do
-        self.map:drawLayer(layer)
+    if self.map.layers["Ground"] then
+        self.map:drawLayer(self.map.layers["Ground"])
+    end
+    if self.map.layers["Objects"] then
+        self.map:drawLayer(self.map.layers["Objects"])
+    end
+    if self.map.layers["Buildings"] then
+        self.map:drawLayer(self.map.layers["Buildings"])
+    end
+    if self.map.layers["Coast water"] then
+        self.map:drawLayer(self.map.layers["Coast water"])
+    end
+    if self.map.layers["Ocean water"] then
+        self.map:drawLayer(self.map.layers["Ocean water"])
     end
     for i, j in pairs(self.Obstacles) do
         local collider_x,collider_y = j:getPosition()

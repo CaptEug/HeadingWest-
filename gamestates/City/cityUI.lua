@@ -1,12 +1,12 @@
-cityUI={}
+CityUI = {}
 citybuttons = {}
 require 'gamestates/city/Console'
-require 'gamestates.city.TankDesigner'
-require 'gamestates.city.TankInfoPanel'
 require 'gamestates.city.CityInfoPenal'
-require 'gamestates.city.ConstructMenu'
+require 'Data/Tank/TankDesigner'
+require 'Data/Tank/TankInfoPanel'
+require 'Data/Constructure/ConstructMenu'
 
-function cityUI:load()
+function CityUI:load()
     Console:load()
     TankInfoPanel:load()
     CityInfoPenal:load()
@@ -80,7 +80,7 @@ function cityUI:load()
     end
 end
 
-function cityUI:update(dt)
+function CityUI:update(dt)
     Console:update(dt)
     TankInfoPanel:update(dt)
     CityInfoPenal:update(dt)
@@ -95,7 +95,7 @@ function cityUI:update(dt)
     end
 end
 
-function cityUI:draw()
+function CityUI:draw()
     love.graphics.setFont(Rtextfont)
     love.graphics.draw(Steel_icon, ww-128)
     love.graphics.print(tostring(math.floor(Steel)), ww-96)

@@ -1,18 +1,60 @@
+Icon_in_progress = love.graphics.newImage('Assets/constructures/ImageinProgress.png')
+
 Constructures = {
     OilDriller = {
         name = 'Oil Driller',
         class = 'resource',
         requirement = 'oil field',
-        width = 288,
-        length = 288,
+        width = 128,
+        length = 128,
         vision = 0,
         steel_cost = 20,
         oil_cost = 0,
         steel_production = 0,
         oil_productioon = 1,
+        oil_storage = 20,
         hitpoint = 10,
         armorthickness = 0,
-        icon = love.graphics.newImage('Assets/pictures/buttons/MaximGorky_icon.png'),
+        icon = Icon_in_progress,
+        image = Image_in_progress,
+        anime_sheet = Image_in_progress,
+        buildtime = 10,
+        fixedbuildtime = 10
+    },
+
+    OilStorage = {
+        name = 'Oil Storage',
+        class = 'resource',
+        width = 128,
+        length = 128,
+        vision = 0,
+        steel_cost = 20,
+        oil_cost = 0,
+        oil_storage = 500,
+        hitpoint = 100,
+        armorthickness = 0,
+        icon = Icon_in_progress,
+        image = Image_in_progress,
+        anime_sheet = Image_in_progress,
+        buildtime = 10,
+        fixedbuildtime = 10
+    },
+
+    OilPlatform = {
+        name = 'Oil Platform',
+        class = 'resource',
+        requirement = 'oil field',
+        width = 128,
+        length = 128,
+        vision = 0,
+        steel_cost = 20,
+        oil_cost = 0,
+        steel_production = 0,
+        oil_productioon = 1,
+        oil_storage = 20,
+        hitpoint = 10,
+        armorthickness = 0,
+        icon = Icon_in_progress,
         image = Image_in_progress,
         anime_sheet = Image_in_progress,
         buildtime = 10,
@@ -43,7 +85,7 @@ Constructures = {
         firing_time = 1,
         buildtime = 10,
         fixedbuildtime = 10,
-        icon = love.graphics.newImage('Assets/pictures/buttons/MaximGorky_icon.png'),
+        icon = love.graphics.newImage('Assets/constructures/defence/MaximGorky/MaximGorky_icon.png'),
         image = love.graphics.newImage('Assets/constructures/defence/MaximGorky/MaximGorky.png'),
         base_image = love.graphics.newImage('Assets/constructures/defence/MaximGorky/MaximGorky_Base.png'),
         anime_sheet = love.graphics.newImage('Assets/constructures/defence/MaximGorky/MaximOpenFire.png'),
@@ -52,5 +94,7 @@ Constructures = {
 }
 
 table.insert(Nizhny_Tagil.constructurelist, Constructures.OilDriller)
+table.insert(Nizhny_Tagil.constructurelist, Constructures.OilStorage)
+table.insert(Nizhny_Tagil.constructurelist, Constructures.OilPlatform)
 table.insert(Nizhny_Tagil.constructurelist, Constructures.Maxim_Gorky)
 
