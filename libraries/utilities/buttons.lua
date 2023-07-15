@@ -100,6 +100,21 @@ function buttons.newCamButton(picture, fn, buttons, bx, by, pictureHot)
     return instance
 end
 
+function buttons.newCamBoxButton(w, h, fn, buttons, bx, by)
+    local instance = {
+        type = 5,
+        fn = fn,
+        w = w,
+        h = h,
+        bx = bx or w / 2,
+        by = by or h / 2,
+        now = true,
+        last = true,
+    }
+    table.insert(buttons, instance)
+    return instance
+end
+
 function buttons:use()
     local ratio = love.graphics.getWidth() / 1890
     local mx, my = love.mouse.getPosition()
@@ -219,6 +234,21 @@ function buttons:use()
             end
             love.graphics.setColor(unpack(ButtonColor))
             love.graphics.draw(button.pic, x, y, 0, scale/cam.scale, scale/cam.scale, button.w/2, button.h/2)
+        end
+
+        if button.type == 5 then
+            local x, y = button.bx - button.w, button.by - button.h
+            local scale = 1
+            button.Hot = cmx>=x-button.w/(2*cam.scale) and cmx<=x+button.w/(2*cam.scale) and cmy>=y-button.h/(2*cam.scale) and cmy<=y+button.h/(2*cam.scale)
+            button.last = button.now
+            if button.Hot then
+                Cursormode = 'button'
+            else
+            end
+            button.now = love.mouse.isDown(1)
+            if button.now and not button.last and button.Hot then
+                button.fn()
+            end
         end
     end
     love.graphics.setColor(1, 1, 1)

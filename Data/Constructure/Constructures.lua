@@ -22,24 +22,6 @@ Constructures = {
         fixedbuildtime = 10
     },
 
-    OilStorage = {
-        name = 'Oil Storage',
-        class = 'resource',
-        width = 128,
-        length = 128,
-        vision = 0,
-        steel_cost = 20,
-        oil_cost = 0,
-        oil_storage = 500,
-        hitpoint = 100,
-        armorthickness = 0,
-        icon = Icon_in_progress,
-        image = Image_in_progress,
-        anime_sheet = Image_in_progress,
-        buildtime = 10,
-        fixedbuildtime = 10
-    },
-
     OilPlatform = {
         name = 'Oil Platform',
         class = 'resource',
@@ -53,6 +35,26 @@ Constructures = {
         oil_productioon = 1,
         oil_storage = 20,
         hitpoint = 10,
+        armorthickness = 0,
+        icon = Icon_in_progress,
+        image = Image_in_progress,
+        anime_sheet = Image_in_progress,
+        buildtime = 10,
+        fixedbuildtime = 10
+    },
+
+    OilStorage = {
+        name = 'Oil Storage',
+        class = 'resource',
+        width = 128,
+        length = 128,
+        vision = 0,
+        steel_cost = 20,
+        oil_cost = 0,
+        steel_production = 0,
+        oil_productioon = 0,
+        oil_storage = 500,
+        hitpoint = 100,
         armorthickness = 0,
         icon = Icon_in_progress,
         image = Image_in_progress,

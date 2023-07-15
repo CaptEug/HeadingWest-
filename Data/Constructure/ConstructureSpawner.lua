@@ -4,6 +4,7 @@ function ConstructureSpawner:loadBuilding(building, place)
     local x, y = building.location.x - building.width/2, building.location.y - building.length/2
     building.collider = CurrentPlace.world:newRectangleCollider(x, y, building.width, building.length)
     building.collider:setType('static')
+    building.collider:setCollisionClass('Constructure')
     if building.class == 'resource' then
         SteelProduction = SteelProduction + building.steel_production
         OilProduction = OilProduction + building.oil_production
@@ -11,6 +12,18 @@ function ConstructureSpawner:loadBuilding(building, place)
     if building.class == 'defence' then
         building.functions.defence = AutoDefenceMode
     end
+    --[[if building.type == 'friendly' then
+        building.Infobuttons = buttons.new()
+        buttons.newCampicButton(
+            invisible_button,
+            function ()
+                tank.picked = true
+                TankPanelopen = true
+                TankChoosen = tank
+            end,
+            building.Infobuttons
+        )
+    end]]
 end
 
 function ConstructureSpawner:update(dt)

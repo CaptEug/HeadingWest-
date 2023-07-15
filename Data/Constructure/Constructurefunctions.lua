@@ -1,4 +1,5 @@
 Constructure = {}
+Constructure.__index = Constructure
 
 function BuildConstructure(place, constructure, type, x, y)
     local building = {
@@ -10,36 +11,38 @@ function BuildConstructure(place, constructure, type, x, y)
         width = constructure.width,
         length = constructure.length,
         vision = constructure.vision,
-        gun_offset = constructure.gun_offset or nil,
-        gun_offset2 = constructure.gun_offset2 or nil,
-        gun_offset3 = constructure.gun_offset3 or nil,
-        turret_offset = constructure.turret_offset or nil,
-        turret_angle = 0,
-        turret_t_speed = constructure.turret_t_speed or nil,
-        steel_production = constructure.steel_production,
-        oil_production = constructure.oil_productioon,
-        hitpoint = constructure.hitpoint,
-        armorthickness = constructure.armorthickness,
-        ammorack = constructure.ammorack or nil,
-        reload_time = constructure.reload_time or nil,
-        reload_timer = constructure.reload_time or nil,
-        firing_time = constructure.firing_time or nil,
-        firing_timer = 0,
         image = constructure.image,
         base_image = constructure.base_image,
         anime_sheet = constructure.anime_sheet,
-        turret_anime = anim8.newAnimation(constructure.anime_grid('1-10', 1), 0.1) or nil,
         location = {x = x, y = y},
-        turret_location = {},
-        gun_location = {},
-        gun_location2 = {},
-        gun_location3 = {},
         functions = {}
     }
+    if building.class == 'defence' then
+        building.gun_offset = constructure.gun_offset or nil
+        building.gun_offset2 = constructure.gun_offset2 or nil
+        building.gun_offset3 = constructure.gun_offset3 or nil
+        building.turret_offset = constructure.turret_offset or nil
+        building.turret_angle = 0
+        building.turret_t_speed = constructure.turret_t_speed or nil
+        building.ammorack = constructure.ammorack or nil
+        building.reload_time = constructure.reload_time or nil
+        building.reload_timer = constructure.reload_time or nil
+        building.firing_time = constructure.firing_time or nil
+        building.firing_timer = 0
+        building.turret_anime = anim8.newAnimation(constructure.anime_grid('1-10', 1), 0.1) or nil
+        building.turret_location = {}
+        building.gun_location = {}
+        building.gun_location2 = {}
+        building.gun_location3 = {}
+    elseif building.class == 'resource' then
+        building.steel_production = constructure.steel_production
+        building.oil_production = constructure.oil_productioon
+        building.hitpoint = constructure.hitpoint
+        building.armorthickness = constructure.armorthickness
+    end
     Steel = Steel - constructure.steel_cost
     Oil = Oil - constructure.oil_cost
     setmetatable(building, Constructure)
-    Constructure.__index = Constructure
     table.insert(place.exsist_building, building)
     ConstructureSpawner:loadBuilding(building, place)
 end
@@ -75,10 +78,15 @@ end
 function Constructure:Draw()
     local x, y = self.location.x, self.location.y
     local center = self.image:getWidth()/2
+    
     if self.base_image then
         love.graphics.draw(self.base_image, x, y, 0, 1, 1, center, center)
     end
-    self.turret_anime:draw(self.anime_sheet, x, y, self.turret_angle, 1, 1, center, center)
+    if self.class == 'defence' then
+        self.turret_anime:draw(self.anime_sheet, x, y, self.turret_angle, 1, 1, center, center)
+    elseif self.class == 'resource' then
+        love.graphics.draw(self.anime_sheet, x, y, 0, 1, 1, center, center)
+    end
 end
 
 AutoDefenceMode = function (building, dt)
