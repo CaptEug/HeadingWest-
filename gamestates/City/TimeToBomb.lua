@@ -18,7 +18,8 @@ function Bomb(unit, x, y)
         explosive2.pen = bomb.pen
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
-        table.insert(Explosives, explosive3)
+        explosive2.fusee = true
+        table.insert(Explosives, explosive2)
     end
     if unit.gun_location2 then
         local ix, iy = math.cos(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x)),
@@ -34,7 +35,8 @@ function Bomb(unit, x, y)
         explosive2.pen = bomb.pen
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
-        table.insert(Explosives, explosive3)
+        explosive2.fusee = true
+        table.insert(Explosives, explosive2)
     end
     if unit.gun_location3 then
         local ix, iy = math.cos(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x)),
@@ -50,7 +52,8 @@ function Bomb(unit, x, y)
         explosive2.pen = bomb.pen
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
-        table.insert(Explosives, explosive3)
+        explosive2.fusee = true
+        table.insert(Explosives, explosive2)
     end
     if unit.gun then
         for i, gun in ipairs(unit.gun) do
@@ -87,7 +90,7 @@ function Explosives:update(dt)
         if explosive.ic then
             local sx, sy = explosive.explosive3:getPosition()
             table.insert(explosive.trail, {x = sx, y = sy})
-        else
+        elseif explosive.trail ~= nil then
             table.remove(explosive.trail, 1)
         end
         explosive.timer = explosive.timer - dt
@@ -96,11 +99,13 @@ function Explosives:update(dt)
             explosive.explosive3:destroy()
             explosive.ic = false
         end
-        if #explosive.trail == 0 then
-            table.remove(self, i)
-        end
-        if #explosive.trail > 300 then
-            table.remove(explosive.trail, 1)
+        if explosive.trail ~= nil then
+            if #explosive.trail == 0 then
+                table.remove(self, i)
+            end
+            if #explosive.trail > 300 then
+                table.remove(explosive.trail, 1)
+            end
         end
     end
     for i, explosion in ipairs(Explosions) do
@@ -123,12 +128,14 @@ function Explosives:draw()
             local height1 = explosive.ic:getHeight()
             love.graphics.draw(explosive.ic,x,y,explosive.angle,1,1,width1/2,height1)
         end
-        for i = 1, #explosive.trail - 1 do
-            local p1, p2 = explosive.trail[i], explosive.trail[i+1]
-            love.graphics.setColor(1, 0, 0, i / #explosive.trail) -- Set the color of the line
-            love.graphics.setLineWidth(8)
-            love.graphics.line(p1.x, p1.y, p2.x, p2.y) 
-            love.graphics.setColor(1, 1, 1)-- Draw the line segment
+        if explosive.trail ~= nil then
+            for i = 1, #explosive.trail - 1 do
+                local p1, p2 = explosive.trail[i], explosive.trail[i+1]
+                love.graphics.setColor(1, 0, 0, i / #explosive.trail) -- Set the color of the line
+                love.graphics.setLineWidth(8)
+                love.graphics.line(p1.x, p1.y, p2.x, p2.y) 
+                love.graphics.setColor(1, 1, 1)-- Draw the line segment
+            end
         end
         love.graphics.setLineWidth(1)
     end
