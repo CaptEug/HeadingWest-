@@ -67,7 +67,7 @@ function ConstructMenu:draw()
     end
 
     if ConstructurePicked then
-        local x, y = love.mouse.getPosition()
+        local x, y = cam:cameraCoords(IntX, IntY)
         local center = ConstructureSelected.image:getWidth()/2
         Cursormode = 'Constructing'
         love.graphics.draw(ConstructureSelected.image, x, y, 0, cam.scale, cam.scale, center, center)
@@ -87,7 +87,7 @@ end
 function BuildDetact(button)
     if button == 1 and ConstructurePicked then
         local building = copytable(ConstructureSelected)
-        local x, y = cam:mousePosition()
+        local x, y = IntX, IntY
         building.x, building.y = x, y
         table.insert(ConstructionQueue, building)
     end
