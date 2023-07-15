@@ -19,7 +19,8 @@ function Bomb(unit, x, y)
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
         table.insert(Explosives, explosive3)
-    elseif unit.gun_location2 then
+    end
+    if unit.gun_location2 then
         local ix, iy = math.cos(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x)),
                    math.sin(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x))
         local distance = math.sqrt((x - unit.gun_location.x)^2 + (y - unit.gun_location.y)^2)
@@ -34,7 +35,8 @@ function Bomb(unit, x, y)
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
         table.insert(Explosives, explosive3)
-    elseif unit.gun_location3 then
+    end
+    if unit.gun_location3 then
         local ix, iy = math.cos(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x)),
                    math.sin(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x))
         local distance = math.sqrt((x - unit.gun_location.x)^2 + (y - unit.gun_location.y)^2)
