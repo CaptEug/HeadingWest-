@@ -166,9 +166,14 @@ function City:init()
     NewSaving:LoadTanks()
 end
 
+function City:LocationDiscretize()
+    local mouseX,mouseY = cam:mousePosition()
+    IntX, IntY = 32*math.floor(mouseX/32),32*math.floor(mouseY/32)
+end
+
 function City:update(dt)
     self.world:update(dt)
-    City:LocationDiscretize()
+    self:LocationDiscretize()
     particleworld:update(dt)
     TankSpawner:update(dt)
     ShipSpawner:update(dt)
@@ -200,11 +205,6 @@ function City:update(dt)
         if TankPanelopen then
             TPmousepressed(x, y, button)
         end
-    end
-
-    function City:LocationDiscretize()
-        local mouseX,mouseY = cam:mousePosition()
-        IntX, IntY = 32*math.floor(mouseX/32),32*math.floor(mouseY/32)
     end
 
     function love.mousereleased(x, y, button)
