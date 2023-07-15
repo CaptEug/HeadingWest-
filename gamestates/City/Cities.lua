@@ -159,7 +159,7 @@ function City:init()
     self.world:addCollisionClass('TankHull')
     self.world:addCollisionClass('ShipHull', {ignores = {'Ocean'}})
     self:loadmap()
-    cityUI:load()
+    CityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
     --BuildConstructure(CurrentPlace, Constructures.Maxim_Gorky, 'enemy', 3000, 1000)
     Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
@@ -177,7 +177,7 @@ function City:update(dt)
     Missiles:update(dt)
     Explosives:update(dt)
     Fragments:update(dt)
-    cityUI:update(dt)
+    CityUI:update(dt)
     --cam contral
     if cam.scale > 2 then
         cam:zoomTo(2)
@@ -253,7 +253,7 @@ function City:draw()
         Missiles:draw()
     cam:detach()
 
-    cityUI:draw()
+    CityUI:draw()
 end
 
 function City:drawWithoutUI()

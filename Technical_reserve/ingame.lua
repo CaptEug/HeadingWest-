@@ -2,7 +2,7 @@ city = {}
 city = Gamestate.new()
 citybuttons = {}
 
-require 'gamestates.city.cityUI'
+require 'gamestates.city.CityUI'
 require 'gamestates/city/Mapdrawer'
 require 'Data.Tank.TankSpawner'
 require 'Data.Ship.ShipSpawner'
@@ -15,7 +15,7 @@ function city:init()
     DestroyAll()
     local map=Maps[MapNumber]
     loadMap(map)
-    cityUI:load()
+    CityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1500, 500)
     Buildtank(CurrentPlace, IFVs.BMP2, 'enemy', 1500, 0)
     Buildtank(CurrentPlace, Tanks.T90, 'friendly', 500, 500)
@@ -32,7 +32,7 @@ function city:update(dt)
     Missiles:update(dt)
     Explosives:update(dt)
     Fragments:update(dt)
-    cityUI:update(dt)
+    CityUI:update(dt)
     --cam contral
     if cam.scale > 2 then
         cam:zoomTo(2)
@@ -102,7 +102,7 @@ function city:draw()
         Missiles:draw()
     cam:detach()
 
-    cityUI:draw()
+    CityUI:draw()
 end
 
 function city:drawWithoutUI()
