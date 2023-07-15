@@ -12,13 +12,12 @@ function Bomb(unit, x, y)
         explosive2.explosive3 = particleworld:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 2)
         explosive2.explosive3:setMass(bomb.mass)
         explosive2.explosive3:setBullet(true)
-        explosive2.explosive3:setLinearVelocity(ix1*bomb.velocity, iy1*bomb.velocity)
-        explosive2.timer = distance1/bomb.velocity
+        explosive2.explosive3:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
+        explosive2.timer = distance/bomb.velocity
         explosive2.type = bomb.type
         explosive2.pen = bomb.pen
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
-        explosive3.pic = unit.ammorack[1].shells
         table.insert(Explosives, explosive3)
     elseif unit.gun_location2 then
         local ix, iy = math.cos(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x)),
@@ -28,13 +27,12 @@ function Bomb(unit, x, y)
         explosive2.explosive3 = particleworld:newCircleCollider(unit.gun_location2.x, unit.gun_location2.y, 2)
         explosive2.explosive3:setMass(bomb.mass)
         explosive2.explosive3:setBullet(true)
-        explosive2.explosive3:setLinearVelocity(ix1*bomb.velocity, iy1*bomb.velocity)
-        explosive2.timer = distance1/bomb.velocity
+        explosive2.explosive3:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
+        explosive2.timer = distance/bomb.velocity
         explosive2.type = bomb.type
         explosive2.pen = bomb.pen
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
-        explosive3.pic = unit.ammorack[1].shells
         table.insert(Explosives, explosive3)
     elseif unit.gun_location3 then
         local ix, iy = math.cos(math.atan2(y - unit.gun_location.y, x - unit.gun_location.x)),
@@ -44,13 +42,12 @@ function Bomb(unit, x, y)
         explosive2.explosive3 = particleworld:newCircleCollider(unit.gun_location3.x, unit.gun_location3.y, 2)
         explosive2.explosive3:setMass(bomb.mass)
         explosive2.explosive3:setBullet(true)
-        explosive2.explosive3:setLinearVelocity(ix1*bomb.velocity, iy1*bomb.velocity)
-        explosive2.timer = distance1/bomb.velocity
+        explosive2.explosive3:setLinearVelocity(ix*bomb.velocity, iy*bomb.velocity)
+        explosive2.timer = distance/bomb.velocity
         explosive2.type = bomb.type
         explosive2.pen = bomb.pen
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
-        explosive3.pic = unit.ammorack[1].shells
         table.insert(Explosives, explosive3)
     end
     if unit.gun then
