@@ -168,6 +168,7 @@ end
 
 function City:update(dt)
     self.world:update(dt)
+    City:LocationDiscretize()
     particleworld:update(dt)
     TankSpawner:update(dt)
     ShipSpawner:update(dt)
@@ -200,6 +201,12 @@ function City:update(dt)
             TPmousepressed(x, y, button)
         end
     end
+
+    function City:LocationDiscretize()
+        local mouseX,mouseY = cam:mousePosition()
+        IntX, IntY = 32*math.floor(mouseX/32),32*math.floor(mouseY/32)
+    end
+
     function love.mousereleased(x, y, button)
         SelectionMouseReleased(x, y, button)
         if CurrentPlace.openTankDesigner then
