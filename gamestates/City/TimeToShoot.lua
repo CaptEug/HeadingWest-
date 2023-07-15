@@ -116,6 +116,9 @@ function PenetrateLog()
         love.graphics.print('hitPart = '..Datapool.hitPart,0,50)
         love.graphics.print('hitArmorside = '..Datapool.hitArmorside,0,70)
         love.graphics.print('impact angle = '..string.format("%.2f",Datapool.impact_angle*180/math.pi)..' Degree',0,90)
+        love.graphics.print('X='..tostring(IntX),100,200)
+        love.graphics.print('Y='..tostring(IntY),100,210)
+
         if Datapool.ricochet then
             love.graphics.print('Ricochet!',0,110)
         else
