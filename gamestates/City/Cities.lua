@@ -168,7 +168,7 @@ end
 
 function City:LocationDiscretize()
     local mouseX,mouseY = cam:mousePosition()
-    IntX, IntY = 32*math.floor(mouseX/32),32*math.floor(mouseY/32)
+    IntX, IntY = 32*math.floor(mouseX/32)-16,32*math.floor(mouseY/32)-16
 end
 
 function City:update(dt)
