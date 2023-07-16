@@ -54,25 +54,15 @@ end
 function TankInfoPanel:update(dt)
     --tankbutton pos update
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
-        for n, button in ipairs(tank.Infobuttons) do
-            button.bx, button.by = tank.image_location.x, tank.image_location.y
-        end
-        if tank.picked == true and tank.leader ==  false then 
+        if tank.picked == true and tank.leader == false then
             tank.functions.move = MouseControlfunction
-        end 
+        end
     end
     --blinkTimer update
     TankInfoPanel.blinkTimer = TankInfoPanel.blinkTimer + dt
 end
 
 function TankInfoPanel:draw()
-    cam:attach()
-    for i,tank in ipairs(CurrentPlace.exsist_tank) do
-        if tank.type == 'friendly' then
-            tank.Infobuttons:use()
-        end
-    end
-    cam:detach()
     --tankinfo on map UI
     for i, tank in ipairs(CurrentPlace.exsist_tank) do
         if tank.picked then
