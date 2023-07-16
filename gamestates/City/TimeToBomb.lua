@@ -36,7 +36,6 @@ function Bomb(unit, x, y)
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
         explosive2.fusee = true
-        explosive2.trail = {}
         table.insert(Explosives, explosive2)
     end
     if unit.gun_location3 then
@@ -54,7 +53,6 @@ function Bomb(unit, x, y)
         explosive2.pentype = bomb.pentype
         explosive2.TNT_eq = bomb.TNT_eq
         explosive2.fusee = true
-        explosive2.trail = {}
         table.insert(Explosives, explosive2)
     end
     if unit.gun then
