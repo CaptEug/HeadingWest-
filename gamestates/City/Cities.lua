@@ -12,6 +12,10 @@ Moskva.country = {}
 Moskva.name = 'Moskva'
 Moskva.type = 'Capital'
 Moskva.state = 'Peace'
+Moskva.oil_stored = 0
+Moskva.steel_stored = 0
+Moskva.oil_production = 0
+Moskva.steel_production = 0
 Moskva.map = sti("Assets/maps/Testmap.lua")
 Moskva.world = wf.newWorld(0, 0)
 Moskva.Structure = {}
@@ -31,8 +35,11 @@ Nizhny_Tagil.y = 555
 Nizhny_Tagil.country = {}
 Nizhny_Tagil.name = 'Nizhny Tagil'
 Nizhny_Tagil.type = 'Normal'
-Nizhny_Tagil.oil_store = 0
-Nizhny_Tagil.steel_store = 0
+Nizhny_Tagil.state = 'Peace'
+Nizhny_Tagil.oil_stored = 0
+Nizhny_Tagil.steel_stored = 0
+Nizhny_Tagil.oil_production = 0
+Nizhny_Tagil.steel_production = 0
 Nizhny_Tagil.tankfactory = {
     name = 'UVZ',
     tanklist = {},
@@ -55,7 +62,6 @@ Nizhny_Tagil.tankfactory = {
         {x=112+544,y=48+256*7,available=true},
     }
 }
-Nizhny_Tagil.state = 'Peace'
 Nizhny_Tagil.map = sti("Assets/maps/UVZfac.lua")
 Nizhny_Tagil.world = wf.newWorld(0, 0)
 --map collider
@@ -97,7 +103,11 @@ Berlin.y = 605
 Berlin.country = {}
 Berlin.name = 'Berlin'
 Berlin.type = 'Capital'
-Berlin.state ='Battlefield'
+Berlin.state = 'Battlefield'
+Berlin.oil_stored = 0
+Berlin.steel_stored = 0
+Berlin.oil_production = 0
+Berlin.steel_production = 0
 Berlin.map = sti("Assets/maps/checkpointC.lua")
 Berlin.world = wf.newWorld(0, 0)
 Berlin.Structure = {}
@@ -137,7 +147,7 @@ function Cities:playRadio(songlist)
         love.audio.stop()
     end
     if love.audio.getActiveSourceCount( ) == 0 then
-        if songindex < #songlist then 
+        if songindex < #songlist then
             songindex = songindex + 1
             love.audio.play(songlist[songindex])
         end
@@ -183,6 +193,7 @@ function City:update(dt)
     Explosives:update(dt)
     Fragments:update(dt)
     CityUI:update(dt)
+    ResourceUpdate(self)
     --cam contral
     if cam.scale > 2 then
         cam:zoomTo(2)
@@ -237,6 +248,30 @@ function City:update(dt)
             TPmousemoved(x, y, dx, dy)
         end
     end
+end
+
+function ResourceUpdate(city)
+    local steel, oil, steel_p, oil_p = 0, 0, 0, 0
+    for i, building in ipairs(city.exsist_building) do
+        if building.class == 'resource' then
+            if building.steel_stored then
+                steel = steel + building.steel_stored
+            end
+            if building.oil_stored then
+                oil = oil + building.oil_stored
+            end
+            if building.steel_production then
+                steel_p = steel_p + building.steel_production
+            end
+            if building.oil_production then
+                oil_p = oil_p + building.oil_production
+            end
+        end
+    end
+    city.steel_stored = steel
+    city.oil_stored = oil
+    city.steel_production = steel_p
+    city.oil_production = oil_p
 end
 
 function City:draw()

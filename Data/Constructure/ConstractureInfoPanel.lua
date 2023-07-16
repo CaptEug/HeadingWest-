@@ -12,6 +12,14 @@ function ConstructureInfoPanel:draw()
             love.graphics.setLineWidth(1)
 
             love.graphics.print(building.name, x + 14, y + 4)
+            if building.class == 'resource' then
+                if building.oil_storage then
+                    love.graphics.print('Storage: '..building.oil_stored..'/'..building.oil_storage,  x + 14, y + 24)
+                end
+                if building.oil_production then
+                    love.graphics.print('Production: '..building.oil_production, x + 14, y + 44)
+                end
+            end
         end
     end
 end
