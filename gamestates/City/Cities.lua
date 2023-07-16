@@ -221,6 +221,7 @@ function City:update(dt)
         if TankPanelopen then
             TPmousereleased(x, y, button)
         end
+        
         BuildDetact(button)
     end
     function love.mousemoved(x, y, dx, dy)

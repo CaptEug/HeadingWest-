@@ -96,7 +96,7 @@ function BuildDetact(button)
         local building = copytable(ConstructureSelected)
         local x, y = IntX, IntY
         local imagewidth = ConstructureSelected.image:getWidth()
-        if math.fmod(imagewidth/32,2)==1 then
+        if math.fmod(imagewidth/32,2) == 1 then
             x = x + 16
             y = y + 16
         end
