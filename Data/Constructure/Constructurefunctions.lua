@@ -49,6 +49,10 @@ end
 
 function Constructure:Update(dt)
     local x, y = self.location.x, self.location.y
+    --button update
+    for n, button in ipairs(self.Infobuttons) do
+        button.bx, button.by = x, y
+    end
     if self.class == 'defence' then
         --location update
         self.turret_location.x, self.turret_location.y = x - self.turret_offset, y + self.turret_offset
@@ -86,6 +90,10 @@ function Constructure:Draw()
         self.turret_anime:draw(self.anime_sheet, x, y, self.turret_angle, 1, 1, center, center)
     elseif self.class == 'resource' then
         love.graphics.draw(self.anime_sheet, x, y, 0, 1, 1, center, center)
+    end
+    --button use
+    if self.type == 'friendly' then
+        self.Infobuttons:use()
     end
 end
 

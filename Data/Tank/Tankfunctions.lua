@@ -459,7 +459,10 @@ function Tank:Update(dt)
                                                              self.image_location.y - self.exhaust_offset2.y*math.cos(hull_angle) + self.exhaust_offset2.x*math.sin(hull_angle)
     end
 
-    
+    --button update
+    for n, button in ipairs(self.Infobuttons) do
+        button.bx, button.by = self.image_location.x, self.image_location.y
+    end
 
     --timer update
     self.reload_timer = self.reload_timer - dt
@@ -512,6 +515,10 @@ function Tank:Draw()
     self.turret_anime:draw(self.anime_sheet,turret_x,turret_y,a+self.turret_angle,1,1,144,144+self.turret_offset)    --draw turret/*+self.turret_offset*/
     love.graphics.draw(self.aim.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
     love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
+    --button use
+    if self.type == 'friendly' then
+        self.Infobuttons:use()
+    end
 end
 
 function Tank:DrawBrokenTank()

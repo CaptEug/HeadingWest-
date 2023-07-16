@@ -63,7 +63,6 @@ Nizhny_Tagil.Structure = {}
 Nizhny_Tagil.Obstacles = {}
 Nizhny_Tagil.Coast = {}
 Nizhny_Tagil.Ocean = {}
-
 Nizhny_Tagil.constructurelist = {}
 Nizhny_Tagil.Army = {}
 Nizhny_Tagil.exsist_tank = {}

@@ -12,18 +12,21 @@ function ConstructureSpawner:loadBuilding(building, place)
     if building.class == 'defence' then
         building.functions.defence = AutoDefenceMode
     end
-    --[[if building.type == 'friendly' then
+    if building.type == 'friendly' then
         building.Infobuttons = buttons.new()
-        buttons.newCampicButton(
-            invisible_button,
+        buttons.newCamBoxButton(
+            building.width,
+            building.length,
             function ()
-                tank.picked = true
-                TankPanelopen = true
-                TankChoosen = tank
+            end,
+            function ()
+                local x,y = cam:mousePosition()
+                love.graphics.setColor(34, 32, 52)
+                love.graphics.rectangle('fill', x, y, 100, 100)
             end,
             building.Infobuttons
         )
-    end]]
+    end
 end
 
 function ConstructureSpawner:update(dt)
