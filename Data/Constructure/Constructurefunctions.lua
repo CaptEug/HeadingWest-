@@ -36,7 +36,11 @@ function BuildConstructure(place, constructure, type, x, y)
         building.gun_location3 = {}
     elseif building.class == 'resource' then
         building.steel_production = constructure.steel_production
-        building.oil_production = constructure.oil_productioon
+        building.oil_production = constructure.oil_production
+        building.steel_storage = constructure.steel_storage
+        building.oil_storage = constructure.oil_storage
+        building.steel_stored = constructure.steel_stored
+        building.oil_stored = constructure.oil_stored
         building.hitpoint = constructure.hitpoint
         building.armorthickness = constructure.armorthickness
     end
@@ -76,6 +80,14 @@ function Constructure:Update(dt)
             self.turret_anime:gotoFrame(1)
         end
         self.turret_anime:update(dt)
+    end
+    if self.class == 'resource' then
+        if self.steel_production and (self.steel_stored < self.steel_storage)then
+            self.steel_stored = self.steel_stored + self.steel_production
+        end
+        if self.oil_production and (self.oil_stored < self.oil_storage)then
+            self.oil_stored = self.oil_stored + self.oil_production
+        end
     end
 end
 

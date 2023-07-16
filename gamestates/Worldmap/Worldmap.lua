@@ -54,8 +54,21 @@ function Worldmap:update(dt)
     end
 
     --resources update
-    Steel = Steel + SteelProduction*dt
-    Oil = Oil + OilProduction*dt
+    WorldResourceUpdate()
+end
+
+function WorldResourceUpdate()
+    local steel, oil , steel_p, oil_p= 0,0,0,0
+    for i, city in ipairs(Cities) do
+        steel = steel + city.steel_stored
+        oil = oil + city.oil_stored
+        steel_p = steel_p + city.steel_production
+        oil_p = oil_p + city.oil_production
+    end
+    Steel = steel
+    Oil = oil
+    SteelProduction = steel_p
+    OilProduction = oil_p
 end
 
 function Worldmap:draw()
