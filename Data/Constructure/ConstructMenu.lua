@@ -4,6 +4,8 @@ ConstructionQueue = {}
 function ConstructMenu:load()
     CMscreen = love.graphics.newCanvas(640, 480)
     CurrentPlace.ConstructMenuWindow = {x = 0, y = 64, w = 640, h = 64, dragging = false}
+    ConstructMenu.buildActive = false
+    ConstructMenu.build = false
     CurrentPlace.openConstructMenu = false
     CurrentPlace.ConstructMenuButtons = buttons.new()
     ConstructurePicked = false
@@ -24,6 +26,7 @@ function ConstructMenu:load()
         buttons.newWindowToolButton(
             constructure.icon,
             function ()
+                ConstructMenu.build = false
                 ConstructurePicked = true
                 ConstructureSelected = constructure
             end,
@@ -36,8 +39,16 @@ function ConstructMenu:load()
 end
 
 function ConstructMenu:update(dt)
+    if love.mouse.isDown(1) and ConstructurePicked then
+        ConstructMenu.buildActive = true
+    end
+    if ConstructMenu.buildActive and not love.mouse.isDown(1) then
+        ConstructMenu.build = true
+        ConstructMenu.buildActive = false
+    end
     if love.mouse.isDown(2) and ConstructurePicked then
         ConstructurePicked = false
+        ConstructMenu.build = false
         ConstructureSelected = {}
     end
     for i, constructure in ipairs(ConstructionQueue) do
@@ -69,12 +80,11 @@ function ConstructMenu:draw()
         local x, y = cam:cameraCoords(IntX, IntY)
         local odd = false
         local imagewidth = ConstructureSelected.image:getWidth()
+        local center = ConstructureSelected.image:getWidth()/2
         if math.fmod(imagewidth/32,2)==1 then
             x = x + 16
             y = y + 16
         end
-
-        local center = ConstructureSelected.image:getWidth()/2
         Cursormode = 'Constructing'
         love.graphics.draw(ConstructureSelected.image, x, y, 0, cam.scale, cam.scale, center, center)
     end
@@ -91,7 +101,8 @@ function ConstructMenu:draw()
 end
 
 function BuildDetact(button)
-    if button == 1 and ConstructurePicked then
+    if button == 1 and ConstructMenu.build == true then
+        ConstructMenu.build = false
         local building = copytable(ConstructureSelected)
         local x, y = IntX, IntY
         local imagewidth = ConstructureSelected.image:getWidth()

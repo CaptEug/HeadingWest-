@@ -157,7 +157,6 @@ function love.draw()
 end
 
 
-
 function cammovement()
 
     if love.keyboard.isDown("w") then
