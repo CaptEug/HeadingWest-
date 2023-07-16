@@ -11,7 +11,7 @@ function ConstructureInfoPanel:draw()
             love.graphics.rectangle("line", x, y, 256, 128)
             love.graphics.setLineWidth(1)
 
-            love.graphics.print('Fk u bitch', x + 14, y + 4)
+            love.graphics.print(building.name, x + 14, y + 4)
         end
     end
 end
