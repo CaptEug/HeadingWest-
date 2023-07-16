@@ -5,6 +5,8 @@ function ConstructMenu:load()
     CMscreen = love.graphics.newCanvas(640, 480)
     ConstructMenu.window = {x = 0, y = 64, w = 640, h = 64}
     ConstructMenu.dragging = false
+    ConstructMenu.buildActive = false
+    ConstructMenu.build = false
     CurrentPlace.openConstructMenu = false
     ConstructMenu.Buttons = buttons.new()
     ConstructurePicked = false
@@ -25,6 +27,7 @@ function ConstructMenu:load()
         buttons.newWindowToolButton(
             constructure.icon,
             function ()
+                ConstructMenu.build = false
                 ConstructurePicked = true
                 ConstructureSelected = constructure
             end,
@@ -37,8 +40,17 @@ function ConstructMenu:load()
 end
 
 function ConstructMenu:update(dt)
+    if love.mouse.isDown(1) and ConstructurePicked then
+        ConstructMenu.buildActive = true
+    end
+
+    if ConstructMenu.buildActive and not love.mouse.isDown(1) then
+        ConstructMenu.build = true
+        ConstructMenu.buildActive = false
+    end
     if love.mouse.isDown(2) and ConstructurePicked then
         ConstructurePicked = false
+        ConstructMenu.build = false
         ConstructureSelected = {}
     end
     for i, constructure in ipairs(ConstructionQueue) do
@@ -47,6 +59,7 @@ function ConstructMenu:update(dt)
             BuildConstructure(CurrentPlace, table.remove(ConstructionQueue, i), 'friendly', constructure.x, constructure.y)
         end
     end
+
 end
 
 function ConstructMenu:draw()
@@ -62,6 +75,8 @@ function ConstructMenu:draw()
             love.graphics.print(constructure.oil_cost, 240 + 156*((i-1)%3), 161 + 118*math.floor((i-1)/3))
             love.graphics.setColor(1,1,1)
         end
+        love.graphics.print('buildActive'..tostring(ConstructMenu.buildActive),0,200)
+        love.graphics.print('build'..tostring(ConstructMenu.build),0,210)
         love.graphics.setCanvas()
         love.graphics.draw(CMscreen, ConstructMenu.window.x, ConstructMenu.window.y)
     end
@@ -92,7 +107,8 @@ function ConstructMenu:draw()
 end
 
 function BuildDetact(button)
-    if button == 1 and ConstructurePicked then
+    if button == 1 and ConstructMenu.build == true then
+        ConstructMenu.build = false
         local building = copytable(ConstructureSelected)
         local x, y = IntX, IntY
         local imagewidth = ConstructureSelected.image:getWidth()
