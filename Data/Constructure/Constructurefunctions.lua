@@ -51,7 +51,7 @@ function Constructure:Update(dt)
     local x, y = self.location.x, self.location.y
     --button update
     for n, button in ipairs(self.Infobuttons) do
-        button.bx, button.by = x, y
+        button.bx, button.by = x + self.width/2, y + self.length/2
     end
     if self.class == 'defence' then
         --location update

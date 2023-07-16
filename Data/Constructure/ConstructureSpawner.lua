@@ -13,16 +13,19 @@ function ConstructureSpawner:loadBuilding(building, place)
         building.functions.defence = AutoDefenceMode
     end
     if building.type == 'friendly' then
+        building.openinfopenal = false
         building.Infobuttons = buttons.new()
         buttons.newCamBoxButton(
             building.width,
             building.length,
             function ()
+                
             end,
             function ()
-                local x,y = cam:mousePosition()
-                love.graphics.setColor(34, 32, 52)
-                love.graphics.rectangle('fill', x, y, 100, 100)
+                building.openinfopenal = true
+            end,
+            function ()
+                building.openinfopenal = false
             end,
             building.Infobuttons
         )

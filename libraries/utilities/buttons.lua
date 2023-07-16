@@ -100,11 +100,12 @@ function buttons.newCamButton(picture, fn, buttons, bx, by, pictureHot)
     return instance
 end
 
-function buttons.newCamBoxButton(w, h, fn, hotfn, buttons, bx, by)
+function buttons.newCamBoxButton(w, h, fn, hotfn, nothotfn, buttons, bx, by)
     local instance = {
         type = 5,
         fn = fn,
         hotfn = hotfn,
+        nothotfn = nothotfn,
         w = w,
         h = h,
         bx = bx or w / 2,
@@ -240,12 +241,13 @@ function buttons:use()
         if button.type == 5 then
             local x, y = button.bx - button.w, button.by - button.h
             local scale = 1
-            button.Hot = cmx>=x-button.w/(2*cam.scale) and cmx<=x+button.w/(2*cam.scale) and cmy>=y-button.h/(2*cam.scale) and cmy<=y+button.h/(2*cam.scale)
+            button.Hot = cmx>=x and cmx<=x+button.w and cmy>=y and cmy<=y+button.h
             button.last = button.now
             if button.Hot then
                 Cursormode = 'button'
                 button.hotfn()
             else
+                button.nothotfn()
             end
             button.now = love.mouse.isDown(1)
             if button.now and not button.last and button.Hot then

@@ -2,6 +2,7 @@ CityUI = {}
 citybuttons = {}
 require 'gamestates/city/Console'
 require 'gamestates.city.CityInfoPenal'
+require 'Data/Constructure/ConstractureInfoPanel'
 require 'Data/Tank/TankDesigner'
 require 'Data/Tank/TankInfoPanel'
 require 'Data/Constructure/ConstructMenu'
@@ -107,6 +108,7 @@ function CityUI:draw()
     citybuttons.DefButtons:use()
     Console:draw()
     TankInfoPanel:draw()
+    ConstructureInfoPanel:draw()
     CityInfoPenal:draw()
     if CurrentPlace.state == 'Peace' then
         citybuttons.ConstructButtons:use()
