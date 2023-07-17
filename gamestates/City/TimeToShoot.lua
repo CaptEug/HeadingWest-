@@ -11,32 +11,59 @@ Datapool = {
 }
 GunParticles = {}
 
-function Shoot(tank)
+function Shoot(unit,...)
     --shell collider
-    local round = tank.ammorack[1]
-    local ix, iy = math.cos(tank.location.hull_angle+tank.turret_angle-math.pi/2),
-                   math.sin(tank.location.hull_angle+tank.turret_angle-math.pi/2)
-    local shell = {}
-    shell.shell = CurrentPlace.world:newCircleCollider(tank.gun_location.x, tank.gun_location.y, 1)
-    shell.shell:setCollisionClass(round.type)
-    shell.shell:setBullet(true)
-    shell.shell:setRestitution(0.5)
-    shell.shell:setLinearDamping(0.01)
-    shell.shell:setMass(round.mass)
-    shell.shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
-    shell.from = tank
-    shell.life = 10
-    shell.type = round.type
-    shell.pen = round.pen
-    shell.pentype = round.pentype
-    shell.TNT_eq = round.TNT_eq or nil
-    shell.trail = {}
-    table.insert(TankProjectiles, shell)
-    table.remove(tank.ammorack, 1)
-    tank.firing_timer = tank.firing_time
-    tank.reload_timer = tank.reload_time
+    local round = unit.ammorack[1]
+    if unit.location ~= nil then
+        local ix, iy = math.cos(unit.location.hull_angle+unit.turret_angle-math.pi/2),
+                   math.sin(unit.location.hull_angle+unit.turret_angle-math.pi/2)
+        local shell = {}
+        shell.shell = CurrentPlace.world:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 1)
+        shell.shell:setCollisionClass(round.type)
+        shell.shell:setBullet(true)
+        shell.shell:setRestitution(0.5)
+        shell.shell:setLinearDamping(0.01)
+        shell.shell:setMass(round.mass)
+        shell.shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
+        shell.from = tank
+        shell.life = 10
+        shell.type = round.type
+        shell.pen = round.pen
+        shell.pentype = round.pentype
+        shell.TNT_eq = round.TNT_eq or nil
+        shell.trail = {}
+        table.insert(TankProjectiles, shell)
+        table.remove(unit.ammorack, 1)
+        unit.firing_timer = unit.firing_time
+        unit.reload_timer = unit.reload_time
 
-    tank.gun_sound:play()
+        unit.gun_sound:play()
+    elseif unit.battery_location then
+        for i, gun in ipairs(unit.gun) do
+            local x, y = ...
+            local ix, iy = math.cos(math.atan2(y - unit.battery_location.y, x - unit.battery_location.x)),
+            math.sin(math.atan2(y - unit.battery_location.y, x - unit.battery_location.x))
+            local shell = {}
+            shell.shell = CurrentPlace.world:newCircleCollider(unit.gun[i].x, unit.gun[i].y, 1)
+            shell.shell:setCollisionClass(round.type)
+            shell.shell:setBullet(true)
+            shell.shell:setRestitution(0.5)
+            shell.shell:setLinearDamping(0.01)
+            shell.shell:setMass(round.mass)
+            shell.shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
+            shell.from = tank
+            shell.life = 10
+            shell.type = round.type
+            shell.pen = round.pen
+            shell.pentype = round.pentype
+            shell.TNT_eq = round.TNT_eq or nil
+            shell.trail = {}
+            table.insert(TankProjectiles, shell)
+            unit.firing_timer = unit.firing_time
+            unit.reload_timer = unit.reload_time
+
+        end
+    end
 end
 
 function TankProjectiles:update(dt)
@@ -47,7 +74,7 @@ function TankProjectiles:update(dt)
 
         if shell.shell:enter('Wall') then
             if shell.type == 'HE' then
-                Explode(shell)
+                Explode(shell, shell.shell)
             end
             shell.shell:destroy()
             table.remove(self, i)
@@ -62,7 +89,7 @@ function TankProjectiles:update(dt)
             end
 
             if shell.type == 'HE' then
-                Explode(shell)
+                Explode(shell,shell.shell)
                 shell.shell:destroy()
                 table.remove(self, i)
             else

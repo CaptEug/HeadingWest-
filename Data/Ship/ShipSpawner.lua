@@ -8,7 +8,7 @@ function ShipSpawner:loadship(place, ship)
     ship.collider:setRestitution(0.1)
     ship.collider:setLinearDamping(0.5)
     ship.collider:setInertia(500*ship.weight)
-    ship.collider:setAngularDamping(20)
+    ship.collider:setAngularDamping(200)
     ship.collider:setAngle(ship.location.hull_angle)
     ship.functions.move = Mouse_Controlfunction
 end
