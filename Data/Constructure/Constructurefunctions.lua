@@ -92,16 +92,15 @@ function Constructure:Update(dt)
 end
 
 function Constructure:Draw()
-    local x, y = self.location.x, self.location.y
-    local center = self.image:getWidth()/2
-    
+    local x, y = self.location.x + self.width/2, self.location.y + self.length/2
+    local imagewidth, imagelength = self.image:getWidth(), self.image:getHeight()
     if self.base_image then
-        love.graphics.draw(self.base_image, x, y, 0, 1, 1, center, center)
+        love.graphics.draw(self.base_image, x, y, 0, 1, 1, imagewidth/2, imagelength/2)
     end
     if self.class == 'defence' then
-        self.turret_anime:draw(self.anime_sheet, x, y, self.turret_angle, 1, 1, center, center)
+        self.turret_anime:draw(self.anime_sheet, x, y, self.turret_angle, 1, 1, imagewidth/2, imagelength/2)
     elseif self.class == 'resource' then
-        love.graphics.draw(self.anime_sheet, x, y, 0, 1, 1, center, center)
+        love.graphics.draw(self.anime_sheet, x, y, 0, 1, 1, imagewidth/2, imagelength/2)
     end
     --button use
     if self.type == 'friendly' then

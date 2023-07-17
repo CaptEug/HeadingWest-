@@ -75,27 +75,21 @@ function ConstructMenu:draw()
         love.graphics.setCanvas()
         love.graphics.draw(CMscreen, CurrentPlace.ConstructMenuWindow.x, CurrentPlace.ConstructMenuWindow.y)
     end
-
+-- draw cusor building
     if ConstructurePicked then
         local x, y = cam:cameraCoords(IntX, IntY)
-        local odd = false
-        local imagewidth = ConstructureSelected.image:getWidth()
-        local center = ConstructureSelected.image:getWidth()/2
-        if math.fmod(imagewidth/32,2)==1 then
-            x = x 
-            y = y 
-        end
+        local imagewidth, imagelength = ConstructureSelected.image:getWidth(), ConstructureSelected.image:getHeight()
         Cursormode = 'Constructing'
-        love.graphics.draw(ConstructureSelected.image, x, y, 0, cam.scale, cam.scale, center, center)
+        love.graphics.draw(ConstructureSelected.image, x + ConstructureSelected.width/(2/cam.scale), y + ConstructureSelected.length/(2/cam.scale), 0, cam.scale, cam.scale, imagewidth/2, imagelength/2)
     end
-
+--draw green building preview
     for i, building in ipairs(ConstructionQueue) do
         local x, y = cam:cameraCoords(building.x, building.y)
-        local center = building.image:getWidth()/2
+        local imagewidth, imagelength = building.image:getWidth(), building.image:getHeight()
         love.graphics.setColor(0,179/255,0)
-        love.graphics.draw(building.image, x, y, 0, cam.scale, cam.scale, center, center)
-        love.graphics.rectangle('line', x - 68, y, 136, 8)
-        love.graphics.rectangle('fill', x - 66, y + 2, 132 - (132*building.buildtime/building.fixedbuildtime), 4)
+        love.graphics.draw(building.image, x + building.width/(2/cam.scale), y + building.length/(2/cam.scale), 0, cam.scale, cam.scale, imagewidth/2, imagelength/2)
+        love.graphics.rectangle('line', x + building.width/(2/cam.scale) - 68, y + building.length/(2/cam.scale), 136, 8)
+        love.graphics.rectangle('fill', x + building.width/(2/cam.scale) - 66, y + building.length/(2/cam.scale) + 2, 132 - (132*building.buildtime/building.fixedbuildtime), 4)
         love.graphics.setColor(1,1,1)
     end
 end
@@ -106,10 +100,6 @@ function BuildDetact(button)
         local building = copytable(ConstructureSelected)
         local x, y = IntX, IntY
         local imagewidth = ConstructureSelected.image:getWidth()
-        if math.fmod(imagewidth/32,2) == 1 then
-            x = x 
-            y = y 
-        end
         building.x, building.y = x, y
         table.insert(ConstructionQueue, building)
     end

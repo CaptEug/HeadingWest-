@@ -239,7 +239,7 @@ function buttons:use()
         end
 
         if button.type == 5 then
-            local x, y = button.bx - button.w, button.by - button.h
+            local x, y = button.bx - button.w / 2, button.by - button.h / 2
             local scale = 1
             button.Hot = cmx>=x and cmx<=x+button.w and cmy>=y and cmy<=y+button.h
             button.last = button.now
