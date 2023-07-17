@@ -4,11 +4,10 @@ TankInfoPanel = {}
 function TankInfoPanel:load()
     --add tankinfopanel button
     TPscreen = love.graphics.newCanvas(288, 352)
-    TankInfoPanel.window = {x = 0, y = 256, w = 288, h = 352}
-    TankInfoPanel.dragging = false
+    CurrentPlace.TankInfoPanelWindow = {x = 0, y = 256, w = 288, h = 352, dragging = false}
     TankPanelopen = false
     TankChoosen = {}
-    TankInfoPanel.Buttons = buttons.new()
+    CurrentPlace.TankInfoPanelButtons = buttons.new()
     TankInfoPanel.SPGButtons = buttons.new()
     TankInfoPanel.blinkTimer = 0
     TankInfoPanel.blinkInterval = 0.2
@@ -32,8 +31,8 @@ function TankInfoPanel:load()
                 TankChoosen.leader = false
             end
         end,
-        TankInfoPanel.window,
-        TankInfoPanel.Buttons,
+        CurrentPlace.TankInfoPanelWindow,
+        CurrentPlace.TankInfoPanelButtons,
         256,
         256+64
     )
@@ -44,7 +43,7 @@ function TankInfoPanel:load()
         function ()
             TankChoosen:Setdeployed()
         end,
-        TankInfoPanel.window,
+        CurrentPlace.TankInfoPanelWindow,
         TankInfoPanel.SPGButtons,
         256,
         208+64
@@ -100,7 +99,7 @@ function TankInfoPanel:draw()
         end
         love.graphics.setColor(1,1,1)
 
-        TankInfoPanel.Buttons:use()
+        CurrentPlace.TankInfoPanelButtons:use()
         if TankChoosen.class == 'spg' then
             TankInfoPanel.SPGButtons:use()
         end
@@ -108,7 +107,7 @@ function TankInfoPanel:draw()
         TankAmmoDraw()
         TankStateDraw()
     love.graphics.setCanvas()
-        love.graphics.draw(TPscreen, TankInfoPanel.window.x, TankInfoPanel.window.y)
+        love.graphics.draw(TPscreen, CurrentPlace.TankInfoPanelWindow.x, CurrentPlace.TankInfoPanelWindow.y)
     end
 end
 
@@ -176,25 +175,25 @@ end
 --TPscreen.window draggie
 function TPmousepressed(x, y, button)
     -- Check if the mouse is inside the TDscreen.window
-    if x >= TankInfoPanel.window.x and x <= TankInfoPanel.window.x + TankInfoPanel.window.w and
-     y >= TankInfoPanel.window.y and y <= TankInfoPanel.window.y + TankInfoPanel.window.h then
+    if x >= CurrentPlace.TankInfoPanelWindow.x and x <= CurrentPlace.TankInfoPanelWindow.x + CurrentPlace.TankInfoPanelWindow.w and
+     y >= CurrentPlace.TankInfoPanelWindow.y and y <= CurrentPlace.TankInfoPanelWindow.y + CurrentPlace.TankInfoPanelWindow.h then
         Cursormode = 'dragging'
-        TankInfoPanel.dragging = true
+        CurrentPlace.TankInfoPanelWindow.dragging = true
        -- Calculate the offset between the mouse position and the TDscreen.window position
-       TankInfoPanel.offsetX = x - TankInfoPanel.window.x
-       TankInfoPanel.offsetY = y - TankInfoPanel.window.y
+       TankInfoPanel.offsetX = x - CurrentPlace.TankInfoPanelWindow.x
+       TankInfoPanel.offsetY = y - CurrentPlace.TankInfoPanelWindow.y
     end
 end
  
 function TPmousereleased(x, y, button)
     -- Stop dragging when the mouse is released
-    TankInfoPanel.dragging = false
+    CurrentPlace.TankInfoPanelWindow.dragging = false
 end
  
 function TPmousemoved(x, y, dx, dy)
     -- Update the TDscreen.window position if the user is dragging it
-    if TankInfoPanel.dragging then
-        TankInfoPanel.window.x = x - TankInfoPanel.offsetX
-        TankInfoPanel.window.y = y - TankInfoPanel.offsetY
+    if CurrentPlace.TankInfoPanelWindow.dragging then
+        CurrentPlace.TankInfoPanelWindow.x = x - TankInfoPanel.offsetX
+        CurrentPlace.TankInfoPanelWindow.y = y - TankInfoPanel.offsetY
     end
 end

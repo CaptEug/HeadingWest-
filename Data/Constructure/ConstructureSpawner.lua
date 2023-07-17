@@ -5,10 +5,6 @@ function ConstructureSpawner:loadBuilding(building, place)
     building.collider = CurrentPlace.world:newRectangleCollider(x, y, building.width, building.length)
     building.collider:setType('static')
     building.collider:setCollisionClass('Constructure')
-    if building.class == 'resource' then
-        SteelProduction = SteelProduction + building.steel_production
-        OilProduction = OilProduction + building.oil_production
-    end
     if building.class == 'defence' then
         building.functions.defence = AutoDefenceMode
     end
