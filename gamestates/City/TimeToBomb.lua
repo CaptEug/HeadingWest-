@@ -95,7 +95,7 @@ function Explosives:update(dt)
         end
         explosive.timer = explosive.timer - dt
         if explosive.timer <= 0 and explosive.fusee == true then
-            Explode(explosive)
+            Explode(explosive,explosive.explosive3)
             explosive.explosive3:destroy()
             explosive.ic = false
         end
@@ -141,9 +141,9 @@ function Explosives:draw()
     end
 end
 
-function Explode(explosive)
+function Explode(explosive, a)
     local n = 0
-    local x, y = explosive.explosive3:getPosition()
+    local x, y = a:getPosition()
     local explosion = {}
     explosion.anime = anim8.newAnimation(Explosion_Grid('1-9','1-9'), 0.05)
     explosion.x, explosion.y = x, y
