@@ -81,12 +81,14 @@ function ConstructMenu:draw()
         local odd = false
         local imagewidth = ConstructureSelected.image:getWidth()
         local center = ConstructureSelected.image:getWidth()/2
-        if math.fmod(imagewidth/32,2)==1 then
+        if math.fmod(imagewidth/32,2) == 1 then
             x = x 
-            y = y 
+            y = y
         end
         Cursormode = 'Constructing'
-        love.graphics.draw(ConstructureSelected.image, x, y, 0, cam.scale, cam.scale, center, center)
+        love.graphics.draw(ConstructureSelected.image, x, y, 0, cam.scale, cam.scale, center+16, center+16)
+        love.graphics.print(tostring(x),0,300)
+        love.graphics.print(tostring(y),0,310)
     end
 
     for i, building in ipairs(ConstructionQueue) do
@@ -107,8 +109,8 @@ function BuildDetact(button)
         local x, y = IntX, IntY
         local imagewidth = ConstructureSelected.image:getWidth()
         if math.fmod(imagewidth/32,2) == 1 then
-            x = x 
-            y = y 
+            x = x + 16
+            y = y + 16
         end
         building.x, building.y = x, y
         table.insert(ConstructionQueue, building)
