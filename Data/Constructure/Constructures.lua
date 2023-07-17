@@ -49,7 +49,7 @@ Constructures = {
         width = 288,
         length = 288,
         vision = 1800,
-        turret_offset = 0,
+        turret_offset = {x = 144, y = 144},
         turret_t_speed = 5,
         gun_offset = {x = 0, y = 250},
         gun_offset2 = {x = -48, y = 250},

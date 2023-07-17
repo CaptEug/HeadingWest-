@@ -59,7 +59,7 @@ function Constructure:Update(dt)
     end
     if self.class == 'defence' then
         --location update
-        self.turret_location.x, self.turret_location.y = x - self.turret_offset, y + self.turret_offset
+        self.turret_location.x, self.turret_location.y = x + self.turret_offset.x, y + self.turret_offset.y
         self.gun_location.x, self.gun_location.y = self.turret_location.x + self.gun_offset.y*math.sin(self.turret_angle) + self.gun_offset.x*math.cos(self.turret_angle),
                                                    self.turret_location.y - self.gun_offset.y*math.cos(self.turret_angle) + self.gun_offset.x*math.sin(self.turret_angle)
         if self.gun_offset2 then
@@ -110,10 +110,11 @@ end
 
 AutoDefenceMode = function (building, dt)
     local alert = false
+    local buildingx, buildingy = building.location.x + building.width/2,  building.location.y + building.length/2
     --enemy confirmation
     local enemy = {}
     for i, target in ipairs(CurrentPlace.exsist_tank) do
-        if math.sqrt((target.location.x - building.location.x)^2 + (target.location.y - building.location.y)^2) < building.vision then
+        if math.sqrt((target.location.x - buildingx)^2 + (target.location.y - buildingy)^2) < building.vision then
             if target.type ~= building.type then
                 enemy = target
                 alert = true
