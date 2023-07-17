@@ -93,7 +93,7 @@ function ConstructMenu:draw()
         local x, y = cam:cameraCoords(building.x, building.y)
         local center = building.image:getWidth()/2
         love.graphics.setColor(0,179/255,0)
-        love.graphics.draw(building.image, x, y, 0, cam.scale, cam.scale)
+        love.graphics.draw(building.image, x, y, 0, cam.scale, cam.scale, center, center)
         love.graphics.rectangle('line', x - 68, y, 136, 8)
         love.graphics.rectangle('fill', x - 66, y + 2, 132 - (132*building.buildtime/building.fixedbuildtime), 4)
         love.graphics.setColor(1,1,1)
