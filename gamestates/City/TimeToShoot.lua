@@ -74,9 +74,9 @@ function TankProjectiles:update(dt)
 
         if shell.collider:enter('Wall') then
             if shell.type == 'HE' then
-                Explode(shell, shell.collider)
+                --Explode(shell, shell.collider)
             end
-            shell.collider:destroy()
+            --shell.collider:destroy()
             table.remove(self, i)
         end
 
@@ -89,7 +89,7 @@ function TankProjectiles:update(dt)
             end
 
             if shell.type == 'HE' then
-                Explode(shell,shell.collider)
+                --Explode(shell,shell.collider)
                 shell.collider:destroy()
                 table.remove(self, i)
             else
