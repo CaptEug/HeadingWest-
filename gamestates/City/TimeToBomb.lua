@@ -59,8 +59,12 @@ function Bomb(unit, x, y)
         for i, gun in ipairs(unit.gun) do
             local explosive2 = {}
             explosive2.explosive3 = particleworld:newCircleCollider(unit.gun[i].x, unit.gun[i].y, 5)
-            local ix1, iy1 = math.cos(math.atan2(y - unit.battery_location.y, x - unit.battery_location.x)),
-                   math.sin(math.atan2(y - unit.battery_location.y, x - unit.battery_location.x))
+            local angle = math.random() * 2 * math.pi
+            local radius = math.random(0, 300)
+            local randomX = x + radius * math.cos(angle)
+            local randomY = y + radius * math.sin(angle)
+            local ix1, iy1 = math.cos(math.atan2(randomY - unit.battery_location.y, randomX - unit.battery_location.x)),
+                   math.sin(math.atan2(randomY - unit.battery_location.y, randomX - unit.battery_location.x))
             local distance1 = math.sqrt((x - unit.gun[i].x)^2 + (y - unit.gun[i].y)^2)
             local angle = 0.5*math.pi + math.atan2(y - unit.battery_location.y, x - unit.battery_location.x)
             explosive2.explosive3:setMass(bomb.mass)
@@ -76,6 +80,7 @@ function Bomb(unit, x, y)
             explosive2.ic = bomb.shells
             explosive2.trail = {}
             explosive2.fusee = true
+            explosive2.x, explosive2.y = x, y
             table.insert(Explosives, explosive2)
         end
     end
@@ -127,6 +132,9 @@ function Explosives:draw()
             local width1 = explosive.ic:getWidth()
             local height1 = explosive.ic:getHeight()
             love.graphics.draw(explosive.ic,x,y,explosive.angle,1,1,width1/2,height1)
+            love.graphics.setColor(1, 0, 0, 0.1)
+            love.graphics.circle("fill", explosive.x, explosive.y, 300)
+            love.graphics.setColor(1 ,1 ,1)
         end
         if explosive.trail ~= nil then
             for i = 1, #explosive.trail - 1 do
