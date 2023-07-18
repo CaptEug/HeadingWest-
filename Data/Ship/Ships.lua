@@ -44,7 +44,7 @@ Ships = {
         el_turret_image = love.graphics.newImage('Assets/ships/usa/Montana/127mmMk16.png'),
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
         ammorack = {
-            {name = '406mmHE', type = 'HE', pentype = 'CE', velocity = 820, mass = 1, pen = 406, TNT_eq = 10, shells = love.graphics.newImage('Assets/ships/usa/Weapons/406mmHCShells.png')}
+            {name = '406mmHE', type = 'HE', pentype = 'CE', velocity = 820, mass = 1, pen = 406, TNT_eq = 50, shells = love.graphics.newImage('Assets/ships/usa/Weapons/406mmHCShells.png')}
         },
         el_ammorack = {
             {name = '127mmHE', type = 'HE', pentype = 'CE', velocity = 1000, mass = 0.1, pen = 127, TNT_eq = 2},
