@@ -25,7 +25,7 @@ Constructures = {
     OilStorage = {
         name = 'Oil Storage',
         class = 'resource',
-        width = 160,
+        width = 64,
         length = 160,
         vision = 0,
         steel_cost = 20,
@@ -35,8 +35,8 @@ Constructures = {
         hitpoint = 100,
         armorthickness = 0,
         icon = Icon_in_progress,
-        image = love.graphics.newImage('Assets/constructures/resource/Oil/OilStorage.png'),
-        anime_sheet = love.graphics.newImage('Assets/constructures/resource/Oil/OilStorage.png'),
+        image = love.graphics.newImage('Assets/constructures/resource/Oil/OilStorage_small.png'),
+        anime_sheet = love.graphics.newImage('Assets/constructures/resource/Oil/OilStorage_small.png'),
         buildtime = 10,
         fixedbuildtime = 10
     },
@@ -49,7 +49,7 @@ Constructures = {
         width = 288,
         length = 288,
         vision = 1800,
-        turret_offset = 0,
+        turret_offset = {x = 144, y = 144},
         turret_t_speed = 5,
         gun_offset = {x = 0, y = 250},
         gun_offset2 = {x = -48, y = 250},

@@ -1,7 +1,7 @@
 ConstructureSpawner = {}
 
 function ConstructureSpawner:loadBuilding(building, place)
-    local x, y = building.location.x - building.width/2, building.location.y - building.length/2
+    local x, y = building.location.x, building.location.y
     building.collider = CurrentPlace.world:newRectangleCollider(x, y, building.width, building.length)
     building.collider:setType('static')
     building.collider:setCollisionClass('Constructure')

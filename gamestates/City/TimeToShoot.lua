@@ -18,6 +18,7 @@ function Shoot(unit,...)
         local ix, iy = math.cos(unit.location.hull_angle+unit.turret_angle-math.pi/2),
                    math.sin(unit.location.hull_angle+unit.turret_angle-math.pi/2)
         local shell = {}
+<<<<<<< HEAD
         shell.collider = CurrentPlace.world:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 1)
         shell.collider:setCollisionClass(round.type)
         shell.collider:setBullet(true)
@@ -25,6 +26,15 @@ function Shoot(unit,...)
         shell.collider:setLinearDamping(0.01)
         shell.collider:setMass(round.mass)
         shell.collider:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
+=======
+        shell.shell = CurrentPlace.world:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 1)
+        shell.shell:setCollisionClass(round.type)
+        shell.shell:setBullet(true)
+        shell.shell:setRestitution(0.5)
+        shell.shell:setLinearDamping(0.01)
+        shell.shell:setMass(round.mass)
+        shell.shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
+>>>>>>> 9f05463b7a3ddd238945b8b0676be1eae43f31d4
         shell.from = unit
         shell.life = 10
         shell.type = round.type
@@ -84,7 +94,11 @@ function TankProjectiles:update(dt)
             local collision_data = shell.collider:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
+<<<<<<< HEAD
             if Target == shell.from  then
+=======
+            if Target == shell.from then
+>>>>>>> 9f05463b7a3ddd238945b8b0676be1eae43f31d4
                 break
             end
 

@@ -59,7 +59,7 @@ function Constructure:Update(dt)
     end
     if self.class == 'defence' then
         --location update
-        self.turret_location.x, self.turret_location.y = x - self.turret_offset, y + self.turret_offset
+        self.turret_location.x, self.turret_location.y = x + self.turret_offset.x, y + self.turret_offset.y
         self.gun_location.x, self.gun_location.y = self.turret_location.x + self.gun_offset.y*math.sin(self.turret_angle) + self.gun_offset.x*math.cos(self.turret_angle),
                                                    self.turret_location.y - self.gun_offset.y*math.cos(self.turret_angle) + self.gun_offset.x*math.sin(self.turret_angle)
         if self.gun_offset2 then
@@ -92,16 +92,15 @@ function Constructure:Update(dt)
 end
 
 function Constructure:Draw()
-    local x, y = self.location.x, self.location.y
-    local center = self.image:getWidth()/2
-    
+    local x, y = self.location.x + self.width/2, self.location.y + self.length/2
+    local imagewidth, imagelength = self.image:getWidth(), self.image:getHeight()
     if self.base_image then
-        love.graphics.draw(self.base_image, x, y, 0, 1, 1, center, center)
+        love.graphics.draw(self.base_image, x, y, 0, 1, 1, imagewidth/2, imagelength/2)
     end
     if self.class == 'defence' then
-        self.turret_anime:draw(self.anime_sheet, x, y, self.turret_angle, 1, 1, center, center)
+        self.turret_anime:draw(self.anime_sheet, x, y, self.turret_angle, 1, 1, imagewidth/2, imagelength/2)
     elseif self.class == 'resource' then
-        love.graphics.draw(self.anime_sheet, x, y, 0, 1, 1, center, center)
+        love.graphics.draw(self.anime_sheet, x, y, 0, 1, 1, imagewidth/2, imagelength/2)
     end
     --button use
     if self.type == 'friendly' then
@@ -111,10 +110,11 @@ end
 
 AutoDefenceMode = function (building, dt)
     local alert = false
+    local buildingx, buildingy = building.location.x + building.width/2,  building.location.y + building.length/2
     --enemy confirmation
     local enemy = {}
     for i, target in ipairs(CurrentPlace.exsist_tank) do
-        if math.sqrt((target.location.x - building.location.x)^2 + (target.location.y - building.location.y)^2) < building.vision then
+        if math.sqrt((target.location.x - buildingx)^2 + (target.location.y - buildingy)^2) < building.vision then
             if target.type ~= building.type then
                 enemy = target
                 alert = true
