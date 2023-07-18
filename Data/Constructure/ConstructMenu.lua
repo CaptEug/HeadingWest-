@@ -1,6 +1,7 @@
 ConstructMenu = {}
 ConstructionQueue = {}
 ConstructMenu.PreBuild = {}
+ConstructMenu.canBuild = false
 
 function ConstructMenu:load()
     CMscreen = love.graphics.newCanvas(640, 480)
