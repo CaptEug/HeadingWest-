@@ -18,14 +18,14 @@ function Shoot(unit,...)
         local ix, iy = math.cos(unit.location.hull_angle+unit.turret_angle-math.pi/2),
                    math.sin(unit.location.hull_angle+unit.turret_angle-math.pi/2)
         local shell = {}
-        shell.shell = CurrentPlace.world:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 1)
-        shell.shell:setCollisionClass(round.type)
-        shell.shell:setBullet(true)
-        shell.shell:setRestitution(0.5)
-        shell.shell:setLinearDamping(0.01)
-        shell.shell:setMass(round.mass)
-        shell.shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
-        shell.from = tank
+        shell.collider = CurrentPlace.world:newCircleCollider(unit.gun_location.x, unit.gun_location.y, 1)
+        shell.collider:setCollisionClass(round.type)
+        shell.collider:setBullet(true)
+        shell.collider:setRestitution(0.5)
+        shell.collider:setLinearDamping(0.01)
+        shell.collider:setMass(round.mass)
+        shell.collider:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
+        shell.from = unit
         shell.life = 10
         shell.type = round.type
         shell.pen = round.pen
@@ -44,13 +44,13 @@ function Shoot(unit,...)
             local ix, iy = math.cos(math.atan2(y - unit.battery_location.y, x - unit.battery_location.x)),
             math.sin(math.atan2(y - unit.battery_location.y, x - unit.battery_location.x))
             local shell = {}
-            shell.shell = CurrentPlace.world:newCircleCollider(unit.gun[i].x, unit.gun[i].y, 1)
-            shell.shell:setCollisionClass(round.type)
-            shell.shell:setBullet(true)
-            shell.shell:setRestitution(0.5)
-            shell.shell:setLinearDamping(0.01)
-            shell.shell:setMass(round.mass)
-            shell.shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
+            shell.collider = CurrentPlace.world:newCircleCollider(unit.gun[i].x, unit.gun[i].y, 1)
+            shell.collider:setCollisionClass(round.type)
+            shell.collider:setBullet(true)
+            shell.collider:setRestitution(0.5)
+            shell.collider:setLinearDamping(0.01)
+            shell.collider:setMass(round.mass)
+            shell.collider:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
             shell.from = tank
             shell.life = 10
             shell.type = round.type
@@ -69,35 +69,35 @@ end
 function TankProjectiles:update(dt)
     for i, shell in ipairs(self) do
         shell.life = shell.life - dt
-        local sx, sy = shell.shell:getPosition()
+        local sx, sy = shell.collider:getPosition()
         table.insert(shell.trail, {x = sx, y = sy})
 
-        if shell.shell:enter('Wall') then
+        if shell.collider:enter('Wall') then
             if shell.type == 'HE' then
-                Explode(shell, shell.shell)
+                Explode(shell, shell.collider)
             end
-            shell.shell:destroy()
+            shell.collider:destroy()
             table.remove(self, i)
         end
 
-        if shell.shell:enter('TankHull') then
-            local collision_data = shell.shell:getEnterCollisionData('TankHull')
+        if shell.collider:enter('TankHull') then
+            local collision_data = shell.collider:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
-            if Target == shell.from and shell.life > 9 then
+            if Target == shell.from  then
                 break
             end
 
             if shell.type == 'HE' then
-                Explode(shell,shell.shell)
-                shell.shell:destroy()
+                Explode(shell,shell.collider)
+                shell.collider:destroy()
                 table.remove(self, i)
             else
                 local ricochet, hitPart, hitArmorside, angle = RicochetCheck(shell, Target)
                 local ispen = false
                 if not ricochet then
                     ispen = PenCheck(shell, Target, hitPart, hitArmorside, angle)
-                    shell.shell:destroy()
+                    shell.collider:destroy()
                     table.remove(self, i)
                 end
                 if ispen then
@@ -117,7 +117,7 @@ function TankProjectiles:update(dt)
         end
 
         if shell.life <= 0 then
-            shell.shell:destroy()
+            shell.collider:destroy()
             table.remove(self, i)
         end
     end
@@ -165,8 +165,8 @@ end
 
 function RicochetCheck(shell, Target)
     --position_angle acquire and armor side check
-    local x, y = shell.shell:getPosition()
-    local vx, vy = shell.shell:getLinearVelocity()
+    local x, y = shell.collider:getPosition()
+    local vx, vy = shell.collider:getLinearVelocity()
     local hitvalue = math.random()
     local hitPart = 'none'
     local hitArmorside = 'none'
@@ -183,7 +183,7 @@ function RicochetCheck(shell, Target)
         ra = 70 * math.pi/180
     end
     if shell.type == 'ATGM' then
-        vangle = shell:getAngle() + shell.face + math.pi
+        vangle = shell.collider:getAngle() + shell.face + math.pi
     end
 
     if hitvalue < Target.innerstructure.htl then
