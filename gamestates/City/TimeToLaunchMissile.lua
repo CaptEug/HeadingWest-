@@ -2,16 +2,17 @@ Missiles = {}
 
 function LaunchMissile(unit, target)
     local instance = unit.missilerack[1]
-    local missile = CurrentPlace.world:newCircleCollider(unit.luncher_location.x, unit.luncher_location.y, 2)
-    missile:setCollisionClass('ATGM')
-    missile:setBullet(true)
-    missile:setRestitution(0.5)
-    missile:setAngularDamping(5)
-    missile:setMass(instance.mass)
-    missile:setInertia(10)
+    local missile = {}
+    missile.collider = CurrentPlace.world:newCircleCollider(unit.luncher_location.x, unit.luncher_location.y, 2)
+    missile.collider:setCollisionClass('ATGM')
+    missile.collider:setBullet(true)
+    missile.collider:setRestitution(0.5)
+    missile.collider:setAngularDamping(5)
+    missile.collider:setMass(instance.mass)
+    missile.collider:setInertia(10)
     missile.from = unit
     missile.face = unit.location.hull_angle + unit.turret_angle - math.pi/2
-    missile:applyLinearImpulse(100*math.cos(missile.face), 100*math.sin(missile.face))
+    missile.collider:applyLinearImpulse(100*math.cos(missile.face), 100*math.sin(missile.face))
     missile.target = target or nil
     missile.velocity = instance.velocity
     missile.turningtorque = instance.turningtorque
@@ -39,16 +40,16 @@ function Missiles:update(dt)
         missile.life = missile.life - dt
         missile.smoke:update(dt) 
 
-        Tracking(missile)
+        Tracking(missile, missile.collider)
 
         if missile:enter('Wall') then
-            Explode(missile)
-            missile:destroy()
+            Explode(missile, missile.collider)
+            missile.collider:destroy()
             table.remove(self, i)
         end
 
         if missile:enter('TankHull') then
-            local collision_data = missile:getEnterCollisionData('TankHull')
+            local collision_data = missile.collider:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
             if Target == missile.from and missile.life > 29 then
@@ -57,8 +58,8 @@ function Missiles:update(dt)
 
             local ricochet, hitPart, hitArmorside, angle = RicochetCheck(missile, Target)
             local ispen = PenCheck(missile, Target, hitPart, hitArmorside, angle)
-            Explode(missile)
-            missile:destroy()
+            Explode(missile, missile.collider)
+            missile.collider:destroy()
             table.remove(self, i)
 
             if ispen then
@@ -70,8 +71,8 @@ function Missiles:update(dt)
         end
 
         if missile.life <= 0 then
-            Explode(missile)
-            missile:destroy()
+            Explode(missile, missile.collider)
+            missile.collider:destroy()
             table.remove(self, i)
         end
     end

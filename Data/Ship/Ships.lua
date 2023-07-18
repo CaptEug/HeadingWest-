@@ -28,7 +28,7 @@ Ships = {
             {x = -246, y = 350, height = 1, angle = math.pi,angle1 = math.pi,  fwangle = 35/180*math.pi, get = false, id = 10},
         },
         gun_offset = {{x = 52, y = -325}, {x = 0, y = -325}, {x = -52, y = -325}},
-        el_gun_offset = {{x = 22, y = -117},  {x = -22, y = -117}},
+        el_gun_offset = {{x = 22, y = -117},  {x = -22, y = -117},{x = 0, y = -117},{x = -10, y = -117},{x = 10, y = -117}},
         weight = 70000,
         crew = 2700,
         max_f_speed = 60,
@@ -47,9 +47,9 @@ Ships = {
             {name = '406mmHE', type = 'HE', pentype = 'CE', velocity = 820, mass = 1, pen = 406, TNT_eq = 50, shells = love.graphics.newImage('Assets/ships/usa/Weapons/406mmHCShells.png')}
         },
         el_ammorack = {
-            {name = '127mmHE', type = 'HE', pentype = 'CE', velocity = 1000, mass = 0.1, pen = 127, TNT_eq = 2},
+            {name = '127mmHE', type = 'HE', pentype = 'CE', velocity = 250, mass = 0.1, pen = 127, TNT_eq = 2},
         },
-        el_reload_time = 3,
+        el_reload_time = 1,
         reload_time = 30,
     }
 }
