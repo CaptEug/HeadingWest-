@@ -25,7 +25,7 @@ function Shoot(unit,...)
         shell.shell:setLinearDamping(0.01)
         shell.shell:setMass(round.mass)
         shell.shell:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
-        shell.from = tank
+        shell.from = unit
         shell.life = 10
         shell.type = round.type
         shell.pen = round.pen
@@ -84,7 +84,7 @@ function TankProjectiles:update(dt)
             local collision_data = shell.shell:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
-            if Target == shell.from and shell.life > 9 then
+            if Target == shell.from then
                 break
             end
 
