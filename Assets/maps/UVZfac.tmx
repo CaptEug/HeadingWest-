@@ -1,12 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="1" nextlayerid="12" nextobjectid="190">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="1" nextlayerid="12" nextobjectid="259">
  <editorsettings>
   <export target="UVZfac.lua" format="lua"/>
  </editorsettings>
  <tileset firstgid="1" name="Sprite-Fac" tilewidth="32" tileheight="32" tilecount="64" columns="8">
   <image source="Sprite-Fac.png" trans="ff00ff" width="256" height="256"/>
  </tileset>
- <objectgroup id="11" name="Ocean"/>
+ <objectgroup id="11" name="Ocean">
+  <object id="190" x="2720" y="-2048" width="3424" height="7168"/>
+  <object id="191" x="1952" y="3136" width="768" height="992"/>
+  <object id="192" x="1664" y="3360" width="288" height="640"/>
+  <object id="193" x="1376" y="3456" width="288" height="352"/>
+  <object id="194" x="1248" y="3520" width="128" height="192"/>
+  <object id="195" x="2208" y="4128" width="512" height="992"/>
+  <object id="196" x="2304" y="2848" width="416" height="288"/>
+  <object id="197" x="2400" y="2656" width="320" height="192"/>
+  <object id="198" x="2432" y="2528" width="288" height="128"/>
+  <object id="199" x="2496" y="2400" width="224" height="128"/>
+  <object id="200" x="2560" y="2272" width="160" height="128"/>
+  <object id="201" x="2592" y="2080" width="128" height="192"/>
+  <object id="202" x="2624" y="1984" width="96" height="96"/>
+  <object id="203" x="2624" y="800" width="96" height="736"/>
+  <object id="204" x="2656" y="1536" width="64" height="448"/>
+  <object id="205" x="2656" y="-928" width="64" height="1728"/>
+  <object id="206" x="2624" y="-640" width="32" height="224"/>
+  <object id="207" x="2688" y="-1024" width="32" height="96"/>
+  <object id="210" x="2688" y="-2048" width="32" height="320"/>
+  <object id="211" x="1792" y="3264" width="160" height="96"/>
+  <object id="212" x="1728" y="3328" width="64" height="32"/>
+  <object id="213" x="1760" y="3296" width="32" height="32"/>
+  <object id="214" x="1824" y="3232" width="128" height="32"/>
+  <object id="215" x="1888" y="3200" width="64" height="32"/>
+  <object id="216" x="1920" y="3168" width="32" height="32"/>
+  <object id="217" x="2016" y="3040" width="288" height="96"/>
+  <object id="218" x="2176" y="2976" width="128" height="64"/>
+  <object id="219" x="2240" y="2944" width="64" height="32"/>
+  <object id="220" x="2272" y="2912" width="32" height="32"/>
+  <object id="221" x="2112" y="3008" width="64" height="32"/>
+  <object id="222" x="1984" y="3072" width="32" height="64"/>
+  <object id="223" x="1600" y="3392" width="64" height="64"/>
+  <object id="224" x="1504" y="3424" width="96" height="32"/>
+  <object id="225" x="1280" y="3488" width="96" height="32"/>
+  <object id="226" x="1216" y="3552" width="32" height="128"/>
+  <object id="227" x="1280" y="3712" width="96" height="32"/>
+  <object id="228" x="1312" y="3744" width="64" height="32"/>
+  <object id="229" x="1344" y="3776" width="32" height="32"/>
+  <object id="230" x="1504" y="3808" width="160" height="64"/>
+  <object id="231" x="1600" y="3872" width="64" height="64"/>
+  <object id="232" x="1408" y="3808" width="96" height="32"/>
+  <object id="233" x="1568" y="3872" width="32" height="32"/>
+  <object id="234" x="1632" y="3936" width="32" height="32"/>
+  <object id="235" x="1856" y="4000" width="96" height="96"/>
+  <object id="236" x="1760" y="4000" width="96" height="64"/>
+  <object id="237" x="1696" y="4000" width="64" height="32"/>
+  <object id="238" x="2176" y="4128" width="32" height="288"/>
+  <object id="239" x="2144" y="4128" width="32" height="224"/>
+  <object id="240" x="2048" y="4128" width="96" height="96"/>
+  <object id="241" x="2080" y="4224" width="64" height="32"/>
+  <object id="242" x="2112" y="4256" width="32" height="32"/>
+  <object id="243" x="1984" y="4128" width="64" height="32"/>
+  <object id="244" x="2016" y="4160" width="32" height="32"/>
+  <object id="245" x="2048" y="4864" width="160" height="256"/>
+  <object id="248" x="1920" y="5088" width="128" height="32"/>
+  <object id="249" x="1952" y="5024" width="96" height="64"/>
+  <object id="250" x="1984" y="4960" width="64" height="64"/>
+  <object id="251" x="2016" y="4928" width="32" height="32"/>
+  <object id="252" x="2112" y="4768" width="96" height="96"/>
+  <object id="253" x="2080" y="4832" width="32" height="32"/>
+  <object id="256" x="2144" y="4736" width="64" height="32"/>
+  <object id="257" x="2176" y="4672" width="32" height="64"/>
+ </objectgroup>
  <objectgroup id="10" name="Coast">
   <object id="24" x="1984" y="-2048" width="640" height="4096"/>
   <object id="25" x="2624" y="-2048" width="64" height="1120"/>
