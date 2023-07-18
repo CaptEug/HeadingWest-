@@ -1,18 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="1" nextlayerid="12" nextobjectid="24">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="1" nextlayerid="12" nextobjectid="190">
  <editorsettings>
   <export target="UVZfac.lua" format="lua"/>
  </editorsettings>
  <tileset firstgid="1" name="Sprite-Fac" tilewidth="32" tileheight="32" tilecount="64" columns="8">
   <image source="Sprite-Fac.png" trans="ff00ff" width="256" height="256"/>
  </tileset>
- <objectgroup id="11" name="Ocean">
-  <object id="22" x="2560" y="-512" width="2048" height="4096"/>
- </objectgroup>
+ <objectgroup id="11" name="Ocean"/>
  <objectgroup id="10" name="Coast">
-  <object id="11" x="2048" y="-512" width="512" height="4096"/>
+  <object id="24" x="1984" y="-2048" width="640" height="4096"/>
+  <object id="25" x="2624" y="-2048" width="64" height="1120"/>
+  <object id="26" x="2688" y="-1728" width="32" height="704"/>
+  <object id="27" x="2624" y="-928" width="32" height="288"/>
+  <object id="28" x="1952" y="-1216" width="32" height="3264"/>
+  <object id="29" x="1920" y="-832" width="32" height="800"/>
+  <object id="30" x="1888" y="-736" width="32" height="480"/>
+  <object id="34" x="1792" y="1472" width="160" height="128"/>
+  <object id="35" x="1824" y="1024" width="128" height="448"/>
+  <object id="36" x="1856" y="992" width="96" height="32"/>
+  <object id="37" x="1888" y="832" width="64" height="160"/>
+  <object id="38" x="1920" y="672" width="32" height="160"/>
+  <object id="39" x="1824" y="1600" width="128" height="192"/>
+  <object id="40" x="1856" y="1792" width="96" height="64"/>
+  <object id="41" x="1888" y="1856" width="64" height="32"/>
+  <object id="42" x="1920" y="1888" width="32" height="96"/>
+  <object id="43" x="2624" y="1536" width="32" height="448"/>
+  <object id="44" x="2624" y="-416" width="32" height="1216"/>
+  <object id="45" x="1920" y="-2048" width="64" height="128"/>
+  <object id="46" x="1952" y="-1920" width="32" height="128"/>
+  <object id="47" x="1952" y="2048" width="608" height="320"/>
+  <object id="48" x="1760" y="2368" width="512" height="576"/>
+  <object id="49" x="2272" y="2368" width="160" height="288"/>
+  <object id="50" x="2272" y="2656" width="128" height="96"/>
+  <object id="51" x="2272" y="2752" width="96" height="64"/>
+  <object id="52" x="2272" y="2816" width="64" height="32"/>
+  <object id="53" x="2272" y="2848" width="32" height="64"/>
+  <object id="54" x="2432" y="2368" width="96" height="32"/>
+  <object id="55" x="2432" y="2400" width="64" height="64"/>
+  <object id="56" x="2432" y="2464" width="32" height="64"/>
+  <object id="57" x="1856" y="2208" width="96" height="160"/>
+  <object id="58" x="1760" y="2336" width="96" height="32"/>
+  <object id="59" x="1824" y="2304" width="32" height="32"/>
+  <object id="60" x="1888" y="2176" width="64" height="32"/>
+  <object id="61" x="1920" y="2080" width="32" height="96"/>
+  <object id="62" x="2560" y="2048" width="64" height="32"/>
+  <object id="63" x="2560" y="2080" width="32" height="192"/>
+  <object id="67" x="1120" y="2656" width="640" height="288"/>
+  <object id="68" x="384" y="3136" width="832" height="928"/>
+  <object id="69" x="1216" y="2944" width="512" height="416"/>
+  <object id="70" x="1216" y="3360" width="32" height="192"/>
+  <object id="71" x="1248" y="3360" width="32" height="160"/>
+  <object id="72" x="1280" y="3360" width="96" height="128"/>
+  <object id="73" x="1376" y="3360" width="128" height="96"/>
+  <object id="74" x="1504" y="3360" width="96" height="64"/>
+  <object id="75" x="1600" y="3360" width="64" height="32"/>
+  <object id="76" x="1728" y="2944" width="192" height="256"/>
+  <object id="77" x="1728" y="3200" width="160" height="32"/>
+  <object id="78" x="1728" y="3232" width="96" height="32"/>
+  <object id="79" x="1728" y="3264" width="64" height="32"/>
+  <object id="80" x="1728" y="3296" width="32" height="32"/>
+  <object id="81" x="1920" y="2944" width="96" height="128"/>
+  <object id="82" x="1920" y="3072" width="64" height="64"/>
+  <object id="83" x="1920" y="3136" width="32" height="32"/>
+  <object id="84" x="2016" y="2944" width="96" height="96"/>
+  <object id="85" x="2112" y="2944" width="64" height="64"/>
+  <object id="86" x="2176" y="2944" width="64" height="32"/>
+  <object id="87" x="1600" y="2560" width="160" height="96"/>
+  <object id="88" x="1472" y="2592" width="128" height="64"/>
+  <object id="89" x="1344" y="2624" width="128" height="32"/>
+  <object id="90" x="1664" y="2528" width="96" height="32"/>
+  <object id="91" x="1696" y="2464" width="64" height="64"/>
+  <object id="92" x="1728" y="2400" width="32" height="64"/>
+  <object id="94" x="512" y="2944" width="704" height="192"/>
+  <object id="95" x="416" y="3104" width="96" height="32"/>
+  <object id="96" x="448" y="3040" width="64" height="64"/>
+  <object id="97" x="480" y="2976" width="32" height="64"/>
+  <object id="98" x="544" y="2912" width="576" height="32"/>
+  <object id="99" x="928" y="2816" width="192" height="96"/>
+  <object id="100" x="1024" y="2784" width="96" height="32"/>
+  <object id="101" x="1056" y="2720" width="64" height="64"/>
+  <object id="102" x="1088" y="2688" width="32" height="32"/>
+  <object id="103" x="800" y="2848" width="128" height="32"/>
+  <object id="105" x="704" y="2880" width="224" height="32"/>
+  <object id="106" x="192" y="3456" width="192" height="192"/>
+  <object id="107" x="224" y="3648" width="160" height="192"/>
+  <object id="108" x="224" y="3360" width="160" height="96"/>
+  <object id="109" x="256" y="3296" width="128" height="64"/>
+  <object id="110" x="288" y="3264" width="96" height="32"/>
+  <object id="111" x="320" y="3232" width="64" height="32"/>
+  <object id="112" x="352" y="3200" width="32" height="32"/>
+  <object id="113" x="256" y="3840" width="128" height="96"/>
+  <object id="114" x="288" y="3936" width="96"/>
+  <object id="115" x="288" y="3936" width="96" height="32"/>
+  <object id="116" x="320" y="3968" width="64" height="32"/>
+  <object id="117" x="352" y="4000" width="32" height="32"/>
+  <object id="118" x="480" y="4064" width="160" height="32"/>
+  <object id="119" x="544" y="4096" width="96" height="32"/>
+  <object id="120" x="576" y="4128" width="64" height="32"/>
+  <object id="122" x="1248" y="4096" width="672" height="1024"/>
+  <object id="124" x="800" y="4064" width="448" height="448"/>
+  <object id="125" x="1216" y="3840" width="288" height="224"/>
+  <object id="126" x="1248" y="4064" width="608" height="32"/>
+  <object id="127" x="1504" y="3872" width="64" height="192"/>
+  <object id="128" x="1568" y="3904" width="32" height="160"/>
+  <object id="129" x="1600" y="3936" width="32" height="128"/>
+  <object id="130" x="1632" y="3968" width="32" height="96"/>
+  <object id="132" x="1664" y="4000" width="32" height="64"/>
+  <object id="133" x="1696" y="4032" width="64" height="32"/>
+  <object id="134" x="640" y="4064" width="160" height="160"/>
+  <object id="135" x="672" y="4224" width="128" height="32"/>
+  <object id="136" x="704" y="4256" width="96" height="64"/>
+  <object id="137" x="736" y="4320" width="64" height="128"/>
+  <object id="138" x="768" y="4448" width="32" height="32"/>
+  <object id="139" x="832" y="4512" width="416" height="32"/>
+  <object id="140" x="864" y="4544" width="384" height="32"/>
+  <object id="141" x="1024" y="4576" width="224" height="32"/>
+  <object id="142" x="1088" y="4608" width="160" height="32"/>
+  <object id="143" x="1184" y="4640" width="64" height="32"/>
+  <object id="144" x="992" y="4800" width="256" height="320"/>
+  <object id="151" x="800" y="4896" width="192" height="224"/>
+  <object id="152" x="896" y="4864" width="96" height="32"/>
+  <object id="153" x="928" y="4832" width="64" height="32"/>
+  <object id="154" x="1088" y="4768" width="160" height="32"/>
+  <object id="155" x="1216" y="4704" width="32" height="64"/>
+  <object id="156" x="1120" y="4736" width="96" height="32"/>
+  <object id="158" x="704" y="4960" width="96" height="160"/>
+  <object id="159" x="768" y="4928" width="32" height="32"/>
+  <object id="160" x="640" y="5024" width="64" height="96"/>
+  <object id="161" x="672" y="4992" width="32" height="32"/>
+  <object id="163" x="544" y="5088" width="96" height="32"/>
+  <object id="164" x="1920" y="4416" width="288" height="256"/>
+  <object id="166" x="1920" y="4672" width="192" height="160"/>
+  <object id="167" x="2112" y="4672" width="32" height="96"/>
+  <object id="169" x="2144" y="4672" width="32" height="64"/>
+  <object id="170" x="1920" y="4832" width="96" height="128"/>
+  <object id="172" x="2016" y="4832" width="64" height="32"/>
+  <object id="173" x="2016" y="4864" width="32" height="64"/>
+  <object id="174" x="1920" y="4960" width="64" height="64"/>
+  <object id="176" x="1920" y="5024" width="32" height="64"/>
+  <object id="177" x="1920" y="4352" width="256" height="64"/>
+  <object id="178" x="1920" y="4288" width="224" height="64"/>
+  <object id="179" x="1920" y="4192" width="128" height="96"/>
+  <object id="180" x="2048" y="4224" width="32" height="64"/>
+  <object id="181" x="2080" y="4256" width="32" height="32"/>
+  <object id="182" x="1920" y="4128" width="64" height="64"/>
+  <object id="183" x="1920" y="4096" width="32" height="32"/>
+  <object id="184" x="1984" y="4160" width="32" height="32"/>
+  <object id="185" x="1216" y="3776" width="128" height="64"/>
+  <object id="186" x="1216" y="3712" width="64" height="64"/>
+  <object id="187" x="1216" y="3680" width="32" height="32"/>
+  <object id="188" x="1280" y="3744" width="32" height="32"/>
+  <object id="189" x="1344" y="3808" width="64" height="32"/>
  </objectgroup>
- <layer id="1" name="Ground" width="100" height="100">
+ <layer id="1" name="Ground" width="100" height="100" visible="0" locked="1">
   <data encoding="csv">
    <chunk x="-80" y="-64" width="16" height="16">
 16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,16,
@@ -2122,7 +2262,7 @@
 </chunk>
   </data>
  </layer>
- <layer id="8" name="Coast water" width="100" height="100">
+ <layer id="8" name="Coast water" width="100" height="100" locked="1" opacity="0.31">
   <data encoding="csv">
    <chunk x="48" y="-64" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,47,47,47,47,
@@ -2990,7 +3130,7 @@
 </chunk>
   </data>
  </layer>
- <layer id="9" name="Ocean water" width="100" height="100">
+ <layer id="9" name="Ocean water" width="100" height="100" visible="0" locked="1">
   <data encoding="csv">
    <chunk x="80" y="-64" width="16" height="16">
 0,0,0,0,48,48,48,48,48,48,48,48,48,48,48,48,
@@ -4992,7 +5132,7 @@
 </chunk>
   </data>
  </layer>
- <layer id="4" name="Objects" width="100" height="100">
+ <layer id="4" name="Objects" width="100" height="100" visible="0" locked="1">
   <data encoding="csv">
    <chunk x="0" y="0" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -5122,7 +5262,7 @@
 </chunk>
   </data>
  </layer>
- <objectgroup id="5" name="Structure">
+ <objectgroup id="5" name="Structure" visible="0" locked="1">
   <object id="1" x="0" y="-192" width="256" height="32"/>
   <object id="2" x="576" y="-192" width="256" height="32"/>
   <object id="7" x="0" y="-160" width="32" height="2336"/>
@@ -5130,7 +5270,7 @@
   <object id="9" x="576" y="2176" width="256" height="32"/>
   <object id="10" x="800" y="-160" width="32" height="2336"/>
  </objectgroup>
- <layer id="2" name="Buildings" width="100" height="100">
+ <layer id="2" name="Buildings" width="100" height="100" visible="0" locked="1">
   <data encoding="csv">
    <chunk x="0" y="-16" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -5350,7 +5490,7 @@
 </chunk>
   </data>
  </layer>
- <layer id="3" name="Ceiling" width="100" height="100">
+ <layer id="3" name="Ceiling" width="100" height="100" visible="0" locked="1">
   <data encoding="csv">
    <chunk x="0" y="-16" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -5570,7 +5710,7 @@
 </chunk>
   </data>
  </layer>
- <layer id="6" name="Roof" width="100" height="100">
+ <layer id="6" name="Roof" width="100" height="100" visible="0" locked="1">
   <data encoding="csv">
    <chunk x="0" y="-16" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
