@@ -1,5 +1,6 @@
 ConstructMenu = {}
 ConstructionQueue = {}
+ConstructMenu.PreBuild = {}
 
 function ConstructMenu:load()
     CMscreen = love.graphics.newCanvas(640, 480)
@@ -29,6 +30,9 @@ function ConstructMenu:load()
                 ConstructMenu.build = false
                 ConstructurePicked = true
                 ConstructureSelected = constructure
+                local preBuild = CurrentPlace.world:newRectangleCollider(IntX,IntY, ConstructureSelected.width,ConstructureSelected.length)
+                preBuild:setCollisionClass('PreBuild')
+                table.insert(self.PreBuild,preBuild)
             end,
             CurrentPlace.ConstructMenuWindow,
             CurrentPlace.ConstructMenuButtons,
@@ -49,6 +53,7 @@ function ConstructMenu:update(dt)
     if love.mouse.isDown(2) and ConstructurePicked then
         ConstructurePicked = false
         ConstructMenu.build = false
+        self.PreBuild[1]:destroy()
         ConstructureSelected = {}
     end
     for i, constructure in ipairs(ConstructionQueue) do
@@ -56,6 +61,9 @@ function ConstructMenu:update(dt)
         if constructure.buildtime <= 0 then
             BuildConstructure(CurrentPlace, table.remove(ConstructionQueue, i), 'friendly', constructure.x, constructure.y)
         end
+    end
+    if ConstructurePicked then
+        self.PreBuild[1]:setPosition(IntX + ConstructureSelected.width/2,IntY + ConstructureSelected.length/2)
     end
 end
 
