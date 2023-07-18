@@ -69,6 +69,7 @@ Nizhny_Tagil.Structure = {}
 Nizhny_Tagil.Obstacles = {}
 Nizhny_Tagil.Coast = {}
 Nizhny_Tagil.Ocean = {}
+Nizhny_Tagil.Oil = {}
 Nizhny_Tagil.constructurelist = {}
 Nizhny_Tagil.Army = {}
 Nizhny_Tagil.exsist_tank = {}
@@ -168,6 +169,7 @@ function City:init()
     self.world:addCollisionClass('TankHull', {ignores = {'Coast'}})
     self.world:addCollisionClass('ShipHull', {ignores = {'Ocean'}})
     self.world:addCollisionClass('Constructure')
+    self.world:addCollisionClass('Oil',{ignores = {'ShipHull','TankHull'}})
     self:loadmap()
     CityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
@@ -347,6 +349,17 @@ function City:loadmap()
             Collider:setType('static')
             Collider:setCollisionClass('Ocean')
             table.insert(self.Ocean, Collider)
+        end
+    end
+
+    if self.map.layers['Oil'] then
+        for i, j in pairs(self.map.layers['Oil'].objects) do
+            local Collider = self.world:newRectangleCollider(j.x, j.y, j.width, j.height)
+            Collider.width = j.width
+            Collider.height = j.heights
+            Collider:setType('static')
+            Collider:setCollisionClass('Oil')
+            table.insert(self.Oil, Collider)
         end
     end
 end
