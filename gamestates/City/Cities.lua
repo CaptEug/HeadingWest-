@@ -156,7 +156,7 @@ end
 
 function City:init()
     self.world:addCollisionClass('Coast')
-    self.world:addCollisionClass('Ocean')
+    self.world:addCollisionClass('Ocean',{ignores = {'Coast'}})
     self.world:addCollisionClass('APCBC', {ignores = {'Coast','Ocean'}})
     self.world:addCollisionClass('HE', {ignores = {'Coast','Ocean'}})
     self.world:addCollisionClass('HEAT', {ignores = {'Coast','Ocean'}})
@@ -352,6 +352,10 @@ function City:loadmap()
 end
 
 function City:DrawMapDown()
+
+    if self.map.layers["Resource"] then
+        self.map:drawLayer(self.map.layers["Resource"])
+    end
     if self.map.layers["Ground"] then
         self.map:drawLayer(self.map.layers["Ground"])
     end
