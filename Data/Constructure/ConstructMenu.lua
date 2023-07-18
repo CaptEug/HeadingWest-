@@ -30,6 +30,10 @@ function ConstructMenu:load()
                 ConstructMenu.build = false
                 ConstructurePicked = true
                 ConstructureSelected = constructure
+                if self.PreBuild[1] ~= nil then
+                    self.PreBuild[1]:destroy()
+                    self.PreBuild = {}
+                end
                 local preBuild = CurrentPlace.world:newRectangleCollider(IntX,IntY, ConstructureSelected.width,ConstructureSelected.length)
                 preBuild:setCollisionClass('PreBuild')
                 table.insert(self.PreBuild,preBuild)
@@ -62,7 +66,7 @@ function ConstructMenu:update(dt)
             BuildConstructure(CurrentPlace, table.remove(ConstructionQueue, i), 'friendly', constructure.x, constructure.y)
         end
     end
-    if ConstructurePicked then
+    if ConstructurePicked and self.PreBuild ~= {} then
         self.PreBuild[1]:setPosition(IntX + ConstructureSelected.width/2,IntY + ConstructureSelected.length/2)
     end
 end
