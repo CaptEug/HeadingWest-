@@ -19,6 +19,12 @@ function ConstructureInfoPanel:draw()
                 if building.oil_production then
                     love.graphics.print('Production: '..building.oil_production, x + 14, y + 44)
                 end
+                if building.steel_storage then
+                    love.graphics.print('Storage: '..string.format("%.1f", building.steel_stored)..'/'..building.steel_storage,  x + 14, y + 24)
+                end
+                if building.steel_production then
+                    love.graphics.print('Production: '..building.steel_production, x + 14, y + 44)
+                end
             end
         end
     end

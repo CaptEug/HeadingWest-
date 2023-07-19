@@ -410,7 +410,6 @@ end
 
 function CostResource(steel, oil)
     local steelcost = steel
-    local oilcost = oil
     for i, building in ipairs(CurrentPlace.exsist_building) do
         if building.class == 'resource' then
             if building.steel_stored then
@@ -422,6 +421,11 @@ function CostResource(steel, oil)
                     building.steel_stored = 0
                 end
             end
+        end
+    end
+    local oilcost = oil
+    for i, building in ipairs(CurrentPlace.exsist_building) do
+        if building.class == 'resource' then
             if building.oil_stored then
                 if building.oil_stored > oilcost then
                     building.oil_stored = building.oil_stored - oilcost
