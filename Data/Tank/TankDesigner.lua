@@ -4,10 +4,12 @@ function TankDesigner:load()
     TDscreen = love.graphics.newCanvas(640, 480)
     CurrentPlace.TankDesignerWindow = {x = 0, y = 32, w = 640, h = 64, dragging = false}
     CurrentPlace.TankDesignerButtons = buttons.new()
+    CurrentPlace.TankDesignerBuildButtons = buttons.new()
     TankDesigner.tankindex = 1
     TankDesigner.PageShown = 'Armor'
     TankDesigner.tank_steel_cost = 0
     TankDesigner.tank_oil_cost = 0
+    TankDesigner.lack_resource = false
     CurrentPlace.openTankDesigner = false
     CurrentPlace.ProductionQueue = {}
     CurrentPlace.ProductionNumber = 0
@@ -205,13 +207,12 @@ function TankDesigner:load()
             tank.selected_slot = TankDesigner:slot_distribution(CurrentPlace)
             table.insert(CurrentPlace.ProductionQueue, 1, tank)
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
-            Steel = Steel - TankDesigner.tank_steel_cost
-            Oil = Oil - TankDesigner.tank_oil_cost
+            CostResource(TankDesigner.tank_steel_cost, TankDesigner.tank_oil_cost)
         end,
         CurrentPlace.TankDesignerWindow,
-        CurrentPlace.TankDesignerButtons,
-        0 + 405,
-        0 + 391,
+        CurrentPlace.TankDesignerBuildButtons,
+        405,
+        391,
         Build_icon,
         Build_Hot
     )
@@ -268,6 +269,13 @@ function TankDesigner:update(dt)
         end
         CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].ammunition.isopen = true
     end
+    --resource check
+    if CurrentPlace.steel_stored < TankDesigner.tank_steel_cost or CurrentPlace.oil_stored < TankDesigner.tank_oil_cost then
+        TankDesigner.lack_resource = true
+    else
+        TankDesigner.lack_resource = false
+    end
+    
     --tank production process
     for i, tank in ipairs(CurrentPlace.ProductionQueue) do
         if tank.selected_slot ~= 0 then
@@ -364,6 +372,12 @@ function TankDesigner:draw()
         end
 
         CurrentPlace.TankDesignerButtons:use()
+        if not TankDesigner.lack_resource then
+            CurrentPlace.TankDesignerBuildButtons:use()
+        else
+            love.graphics.print('Not Enough Resource',405,391)
+        end
+
         if TankDesigner.PageShown == 'Armor' then
             love.graphics.draw(Armor_Hot, 0 + 46, 0 + 356)
         end
@@ -398,7 +412,7 @@ function TankDesigner:slot_distribution(place)
     return selected_slot
 end
 
---TDscreen.window draggie
+--TDscreenwindow draggie
 function TDmousepressed(x, y, button)
     -- Check if the mouse is inside the TDscreen.window
     if x >= CurrentPlace.TankDesignerWindow.x and x <= CurrentPlace.TankDesignerWindow.x + CurrentPlace.TankDesignerWindow.w and

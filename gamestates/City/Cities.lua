@@ -170,7 +170,7 @@ function City:init()
     self.world:addCollisionClass('ShipHull', {ignores = {'Ocean'}})
     self.world:addCollisionClass('Constructure')
     self.world:addCollisionClass('Oil',{ignores = {'ShipHull','TankHull'}})
-    self.world:addCollisionClass('PreBuild',{ignores = {'ShipHull','TankHull','Oil','Coast','Ocean','Wall','Constructure'}})
+    self.world:addCollisionClass('PreBuild',{ignores = {'ShipHull','TankHull','Oil','Coast','Ocean','Constructure'}})
     self:loadmap()
     CityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
@@ -405,5 +405,36 @@ function City:DrawMapUp()
 
     if self.map.layers["Sky"] then
         self.map:drawLayer(self.map.layers["Sky"])
+    end
+end
+
+function CostResource(steel, oil)
+    local steelcost = steel
+    for i, building in ipairs(CurrentPlace.exsist_building) do
+        if building.class == 'resource' then
+            if building.steel_stored then
+                if building.steel_stored > steelcost then
+                    building.steel_stored = building.steel_stored - steelcost
+                    break
+                else
+                    steelcost = steelcost - building.steel_stored
+                    building.steel_stored = 0
+                end
+            end
+        end
+    end
+    local oilcost = oil
+    for i, building in ipairs(CurrentPlace.exsist_building) do
+        if building.class == 'resource' then
+            if building.oil_stored then
+                if building.oil_stored > oilcost then
+                    building.oil_stored = building.oil_stored - oilcost
+                    break
+                else
+                    oilcost = oilcost - building.oil_stored
+                    building.oil_stored = 0
+                end
+            end
+        end
     end
 end
