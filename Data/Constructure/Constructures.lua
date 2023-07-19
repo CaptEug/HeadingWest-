@@ -7,7 +7,7 @@ Constructures = {
         requirement = 'oil field',
         width = 128,
         length = 128,
-        vision = 60,
+        vision = 200,
         steel_cost = 20,
         oil_cost = 0,
         oil_production = 0.001,
@@ -22,12 +22,33 @@ Constructures = {
         fixedbuildtime = 10
     },
 
+    SteelForge = {
+        name = 'Steel Forge',
+        class = 'resource',
+        requirement = '',
+        width = 128,
+        length = 128,
+        vision = 200,
+        steel_cost = 20,
+        oil_cost = 0,
+        steel_production = 0.001,
+        steel_storage = 20,
+        steel_stored = 0,
+        hitpoint = 10,
+        armorthickness = 0,
+        icon = Icon_in_progress,
+        image = Image_in_progress,
+        anime_sheet = Image_in_progress,
+        buildtime = 10,
+        fixedbuildtime = 10
+    },
+
     OilStorage = {
         name = 'Oil Storage',
         class = 'resource',
         width = 64,
         length = 192,
-        vision = 60,
+        vision = 200,
         steel_cost = 20,
         oil_cost = 0,
         oil_storage = 500,
@@ -47,6 +68,8 @@ Constructures = {
         width = 32,
         length = 32,
         vision = 0,
+        steel_cost = 1,
+        oil_cost = 0,
         hitpoint = 10,
         armorthickness = 0,
         icon = Icon_in_progress,
@@ -89,6 +112,8 @@ Constructures = {
 }
 
 table.insert(Nizhny_Tagil.constructurelist, Constructures.OilDriller)
+table.insert(Nizhny_Tagil.constructurelist, Constructures.SteelForge)
 table.insert(Nizhny_Tagil.constructurelist, Constructures.OilStorage)
+table.insert(Nizhny_Tagil.constructurelist, Constructures.Pipe)
 table.insert(Nizhny_Tagil.constructurelist, Constructures.Maxim_Gorky)
 

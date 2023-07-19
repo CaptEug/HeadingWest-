@@ -99,7 +99,7 @@ function Constructure:Draw()
     end
     if self.class == 'defence' then
         self.turret_anime:draw(self.anime_sheet, x, y, self.turret_angle, 1, 1, imagewidth/2, imagelength/2)
-    elseif self.class == 'resource' then
+    else
         love.graphics.draw(self.anime_sheet, x, y, 0, 1, 1, imagewidth/2, imagelength/2)
     end
     --button use

@@ -38,6 +38,6 @@ function ConstructureSpawner:drawbuilding()
     for i, building in ipairs(CurrentPlace.exsist_building) do
         building:Draw()
         --draw vision circle
-        love.graphics.circle("line", building.location.x, building.location.y, building.vision)
+        love.graphics.circle("line", building.location.x + building.width/2, building.location.y + building.length/2, building.vision)
     end
 end

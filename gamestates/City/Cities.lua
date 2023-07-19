@@ -43,8 +43,6 @@ Nizhny_Tagil.steel_production = 0
 Nizhny_Tagil.tankfactory = {
     name = 'UVZ',
     tanklist = {},
-    steel_stored = 20,
-    oil_stored = 20,
     slot_info = {
         {x=112,y=48,available=true},
         {x=112,y=48+256*1,available=true},
@@ -407,5 +405,32 @@ function City:DrawMapUp()
 
     if self.map.layers["Sky"] then
         self.map:drawLayer(self.map.layers["Sky"])
+    end
+end
+
+function CostResource(steel, oil)
+    local steelcost = steel
+    local oilcost = oil
+    for i, building in ipairs(CurrentPlace.exsist_building) do
+        if building.class == 'resource' then
+            if building.steel_stored then
+                if building.steel_stored > steelcost then
+                    building.steel_stored = building.steel_stored - steelcost
+                    break
+                else
+                    steelcost = steelcost - building.steel_stored
+                    building.steel_stored = 0
+                end
+            end
+            if building.oil_stored then
+                if building.oil_stored > oilcost then
+                    building.oil_stored = building.oil_stored - oilcost
+                    break
+                else
+                    oilcost = oilcost - building.oil_stored
+                    building.oil_stored = 0
+                end
+            end
+        end
     end
 end

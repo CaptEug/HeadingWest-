@@ -207,8 +207,7 @@ function TankDesigner:load()
             tank.selected_slot = TankDesigner:slot_distribution(CurrentPlace)
             table.insert(CurrentPlace.ProductionQueue, 1, tank)
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
-            CurrentPlace.tankfactory.steel_stored = CurrentPlace.tankfactory.steel_stored - TankDesigner.tank_steel_cost
-            CurrentPlace.tankfactory.oil_stored = CurrentPlace.tankfactory.oil_stored - TankDesigner.tank_oil_cost
+            CostResource(TankDesigner.tank_steel_cost, TankDesigner.tank_oil_cost)
         end,
         CurrentPlace.TankDesignerWindow,
         CurrentPlace.TankDesignerBuildButtons,
@@ -271,7 +270,7 @@ function TankDesigner:update(dt)
         CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].ammunition.isopen = true
     end
     --resource check
-    if CurrentPlace.tankfactory.steel_stored < TankDesigner.tank_steel_cost or CurrentPlace.tankfactory.oil_stored < TankDesigner.tank_oil_cost then
+    if CurrentPlace.steel_stored < TankDesigner.tank_steel_cost or CurrentPlace.oil_stored < TankDesigner.tank_oil_cost then
         TankDesigner.lack_resource = true
     else
         TankDesigner.lack_resource = false
