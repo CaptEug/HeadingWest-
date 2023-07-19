@@ -205,8 +205,8 @@ function TankDesigner:load()
             tank.selected_slot = TankDesigner:slot_distribution(CurrentPlace)
             table.insert(CurrentPlace.ProductionQueue, 1, tank)
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
-            Steel = Steel - TankDesigner.tank_steel_cost
-            Oil = Oil - TankDesigner.tank_oil_cost
+            CurrentPlace.steel_stored = CurrentPlace.steel_stored - TankDesigner.tank_steel_cost
+            CurrentPlace.oil_stored = CurrentPlace.oil_stored - TankDesigner.tank_oil_cost
         end,
         CurrentPlace.TankDesignerWindow,
         CurrentPlace.TankDesignerButtons,
