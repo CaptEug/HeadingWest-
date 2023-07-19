@@ -277,7 +277,7 @@ function Ship:AimCheck(x, y, dt)
             local angle_to_mouse2 = nor(math.atan2(y - self.location.y, x - self.location.x))
             local contral = array1[i].angle1 + math.pi - array1[i].fwangle
             turret.get = false
-            if nor(angle_to_mouse2 - a) >= 0 and turret.x > 0 then
+            if nor(angle_to_mouse2 - a) >= 0 and turret.x > 0 and  nor(angle_to_mouse1 - a) >= 0 then
                 if array1[i].angle1 == 0 then
                     if array1[i].angle > nor(angle_to_mouse1 - a) then
                         array1[i].angle = array1[i].angle - tspeed1*dt
@@ -297,7 +297,7 @@ function Ship:AimCheck(x, y, dt)
                     end
                 end
             end
-            if nor(angle_to_mouse2 - a) <= 0 and turret.x < 0 then
+            if nor(angle_to_mouse2 - a) <= 0 and turret.x < 0 and  nor(angle_to_mouse1 - a) <= 0 then
                 if array1[i].angle1 == 0 then
                     if array1[i].angle < nor(angle_to_mouse1 - a) then
                         array1[i].angle = array1[i].angle + tspeed1*dt
