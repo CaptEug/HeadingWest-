@@ -43,6 +43,8 @@ Nizhny_Tagil.steel_production = 0
 Nizhny_Tagil.tankfactory = {
     name = 'UVZ',
     tanklist = {},
+    steel_stored = 20,
+    oil_stored = 20,
     slot_info = {
         {x=112,y=48,available=true},
         {x=112,y=48+256*1,available=true},

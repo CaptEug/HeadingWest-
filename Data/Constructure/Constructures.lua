@@ -7,7 +7,7 @@ Constructures = {
         requirement = 'oil field',
         width = 128,
         length = 128,
-        vision = 0,
+        vision = 60,
         steel_cost = 20,
         oil_cost = 0,
         oil_production = 0.001,
@@ -27,7 +27,7 @@ Constructures = {
         class = 'resource',
         width = 64,
         length = 192,
-        vision = 0,
+        vision = 60,
         steel_cost = 20,
         oil_cost = 0,
         oil_storage = 500,
@@ -39,6 +39,21 @@ Constructures = {
         anime_sheet = love.graphics.newImage('Assets/constructures/resource/Oil/OilStorage_small.png'),
         buildtime = 10,
         fixedbuildtime = 10
+    },
+
+    Pipe = {
+        name = 'Pipe',
+        class = 'logistic',
+        width = 32,
+        length = 32,
+        vision = 0,
+        hitpoint = 10,
+        armorthickness = 0,
+        icon = Icon_in_progress,
+        image = love.graphics.newImage('Assets/constructures/logistic/Pipe/pipe_cross.png'),
+        anime_sheet = love.graphics.newImage('Assets/constructures/logistic/Pipe/pipe_cross.png'),
+        buildtime = 1,
+        fixedbuildtime = 1
     },
 
     Maxim_Gorky = {
