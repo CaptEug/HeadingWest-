@@ -8,84 +8,84 @@ function MainMenu:init()
 
     cam:lookAt(Worldw * 2 / 5, Worldh * 3/5)
     
-    MMbuttons = buttons.new()
-    MMbuttons.isopen = true
-    Lbuttons = buttons.new()
-    Lbuttons.isopen = false
-    Start = buttons.newButton(
+    MMButtons = Buttons.new()
+    MMButtons.isopen = true
+    LButtons = Buttons.new()
+    LButtons.isopen = false
+    Start = Buttons.newButton(
         "Start!",
         function()
-            Lbuttons.isopen = true
-            MMbuttons.isopen = false
+            LButtons.isopen = true
+            MMButtons.isopen = false
         end,
-        MMbuttons
+        MMButtons
     )
     
-    Quit = buttons.newButton(
+    Quit = Buttons.newButton(
         "Exit",
         function()
             love.event.quit(0)   
         end,
-        MMbuttons
+        MMButtons
     )
 
-    Settings = buttons.newToolButton(
+    Settings = Buttons.newToolButton(
         Gear,
         function()
             Gamestate.push(SettingMenu)
         end,
-        MMbuttons
+        MMButtons
     )
 
-    FILE1 = buttons.newToolButton(
+    FILE1 = Buttons.newToolButton(
         Stalin,
         function()
-            MMbuttons.isopen = true
-            Lbuttons.isopen = false
+            MMButtons.isopen = true
+            LButtons.isopen = false
             Filenumber=1
             
             Gamestate.switch(Worldmap)
         end,
-        Lbuttons,
+        LButtons,
         0,0,
         StalinRed
     )
 
-    FILE2 = buttons.newToolButton(
+    FILE2 = Buttons.newToolButton(
         Khrushchev,
         function()
-            MMbuttons.isopen = true
-            Lbuttons.isopen = false
+            MMButtons.isopen = true
+            LButtons.isopen = false
             Filenumber=2
             
             Gamestate.switch(Worldmap)
         end,
-        Lbuttons,
+        LButtons,
         0,0,
         KhrushchevRed
     )
 
-    FILE3 = buttons.newToolButton(
+    FILE3 = Buttons.newToolButton(
         Brezhnev,
         function()
-            MMbuttons.isopen = true
-            Lbuttons.isopen = false
+            MMButtons.isopen = true
+            LButtons.isopen = false
             Filenumber=3
             
             Gamestate.switch(Worldmap)
         end,
-        Lbuttons,
+        LButtons,
         0,0,
         BrezhnevRed
     )
 
-    BackL = buttons.newButton(
+    BackL = Buttons.newButton(
         "Back",
         function()
-            Lbuttons.isopen = false
-            MMbuttons.isopen = true
+            LButtons.isopen = false
+            MMButtons.isopen = true
         end,
-        Lbuttons
+        LButtons
     )
 end
 
@@ -132,23 +132,23 @@ end
 
 function MainMenu:draw()
     cam:attach()
-        if Lbuttons.isopen then
+        if LButtons.isopen then
             love.graphics.setColor(0.3,0.3,0.3)
         end
         DrawEarth()
         DrawCountries()
     cam:detach()
 
-    if MMbuttons.isopen then
+    if MMButtons.isopen then
         love.graphics.setFont(Rtitlefont)
         love.graphics.print("НА ЗАПАД!", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("НА ЗАПАД!") / 2, love.graphics.getHeight() / 5)
-        MMbuttons:use()
+        MMButtons:use()
     end
 
-    if Lbuttons.isopen then
+    if LButtons.isopen then
         love.graphics.setColor(1,1,1)
         love.graphics.setFont(Rtitlefont)
         love.graphics.print("Choose FILE", love.graphics.getWidth() / 2 - Rtitlefont:getWidth("SAVED FILES") / 2, 0)
-        Lbuttons:use()
+        LButtons:use()
     end
 end

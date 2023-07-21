@@ -10,8 +10,8 @@ function ConstructureSpawner:loadBuilding(building, place)
     end
     if building.type == 'friendly' then
         building.openinfopenal = false
-        building.Infobuttons = buttons.new()
-        buttons.newCamBoxButton(
+        building.InfoButtons = Buttons.new()
+        Buttons.newCamBoxButton(
             building.width,
             building.length,
             function ()
@@ -23,7 +23,7 @@ function ConstructureSpawner:loadBuilding(building, place)
             function ()
                 building.openinfopenal = false
             end,
-            building.Infobuttons
+            building.InfoButtons
         )
     end
 end

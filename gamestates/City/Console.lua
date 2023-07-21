@@ -5,9 +5,9 @@ function Console:load()
     Console.window = {x = ww/2 - 192, y = wh - 64, w = 384, h = 64}
     OpenConsole = false
 
-    Console.Buttons = buttons.new()
+    Console.Buttons = Buttons.new()
     
-    Offence = buttons.newWindowToolButton(
+    Offence = Buttons.newWindowToolButton(
         Offence_icon,
         function ()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
@@ -19,7 +19,7 @@ function Console:load()
         32
     )
 
-    Fortify = buttons.newWindowToolButton(
+    Fortify = Buttons.newWindowToolButton(
         Fortify_icon,
         function ()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
@@ -32,7 +32,7 @@ function Console:load()
         32
     )
 
-    Resupply = buttons.newWindowToolButton(
+    Resupply = Buttons.newWindowToolButton(
         Resupply_icon,
         function ()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do

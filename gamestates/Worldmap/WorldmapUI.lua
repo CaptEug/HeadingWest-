@@ -1,20 +1,20 @@
 WorldmapUI = {}
-Worldmapbuttons = {}
+WorldmapButtons = {}
 
 function WorldmapUI:load()
-    Worldmapbuttons.Wbuttons = buttons.new()
-    Settings = buttons.newToolButton(
+    WorldmapButtons.WButtons = Buttons.new()
+    Settings = Buttons.newToolButton(
         Gear,
         function()
             Gamestate.push(Pause)
         end,
-        Worldmapbuttons.Wbuttons
+        WorldmapButtons.WButtons
     )
 
-    Worldmapbuttons.Cbuttons = buttons.new()
+    WorldmapButtons.CButtons = Buttons.new()
     for i, city in ipairs(Cities) do
         city.isopen = false
-        city.Gobuttons = buttons.new()
+        city.GoButtons = Buttons.new()
         local pic = City_normal
         local pic_Hot = City_normal_Hot
         if city.type == 'Capital' then
@@ -22,7 +22,7 @@ function WorldmapUI:load()
              pic_Hot = City_capital_Hot
         end
 
-        local City = buttons.newCamButton(
+        local City = Buttons.newCamButton(
             pic,
             function ()
                 if city.isopen then
@@ -31,19 +31,19 @@ function WorldmapUI:load()
                     city.isopen = true
                 end
             end,
-            Worldmapbuttons.Cbuttons,
+            WorldmapButtons.CButtons,
             city.x,
             city.y,
             pic_Hot
         )
 
-        city.Go = buttons.newToolButton(
+        city.Go = Buttons.newToolButton(
             Go,
             function ()
                 CurrentPlace = city
                 Gamestate.push(city)
             end,
-            city.Gobuttons,
+            city.GoButtons,
             city.x + 208,
             city.y + 328,
             Go_Hot
@@ -59,11 +59,11 @@ end
 function WorldmapUI:draw()
     cam:attach()
     if cam.scale >= 1.5 then
-        Worldmapbuttons.Cbuttons:use()
+        WorldmapButtons.CButtons:use()
     end
     cam:detach()
 
-    Worldmapbuttons.Wbuttons:use()
+    WorldmapButtons.WButtons:use()
 
     love.graphics.setFont(Rtextfont)
     love.graphics.draw(Steel_icon, ww-128)
@@ -93,7 +93,7 @@ function WorldmapUI:draw()
                 love.graphics.setFont(Rtextfont)
                 love.graphics.print(tostring(#city.exsist_tank), tankx, tanky)
                 love.graphics.setColor(1,1,1)
-                city.Gobuttons:use()
+                city.GoButtons:use()
             end
         end
     end

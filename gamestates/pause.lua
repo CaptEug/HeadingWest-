@@ -6,17 +6,17 @@ function Pause:enter(from)
 end
 
 function Pause:init()
-    Pbuttons = buttons.new()
-    Pbuttonsforcity = buttons.new()
-    Continue = buttons.newButton(
+    PButtons = Buttons.new()
+    PButtonsforcity = Buttons.new()
+    Continue = Buttons.newButton(
         "Continue",
         function()
             Gamestate.pop()
         end,
-        Pbuttons
+        PButtons
     )
 
-    BacktoMMenu = buttons.newButton(
+    BacktoMMenu = Buttons.newButton(
         "MainMenu",
         function()
             if self.from ~= Worldmap then
@@ -24,23 +24,23 @@ function Pause:init()
             end
             Gamestate.switch(MainMenu)
         end,
-        Pbuttons
+        PButtons
     )
 
-    BacktoWMap = buttons.newButton(
+    BacktoWMap = Buttons.newButton(
         "Worldmap",
         function()
             Gamestate.switch(Worldmap)
         end,
-        Pbuttonsforcity
+        PButtonsforcity
     )
 
-    Settings_button = buttons.newButton(
+    Settings_button = Buttons.newButton(
         "Settings",
         function()
             Gamestate.push(SettingMenu)
         end,
-        Pbuttons
+        PButtons
     )
 
 end
@@ -63,9 +63,9 @@ function Pause:draw()
     love.graphics.setColor(1, 1, 1)
     love.graphics.setFont(Rtitlefont)
     love.graphics.print("PAUSE", love.graphics.getWidth() /2 - Rtitlefont:getWidth("PAUSE") / 2, love.graphics.getHeight() / 13)
-    Pbuttons:use()
+    PButtons:use()
     if self.from == CurrentPlace then
-        Pbuttonsforcity:use()
+        PButtonsforcity:use()
     end
     love.graphics.setFont(Rtextfont)
 end

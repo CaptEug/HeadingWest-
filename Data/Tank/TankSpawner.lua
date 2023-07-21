@@ -12,15 +12,15 @@ function TankSpawner:loadtank(place, tank)
     tank.collider:setAngle(tank.location.hull_angle)
     tank.functions.move = AutoControlfunction
     if tank.type == 'friendly' then
-        tank.Infobuttons = buttons.new()
-        buttons.newCampicButton(
+        tank.InfoButtons = Buttons.new()
+        Buttons.newCampicButton(
             invisible_button,
             function ()
                 tank.picked = true
                 TankPanelopen = true
                 TankChoosen = tank
             end,
-            tank.Infobuttons
+            tank.InfoButtons
         )
     end
     if tank.armor.type == 'ERA' then

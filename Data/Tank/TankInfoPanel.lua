@@ -7,14 +7,14 @@ function TankInfoPanel:load()
     CurrentPlace.TankInfoPanelWindow = {x = 0, y = 256, w = 288, h = 352, dragging = false}
     TankPanelopen = false
     TankChoosen = {}
-    CurrentPlace.TankInfoPanelButtons = buttons.new()
-    TankInfoPanel.SPGButtons = buttons.new()
+    CurrentPlace.TankInfoPanelButtons = Buttons.new()
+    TankInfoPanel.SPGButtons = Buttons.new()
     TankInfoPanel.blinkTimer = 0
     TankInfoPanel.blinkInterval = 0.2
     TankInfoPanel.iconVisible = true
 
 
-    ManulControl = buttons.newWindowToolButton(
+    ManulControl = Buttons.newWindowToolButton(
         ManualControl_icon,
         function ()
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
@@ -38,7 +38,7 @@ function TankInfoPanel:load()
     )
 
 
-    Deploy = buttons.newWindowToolButton(
+    Deploy = Buttons.newWindowToolButton(
         Deploy_icon,
         function ()
             TankChoosen:Setdeployed()
