@@ -52,7 +52,7 @@ function Missiles:update(dt)
             local collision_data = missile.collider:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
-            if Target == missile.from and missile.life > 29 then
+            if Target == missile.from then
                 break
             end
 

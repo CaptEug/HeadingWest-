@@ -1,5 +1,5 @@
 CityUI = {}
-citybuttons = {}
+cityButtons = {}
 require 'gamestates/city/Console'
 require 'gamestates.city.CityInfoPenal'
 require 'Data/Constructure/ConstractureInfoPanel'
@@ -12,27 +12,27 @@ function CityUI:load()
     TankInfoPanel:load()
     CityInfoPenal:load()
 
-    --buttons in captured
-    citybuttons.DefButtons = buttons.new()
-    Settings = buttons.newToolButton(
+    --Buttons in captured
+    cityButtons.DefButtons = Buttons.new()
+    Settings = Buttons.newToolButton(
         Gear,
         function()
             Gamestate.push(Pause)
         end,
-        citybuttons.DefButtons,
+        cityButtons.DefButtons,
         16,
         wh - 16
     )
-    RadioStation = buttons.newToolButton(
+    RadioStation = Buttons.newToolButton(
         RadioStation_icon,
         function ()
             Cities:playRadio(CurrentPlace.songlist)
         end,
-        citybuttons.DefButtons,
+        cityButtons.DefButtons,
         ww - 16,
         wh - 16
     )
-    CityInfoPenal_button = buttons.newToolButton(
+    CityInfoPenal_button = Buttons.newToolButton(
         CityInfoPenal_icon,
         function ()
             if CurrentPlace.openCityInfoPenal then
@@ -41,13 +41,13 @@ function CityUI:load()
                 CurrentPlace.openCityInfoPenal = true
             end
         end,
-        citybuttons.DefButtons
+        cityButtons.DefButtons
     )
 
     if CurrentPlace.state == 'Peace' then
         ConstructMenu:load()
-        citybuttons.ConstructButtons = buttons.new()
-        ConstructMenu_button = buttons.newToolButton(
+        cityButtons.ConstructButtons = Buttons.new()
+        ConstructMenu_button = Buttons.newToolButton(
             Constructmenu_icon,
             function ()
                 if CurrentPlace.openConstructMenu then
@@ -56,13 +56,13 @@ function CityUI:load()
                     CurrentPlace.openConstructMenu = true
                 end
             end,
-            citybuttons.ConstructButtons,
+            cityButtons.ConstructButtons,
             80
         )
         if CurrentPlace.tankfactory then
             TankDesigner:load()
-            citybuttons.TankFacButtons = buttons.new()
-            FacDesigner = buttons.newToolButton(
+            cityButtons.TankFacButtons = Buttons.new()
+            FacDesigner = Buttons.newToolButton(
                 Tankdesigner_icon,
                 function ()
                     if CurrentPlace.openTankDesigner then
@@ -71,7 +71,7 @@ function CityUI:load()
                         CurrentPlace.openTankDesigner = true
                     end
                 end,
-                citybuttons.TankFacButtons,
+                cityButtons.TankFacButtons,
                 48
             )
         end
@@ -105,16 +105,16 @@ function CityUI:draw()
     love.graphics.print(tostring(math.floor(CurrentPlace.oil_stored)), ww-96, 32)
     love.graphics.print('+'..CurrentPlace.oil_production, ww-96, 48)
 
-    citybuttons.DefButtons:use()
+    cityButtons.DefButtons:use()
     Console:draw()
     TankInfoPanel:draw()
     ConstructureInfoPanel:draw()
     CityInfoPenal:draw()
     if CurrentPlace.state == 'Peace' then
-        citybuttons.ConstructButtons:use()
+        cityButtons.ConstructButtons:use()
         ConstructMenu:draw()
         if CurrentPlace.tankfactory then
-            citybuttons.TankFacButtons:use()
+            cityButtons.TankFacButtons:use()
             TankDesigner:draw()
         end
     end

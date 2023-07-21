@@ -69,7 +69,7 @@ function Buildtank(place, tank, type, x, y, ...)
         exhaust_location = {},
         exhaust_location2 = {},
         functions = {},
-        Infobuttons = {},
+        InfoButtons = {},
         center = {x = x, y = y },
         status = tank.status or
         {
@@ -462,7 +462,7 @@ function Tank:Update(dt)
     end
 
     --button update
-    for n, button in ipairs(self.Infobuttons) do
+    for n, button in ipairs(self.InfoButtons) do
         button.bx, button.by = self.image_location.x, self.image_location.y
     end
 
@@ -522,7 +522,7 @@ function Tank:Draw()
     love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
     --button use
     if self.type == 'friendly' then
-        self.Infobuttons:use()
+        self.InfoButtons:use()
     end
     Visual(self)
 end

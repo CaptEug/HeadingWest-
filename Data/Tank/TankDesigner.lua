@@ -3,8 +3,8 @@ TankDesigner = {}
 function TankDesigner:load()
     TDscreen = love.graphics.newCanvas(640, 480)
     CurrentPlace.TankDesignerWindow = {x = 0, y = 32, w = 640, h = 64, dragging = false}
-    CurrentPlace.TankDesignerButtons = buttons.new()
-    CurrentPlace.TankDesignerBuildButtons = buttons.new()
+    CurrentPlace.TankDesignerButtons = Buttons.new()
+    CurrentPlace.TankDesignerBuildButtons = Buttons.new()
     TankDesigner.tankindex = 1
     TankDesigner.PageShown = 'Armor'
     TankDesigner.tank_steel_cost = 0
@@ -14,8 +14,8 @@ function TankDesigner:load()
     CurrentPlace.ProductionQueue = {}
     CurrentPlace.ProductionNumber = 0
 
-    --load buttons
-    Close = buttons.newWindowToolButton(
+    --load Buttons
+    Close = Buttons.newWindowToolButton(
         Close_icon,
         function ()
             CurrentPlace.openTankDesigner = false
@@ -26,7 +26,7 @@ function TankDesigner:load()
         0 + 18
     )
 
-    Next = buttons.newWindowToolButton(
+    Next = Buttons.newWindowToolButton(
         rightArrow,
         function ()
             if TankDesigner.tankindex < #CurrentPlace.tankfactory.tanklist then
@@ -41,7 +41,7 @@ function TankDesigner:load()
         0 + 331
     )
 
-    Previous = buttons.newWindowToolButton(
+    Previous = Buttons.newWindowToolButton(
         leftArrow,
         function ()
             if TankDesigner.tankindex > 1 then
@@ -65,14 +65,14 @@ function TankDesigner:load()
         if tank.missilerack_size then
             tank.missilerack = {}
         end
-        tank.ammunition.Abuttons = buttons.new()
+        tank.ammunition.AButtons = Buttons.new()
         tank.ammunition.isopen = false
         if tank.accessories then
             for n, accessory in ipairs(tank.accessories) do
-                accessory.Abuttons = buttons.new()
+                accessory.AButtons = Buttons.new()
                 accessory.isopen = false
                 for i, equipment in ipairs(accessory) do
-                    local Equip = buttons.newWindowToolButton(
+                    local Equip = Buttons.newWindowToolButton(
                     EquipmentSelect,
                     function ()
                         if equipment.tag == 'Armor' then
@@ -86,7 +86,7 @@ function TankDesigner:load()
                         end
                     end,
                     CurrentPlace.TankDesignerWindow,
-                    accessory.Abuttons,
+                    accessory.AButtons,
                     0 + 386,
                     0 + 46 + 46*i,
                     EquipmentSelectHot
@@ -97,7 +97,7 @@ function TankDesigner:load()
         --ammo system
         for i, ammo in ipairs(tank.ammunition) do
             if ammo.type == 'ATGM' then
-                ammo.add = buttons.newWindowToolButton(
+                ammo.add = Buttons.newWindowToolButton(
                     plus_icon,
                     function ()
                         while #tank.missilerack < tank.missilerack_size do
@@ -105,11 +105,11 @@ function TankDesigner:load()
                         end
                     end,
                     CurrentPlace.TankDesignerWindow,
-                    tank.ammunition.Abuttons,
+                    tank.ammunition.AButtons,
                     0 + 429,
                     0 + 56 + 46*i
                 )
-                ammo.remove = buttons.newWindowToolButton(
+                ammo.remove = Buttons.newWindowToolButton(
                     minus_icon,
                     function ()
                         for n, missile in ipairs(tank.missilerack) do
@@ -120,12 +120,12 @@ function TankDesigner:load()
                         end
                     end,
                     CurrentPlace.TankDesignerWindow,
-                    tank.ammunition.Abuttons,
+                    tank.ammunition.AButtons,
                     0 + 407,
                     0 + 56 + 46*i
                 )
             else
-                ammo.add = buttons.newWindowToolButton(
+                ammo.add = Buttons.newWindowToolButton(
                     plus_icon,
                     function ()
                         while #tank.ammorack < tank.ammorack_size do
@@ -133,11 +133,11 @@ function TankDesigner:load()
                         end
                     end,
                     CurrentPlace.TankDesignerWindow,
-                    tank.ammunition.Abuttons,
+                    tank.ammunition.AButtons,
                     0 + 429,
                     0 + 56 + 46*i
                 )
-                ammo.remove = buttons.newWindowToolButton(
+                ammo.remove = Buttons.newWindowToolButton(
                     minus_icon,
                     function ()
                         for n, bullet in ipairs(tank.ammorack) do
@@ -148,7 +148,7 @@ function TankDesigner:load()
                         end
                     end,
                     CurrentPlace.TankDesignerWindow,
-                    tank.ammunition.Abuttons,
+                    tank.ammunition.AButtons,
                     0 + 407,
                     0 + 56 + 46*i
                 )
@@ -156,7 +156,7 @@ function TankDesigner:load()
         end
     end
 
-    Armor = buttons.newWindowToolButton(
+    Armor = Buttons.newWindowToolButton(
         Armor_icon,
         function ()
             TankDesigner.PageShown = 'Armor'
@@ -167,7 +167,7 @@ function TankDesigner:load()
         0 + 391
     )
 
-    Aiming = buttons.newWindowToolButton(
+    Aiming = Buttons.newWindowToolButton(
         Aiming_icon,
         function ()
             TankDesigner.PageShown = 'Aim'
@@ -178,7 +178,7 @@ function TankDesigner:load()
         0 + 391
     )
 
-    Mobility = buttons.newWindowToolButton(
+    Mobility = Buttons.newWindowToolButton(
         Mobility_icon,
         function ()
             TankDesigner.PageShown = 'Mob'
@@ -189,7 +189,7 @@ function TankDesigner:load()
         0 + 391
     )
 
-    Ammunition = buttons.newWindowToolButton(
+    Ammunition = Buttons.newWindowToolButton(
         Ammo_icon,
         function ()
             TankDesigner.PageShown = 'Ammo'
@@ -200,7 +200,7 @@ function TankDesigner:load()
         0 + 391
     )
 
-    Build = buttons.newWindowToolButton(
+    Build = Buttons.newWindowToolButton(
         Build_icon,
         function ()
             local tank = copytable(TankPresent)
@@ -217,7 +217,7 @@ function TankDesigner:load()
         Build_Hot
     )
 
-    Delete = buttons.newWindowToolButton(
+    Delete = Buttons.newWindowToolButton(
         Delete_icon,
         function ()
             table.remove(CurrentPlace.ProductionQueue, 1)
@@ -314,7 +314,7 @@ function TankDesigner:draw()
         if TankPresent.accessories then
             for i, accessory in ipairs(TankPresent.accessories) do
                 if accessory.isopen then
-                    accessory.Abuttons:use()
+                    accessory.AButtons:use()
                     for i, equipment in ipairs(accessory) do
                         love.graphics.setFont(Rtextfont)
                         love.graphics.setColor(0,179/255,0)
@@ -332,7 +332,7 @@ function TankDesigner:draw()
         end
 
         if TankPresent.ammunition.isopen then
-            TankPresent.ammunition.Abuttons:use()
+            TankPresent.ammunition.AButtons:use()
             love.graphics.setColor(0,179/255,0)
             --[[if TankChoosen.ammorack_size then
                 love.graphics.print('Rounds:'..#TankPresent.ammorack..'/'..TankPresent.ammorack_size, 328 + 6, 64 + 6)

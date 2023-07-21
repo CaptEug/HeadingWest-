@@ -6,12 +6,12 @@ function CityInfoPenal:load()
     CityInfoPenal.dragging = false
     CurrentPlace.openCityInfoPenal = false
     CurrentPlace.cityinfopenalmode = false
-    CityInfoPenal.Buttons = buttons.new()
-    CurrentPlace.Army.Abuttons = buttons.new()
+    CityInfoPenal.Buttons = Buttons.new()
+    CurrentPlace.Army.AButtons = Buttons.new()
     DivisionNum = 1
     
-    --load buttons
-    EditArmy = buttons.newWindowToolButton(
+    --load Buttons
+    EditArmy = Buttons.newWindowToolButton(
         Edit_button,
         function ()
             if CurrentPlace.cityinfopenalmode then
@@ -29,14 +29,14 @@ function CityInfoPenal:load()
         Done_button
     )
 
-    New_Division = buttons.newWindowToolButton(
+    New_Division = Buttons.newWindowToolButton(
         greyplus_icon,
         function ()
             NewDivision('division#'..tostring(DivisionNum))
             DivisionNum = DivisionNum + 1
         end,
         CityInfoPenal.window,
-        CurrentPlace.Army.Abuttons
+        CurrentPlace.Army.AButtons
     )
     
 end
@@ -145,7 +145,7 @@ function CityInfoPenal:draw()
             love.graphics.setFont(Rtextfont)
             New_Division.bx = 0 + 76
             New_Division.by = 0 + 14 + DivisionHight
-            CurrentPlace.Army.Abuttons:use()
+            CurrentPlace.Army.AButtons:use()
         end
         love.graphics.setColor(1,1,1)
     love.graphics.setCanvas()
@@ -169,8 +169,8 @@ function NewDivision(name)
     local instance = {}
     instance.name = name
     instance.remove = false
-    instance.DButtons = buttons.new()
-    instance.delete = buttons.newWindowToolButton(
+    instance.DButtons = Buttons.new()
+    instance.delete = Buttons.newWindowToolButton(
         greyminus_icon,
         function ()
             instance.remove = true
@@ -178,7 +178,7 @@ function NewDivision(name)
         CityInfoPenal.window,
         instance.DButtons
     )
-    instance.New_Regiment = buttons.newWindowToolButton(
+    instance.New_Regiment = Buttons.newWindowToolButton(
         greyplus_icon,
         function ()
             NewRegiment(instance)
@@ -194,8 +194,8 @@ function NewRegiment(division)
     instance.name = 'regiment#'
     instance.type = 'tank'
     instance.remove = false
-    instance.RButtons = buttons.new()
-    instance.delete = buttons.newWindowToolButton(
+    instance.RButtons = Buttons.new()
+    instance.delete = Buttons.newWindowToolButton(
         greyminus_icon,
         function ()
             instance.remove = true
@@ -203,7 +203,7 @@ function NewRegiment(division)
         CityInfoPenal.window,
         instance.RButtons
     )
-    instance.New_Company = buttons.newWindowToolButton(
+    instance.New_Company = Buttons.newWindowToolButton(
         greyplus_icon,
         function ()
             NewCompany(instance)
@@ -218,8 +218,8 @@ function NewCompany(regiment)
     local instance = {}
     instance.name = 'company#'
     instance.remove = false
-    instance.CButtons = buttons.new()
-    instance.delete = buttons.newWindowToolButton(
+    instance.CButtons = Buttons.new()
+    instance.delete = Buttons.newWindowToolButton(
         greyminus_icon,
         function ()
             instance.remove = true
