@@ -638,12 +638,19 @@ function World:queryLine(x1, y1, x2, y2, collision_class_names)
     self.box2d_world:rayCast(x1, y1, x2, y2, callback)
 
     local outs = {}
+    local b = 0
     for _, collider in ipairs(colliders) do
         if self:collisionClassInCollisionClassesList(collider.collision_class, collision_class_names) then
             table.insert(outs, collider)
+            b = b+1
         end
     end
-    return outs
+    if b == 0 then
+        local a = nil
+        return a
+    else 
+        return outs
+    end
 end
 
 function World:addJoint(joint_type, ...)

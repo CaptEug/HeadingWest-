@@ -521,6 +521,8 @@ function Tank:Draw()
     if self.type == 'friendly' then
         self.Infobuttons:use()
     end
+
+    Visual(self)
 end
 
 function Tank:DrawBrokenTank()
@@ -533,6 +535,36 @@ end
 function Tank:Detonate()
     
 end
+
+
+function Visual(unit)
+    local centerX = unit.image_location.x
+    local centerY = unit.image_location.y
+    local radius = unit.vision
+    local startAngle = 0
+    local endAngle = math.pi/2 
+
+    love.graphics.setColor(0, 255, 255, 0.5) 
+    local a = 0
+
+    while a < 360 do 
+        local B = math.rad(a) -- 角度（以弧度表示）
+
+        local endX = centerX + radius * math.cos(B) -- 结束点的x坐标
+        local endY = centerY + radius * math.sin(B) -- 结束点的y坐标
+
+        local colliders = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'All'})
+
+        if colliders == nil then
+            love.graphics.line(centerX, centerY, endX, endY)
+        end
+        a = a + 1
+    end
+    love.graphics.setColor(1, 1, 1)
+    --line:destroy()
+
+end
+
 
 function Tank:CreatParticles()
     self.particles = {
