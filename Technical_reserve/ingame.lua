@@ -1,6 +1,6 @@
 city = {}
 city = Gamestate.new()
-citybuttons = {}
+cityButtons = {}
 
 require 'gamestates.city.CityUI'
 require 'gamestates/city/Mapdrawer'

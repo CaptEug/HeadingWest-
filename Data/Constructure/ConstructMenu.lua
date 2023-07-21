@@ -10,11 +10,11 @@ function ConstructMenu:load()
     ConstructMenu.buildActive = false
     ConstructMenu.build = false
     CurrentPlace.openConstructMenu = false
-    CurrentPlace.ConstructMenuButtons = buttons.new()
+    CurrentPlace.ConstructMenuButtons = Buttons.new()
     ConstructurePicked = false
     ConstructureSelected = {}
 
-    Close = buttons.newWindowToolButton(
+    Close = Buttons.newWindowToolButton(
             Close_icon,
             function ()
                 CurrentPlace.openConstructMenu = false
@@ -26,7 +26,7 @@ function ConstructMenu:load()
         )
 
     for i, constructure in ipairs(CurrentPlace.constructurelist) do
-        buttons.newWindowToolButton(
+        Buttons.newWindowToolButton(
             constructure.icon,
             function ()
                 ConstructMenu.build = false
@@ -83,7 +83,7 @@ function ConstructMenu:draw()
         love.graphics.draw(ConstructMenu_screen)
         CurrentPlace.ConstructMenuButtons:use()
         for i, constructure in ipairs(CurrentPlace.constructurelist) do
-            love.graphics.draw(contructure_box, 128 + 156*((i-1)%3), 72 + 118*math.floor((i-1)/3))
+            love.graphics.draw(constructure_box, 128 + 156*((i-1)%3), 72 + 118*math.floor((i-1)/3))
             love.graphics.setColor(0,179/255,0)
             love.graphics.print(constructure.name,128 + 156*((i-1)%3) + 4, 72 + 118*math.floor((i-1)/3) + 4)
             love.graphics.print(constructure.steel_cost, 240 + 156*((i-1)%3), 141 + 118*math.floor((i-1)/3))

@@ -2,39 +2,39 @@ SettingMenu = {}
 SettingMenu = Gamestate.new()
 
 function SettingMenu:init()
-    Sbuttons=buttons.new()
+    SButtons=Buttons.new()
 
-    Back=buttons.newButton(
+    Back=Buttons.newButton(
         "Back",
         function ()
             NewSaving:SaveSettings()
             Gamestate.pop()
         end,
-        Sbuttons
+        SButtons
     )
-    Volume_high=buttons.newButton(
+    Volume_high=Buttons.newButton(
         "+",
         function ()
             local volume=math.floor(love.audio.getVolume())
             love.audio.setVolume(volume+1)
         end,
-        Sbuttons
+        SButtons
     )
-    Volume_low=buttons.newButton(
+    Volume_low=Buttons.newButton(
         "-",
         function ()
             local volume=math.floor(love.audio.getVolume())
             love.audio.setVolume(volume-1)
         end,
-        Sbuttons
+        SButtons
     )
     
-    Resolution=buttons.newButton(
+    Resolution=Buttons.newButton(
         "Windowed",
         function ()
             SettingMenu:change_resolution()
         end,
-        Sbuttons
+        SButtons
     )
 
 end
@@ -55,7 +55,7 @@ function SettingMenu:update()
 end
 
 function SettingMenu:draw()
-    Sbuttons:use()
+    SButtons:use()
     local ww, wh = love.graphics.getDimensions()
     local button_leftlimit=ww*1/9
     local volume=tostring(love.audio.getVolume())
@@ -68,9 +68,9 @@ function SettingMenu:change_resolution()
     local screen_type,x=love.window.getFullscreen()
     if screen_type==true then
         love.window.setFullscreen(false)
-        Sbuttons[4].text="Windowed"
+        SButtons[4].text="Windowed"
     elseif screen_type==false then
         love.window.setFullscreen(true)
-        Sbuttons[4].text="Fullscreen"
+        SButtons[4].text="Fullscreen"
     end
 end

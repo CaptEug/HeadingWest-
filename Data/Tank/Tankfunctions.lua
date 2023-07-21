@@ -69,7 +69,7 @@ function Buildtank(place, tank, type, x, y, ...)
         exhaust_location = {},
         exhaust_location2 = {},
         functions = {},
-        Infobuttons = {},
+        InfoButtons = {},
         center = {x = x, y = y },
         status = tank.status or
         {
@@ -462,7 +462,7 @@ function Tank:Update(dt)
     end
 
     --button update
-    for n, button in ipairs(self.Infobuttons) do
+    for n, button in ipairs(self.InfoButtons) do
         button.bx, button.by = self.image_location.x, self.image_location.y
     end
 
@@ -522,7 +522,7 @@ function Tank:Draw()
     love.graphics.draw(self.armor.turret_image,turret_x,turret_y,a+self.turret_angle,1,1,144,144)
     --button use
     if self.type == 'friendly' then
-        self.Infobuttons:use()
+        self.InfoButtons:use()
     end
     Visual(self)
 end
@@ -550,17 +550,17 @@ function Visual(unit)
     local a = 0
 
     while a < 360 do 
-        local B = math.rad(a) -- 角度（以弧度表示）
+        local B = math.rad(a)
 
-        local endX = centerX + radius * math.cos(B) -- 结束点的x坐标
-        local endY = centerY + radius * math.sin(B) -- 结束点的y坐标
-
-        local colliders, x, y = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'All'})
+        local endX = centerX + radius * math.cos(B)
+        local endY = centerY + radius * math.sin(B)
+        local colliders = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'All'})
 
         if colliders == nil then
             love.graphics.line(centerX, centerY, endX, endY)
         else 
-            --love.graphics.line(centerX, centerY, x, y)
+            x ,y = colliders.test.x, colliders.test.y
+            love.graphics.line(centerX, centerY, x ,y)
         end
         a = a + 1
     end

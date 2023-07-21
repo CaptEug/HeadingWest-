@@ -1,12 +1,12 @@
-buttons = {}
-buttons.__index = buttons
+Buttons = {}
+Buttons.__index = Buttons
 
-function buttons.new()
-    local instance = setmetatable({}, buttons)
+function Buttons.new()
+    local instance = setmetatable({}, Buttons)
     return instance
 end
 
-function buttons.newButton(text, fn, buttons, bx, by)
+function Buttons.newButton(text, fn, Buttons, bx, by)
     local instance = {
         type = 0,
         text = text,
@@ -18,12 +18,12 @@ function buttons.newButton(text, fn, buttons, bx, by)
         now = true,
         last = true
     }
-    table.insert(buttons, instance)
+    table.insert(Buttons, instance)
     return instance
 end
 
 
-function buttons.newCampicButton(picture, fn, buttons, bx, by)
+function Buttons.newCampicButton(picture, fn, Buttons, bx, by)
     local instance = {
         type = 1,
         picture = picture,
@@ -35,11 +35,11 @@ function buttons.newCampicButton(picture, fn, buttons, bx, by)
         now = true,
         last = true
     }
-    table.insert(buttons, instance)
+    table.insert(Buttons, instance)
     return instance
 end
 
-function buttons.newToolButton(picture, fn, buttons, bx, by, pictureHot, picturepressed, pictureOn)
+function Buttons.newToolButton(picture, fn, Buttons, bx, by, pictureHot, picturepressed, pictureOn)
     local instance = {
         type = 2,
         state = 'Off',
@@ -56,11 +56,11 @@ function buttons.newToolButton(picture, fn, buttons, bx, by, pictureHot, picture
         now = true,
         last = true
     }
-    table.insert(buttons, instance)
+    table.insert(Buttons, instance)
     return instance
 end
 
-function buttons.newWindowToolButton(picture, fn, window, buttons, bx, by, pictureHot, picturepressed, pictureOn)
+function Buttons.newWindowToolButton(picture, fn, window, Buttons, bx, by, pictureHot, picturepressed, pictureOn)
     local instance = {
         type = 3,
         state = 'Off',
@@ -78,11 +78,11 @@ function buttons.newWindowToolButton(picture, fn, window, buttons, bx, by, pictu
         now = true,
         last = true
     }
-    table.insert(buttons, instance)
+    table.insert(Buttons, instance)
     return instance
 end
 
-function buttons.newCamButton(picture, fn, buttons, bx, by, pictureHot)
+function Buttons.newCamButton(picture, fn, Buttons, bx, by, pictureHot)
     local instance = {
         type = 4,
         pic = picture,
@@ -96,11 +96,11 @@ function buttons.newCamButton(picture, fn, buttons, bx, by, pictureHot)
         last = true,
         pictureHot = pictureHot
     }
-    table.insert(buttons, instance)
+    table.insert(Buttons, instance)
     return instance
 end
 
-function buttons.newCamBoxButton(w, h, fn, hotfn, nothotfn, buttons, bx, by)
+function Buttons.newCamBoxButton(w, h, fn, hotfn, nothotfn, Buttons, bx, by)
     local instance = {
         type = 5,
         fn = fn,
@@ -113,11 +113,11 @@ function buttons.newCamBoxButton(w, h, fn, hotfn, nothotfn, buttons, bx, by)
         now = true,
         last = true,
     }
-    table.insert(buttons, instance)
+    table.insert(Buttons, instance)
     return instance
 end
 
-function buttons:use()
+function Buttons:use()
     local ratio = love.graphics.getWidth() / 1890
     local mx, my = love.mouse.getPosition()
     local cmx, cmy = cam:mousePosition()
@@ -258,8 +258,8 @@ function buttons:use()
     love.graphics.setColor(1, 1, 1)
 end
 
-function Buttonclicked(buttons)
-    for i, button in ipairs(buttons) do
+function Buttonclicked(Buttons)
+    for i, button in ipairs(Buttons) do
         if button.now and not button.last and button.Hot then
             return button
         end
