@@ -550,17 +550,17 @@ function Visual(unit)
     local a = 0
 
     while a < 360 do 
-        local B = math.rad(a) -- 角度（以弧度表示）
+        local B = math.rad(a)
 
-        local endX = centerX + radius * math.cos(B) -- 结束点的x坐标
-        local endY = centerY + radius * math.sin(B) -- 结束点的y坐标
-
-        local colliders, x, y = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'All'})
+        local endX = centerX + radius * math.cos(B)
+        local endY = centerY + radius * math.sin(B)
+        local colliders = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'All'})
 
         if colliders == nil then
             love.graphics.line(centerX, centerY, endX, endY)
         else 
-            --love.graphics.line(centerX, centerY, x, y)
+            x ,y = colliders.test.x, colliders.test.y
+            love.graphics.line(centerX, centerY, x ,y)
         end
         a = a + 1
     end
