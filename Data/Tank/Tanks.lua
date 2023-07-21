@@ -624,7 +624,7 @@ TDs = {
         width = 50,
         length = 109,
         turret_offset = 0,
-        image_offset = 2,
+        image_offset = -2,
         luncher_offset = {x = 0, y = 32},
         engine_offset = -44,
         exhaust_offset = {x = -14, y = -53},
