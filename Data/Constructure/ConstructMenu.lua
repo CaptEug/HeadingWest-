@@ -69,6 +69,11 @@ function ConstructMenu:update(dt)
     end
     if ConstructurePicked and self.PreBuild ~= {} then
         self.PreBuild[1]:setPosition(IntX + ConstructureSelected.width/2,IntY + ConstructureSelected.length/2)
+        if self.PreBuild[1]:stay('Wall') then
+            ConstructMenu.canBuild = false
+        else
+            ConstructMenu.canBuild = true
+        end
     end
 end
 
@@ -109,7 +114,7 @@ function ConstructMenu:draw()
 end
 
 function BuildDetact(button)
-    if button == 1 and ConstructMenu.build == true then
+    if button == 1 and ConstructMenu.build == true and ConstructMenu.canBuild ==true then
         ConstructMenu.build = false
         local building = copytable(ConstructureSelected)
         local x, y = IntX, IntY
