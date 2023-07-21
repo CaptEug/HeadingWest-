@@ -465,8 +465,10 @@ function Tank:Update(dt)
     end
 
     --timer update
-    self.reload_timer = self.reload_timer - dt
-    self.firing_timer = self.firing_timer - dt
+    if self.reload_timer then
+        self.reload_timer = self.reload_timer - dt
+        self.firing_timer = self.firing_timer - dt
+    end
     if self.m_reload_timer then
         self.m_reload_timer = self.m_reload_timer - dt
     end
@@ -569,11 +571,12 @@ function Tank:ParticleUpdate(dt)
     local ix, iy = math.cos(self.location.hull_angle+self.turret_angle-math.pi/2),
                     math.sin(self.location.hull_angle+self.turret_angle-math.pi/2)
     local hx, hy = math.cos(self.location.hull_angle+self.exhaust_angle), math.sin(self.location.hull_angle+self.exhaust_angle)
-    self.particles.muzzlesmoke:setPosition(self.gun_location.x + 4*math.sin(self.location.hull_angle+self.turret_angle),
+    if self.gun_offset then
+        self.particles.muzzlesmoke:setPosition(self.gun_location.x + 4*math.sin(self.location.hull_angle+self.turret_angle),
                                            self.gun_location.y - 4*math.cos(self.location.hull_angle+self.turret_angle))
-	self.particles.muzzlesmoke:setLinearAcceleration(150*ix+math.random(-30,30), 150*iy+math.random(-30,30))
-    self.particles.muzzlesmoke:update(dt)
-
+	    self.particles.muzzlesmoke:setLinearAcceleration(150*ix+math.random(-30,30), 150*iy+math.random(-30,30))
+        self.particles.muzzlesmoke:update(dt)
+    end
     self.particles.enginesmoke:setPosition(self.exhaust_location.x, self.exhaust_location.y)
     self.particles.enginesmoke:setLinearAcceleration(150*hx+math.random(-50,50), 150*hy+math.random(-50,50))
     self.particles.enginesmoke:update(dt)

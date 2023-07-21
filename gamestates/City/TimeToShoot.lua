@@ -84,7 +84,7 @@ function TankProjectiles:update(dt)
             local collision_data = shell.collider:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
-            if Target == shell.from  then
+            if Target == shell.from then
                 break
             end
 

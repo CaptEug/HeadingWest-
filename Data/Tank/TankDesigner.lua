@@ -334,8 +334,13 @@ function TankDesigner:draw()
         if TankPresent.ammunition.isopen then
             TankPresent.ammunition.Abuttons:use()
             love.graphics.setColor(0,179/255,0)
-            love.graphics.print('Rounds:'..#TankPresent.ammorack..'/'..TankPresent.ammorack_size, 0 + 328 + 6, 0 + 64 + 6)
-            
+            --[[if TankChoosen.ammorack_size then
+                love.graphics.print('Rounds:'..#TankPresent.ammorack..'/'..TankPresent.ammorack_size, 328 + 6, 64 + 6)
+            end
+            if TankChoosen.missilerack_size then
+                love.graphics.print('Missiles:'..#TankPresent.missilerack..'/'..TankPresent.missilerack_size, 328 + 6, 84 + 6)
+            end]]
+           
             for i, ammo in ipairs(TankPresent.ammunition) do
                 local n = 0
                 for i, bullet in ipairs(TankPresent.ammorack) do

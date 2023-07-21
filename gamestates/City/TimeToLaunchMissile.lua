@@ -42,13 +42,13 @@ function Missiles:update(dt)
 
         Tracking(missile, missile.collider)
 
-        if missile:enter('Wall') then
+        if missile.collider:enter('Wall') then
             Explode(missile, missile.collider)
             missile.collider:destroy()
             table.remove(self, i)
         end
 
-        if missile:enter('TankHull') then
+        if missile.collider:enter('TankHull') then
             local collision_data = missile.collider:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
@@ -65,7 +65,7 @@ function Missiles:update(dt)
             if ispen then
                 DamageCheck(Target, hitPart)
             end
-            if Target.status.era[1] then
+            if Target.status.era then
                 Target.armor.life = Target.armor.life - 1
             end
         end
@@ -80,8 +80,8 @@ end
 
 function Missiles:draw()
     for i, missile in ipairs(self) do
-        local missile_angle = missile:getAngle() + missile.face
-        local x, y = missile:getPosition()
+        local missile_angle = missile.collider:getAngle() + missile.face
+        local x, y = missile.collider:getPosition()
         local w, h = missile.pic:getDimensions()
         love.graphics.draw(missile.pic, x, y, missile_angle + math.pi/2, 1, 1, w/2, h/2)
         missile.smoke:setPosition(x - math.sin(missile_angle + math.pi/2)*h/2, y + math.cos(missile_angle + math.pi/2)*h/2)
@@ -91,8 +91,8 @@ function Missiles:draw()
 end
 
 function Tracking(missile)
-    local missile_angle = missile:getAngle() + missile.face
-    local x, y = missile:getPosition()
+    local missile_angle = missile.collider:getAngle() + missile.face
+    local x, y = missile.collider:getPosition()
     local tx, ty
     if missile.target then
         tx, ty = missile.target.location.x, missile.target.location.y
@@ -113,17 +113,17 @@ function Tracking(missile)
 
     if missile_angle > angle_to_target then
         if missile_angle - angle_to_target <= math.pi then
-            missile:applyTorque(missile.turningtorque)
+            missile.collider:applyTorque(missile.turningtorque)
         else
-            missile:applyTorque(-missile.turningtorque)
+            missile.collider:applyTorque(-missile.turningtorque)
         end
     end
     if missile_angle < angle_to_target then
         if angle_to_target - missile_angle <= math.pi then
-            missile:applyTorque(-missile.turningtorque)
+            missile.collider:applyTorque(-missile.turningtorque)
         else
-            missile:applyTorque(missile.turningtorque)
+            missile.collider:applyTorque(missile.turningtorque)
         end
     end
-    missile:setLinearVelocity(math.cos(missile_angle)*missile.velocity, math.sin(missile_angle)*missile.velocity)
+    missile.collider:setLinearVelocity(math.cos(missile_angle)*missile.velocity, math.sin(missile_angle)*missile.velocity)
 end

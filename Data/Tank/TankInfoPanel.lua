@@ -91,9 +91,12 @@ function TankInfoPanel:draw()
         love.graphics.setColor(0,179/255,0)
         love.graphics.print(TankChoosen.name..' No.'..TankChoosen.number, 0 + 4, 0 + 4)
         love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', 0 + 4, 0 + 332)
-        if TankChoosen.reload_timer >= 0 then
-            love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s',  144 - Rtextfont:getWidth('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s')/2, 0 + 240)
+        if TankChoosen.reload_timer then
+            if TankChoosen.reload_timer >= 0 then
+                love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s',  144 - Rtextfont:getWidth('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s')/2, 0 + 240)
+            end
         end
+        
         if TankChoosen.deploy_timer >= 0 then
             love.graphics.print('Deploying '..string.format("%.1f", TankChoosen.deploy_timer)..' s', 0 + 128, 0 + 332)
         end

@@ -616,6 +616,93 @@ IFVs = {
     }
 }
 
+TDs = {
+    --US
+    XM8LOSAT = {
+        name = 'XM8 (LOSAT)',
+        class = 'td',
+        width = 50,
+        length = 109,
+        turret_offset = 0,
+        image_offset = 2,
+        luncher_offset = {x = 0, y = 32},
+        engine_offset = -44,
+        exhaust_offset = {x = -14, y = -53},
+        exhaust_angle = math.pi/2,
+        weight = 18,
+        crew = 3,
+        max_f_speed = 65,
+        max_r_speed = -10,
+        turret_t_speed = 30,
+        turret_t_angle = {l = 30, r = 30},
+        vision = 600,
+        steel_cost = 0,
+        oil_cost = 0,
+        m_reload_time = 0.5,
+        firing_time = 0.2,
+        fuel_capacity = 4.6,
+        fuel_cosumption = 0.8,
+        missilerack_size = 12,
+        ammunition = {
+            {name = 'mgm_166', type = 'ATGM', pentype = 'KE', velocity = 1000, turningtorque = 50, mass = 0.5, pen = 700, TNT_eq = 0, pic = love.graphics.newImage('Assets/tanks/usa/weapons/MGM_166.png')},
+        },
+        armorthickness = {
+            hull = {front = {50, 50}, side = {15, 15}, back = {16, 16}},
+            turret = {front = {50, 50}, side = {30, 30}, back = {10, 10}}
+        },
+        innerstructure = {
+            htl = 0.8,
+            hull = {crew = 0.5, ammo = 0.4, engine = 0.3, fuel = 0.5},
+            turret = {crew = 0.7, ammo = 0.1, engine = 0, fuel = 0}
+        },
+        hull_image = love.graphics.newImage('Assets/tanks/usa/XM8/XM8_Hull.png'),
+        hull_image_line = Image_in_progress,
+        hull_image_broken = Blank_line,
+        turret_image = love.graphics.newImage('Assets/tanks/usa/XM8/XM8_mgmTurret.png'),
+        turret_image_line = Image_in_progress,
+        turret_image_broken = Blank_line,
+        anime_sheet = love.graphics.newImage('Assets/tanks/usa/XM8/XM8_mgmTurret_anime.png'),
+        gun_sound = AutoGunOpenFire,
+        accessories = {
+        --armor
+            {
+                {
+                    name = 'BASE_ARMOR',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    armorthickness = {
+                        hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
+                        turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
+                    },
+                    hull_image = Blank_line,
+                    hull_image_line = Blank_line,
+                    turret_image = Blank_line,
+                    turret_image_line = Blank_line,
+                    tag = 'Armor',
+                    type = 'Alloy'
+                }
+            },
+            --aim
+            {
+                Blank_Gear
+            },
+            --mob
+            {
+                {
+                    name = 'UTD_20/3',
+                    steel_cost = 0,
+                    oil_cost = 0,
+                    line_image = Blank_line,
+                    hp = 300,
+                    tag = 'Mob'
+                }
+            }
+        },
+        buildtime = 2,
+        fixedbuildtime = 2
+    }
+}
+
 SPGs = {
     --USSR
     Pion2S7 = {
@@ -817,5 +904,5 @@ table.insert(Nizhny_Tagil.tankfactory.tanklist, Tanks.T72B)
 table.insert(Nizhny_Tagil.tankfactory.tanklist, Tanks.T90)
 table.insert(Nizhny_Tagil.tankfactory.tanklist, IFVs.BMP2)
 table.insert(Nizhny_Tagil.tankfactory.tanklist, SPGs.Pion2S7)
---table.insert(Nizhny_Tagil.tankfactory.tanklist, Ships.Montana)
+table.insert(Nizhny_Tagil.tankfactory.tanklist, TDs.XM8LOSAT)
 table.insert(Nizhny_Tagil.tankfactory.tanklist, Tanks.M1)
