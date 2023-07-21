@@ -2,6 +2,7 @@ ConstructMenu = {}
 ConstructionQueue = {}
 ConstructMenu.PreBuild = {}
 ConstructMenu.canBuild = false
+ConstructMenu.query = false
 
 function ConstructMenu:load()
     CMscreen = love.graphics.newCanvas(640, 480)
@@ -31,13 +32,7 @@ function ConstructMenu:load()
                 ConstructMenu.build = false
                 ConstructurePicked = true
                 ConstructureSelected = constructure
-                if self.PreBuild[1] ~= nil then
-                    self.PreBuild[1]:destroy()
-                    self.PreBuild = {}
-                end
-                local preBuild = CurrentPlace.world:newRectangleCollider(IntX,IntY, ConstructureSelected.width,ConstructureSelected.length)
-                preBuild:setCollisionClass('PreBuild')
-                table.insert(self.PreBuild,preBuild)
+                self.query = true
             end,
             CurrentPlace.ConstructMenuWindow,
             CurrentPlace.ConstructMenuButtons,
@@ -58,7 +53,7 @@ function ConstructMenu:update(dt)
     if love.mouse.isDown(2) and ConstructurePicked then
         ConstructurePicked = false
         ConstructMenu.build = false
-        self.PreBuild[1]:destroy()
+        self.query = false
         ConstructureSelected = {}
     end
     for i, constructure in ipairs(ConstructionQueue) do
@@ -67,14 +62,19 @@ function ConstructMenu:update(dt)
             BuildConstructure(CurrentPlace, table.remove(ConstructionQueue, i), 'friendly', constructure.x, constructure.y)
         end
     end
-    if ConstructurePicked and self.PreBuild ~= {} then
+
+    if self.query == true then
+        self.queryArea = CurrentPlace.world:queryRectangleArea(IntX,IntY, ConstructureSelected.width,ConstructureSelected.length,{'All'})
+
+    end
+    --[[if ConstructurePicked and self.PreBuild ~= {} then
         self.PreBuild[1]:setPosition(IntX + ConstructureSelected.width/2,IntY + ConstructureSelected.length/2)
         if self.PreBuild[1]:stay('Wall') then
             ConstructMenu.canBuild = false
         else
             ConstructMenu.canBuild = true
         end
-    end
+    end]]
 end
 
 function ConstructMenu:draw()
@@ -92,6 +92,11 @@ function ConstructMenu:draw()
         end
         love.graphics.setCanvas()
         love.graphics.draw(CMscreen, CurrentPlace.ConstructMenuWindow.x, CurrentPlace.ConstructMenuWindow.y)
+    end
+
+    if self.query == true then
+        local x, y = cam:cameraCoords(IntX, IntY)
+        love.graphics.rectangle('fill', x, y, ConstructureSelected.width*cam.scale,ConstructureSelected.length*cam.scale)
     end
 -- draw cusor building
     if ConstructurePicked then
