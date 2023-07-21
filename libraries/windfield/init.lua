@@ -635,8 +635,8 @@ function World:queryLine(x1, y1, x2, y2, collision_class_names)
         if not fixture:isSensor() then table.insert(colliders, fixture:getUserData()) end
         return 1
     end
-    self.box2d_world:rayCast(x1, y1, x2, y2, callback)
-
+    local xn, yn = self.box2d_world:rayCast(x1, y1, x2, y2, callback)
+    
     local outs = {}
     local b = 0
     for _, collider in ipairs(colliders) do
@@ -645,11 +645,12 @@ function World:queryLine(x1, y1, x2, y2, collision_class_names)
             b = b+1
         end
     end
+
     if b == 0 then
         local a = nil
         return a
     else 
-        return outs
+        return outs, xn, yn
     end
 end
 

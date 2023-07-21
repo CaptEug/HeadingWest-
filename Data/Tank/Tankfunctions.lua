@@ -70,6 +70,7 @@ function Buildtank(place, tank, type, x, y, ...)
         exhaust_location2 = {},
         functions = {},
         Infobuttons = {},
+        center = {x = x, y = y },
         status = tank.status or
         {
             dead = false,
@@ -438,6 +439,7 @@ function Tank:Update(dt)
     self.velocity = {vx = vx, vy = vy, v = math.sqrt(vx^2 + vy^2)}
     self.location = {x = x, y = y, hull_angle = hull_angle}
     self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)  
+    self.center.x ,self.center.y= self.image_location.x, self.image_location.y
 
     self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)     --adjust collider's and image's location
     self.turret_location.x, self.turret_location.y = self.image_location.x - self.turret_offset*math.sin(hull_angle), self.image_location.y + self.turret_offset*math.cos(hull_angle)
@@ -505,6 +507,7 @@ function Tank:Update(dt)
         end
     end
     self.turret_anime:update(dt)
+
 end
 
 function Tank:Draw()
@@ -521,7 +524,6 @@ function Tank:Draw()
     if self.type == 'friendly' then
         self.Infobuttons:use()
     end
-
     Visual(self)
 end
 
@@ -538,8 +540,8 @@ end
 
 
 function Visual(unit)
-    local centerX = unit.image_location.x
-    local centerY = unit.image_location.y
+    local centerX = unit.center.x
+    local centerY = unit.center.y
     local radius = unit.vision
     local startAngle = 0
     local endAngle = math.pi/2 
@@ -553,15 +555,16 @@ function Visual(unit)
         local endX = centerX + radius * math.cos(B) -- 结束点的x坐标
         local endY = centerY + radius * math.sin(B) -- 结束点的y坐标
 
-        local colliders = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'All'})
+        local colliders, x, y = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'All'})
 
         if colliders == nil then
             love.graphics.line(centerX, centerY, endX, endY)
+        else 
+            --love.graphics.line(centerX, centerY, x, y)
         end
         a = a + 1
     end
     love.graphics.setColor(1, 1, 1)
-    --line:destroy()
 
 end
 
