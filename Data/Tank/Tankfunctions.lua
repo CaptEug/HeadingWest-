@@ -554,7 +554,7 @@ function Visual(unit)
 
         local endX = centerX + radius * math.cos(B)
         local endY = centerY + radius * math.sin(B)
-        local colliders = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'All'})
+        local colliders = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'Wall'})
 
         if colliders == nil then
             love.graphics.line(centerX, centerY, endX, endY)
