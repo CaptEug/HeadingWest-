@@ -65,7 +65,7 @@ function ConstructMenu:update(dt)
 
     if self.query == true then
         self.queryArea = CurrentPlace.world:queryRectangleArea(IntX,IntY, ConstructureSelected.width,ConstructureSelected.length,{'All'})
-
+        ConstructMenu.canBuild = true
     end
     --[[if ConstructurePicked and self.PreBuild ~= {} then
         self.PreBuild[1]:setPosition(IntX + ConstructureSelected.width/2,IntY + ConstructureSelected.length/2)
