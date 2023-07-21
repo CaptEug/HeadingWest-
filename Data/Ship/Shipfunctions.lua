@@ -458,22 +458,10 @@ function Ship:Draw()
             love.graphics.draw(self.el_turret_image,turret_x,turret_y,a+array1[i].angle,1,1,width2/2,height2/2)
         end
     end
-    local centerX = self.image_location.x
-    local centerY = self.image_location.y
-    local radius = 6000 
-    local startAngle = 0
-    local endAngle = math.pi/2 
-    local a = 100
-    local b = 100
-    local c = 200
-    local d = 300
-    love.graphics.setColor(0, 0, 0)
-    love.graphics.rectangle("fill", a, b, c - a, d - b)
-
-    love.graphics.setColor(0, 255, 255, 0.5) 
-    love.graphics.arc("fill", centerX, centerY, radius, startAngle, endAngle) 
-    love.graphics.setColor(1, 1, 1)
+    --Visual(self)
+    
 end
+
 
 function Ship:Detonate()
     

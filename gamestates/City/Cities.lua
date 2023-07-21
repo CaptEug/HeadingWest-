@@ -173,9 +173,9 @@ function City:init()
     self.world:addCollisionClass('PreBuild',{ignores = {'ShipHull','TankHull','Oil','Coast','Ocean','Constructure'}})
     self:loadmap()
     CityUI:load()
-    Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
+    Buildtank(CurrentPlace, Tanks.M1, 'friendly', 0, 1000)
     --BuildConstructure(CurrentPlace, Constructures.Maxim_Gorky, 'enemy', 3000, 1000)
-    Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
+    --Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
     NewSaving:LoadTanks()
 end
 
