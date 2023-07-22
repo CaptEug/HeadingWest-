@@ -50,10 +50,10 @@ function CityUI:load()
         ConstructMenu_button = Buttons.newToolButton(
             Constructmenu_icon,
             function ()
-                if CurrentPlace.openConstructMenu then
-                    CurrentPlace.openConstructMenu = false
+                if CurrentPlace.ConstructMenuWindow.open then
+                    CurrentPlace.ConstructMenuWindow.open = false
                 else
-                    CurrentPlace.openConstructMenu = true
+                    CurrentPlace.ConstructMenuWindow.open = true
                 end
             end,
             cityButtons.ConstructButtons,
