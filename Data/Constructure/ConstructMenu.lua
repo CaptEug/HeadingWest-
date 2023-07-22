@@ -55,6 +55,7 @@ function ConstructMenu:update(dt)
     for i, constructure in ipairs(ConstructionQueue) do
         constructure.buildtime = constructure.buildtime - dt
         if constructure.buildtime <= 0 then
+            
             BuildConstructure(CurrentPlace, table.remove(ConstructionQueue, i), 'friendly', constructure.x, constructure.y)
         end
     end
@@ -114,6 +115,8 @@ function BuildDetact(button)
         local x, y = IntX, IntY
         local imagewidth = ConstructureSelected.image:getWidth()
         building.x, building.y = x, y
+        local preBuild = CurrentPlace.world:newRectangleCollider(x,y,ConstructureSelected.width,ConstructureSelected.length)
+        table.insert(ConstructMenu.PreBuild, preBuild)
         table.insert(ConstructionQueue, building)
     end
 end
