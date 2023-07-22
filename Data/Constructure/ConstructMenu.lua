@@ -59,14 +59,12 @@ function ConstructMenu:update(dt)
         end
     end
     if ConstructurePicked == true then
-        local x, y = cam:cameraCoords(IntX, IntY)
-        self.queryArea = CurrentPlace.world:queryRectangleArea(x,y, ConstructureSelected.width,ConstructureSelected.length,{'Wall'})
+        local x, y = cam:mousePosition()
+        self.queryArea = CurrentPlace.world:queryRectangleArea(x,y, ConstructureSelected.width,ConstructureSelected.length,{'All'})
         if self.queryArea[1] == nil then
             self.canBuild = true
         else
-            if self.queryArea[1]:getType() == "static" then
-            self.canBuild = true
-            end
+            self.canBuild = false
         end
     end
 end
