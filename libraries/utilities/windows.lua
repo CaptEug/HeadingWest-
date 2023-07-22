@@ -58,7 +58,7 @@ function Windows:mousereleased(x, y, button)
     end
 end
 
-function Windows:mousemoved(x, y, button)
+function Windows:mousemoved(x, y)
     -- Update the screen.window position if the user is dragging it
     for i, window in ipairs(self) do
         if window.open then

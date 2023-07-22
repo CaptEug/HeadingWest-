@@ -17,7 +17,7 @@ function TankSpawner:loadtank(place, tank)
             invisible_button,
             function ()
                 tank.picked = true
-                TankPanelopen = true
+                CurrentPlace.TankInfoPanelWindow.open = true
                 TankChoosen = tank
             end,
             tank.InfoButtons
