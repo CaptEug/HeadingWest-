@@ -63,24 +63,18 @@ function ConstructMenu:update(dt)
             BuildConstructure(CurrentPlace, table.remove(ConstructionQueue, i), 'friendly', constructure.x, constructure.y)
         end
     end
-
     if self.query == true then
         local x, y = cam:cameraCoords(IntX, IntY)
         self.queryArea = CurrentPlace.world:queryRectangleArea(x,y, ConstructureSelected.width,ConstructureSelected.length,{'Wall'})
-        if self.queryArea ~= {} then
-            self.canBuild = false
+        if self.queryArea[1] ~= nil then
+            local type = self.queryArea[1]:getType()
+            if type == 'Wall' then
+                self.canBuild = false
+            end
         else
-            self.canBuild =true
+            self.canBuild = true
         end
     end
-    --[[if ConstructurePicked and self.PreBuild ~= {} then
-        self.PreBuild[1]:setPosition(IntX + ConstructureSelected.width/2,IntY + ConstructureSelected.length/2)
-        if self.PreBuild[1]:stay('Wall') then
-            ConstructMenu.canBuild = false
-        else
-            ConstructMenu.canBuild = true
-        end
-    end]]
 end
 
 function ConstructMenu:draw()
