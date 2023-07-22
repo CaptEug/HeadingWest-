@@ -71,6 +71,7 @@ function Buildtank(place, tank, type, x, y, ...)
         functions = {},
         InfoButtons = {},
         center = {x = x, y = y },
+        a = 0,
         status = tank.status or
         {
             dead = false,
@@ -433,6 +434,7 @@ end
 
 function Tank:Update(dt)
     --location update
+    self.a = self.a + dt*10
     local x,y = self.collider:getPosition()
     local hull_angle = self.collider:getAngle()
     local vx, vy = self.collider:getLinearVelocity()
@@ -547,11 +549,12 @@ function Visual(unit)
     local startAngle = 0
     local endAngle = math.pi/2 
 
-    love.graphics.setColor(1, 1, 0, 0.05) 
-    love.graphics.setLineWidth(20)
+    love.graphics.setColor(1, 1, 0, 0.5) 
+    love.graphics.setLineWidth(1)
     local a = 0
+    local b = {}
 
-    while a < 360 do 
+    while a < 360.5 do 
         local B = math.rad(a)
 
         local endX = centerX + radius * math.cos(B)
@@ -560,11 +563,18 @@ function Visual(unit)
 
         if colliders == nil then
             love.graphics.line(centerX, centerY, endX, endY)
+            b = {}
         else 
-            x ,y = colliders.test.x, colliders.test.y
-            love.graphics.line(centerX, centerY, x ,y)
+            if b[1] == nil then
+                table.insert(b, 1, {colliders.test.x, colliders.test.y})
+            else
+                local t = {b[1][1], b[1][2], centerX, centerY, colliders.test.x, colliders.test.y}
+                table.insert(b, 2, {colliders.test.x, colliders.test.y})
+                table.remove(b,1)
+                love.graphics.polygon("fill", t)
+            end
         end
-        a = a + 1
+        a = a + 0.5
     end
     love.graphics.setColor(1, 1, 1)
     love.graphics.setLineWidth(1)
