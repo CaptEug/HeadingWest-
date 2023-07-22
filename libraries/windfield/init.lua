@@ -633,11 +633,18 @@ function World:queryLine(x1, y1, x2, y2, collision_class_names)
     local colliders = {}
     local Ray = {x = x2, y = y2}
     local callback = function(fixture, x, y)
-        lenth = (x-x1)^2 + (y-y1)^2
-        if lenth < (Ray.x-x1)^2 + (Ray.y-y1)^2 then
-            Ray.x, Ray.y= x, y
+    
+        if not fixture:isSensor() then 
+            local a = fixture:getUserData()
+            if self:collisionClassInCollisionClassesList(a.collision_class, collision_class_names) then
+
+                lenth = (x-x1)^2 + (y-y1)^2
+                if lenth < (Ray.x-x1)^2 + (Ray.y-y1)^2 then
+                    Ray.x, Ray.y= x, y
+                end
+            end
+            table.insert(colliders, a) 
         end
-        if not fixture:isSensor() then table.insert(colliders, fixture:getUserData()) end
         return 1
     end
     self.box2d_world:rayCast(x1, y1, x2, y2, callback)
