@@ -2,7 +2,6 @@ ConstructMenu = {}
 ConstructionQueue = {}
 ConstructMenu.PreBuild = {}
 ConstructMenu.canBuild = false
-ConstructMenu.query = false
 ConstructMenu.queryArea = {}
 
 function ConstructMenu:load()
@@ -30,7 +29,6 @@ function ConstructMenu:load()
                 ConstructMenu.build = false
                 ConstructurePicked = true
                 ConstructureSelected = constructure
-                self.query = true
             end,
             CurrentPlace.ConstructMenuWindow,
             CurrentPlace.ConstructMenuWindow.buttons,
@@ -60,14 +58,11 @@ function ConstructMenu:update(dt)
             BuildConstructure(CurrentPlace, table.remove(ConstructionQueue, i), 'friendly', constructure.x, constructure.y)
         end
     end
-    if self.query == true then
+    if ConstructurePicked == true then
         local x, y = cam:cameraCoords(IntX, IntY)
         self.queryArea = CurrentPlace.world:queryRectangleArea(x,y, ConstructureSelected.width,ConstructureSelected.length,{'Wall'})
-        if self.queryArea[1] ~= nil then
-            local type = self.queryArea[1]:getType()
-            if type == 'Wall' then
-                self.canBuild = false
-            end
+        if self.queryArea[1]:getType() == 'static' then
+            self.canBuild = false
         else
             self.canBuild = true
         end
@@ -88,7 +83,7 @@ function ConstructMenu:draw()
     CurrentPlace.ConstructMenuWindow:use()
 
 
-    if self.query == true then
+    if  ConstructurePicked  then
         local x, y = cam:cameraCoords(IntX, IntY)
         love.graphics.rectangle('fill', x, y, ConstructureSelected.width*cam.scale,ConstructureSelected.length*cam.scale)
     end

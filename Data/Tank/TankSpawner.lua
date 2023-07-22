@@ -52,7 +52,6 @@ function TankSpawner:drawtank()
         end
 
         --draw vision circle
-        love.graphics.circle("line", tank.location.x, tank.location.y, tank.vision)
     end
     for i, tank in ipairs(CurrentPlace.broken_tank) do
         tank:DrawBrokenTank()
