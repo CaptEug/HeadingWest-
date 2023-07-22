@@ -77,7 +77,6 @@ Nizhny_Tagil.exsist_ship = {}
 Nizhny_Tagil.broken_tank = {}
 Nizhny_Tagil.exsist_building = {}
 Nizhny_Tagil.songlist = {}
-Nizhny_Tagil.
 
 --[[Baku = {
     x = 1220,
@@ -211,9 +210,6 @@ function City:update(dt)
             AEmousepressed(x, y, button)
         end
         Windows:mousepressed(x, y, button)
-        if TankPanelopen then
-            TPmousepressed(x, y, button)
-        end
     end
 
     function love.mousereleased(x, y, button)
@@ -222,20 +218,15 @@ function City:update(dt)
             AEmousereleased(x, y, button)
         end
         Windows:mousereleased(x, y, button)
-        if TankPanelopen then
-            TPmousereleased(x, y, button)
-        end
         
         BuildDetact(button)
     end
+    
     function love.mousemoved(x, y, dx, dy)
         if CurrentPlace.openCityInfoPenal then
             AEmousemoved(x, y, dx, dy)
         end
-        Windows:mousemoved(x, y, button)
-        if TankPanelopen then
-            TPmousemoved(x, y, dx, dy)
-        end
+        Windows:mousemoved(x, y)
     end
 end
 
