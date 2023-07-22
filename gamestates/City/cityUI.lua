@@ -65,10 +65,10 @@ function CityUI:load()
             FacDesigner = Buttons.newToolButton(
                 Tankdesigner_icon,
                 function ()
-                    if CurrentPlace.openTankDesigner then
-                        CurrentPlace.openTankDesigner = false
+                    if CurrentPlace.TankDesignerWindow.open then
+                        CurrentPlace.TankDesignerWindow.open = false
                     else
-                        CurrentPlace.openTankDesigner = true
+                        CurrentPlace.TankDesignerWindow.open = true
                     end
                 end,
                 cityButtons.TankFacButtons,
