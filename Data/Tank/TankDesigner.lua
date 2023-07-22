@@ -1,16 +1,13 @@
 TankDesigner = {}
 
 function TankDesigner:load()
-    TDscreen = love.graphics.newCanvas(640, 480)
-    CurrentPlace.TankDesignerWindow = {x = 0, y = 32, w = 640, h = 64, dragging = false}
-    CurrentPlace.TankDesignerButtons = Buttons.new()
+    CurrentPlace.TankDesignerWindow = Window.new(64, 64, 640, 480)
     CurrentPlace.TankDesignerBuildButtons = Buttons.new()
     TankDesigner.tankindex = 1
     TankDesigner.PageShown = 'Armor'
     TankDesigner.tank_steel_cost = 0
     TankDesigner.tank_oil_cost = 0
     TankDesigner.lack_resource = false
-    CurrentPlace.openTankDesigner = false
     CurrentPlace.ProductionQueue = {}
     CurrentPlace.ProductionNumber = 0
 
@@ -18,10 +15,10 @@ function TankDesigner:load()
     Close = Buttons.newWindowToolButton(
         Close_icon,
         function ()
-            CurrentPlace.openTankDesigner = false
+            CurrentPlace.TankDesignerWindow.open = false
         end,
         CurrentPlace.TankDesignerWindow,
-        CurrentPlace.TankDesignerButtons,
+        CurrentPlace.TankDesignerWindow.buttons,
         0 + 625,
         0 + 18
     )
@@ -36,7 +33,7 @@ function TankDesigner:load()
             end
         end,
         CurrentPlace.TankDesignerWindow,
-        CurrentPlace.TankDesignerButtons,
+        CurrentPlace.TankDesignerWindow.buttons,
         0 + 311,
         0 + 331
     )
@@ -51,7 +48,7 @@ function TankDesigner:load()
             end
         end,
         CurrentPlace.TankDesignerWindow,
-        CurrentPlace.TankDesignerButtons,
+        CurrentPlace.TankDesignerWindow.buttons,
         0 + 56,
         0 + 331
     )
@@ -162,7 +159,7 @@ function TankDesigner:load()
             TankDesigner.PageShown = 'Armor'
         end,
         CurrentPlace.TankDesignerWindow,
-        CurrentPlace.TankDesignerButtons,
+        CurrentPlace.TankDesignerWindow.buttons,
         0 + 72,
         0 + 391
     )
@@ -173,7 +170,7 @@ function TankDesigner:load()
             TankDesigner.PageShown = 'Aim'
         end,
         CurrentPlace.TankDesignerWindow,
-        CurrentPlace.TankDesignerButtons,
+        CurrentPlace.TankDesignerWindow.buttons,
         0 + 126,
         0 + 391
     )
@@ -184,7 +181,7 @@ function TankDesigner:load()
             TankDesigner.PageShown = 'Mob'
         end,
         CurrentPlace.TankDesignerWindow,
-        CurrentPlace.TankDesignerButtons,
+        CurrentPlace.TankDesignerWindow.buttons,
         0 + 180,
         0 + 391
     )
@@ -195,7 +192,7 @@ function TankDesigner:load()
             TankDesigner.PageShown = 'Ammo'
         end,
         CurrentPlace.TankDesignerWindow,
-        CurrentPlace.TankDesignerButtons,
+        CurrentPlace.TankDesignerWindow.buttons,
         0 + 234,
         0 + 391
     )
@@ -223,7 +220,7 @@ function TankDesigner:load()
             table.remove(CurrentPlace.ProductionQueue, 1)
         end,
         CurrentPlace.TankDesignerWindow,
-        CurrentPlace.TankDesignerButtons,
+        CurrentPlace.TankDesignerWindow.buttons,
         0 + 567,
         0 + 79
     )
@@ -297,8 +294,7 @@ function TankDesigner:draw()
 
     TankPresent = CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex]
 
-    if CurrentPlace.openTankDesigner then
-    love.graphics.setCanvas(TDscreen)
+    CurrentPlace.TankDesignerWindow:start()
         TankDesigner.tank_steel_cost = TankPresent.steel_cost + TankPresent.accessories[1][TankPresent.armor_num].steel_cost + TankPresent.accessories[2][TankPresent.aim_num].steel_cost + TankPresent.accessories[3][TankPresent.mob_num].steel_cost
         TankDesigner.tank_oil_cost = TankPresent.oil_cost + TankPresent.accessories[1][TankPresent.armor_num].oil_cost + TankPresent.accessories[2][TankPresent.aim_num].oil_cost + TankPresent.accessories[3][TankPresent.mob_num].oil_cost
         love.graphics.draw(TankDesigner_screen, 0, 0)
@@ -376,7 +372,6 @@ function TankDesigner:draw()
             love.graphics.setColor(1,1,1)
         end
 
-        CurrentPlace.TankDesignerButtons:use()
         if not TankDesigner.lack_resource then
             CurrentPlace.TankDesignerBuildButtons:use()
         else
@@ -395,9 +390,8 @@ function TankDesigner:draw()
         if TankDesigner.PageShown == 'Ammo' then
             love.graphics.draw(Ammo_Hot, 0 + 208, 0 + 356)
         end
-    love.graphics.setCanvas()
-        love.graphics.draw(TDscreen, CurrentPlace.TankDesignerWindow.x, CurrentPlace.TankDesignerWindow.y)
-    end
+        
+    CurrentPlace.TankDesignerWindow:use()
 end
 
 function TankDesigner:slot_distribution(place)
@@ -415,30 +409,4 @@ function TankDesigner:slot_distribution(place)
         selected_slot=0
     end
     return selected_slot
-end
-
---TDscreenwindow draggie
-function TDmousepressed(x, y, button)
-    -- Check if the mouse is inside the TDscreen.window
-    if x >= CurrentPlace.TankDesignerWindow.x and x <= CurrentPlace.TankDesignerWindow.x + CurrentPlace.TankDesignerWindow.w and
-     y >= CurrentPlace.TankDesignerWindow.y and y <= CurrentPlace.TankDesignerWindow.y + CurrentPlace.TankDesignerWindow.h then
-        Cursormode = 'dragging'
-        CurrentPlace.TankDesignerWindow.dragging = true
-       -- Calculate the offset between the mouse position and the TDscreen.window position
-       TankDesigner.offsetX = x - CurrentPlace.TankDesignerWindow.x
-       TankDesigner.offsetY = y - CurrentPlace.TankDesignerWindow.y
-    end
-end
- 
-function TDmousereleased(x, y, button)
-    -- Stop dragging when the mouse is released
-    CurrentPlace.TankDesignerWindow.dragging = false
-end
- 
-function TDmousemoved(x, y, dx, dy)
-    -- Update the TDscreen.window position if the user is dragging it
-    if CurrentPlace.TankDesignerWindow.dragging then
-        CurrentPlace.TankDesignerWindow.x = x - TankDesigner.offsetX
-        CurrentPlace.TankDesignerWindow.y = y - TankDesigner.offsetY
-    end
 end

@@ -207,9 +207,6 @@ function City:update(dt)
     --mouse input
     function love.mousepressed(x, y, button)
         SelectionMousePressed(x, y, button)
-        if CurrentPlace.openTankDesigner then
-            TDmousepressed(x, y, button)
-        end
         if CurrentPlace.openCityInfoPenal then
             AEmousepressed(x, y, button)
         end
@@ -221,9 +218,6 @@ function City:update(dt)
 
     function love.mousereleased(x, y, button)
         SelectionMouseReleased(x, y, button)
-        if CurrentPlace.openTankDesigner then
-            TDmousereleased(x, y, button)
-        end
         if CurrentPlace.openCityInfoPenal then
             AEmousereleased(x, y, button)
         end
@@ -235,9 +229,6 @@ function City:update(dt)
         BuildDetact(button)
     end
     function love.mousemoved(x, y, dx, dy)
-        if CurrentPlace.openTankDesigner then
-            TDmousemoved(x, y, dx, dy)
-        end
         if CurrentPlace.openCityInfoPenal then
             AEmousemoved(x, y, dx, dy)
         end
