@@ -552,7 +552,8 @@ function Visual(unit)
     love.graphics.setColor(1, 1, 0, 0.5) 
     love.graphics.setLineWidth(1)
     local a = 0
-    local b = {}
+    local b1 = {}
+    local b2 = {}
 
     while a < 360.5 do 
         local B = math.rad(a)
@@ -562,17 +563,25 @@ function Visual(unit)
         local colliders = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'Wall',"Tankhull"})
 
         if colliders == nil then
-            love.graphics.line(centerX, centerY, endX, endY)
-            b = {}
-        else 
-            if b[1] == nil then
-                table.insert(b, 1, {colliders.test.x, colliders.test.y})
+            if b1[1] == nil then
+                table.insert(b1, 1, {endX, endY})
             else
-                local t = {b[1][1], b[1][2], centerX, centerY, colliders.test.x, colliders.test.y}
-                table.insert(b, 2, {colliders.test.x, colliders.test.y})
-                table.remove(b,1)
+                local t = {b1[1][1], b1[1][2], centerX, centerY, endX, endY}
+                table.insert(b1, 2, {endX, endY})
+                table.remove(b1,1)
                 love.graphics.polygon("fill", t)
             end
+            b2 = {{endX, endY}}
+        else 
+            if b2[1] == nil then
+                table.insert(b2, 1, {colliders.test.x, colliders.test.y})
+            else
+                local t = {b2[1][1], b2[1][2], centerX, centerY, colliders.test.x, colliders.test.y}
+                table.insert(b2, 2, {colliders.test.x, colliders.test.y})
+                table.remove(b2,1)
+                love.graphics.polygon("fill", t)
+            end
+            b1 = {{colliders.test.x, colliders.test.y}}
         end
         a = a + 0.5
     end
