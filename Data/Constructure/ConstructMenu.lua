@@ -3,6 +3,7 @@ ConstructionQueue = {}
 ConstructMenu.PreBuild = {}
 ConstructMenu.canBuild = false
 ConstructMenu.query = false
+ConstructMenu.queryArea = {}
 
 function ConstructMenu:load()
     CMscreen = love.graphics.newCanvas(640, 480)
@@ -64,8 +65,13 @@ function ConstructMenu:update(dt)
     end
 
     if self.query == true then
-        self.queryArea = CurrentPlace.world:queryRectangleArea(IntX,IntY, ConstructureSelected.width,ConstructureSelected.length,{'All'})
-
+        local x, y = cam:cameraCoords(IntX, IntY)
+        self.queryArea = CurrentPlace.world:queryRectangleArea(x,y, ConstructureSelected.width,ConstructureSelected.length,{'Wall'})
+        if self.queryArea ~= {} then
+            self.canBuild = false
+        else
+            self.canBuild =true
+        end
     end
     --[[if ConstructurePicked and self.PreBuild ~= {} then
         self.PreBuild[1]:setPosition(IntX + ConstructureSelected.width/2,IntY + ConstructureSelected.length/2)

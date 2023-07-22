@@ -511,6 +511,7 @@ function Tank:Update(dt)
 end
 
 function Tank:Draw()
+    Visual(self)
     local x, y = self.image_location.x, self.image_location.y
     local hull_angle = self.collider:getAngle() - math.pi/2
     local a = self.location.hull_angle
@@ -524,7 +525,7 @@ function Tank:Draw()
     if self.type == 'friendly' then
         self.InfoButtons:use()
     end
-    Visual(self)
+    
 end
 
 function Tank:DrawBrokenTank()
@@ -546,7 +547,8 @@ function Visual(unit)
     local startAngle = 0
     local endAngle = math.pi/2 
 
-    love.graphics.setColor(0, 255, 255, 0.5) 
+    love.graphics.setColor(1, 1, 0, 0.05) 
+    love.graphics.setLineWidth(20)
     local a = 0
 
     while a < 360 do 
@@ -554,7 +556,7 @@ function Visual(unit)
 
         local endX = centerX + radius * math.cos(B)
         local endY = centerY + radius * math.sin(B)
-        local colliders = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'All'})
+        local colliders = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'Wall',"Tankhull"})
 
         if colliders == nil then
             love.graphics.line(centerX, centerY, endX, endY)
@@ -565,6 +567,7 @@ function Visual(unit)
         a = a + 1
     end
     love.graphics.setColor(1, 1, 1)
+    love.graphics.setLineWidth(1)
 
 end
 
