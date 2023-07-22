@@ -441,10 +441,11 @@ function Tank:Update(dt)
     self.velocity = {vx = vx, vy = vy, v = math.sqrt(vx^2 + vy^2)}
     self.location = {x = x, y = y, hull_angle = hull_angle}
     self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)  
-    self.center.x ,self.center.y= self.image_location.x, self.image_location.y
+    
 
     self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)     --adjust collider's and image's location
     self.turret_location.x, self.turret_location.y = self.image_location.x - self.turret_offset*math.sin(hull_angle), self.image_location.y + self.turret_offset*math.cos(hull_angle)
+    self.center.x ,self.center.y= self.turret_location.x, self.turret_location.y
     if self.gun_offset then
         self.gun_location.x, self.gun_location.y = self.turret_location.x + (self.gun_offset)*math.sin(hull_angle+self.turret_angle),
                                                 self.turret_location.y - (self.gun_offset)*math.cos(hull_angle+self.turret_angle)
