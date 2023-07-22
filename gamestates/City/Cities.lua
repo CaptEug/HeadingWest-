@@ -213,9 +213,7 @@ function City:update(dt)
         if CurrentPlace.openCityInfoPenal then
             AEmousepressed(x, y, button)
         end
-        if CurrentPlace.openConstructMenu then
-            CMmousepressed(x, y, button)
-        end
+        Windows:mousepressed(x, y, button)
         if TankPanelopen then
             TPmousepressed(x, y, button)
         end
@@ -229,9 +227,7 @@ function City:update(dt)
         if CurrentPlace.openCityInfoPenal then
             AEmousereleased(x, y, button)
         end
-        if CurrentPlace.openConstructMenu then
-            CMmousereleased(x, y, button)
-        end
+        Windows:mousereleased(x, y, button)
         if TankPanelopen then
             TPmousereleased(x, y, button)
         end
@@ -245,9 +241,7 @@ function City:update(dt)
         if CurrentPlace.openCityInfoPenal then
             AEmousemoved(x, y, dx, dy)
         end
-        if CurrentPlace.openConstructMenu then
-            CMmousemoved(x, y, dx, dy)
-        end
+        Windows:mousemoved(x, y, button)
         if TankPanelopen then
             TPmousemoved(x, y, dx, dy)
         end

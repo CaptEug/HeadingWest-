@@ -6,22 +6,19 @@ ConstructMenu.query = false
 ConstructMenu.queryArea = {}
 
 function ConstructMenu:load()
-    CMscreen = love.graphics.newCanvas(640, 480)
-    CurrentPlace.ConstructMenuWindow = {x = 0, y = 64, w = 640, h = 64, dragging = false}
+    CurrentPlace.ConstructMenuWindow = Window.new(64, 64, 640, 480)
     ConstructMenu.buildActive = false
     ConstructMenu.build = false
-    CurrentPlace.openConstructMenu = false
-    CurrentPlace.ConstructMenuButtons = Buttons.new()
     ConstructurePicked = false
     ConstructureSelected = {}
 
     Close = Buttons.newWindowToolButton(
             Close_icon,
             function ()
-                CurrentPlace.openConstructMenu = false
+                CurrentPlace.ConstructMenuWindow.open = false
             end,
             CurrentPlace.ConstructMenuWindow,
-            CurrentPlace.ConstructMenuButtons,
+            CurrentPlace.ConstructMenuWindow.buttons,
             625,
             18
         )
@@ -36,7 +33,7 @@ function ConstructMenu:load()
                 self.query = true
             end,
             CurrentPlace.ConstructMenuWindow,
-            CurrentPlace.ConstructMenuButtons,
+            CurrentPlace.ConstructMenuWindow.buttons,
             204 + 156*((i-1)%3),
             129 + 118*math.floor((i-1)/3)
         )
@@ -78,21 +75,18 @@ function ConstructMenu:update(dt)
 end
 
 function ConstructMenu:draw()
-    if CurrentPlace.openConstructMenu then
-        love.graphics.setCanvas(CMscreen)
+    CurrentPlace.ConstructMenuWindow:start()
         love.graphics.draw(ConstructMenu_screen)
-        CurrentPlace.ConstructMenuButtons:use()
         for i, constructure in ipairs(CurrentPlace.constructurelist) do
             love.graphics.draw(constructure_box, 128 + 156*((i-1)%3), 72 + 118*math.floor((i-1)/3))
             love.graphics.setColor(0,179/255,0)
-            love.graphics.print(constructure.name,128 + 156*((i-1)%3) + 4, 72 + 118*math.floor((i-1)/3) + 4)
+            love.graphics.print(constructure.name, 128 + 156*((i-1)%3) + 4, 72 + 118*math.floor((i-1)/3) + 4)
             love.graphics.print(constructure.steel_cost, 240 + 156*((i-1)%3), 141 + 118*math.floor((i-1)/3))
             love.graphics.print(constructure.oil_cost, 240 + 156*((i-1)%3), 161 + 118*math.floor((i-1)/3))
             love.graphics.setColor(1,1,1)
         end
-        love.graphics.setCanvas()
-        love.graphics.draw(CMscreen, CurrentPlace.ConstructMenuWindow.x, CurrentPlace.ConstructMenuWindow.y)
-    end
+    CurrentPlace.ConstructMenuWindow:use()
+
 
     if self.query == true then
         local x, y = cam:cameraCoords(IntX, IntY)
@@ -126,31 +120,5 @@ function BuildDetact(button)
         local imagewidth = ConstructureSelected.image:getWidth()
         building.x, building.y = x, y
         table.insert(ConstructionQueue, building)
-    end
-end
-
---TDscreen.window draggie
-function CMmousepressed(x, y, button)
-    -- Check if the mouse is inside the TDscreen.window
-    if x >= CurrentPlace.ConstructMenuWindow.x and x <= CurrentPlace.ConstructMenuWindow.x + CurrentPlace.ConstructMenuWindow.w and
-     y >= CurrentPlace.ConstructMenuWindow.y and y <= CurrentPlace.ConstructMenuWindow.y + CurrentPlace.ConstructMenuWindow.h then
-        Cursormode = 'dragging'
-        CurrentPlace.ConstructMenuWindow.dragging = true
-       -- Calculate the offset between the mouse position and the TDscreen.window position
-       ConstructMenu.offsetX = x - CurrentPlace.ConstructMenuWindow.x
-       ConstructMenu.offsetY = y - CurrentPlace.ConstructMenuWindow.y
-    end
-end
- 
-function CMmousereleased(x, y, button)
-    -- Stop dragging when the mouse is released
-    CurrentPlace.ConstructMenuWindow.dragging = false
-end
- 
-function CMmousemoved(x, y, dx, dy)
-    -- Update the TDscreen.window position if the user is dragging it
-    if CurrentPlace.ConstructMenuWindow.dragging then
-        CurrentPlace.ConstructMenuWindow.x = x - ConstructMenu.offsetX
-        CurrentPlace.ConstructMenuWindow.y = y - ConstructMenu.offsetY
     end
 end
