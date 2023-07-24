@@ -293,105 +293,106 @@ end
 function TankDesigner:draw()
 
     TankPresent = CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex]
-
-    CurrentPlace.TankDesignerWindow:start()
-        TankDesigner.tank_steel_cost = TankPresent.steel_cost + TankPresent.accessories[1][TankPresent.armor_num].steel_cost + TankPresent.accessories[2][TankPresent.aim_num].steel_cost + TankPresent.accessories[3][TankPresent.mob_num].steel_cost
-        TankDesigner.tank_oil_cost = TankPresent.oil_cost + TankPresent.accessories[1][TankPresent.armor_num].oil_cost + TankPresent.accessories[2][TankPresent.aim_num].oil_cost + TankPresent.accessories[3][TankPresent.mob_num].oil_cost
-        love.graphics.draw(TankDesigner_screen, 0, 0)
-        love.graphics.setFont(Rbuttonfont)
-        love.graphics.print(CurrentPlace.tankfactory.name, 0 + 40, 0)
-        love.graphics.setFont(Rtextfont)
-        love.graphics.setColor(0,179/255,0)
-        love.graphics.print(TankPresent.name, 0 + 40 + 6, 0 + 64 + 6)
-        love.graphics.print(tostring(TankDesigner.tank_steel_cost), 0 + 40 + 246, 0 + 64 + 6)
-        love.graphics.print(tostring(TankDesigner.tank_oil_cost), 0 + 40 + 246, 0 + 64 + 26)
-        love.graphics.setColor(1,1,1)
-
-        if TankPresent.accessories then
-            for i, accessory in ipairs(TankPresent.accessories) do
-                if accessory.isopen then
-                    accessory.AButtons:use()
-                    for i, equipment in ipairs(accessory) do
-                        love.graphics.setFont(Rtextfont)
-                        love.graphics.setColor(0,179/255,0)
-                        love.graphics.print(equipment.name, 0 + 336, 0 + 24 + 46*i)
-                        if equipment == TankPresent.accessories[1][TankPresent.armor_num] or equipment == TankPresent.accessories[2][TankPresent.aim_num] or equipment == TankPresent.accessories[3][TankPresent.mob_num] then
-                            love.graphics.setColor(0,179/255,0)
-                            love.graphics.rectangle("fill", 0 + 332, 0 + 24 + 46*i, 108, 44)
-                            love.graphics.setColor(34/255,32/255,52/255)
-                            love.graphics.print(equipment.name, 0 + 336, 0 + 24 + 46*i)
-                        end
-                        love.graphics.setColor(1,1,1)
-                    end
-                end
-            end
-        end
-
-        if TankPresent.ammunition.isopen then
-            TankPresent.ammunition.AButtons:use()
+        
+    CurrentPlace.TankDesignerWindow:use(
+        function ()
+            TankDesigner.tank_steel_cost = TankPresent.steel_cost + TankPresent.accessories[1][TankPresent.armor_num].steel_cost + TankPresent.accessories[2][TankPresent.aim_num].steel_cost + TankPresent.accessories[3][TankPresent.mob_num].steel_cost
+            TankDesigner.tank_oil_cost = TankPresent.oil_cost + TankPresent.accessories[1][TankPresent.armor_num].oil_cost + TankPresent.accessories[2][TankPresent.aim_num].oil_cost + TankPresent.accessories[3][TankPresent.mob_num].oil_cost
+            love.graphics.draw(TankDesigner_screen, 0, 0)
+            love.graphics.setFont(Rbuttonfont)
+            love.graphics.print(CurrentPlace.tankfactory.name, 0 + 40, 0)
+            love.graphics.setFont(Rtextfont)
             love.graphics.setColor(0,179/255,0)
-            --[[if TankChoosen.ammorack_size then
-                love.graphics.print('Rounds:'..#TankPresent.ammorack..'/'..TankPresent.ammorack_size, 328 + 6, 64 + 6)
-            end
-            if TankChoosen.missilerack_size then
-                love.graphics.print('Missiles:'..#TankPresent.missilerack..'/'..TankPresent.missilerack_size, 328 + 6, 84 + 6)
-            end]]
-           
-            for i, ammo in ipairs(TankPresent.ammunition) do
-                local n = 0
-                for i, bullet in ipairs(TankPresent.ammorack) do
-                    if bullet.name == ammo.name then
-                        n = n + 1
+            love.graphics.print(TankPresent.name, 0 + 40 + 6, 0 + 64 + 6)
+            love.graphics.print(tostring(TankDesigner.tank_steel_cost), 0 + 40 + 246, 0 + 64 + 6)
+            love.graphics.print(tostring(TankDesigner.tank_oil_cost), 0 + 40 + 246, 0 + 64 + 26)
+            love.graphics.setColor(1,1,1)
+
+            if TankPresent.accessories then
+                for i, accessory in ipairs(TankPresent.accessories) do
+                    if accessory.isopen then
+                        accessory.AButtons:use()
+                        for i, equipment in ipairs(accessory) do
+                            love.graphics.setFont(Rtextfont)
+                            love.graphics.setColor(0,179/255,0)
+                            love.graphics.print(equipment.name, 0 + 336, 0 + 24 + 46*i)
+                            if equipment == TankPresent.accessories[1][TankPresent.armor_num] or equipment == TankPresent.accessories[2][TankPresent.aim_num] or equipment == TankPresent.accessories[3][TankPresent.mob_num] then
+                                love.graphics.setColor(0,179/255,0)
+                                love.graphics.rectangle("fill", 0 + 332, 0 + 24 + 46*i, 108, 44)
+                                love.graphics.setColor(34/255,32/255,52/255)
+                                love.graphics.print(equipment.name, 0 + 336, 0 + 24 + 46*i)
+                            end
+                            love.graphics.setColor(1,1,1)
+                        end
                     end
                 end
-                if TankPresent.missilerack then
-                    for i, missile in ipairs(TankPresent.missilerack) do
-                        if missile.name == ammo.name then
+            end
+
+            if TankPresent.ammunition.isopen then
+                TankPresent.ammunition.AButtons:use()
+                love.graphics.setColor(0,179/255,0)
+                --[[if TankChoosen.ammorack_size then
+                    love.graphics.print('Rounds:'..#TankPresent.ammorack..'/'..TankPresent.ammorack_size, 328 + 6, 64 + 6)
+                end
+                if TankChoosen.missilerack_size then
+                    love.graphics.print('Missiles:'..#TankPresent.missilerack..'/'..TankPresent.missilerack_size, 328 + 6, 84 + 6)
+                end]]
+            
+                for i, ammo in ipairs(TankPresent.ammunition) do
+                    local n = 0
+                    for i, bullet in ipairs(TankPresent.ammorack) do
+                        if bullet.name == ammo.name then
                             n = n + 1
                         end
                     end
+                    if TankPresent.missilerack then
+                        for i, missile in ipairs(TankPresent.missilerack) do
+                            if missile.name == ammo.name then
+                                n = n + 1
+                            end
+                        end
+                    end
+                    love.graphics.print(ammo.name, 0 + 328 + 6, 0 + 46 + 46*i)
+                    love.graphics.print(n, 0 + 328 + 6, 0 + 56 + 46*i)
                 end
-                love.graphics.print(ammo.name, 0 + 328 + 6, 0 + 46 + 46*i)
-                love.graphics.print(n, 0 + 328 + 6, 0 + 56 + 46*i)
+                love.graphics.setColor(1,1,1)
             end
-            love.graphics.setColor(1,1,1)
-        end
 
-        love.graphics.draw(TankPresent.hull_image_line, 0 + 40, 0 + 64)
-        love.graphics.draw(TankPresent.accessories[1][TankPresent.armor_num].hull_image_line, 0 + 40, 0 + 64)
-        love.graphics.draw(TankPresent.turret_image_line, 0 + 40, 0 + 64)
-        love.graphics.draw(TankPresent.accessories[1][TankPresent.armor_num].turret_image_line, 0 + 40, 0 + 64)
-        love.graphics.draw(TankPresent.accessories[2][TankPresent.aim_num].line_image, 0 + 40, 0 + 64)
-        love.graphics.draw(TankPresent.accessories[3][TankPresent.mob_num].line_image, 0 + 40, 0 + 64)
+            love.graphics.draw(TankPresent.hull_image_line, 0 + 40, 0 + 64)
+            love.graphics.draw(TankPresent.accessories[1][TankPresent.armor_num].hull_image_line, 0 + 40, 0 + 64)
+            love.graphics.draw(TankPresent.turret_image_line, 0 + 40, 0 + 64)
+            love.graphics.draw(TankPresent.accessories[1][TankPresent.armor_num].turret_image_line, 0 + 40, 0 + 64)
+            love.graphics.draw(TankPresent.accessories[2][TankPresent.aim_num].line_image, 0 + 40, 0 + 64)
+            love.graphics.draw(TankPresent.accessories[3][TankPresent.mob_num].line_image, 0 + 40, 0 + 64)
 
-        for i, tank in ipairs(CurrentPlace.ProductionQueue) do
-            love.graphics.draw(production_box,0 + 452, 0 + 62 + 28*i)
-            love.graphics.setColor(0,179/255,0)
-            love.graphics.print(tank.name, 0 + 456, 0 + 66 + 28*i)
-            love.graphics.rectangle('fill', 0 + 456, 0 + 80 + 28*i, 132 - (132*tank.buildtime/tank.fixedbuildtime), 4)
-            love.graphics.setColor(1,1,1)
-        end
+            for i, tank in ipairs(CurrentPlace.ProductionQueue) do
+                love.graphics.draw(production_box,0 + 452, 0 + 62 + 28*i)
+                love.graphics.setColor(0,179/255,0)
+                love.graphics.print(tank.name, 0 + 456, 0 + 66 + 28*i)
+                love.graphics.rectangle('fill', 0 + 456, 0 + 80 + 28*i, 132 - (132*tank.buildtime/tank.fixedbuildtime), 4)
+                love.graphics.setColor(1,1,1)
+            end
 
-        if not TankDesigner.lack_resource then
-            CurrentPlace.TankDesignerBuildButtons:use()
-        else
-            love.graphics.print('Not Enough Resource',405,391)
-        end
+            if not TankDesigner.lack_resource then
+                CurrentPlace.TankDesignerBuildButtons:use()
+            else
+                love.graphics.print('Not Enough Resource',405,391)
+            end
 
-        if TankDesigner.PageShown == 'Armor' then
-            love.graphics.draw(Armor_Hot, 0 + 46, 0 + 356)
+            if TankDesigner.PageShown == 'Armor' then
+                love.graphics.draw(Armor_Hot, 0 + 46, 0 + 356)
+            end
+            if TankDesigner.PageShown == 'Aim' then
+                love.graphics.draw(Aiming_Hot, 0 + 100, 0 + 356)
+            end
+            if TankDesigner.PageShown == 'Mob' then
+                love.graphics.draw(Mobility_Hot, 0 + 154, 0 + 356)
+            end
+            if TankDesigner.PageShown == 'Ammo' then
+                love.graphics.draw(Ammo_Hot, 0 + 208, 0 + 356)
+            end
         end
-        if TankDesigner.PageShown == 'Aim' then
-            love.graphics.draw(Aiming_Hot, 0 + 100, 0 + 356)
-        end
-        if TankDesigner.PageShown == 'Mob' then
-            love.graphics.draw(Mobility_Hot, 0 + 154, 0 + 356)
-        end
-        if TankDesigner.PageShown == 'Ammo' then
-            love.graphics.draw(Ammo_Hot, 0 + 208, 0 + 356)
-        end
-        
-    CurrentPlace.TankDesignerWindow:use()
+    )
 end
 
 function TankDesigner:slot_distribution(place)

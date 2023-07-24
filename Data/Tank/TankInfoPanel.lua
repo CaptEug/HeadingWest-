@@ -64,48 +64,50 @@ function TankInfoPanel:draw()
             love.graphics.draw(Picked_icon, x - 10, y  + 32*cam.scale)
         end
     end
-
-    CurrentPlace.TankInfoPanelWindow:start()
-        if TankChoosen.collider then
-            local a = TankChoosen.collider:getAngle()
-            local x,y = cam:cameraCoords(TankChoosen.location.x, TankChoosen.location.y)
-            local tx, ty = TankChoosen.turret_offset*math.sin(a), TankChoosen.turret_offset*math.cos(a)
-            love.graphics.draw(Choosen_icon, x - 10, y + 32*cam.scale)
-            love.graphics.draw(tank_info_panel, 0, 0)
-            love.graphics.draw(TankChoosen.hull_image_line, 144, 144, a, 1, 1, 144, 144)
-            love.graphics.draw(TankChoosen.armor.hull_image_line, 144, 144, a, 1, 1, 144, 144)
-            love.graphics.draw(TankChoosen.turret_image_line, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
-            love.graphics.draw(TankChoosen.aim.line_image, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
-            love.graphics.draw(TankChoosen.armor.turret_image_line, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
-            love.graphics.draw(Fuel_icon, 259, 8)
-            love.graphics.setColor(0,179/255,0)
-            love.graphics.rectangle("fill", 259, 32, 24, -24*TankChoosen.fuel/TankChoosen.fuel_capacity)
-            love.graphics.setColor(1,1,1)
-            love.graphics.draw(Fuel_mask, 259, 8)
-            love.graphics.setFont(Rtextfont)
-            love.graphics.setColor(0,179/255,0)
-            love.graphics.print(TankChoosen.name..' No.'..TankChoosen.number, 0 + 4, 0 + 4)
-            love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', 0 + 4, 0 + 332)
-            if TankChoosen.reload_timer then
-                if TankChoosen.reload_timer >= 0 then
-                    love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s',  144 - Rtextfont:getWidth('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s')/2, 0 + 240)
+        
+    CurrentPlace.TankInfoPanelWindow:use(
+        function ()
+            if TankChoosen.collider then
+                local a = TankChoosen.collider:getAngle()
+                local x,y = cam:cameraCoords(TankChoosen.location.x, TankChoosen.location.y)
+                local tx, ty = TankChoosen.turret_offset*math.sin(a), TankChoosen.turret_offset*math.cos(a)
+                love.graphics.draw(Choosen_icon, x - 10, y + 32*cam.scale)
+                love.graphics.draw(tank_info_panel, 0, 0)
+                love.graphics.draw(TankChoosen.hull_image_line, 144, 144, a, 1, 1, 144, 144)
+                love.graphics.draw(TankChoosen.armor.hull_image_line, 144, 144, a, 1, 1, 144, 144)
+                love.graphics.draw(TankChoosen.turret_image_line, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
+                love.graphics.draw(TankChoosen.aim.line_image, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
+                love.graphics.draw(TankChoosen.armor.turret_image_line, 144 - tx, 144 + ty, a+TankChoosen.turret_angle, 1, 1, 144, 144+TankChoosen.turret_offset)
+                love.graphics.draw(Fuel_icon, 259, 8)
+                love.graphics.setColor(0,179/255,0)
+                love.graphics.rectangle("fill", 259, 32, 24, -24*TankChoosen.fuel/TankChoosen.fuel_capacity)
+                love.graphics.setColor(1,1,1)
+                love.graphics.draw(Fuel_mask, 259, 8)
+                love.graphics.setFont(Rtextfont)
+                love.graphics.setColor(0,179/255,0)
+                love.graphics.print(TankChoosen.name..' No.'..TankChoosen.number, 0 + 4, 0 + 4)
+                love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', 0 + 4, 0 + 332)
+                if TankChoosen.reload_timer then
+                    if TankChoosen.reload_timer >= 0 then
+                        love.graphics.print('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s',  144 - Rtextfont:getWidth('Reloading '..string.format("%.1f", TankChoosen.reload_timer)..' s')/2, 0 + 240)
+                    end
                 end
+                
+                if TankChoosen.deploy_timer >= 0 then
+                    love.graphics.print('Deploying '..string.format("%.1f", TankChoosen.deploy_timer)..' s', 0 + 128, 0 + 332)
+                end
+                love.graphics.setColor(1,1,1)
+    
+                CurrentPlace.TankInfoPanelWindow.buttons:use()
+                if TankChoosen.class == 'spg' then
+                    TankInfoPanel.SPGButtons:use()
+                end
+                TankCrewDraw()
+                TankAmmoDraw()
+                TankStateDraw()
             end
-            
-            if TankChoosen.deploy_timer >= 0 then
-                love.graphics.print('Deploying '..string.format("%.1f", TankChoosen.deploy_timer)..' s', 0 + 128, 0 + 332)
-            end
-            love.graphics.setColor(1,1,1)
-
-            CurrentPlace.TankInfoPanelWindow.buttons:use()
-            if TankChoosen.class == 'spg' then
-                TankInfoPanel.SPGButtons:use()
-            end
-            TankCrewDraw()
-            TankAmmoDraw()
-            TankStateDraw()
         end
-    CurrentPlace.TankInfoPanelWindow:use()
+    )
 end
 
 function TankCrewDraw()

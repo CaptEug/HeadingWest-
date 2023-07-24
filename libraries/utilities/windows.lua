@@ -20,16 +20,12 @@ function Window.new(x, y, w, h)
     return instance
 end
 
-function Window:start()
-    love.graphics.setCanvas(self.canvas)
-end
-
-function Window:use()
+function Window:use(fn)
     if self.open then
+        love.graphics.setCanvas(self.canvas)
+        fn()
         self.buttons:use()
-    end
-    love.graphics.setCanvas()
-    if self.open then
+        love.graphics.setCanvas()
         love.graphics.draw(self.canvas, self.x, self.y)
     end
 end
