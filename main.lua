@@ -79,6 +79,8 @@ EquipmentSelectHot = love.graphics.newImage('Assets/pictures/Tankdesigner/Equipm
 invisible_button = love.graphics.newImage('Assets/pictures/buttons/Invisible_button.png')
 Edit_button = love.graphics.newImage('Assets/pictures/buttons/Edit.png')
 Done_button = love.graphics.newImage('Assets/pictures/buttons/Done.png')
+ArmyPage_icon = love.graphics.newImage('Assets/pictures/CityInfoPenal/ArmyPage.png')
+ResourcePage_icon = love.graphics.newImage('Assets/pictures/CityInfoPenal/ResourcePage.png')
 --UI
 Gear = love.graphics.newImage('Assets/pictures/Icons/Gear.png')
 Tank_icon = love.graphics.newImage('Assets/pictures/Icons/Tank_icon.png')
@@ -146,8 +148,7 @@ end
 
 function love.update(dt)
     ww, wh = love.graphics.getDimensions()
-    cammovement()
-end
+    CamMovement()end
 
 
 
@@ -157,8 +158,7 @@ function love.draw()
 end
 
 
-function cammovement()
-
+function CamMovement()
     if love.keyboard.isDown("w") then
         cam:move(0,-5)
     end
@@ -171,8 +171,6 @@ function cammovement()
     if love.keyboard.isDown("d") then
         cam:move(5.2,0)
     end
-
-
 
     function love.wheelmoved(x, y)
         if y > 0 then

@@ -1,12 +1,12 @@
-CityInfoPenal = {}
+PenalOlid = {}
 
-function CityInfoPenal:load()
+function PenalOlid:load()
     AEscreen = love.graphics.newCanvas(432, 560)
-    CityInfoPenal.window = {x = 32, y = 32, w = 400, h = 560}
-    CityInfoPenal.dragging = false
-    CurrentPlace.openCityInfoPenal = false
-    CurrentPlace.cityinfopenalmode = false
-    CityInfoPenal.Buttons = Buttons.new()
+    PenalOlid.window = {x = 32, y = 32, w = 400, h = 560}
+    PenalOlid.dragging = false
+    CurrentPlace.openPenalOlid = false
+    CurrentPlace.PenalOlidmode = false
+    PenalOlid.Buttons = Buttons.new()
     CurrentPlace.Army.AButtons = Buttons.new()
     DivisionNum = 1
     
@@ -14,14 +14,14 @@ function CityInfoPenal:load()
     EditArmy = Buttons.newWindowToolButton(
         Edit_button,
         function ()
-            if CurrentPlace.cityinfopenalmode then
-                CurrentPlace.cityinfopenalmode = false
+            if CurrentPlace.PenalOlidmode then
+                CurrentPlace.PenalOlidmode = false
             else
-                CurrentPlace.cityinfopenalmode = true
+                CurrentPlace.PenalOlidmode = true
             end
         end,
-        CityInfoPenal.window,
-        CityInfoPenal.Buttons,
+        PenalOlid.window,
+        PenalOlid.Buttons,
         0 + 363,
         0 + 53,
         Edit_button,
@@ -35,12 +35,12 @@ function CityInfoPenal:load()
             NewDivision('division#'..tostring(DivisionNum))
             DivisionNum = DivisionNum + 1
         end,
-        CityInfoPenal.window,
+        PenalOlid.window,
         CurrentPlace.Army.AButtons
     )
 end
 
-function CityInfoPenal:update(dt)
+function PenalOlid:update(dt)
     for i, division in ipairs(CurrentPlace.Army) do
         if division.remove then
             table.remove(CurrentPlace.Army, i)
@@ -58,17 +58,17 @@ function CityInfoPenal:update(dt)
     end
 end
 
-function CityInfoPenal:draw()
-    if CurrentPlace.openCityInfoPenal then
+function PenalOlid:draw()
+    if CurrentPlace.openPenalOlid then
     love.graphics.setCanvas(AEscreen)
-        love.graphics.draw(CityInfoPenal_screen)
+        love.graphics.draw(PenalOlid_screen)
         love.graphics.setColor(0,0,0)
         love.graphics.setFont(Rheadfont)
         love.graphics.print(CurrentPlace.name, 0 + 32, 0 + 24)
         love.graphics.setFont(Rtextfont)
         love.graphics.print(CurrentPlace.oil_stored, 100, 40)
         love.graphics.print(CurrentPlace.steel_stored, 100, 60)
-        CityInfoPenal.Buttons:use()
+        PenalOlid.Buttons:use()
         
         DivisionHight = 72
         for i, division in ipairs(CurrentPlace.Army) do
@@ -92,7 +92,7 @@ function CityInfoPenal:draw()
                 for m, company in ipairs(regiment) do
                     love.graphics.setColor(0,0,0)
                     love.graphics.print(company.name, 0 + 154, 0 - 20 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight)
-                    if CurrentPlace.cityinfopenalmode then
+                    if CurrentPlace.PenalOlidmode then
                         company.CButtons:use()
                         love.graphics.setColor(0,0,0)
                         love.graphics.rectangle("line", 0 + 236, 0 - 20 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight, 133, 20*#company + 20)
@@ -111,7 +111,7 @@ function CityInfoPenal:draw()
                     regiment.compHight = regiment.compHight + 4 + 20 * #company
                 end
 
-                if CurrentPlace.cityinfopenalmode then
+                if CurrentPlace.PenalOlidmode then
                     love.graphics.setColor(0.5,0.5,0.5)
                     love.graphics.print('comp.', 0 + 148, 0 + DivisionHight + 20*n + division.rgtHight + 20*#regiment + regiment.compHight)
                     regiment.New_Company.bx = 0 + 189
@@ -125,7 +125,7 @@ function CityInfoPenal:draw()
             love.graphics.setColor(0,0,0)
             love.graphics.rectangle("fill", 0 + 32, 0 + 40 + DivisionHight + 20*#division + division.rgtHight, 338, 2)
 
-            if CurrentPlace.cityinfopenalmode then
+            if CurrentPlace.PenalOlidmode then
                 love.graphics.setColor(0.5,0.5,0.5)
                 love.graphics.print('rgt.', 0 + 48, 0 + 20 + DivisionHight + 20*#division + division.rgtHight)
                 division.New_Regiment.bx = 0 + 80
@@ -137,7 +137,7 @@ function CityInfoPenal:draw()
             DivisionHight = DivisionHight + 44 + 20 * #division + division.rgtHight
         end
 
-        if CurrentPlace.cityinfopenalmode then
+        if CurrentPlace.PenalOlidmode then
             love.graphics.setColor(0.5,0.5,0.5)
             love.graphics.setFont(Rheadfont)
             love.graphics.print('div.', 0 + 32, 0 + DivisionHight)
@@ -148,15 +148,15 @@ function CityInfoPenal:draw()
         end
         love.graphics.setColor(1,1,1)
     love.graphics.setCanvas()
-        love.graphics.draw(AEscreen, CityInfoPenal.window.x, CityInfoPenal.window.y)
-        if CurrentPlace.cityinfopenalmode then
+        love.graphics.draw(AEscreen, PenalOlid.window.x, PenalOlid.window.y)
+        if CurrentPlace.PenalOlidmode then
             love.graphics.setColor(1,1,1)
-            love.graphics.draw(CityInfoPenal_list, CityInfoPenal.window.x, CityInfoPenal.window.y)
+            love.graphics.draw(PenalOlid_list, PenalOlid.window.x, PenalOlid.window.y)
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
                 if not tank.incomp then
                     love.graphics.setColor(0,0,0)
-                    love.graphics.draw(Tank_icon,  CityInfoPenal.window.x + 393, CityInfoPenal.window.y + 24 + 20*i)
-                    love.graphics.print(tank.name..' No.'..tank.number, CityInfoPenal.window.x + 415, CityInfoPenal.window.y + 24 + 20*i)
+                    love.graphics.draw(Tank_icon,  PenalOlid.window.x + 393, PenalOlid.window.y + 24 + 20*i)
+                    love.graphics.print(tank.name..' No.'..tank.number, PenalOlid.window.x + 415, PenalOlid.window.y + 24 + 20*i)
                     love.graphics.setColor(1,1,1)
                 end
             end
@@ -174,7 +174,7 @@ function NewDivision(name)
         function ()
             instance.remove = true
         end,
-        CityInfoPenal.window,
+        PenalOlid.window,
         instance.DButtons
     )
     instance.New_Regiment = Buttons.newWindowToolButton(
@@ -182,7 +182,7 @@ function NewDivision(name)
         function ()
             NewRegiment(instance)
         end,
-        CityInfoPenal.window,
+        PenalOlid.window,
         instance.DButtons
     )
     table.insert(CurrentPlace.Army, instance)
@@ -199,7 +199,7 @@ function NewRegiment(division)
         function ()
             instance.remove = true
         end,
-        CityInfoPenal.window,
+        PenalOlid.window,
         instance.RButtons
     )
     instance.New_Company = Buttons.newWindowToolButton(
@@ -207,7 +207,7 @@ function NewRegiment(division)
         function ()
             NewCompany(instance)
         end,
-        CityInfoPenal.window,
+        PenalOlid.window,
         instance.RButtons
     )
     table.insert(division, instance)
@@ -223,7 +223,7 @@ function NewCompany(regiment)
         function ()
             instance.remove = true
         end,
-        CityInfoPenal.window,
+        PenalOlid.window,
         instance.CButtons
     )
     table.insert(regiment, instance)
