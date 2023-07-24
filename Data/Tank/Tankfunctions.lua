@@ -114,6 +114,7 @@ function Buildtank(place, tank, type, x, y, ...)
             missile.remove = nil
         end
     end
+
     
     setmetatable(tanky, Tank)
     --Tank.__index = Tank
@@ -148,9 +149,35 @@ IsDirectionOpposite = function(x_speed, y_speed, angle)
     return isOppositeDirection
 end
 
-function compare(a, b)
+function Compare(a, b)
     return a.length < b.length
 end
+
+
+function Isalert(unit, alert, x, y)
+    local centerX = unit.center.x
+    local centerY = unit.center.y
+    local radius = unit.vision
+    local a = false
+    for i, target in ipairs(CurrentPlace.exsist_tank) do
+        if math.sqrt((target.location.x - unit.location.x)^2 + (target.location.y - unit.location.y)^2) < unit.vision then
+            if target.type ~= unit.type then
+                local colliders = CurrentPlace.world:queryLine(centerX, centerY, target.location.x, target.location.y, {'All'})
+                if colliders[2] ~= nil then 
+                    table.sort(colliders, Compare) 
+                end
+
+                if colliders[1] == target.collider then
+                    x, y = colliders.test.x, colliders.test.y
+                    enemy = target
+                    alert = true
+                    a = {alert, x, y}
+                end
+            end
+        end
+    end
+    return a
+end 
 
 
 AutoControlfunction = function(tank, dt)
@@ -171,40 +198,26 @@ AutoControlfunction = function(tank, dt)
     local x, y = tank.center.x, tank.center.y
     tank.destination.x, tank.destination.y = tank.location.x, tank.location.y
     
-    
 
-    for i, target in ipairs(CurrentPlace.exsist_tank) do
-        if math.sqrt((target.location.x - tank.location.x)^2 + (target.location.y - tank.location.y)^2) < tank.vision then
-            if target.type ~= tank.type then
-                enemy = target
-                alert = true
-                break
-            end
-        end
+    local data_alert = Isalert(tank, alert, x, y)
+    if data_alert ~= false then 
+        alert, x, y = data_alert[1], data_alert[2], data_alert[3]
     end
 
     if alert then
-        local colliders = CurrentPlace.world:queryLine(centerX, centerY, enemy.location.x, enemy.location.y, {'All'})
-        if colliders[2] ~= nil then 
-            table.sort(colliders, compare) 
-        end
-
-        if colliders[1] == enemy.collider then
-            x, y = colliders.test.x, colliders.test.y
-            tank:FacePosition(x, y)
-            local isaim = tank:AimCheck(x, y, dt)
-            if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
-                if tank.class == 'spg' then
-                    if tank.deployed then
-                        Bomb(tank, enemy.location.x, enemy.location.y)
-                    end
-                else
-                    Shoot(tank)
+        tank:FacePosition(x, y)
+        local isaim = tank:AimCheck(x, y, dt)
+        if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
+            if tank.class == 'spg' then
+                if tank.deployed then
+                    Bomb(tank, enemy.location.x, enemy.location.y)
                 end
+            else
+                Shoot(tank)
             end
-            if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
-                LaunchMissile(tank, enemy)
-            end
+        end
+        if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
+            LaunchMissile(tank, enemy)
         end
     end
 end
