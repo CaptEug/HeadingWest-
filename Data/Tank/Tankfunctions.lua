@@ -148,6 +148,10 @@ IsDirectionOpposite = function(x_speed, y_speed, angle)
     return isOppositeDirection
 end
 
+function compare(a, b)
+    return a.length < b.length
+end
+
 
 AutoControlfunction = function(tank, dt)
     local hp = 50*tank.mob.hp*0.745
@@ -159,7 +163,14 @@ AutoControlfunction = function(tank, dt)
     local alert = false
     --enemy confirmation
     local enemy = {}
+    local centerX = tank.center.x
+    local centerY = tank.center.y
+    local radius = tank.vision
+    local startAngle = 0
+    local endAngle = math.pi/2 
+    local x, y = tank.center.x, tank.center.y
     tank.destination.x, tank.destination.y = tank.location.x, tank.location.y
+    
     
 
     for i, target in ipairs(CurrentPlace.exsist_tank) do
@@ -171,20 +182,29 @@ AutoControlfunction = function(tank, dt)
             end
         end
     end
+
     if alert then
-        tank:FacePosition(enemy.location.x, enemy.location.y)
-        local isaim = tank:AimCheck(enemy.location.x, enemy.location.y, dt)
-        if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
-            if tank.class == 'spg' then
-                if tank.deployed then
-                    Bomb(tank, enemy.location.x, enemy.location.y)
-                end
-            else
-                Shoot(tank)
-            end
+        local colliders = CurrentPlace.world:queryLine(centerX, centerY, enemy.location.x, enemy.location.y, {'All'})
+        if colliders[2] ~= nil then 
+            table.sort(colliders, compare) 
         end
-        if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
-            LaunchMissile(tank, enemy)
+
+        if colliders[1] == enemy.collider then
+            x, y = colliders.test.x, colliders.test.y
+            tank:FacePosition(x, y)
+            local isaim = tank:AimCheck(x, y, dt)
+            if #tank.ammorack > 0 and isaim and tank.reload_timer <= 0 then
+                if tank.class == 'spg' then
+                    if tank.deployed then
+                        Bomb(tank, enemy.location.x, enemy.location.y)
+                    end
+                else
+                    Shoot(tank)
+                end
+            end
+            if #tank.missilerack > 0 and isaim and tank.m_reload_timer <= 0 then
+                LaunchMissile(tank, enemy)
+            end
         end
     end
 end
@@ -325,6 +345,8 @@ function Tank:AimCheck(x, y, dt)
     local hull_angle = self.location.hull_angle
     local ta = self.turret_angle + hull_angle - 0.5*math.pi
     local tspeed = self.turret_t_speed * math.pi/180
+
+    
 
     if angle_to_target <= 0 then
         angle_to_target = angle_to_target + math.pi*2
@@ -514,7 +536,7 @@ function Tank:Update(dt)
 end
 
 function Tank:Draw()
-    Visual(self)
+    --Visual(self)
     local x, y = self.image_location.x, self.image_location.y
     local hull_angle = self.collider:getAngle() - math.pi/2
     local a = self.location.hull_angle
@@ -561,7 +583,7 @@ function Visual(unit)
 
         local endX = centerX + radius * math.cos(B)
         local endY = centerY + radius * math.sin(B)
-        local colliders = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'Wall',"Tankhull"})
+        local colliders = CurrentPlace.world:queryLine(centerX, centerY, endX, endY, {'Wall'})
 
         if colliders == nil then
             if b1[1] == nil then

@@ -638,10 +638,11 @@ function World:queryLine(x1, y1, x2, y2, collision_class_names)
             local a = fixture:getUserData()
             if self:collisionClassInCollisionClassesList(a.collision_class, collision_class_names) then
 
-                lenth = (x-x1)^2 + (y-y1)^2
-                if lenth < (Ray.x-x1)^2 + (Ray.y-y1)^2 then
+                length = (x-x1)^2 + (y-y1)^2
+                if length < (Ray.x-x1)^2 + (Ray.y-y1)^2 then
                     Ray.x, Ray.y= x, y
                 end
+                a.length = length
             end
             table.insert(colliders, a) 
         end

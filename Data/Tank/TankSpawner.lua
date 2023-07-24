@@ -11,6 +11,7 @@ function TankSpawner:loadtank(place, tank)
     tank.collider:setAngularDamping(5)
     tank.collider:setAngle(tank.location.hull_angle)
     tank.functions.move = AutoControlfunction
+    tank.collider.munber = tank.number
     if tank.type == 'friendly' then
         tank.InfoButtons = Buttons.new()
         Buttons.newCampicButton(
