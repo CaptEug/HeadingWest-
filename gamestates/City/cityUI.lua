@@ -35,10 +35,10 @@ function CityUI:load()
     CityInfoPenal_button = Buttons.newToolButton(
         CityInfoPenal_icon,
         function ()
-            if CurrentPlace.openCityInfoPenal then
-                CurrentPlace.openCityInfoPenal = false
+            if CurrentPlace.CityInfoPenalWindow.open then
+                CurrentPlace.CityInfoPenalWindow.open = false
             else
-                CurrentPlace.openCityInfoPenal = true
+                CurrentPlace.CityInfoPenalWindow.open = true
             end
         end,
         cityButtons.DefButtons

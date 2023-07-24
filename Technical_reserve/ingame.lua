@@ -41,7 +41,7 @@ function city:update(dt)
         cam:zoomTo(0.2)
     end
     --mouse input
-    function love.mousepressed(x, y, button)
+    function love.mousepress(x, y, button)
         SelectionMousePressed(x, y, button)
         if CurrentPlace.openTankDesigner then
             TDmousepressed(x, y, button)
@@ -56,7 +56,7 @@ function city:update(dt)
             TPmousepressed(x, y, button)
         end
     end
-    function love.mousereleased(x, y, button)
+    function love.mouserelease(x, y, button)
         SelectionMouseReleased(x, y, button)
         if CurrentPlace.openTankDesigner then
             TDmousereleased(x, y, button)
@@ -73,7 +73,7 @@ function city:update(dt)
         BuildDetact(button)
         
     end
-    function love.mousemoved(x, y, dx, dy)
+    function love.mousemove(x, y, dx, dy)
         if CurrentPlace.openTankDesigner then
             TDmousemoved(x, y, dx, dy)
         end

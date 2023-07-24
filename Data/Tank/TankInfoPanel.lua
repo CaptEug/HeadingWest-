@@ -64,7 +64,7 @@ function TankInfoPanel:draw()
             love.graphics.draw(Picked_icon, x - 10, y  + 32*cam.scale)
         end
     end
-        
+
     CurrentPlace.TankInfoPanelWindow:use(
         function ()
             if TankChoosen.collider then
