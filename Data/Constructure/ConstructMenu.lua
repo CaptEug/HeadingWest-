@@ -49,13 +49,15 @@ function ConstructMenu:update(dt)
     if love.mouse.isDown(2) and ConstructurePicked then
         ConstructurePicked = false
         ConstructMenu.build = false
-        self.query = false
         ConstructureSelected = {}
     end
     for i, constructure in ipairs(ConstructionQueue) do
-        constructure.buildtime = constructure.buildtime - dt
-        if constructure.buildtime <= 0 then
-            BuildConstructure(CurrentPlace, table.remove(ConstructionQueue, i), 'friendly', constructure.x, constructure.y)
+        constructure.building.buildtime = constructure.building.buildtime - dt
+        if constructure.building.buildtime <= 0 then
+            constructure.preBuild:destroy()
+            constructure.preBuild = nil
+            BuildConstructure(CurrentPlace, constructure.building, 'friendly', constructure.building.x, constructure.building.y)
+            table.remove(ConstructionQueue,i)
         end
     end
     if ConstructurePicked == true then
@@ -70,18 +72,19 @@ function ConstructMenu:update(dt)
 end
 
 function ConstructMenu:draw()
-    CurrentPlace.ConstructMenuWindow:start()
-        love.graphics.draw(ConstructMenu_screen)
-        for i, constructure in ipairs(CurrentPlace.constructurelist) do
-            love.graphics.draw(constructure_box, 128 + 156*((i-1)%3), 72 + 118*math.floor((i-1)/3))
-            love.graphics.setColor(0,179/255,0)
-            love.graphics.print(constructure.name, 128 + 156*((i-1)%3) + 4, 72 + 118*math.floor((i-1)/3) + 4)
-            love.graphics.print(constructure.steel_cost, 240 + 156*((i-1)%3), 141 + 118*math.floor((i-1)/3))
-            love.graphics.print(constructure.oil_cost, 240 + 156*((i-1)%3), 161 + 118*math.floor((i-1)/3))
-            love.graphics.setColor(1,1,1)
+    CurrentPlace.ConstructMenuWindow:use(
+        function ()
+            love.graphics.draw(ConstructMenu_screen)
+            for i, constructure in ipairs(CurrentPlace.constructurelist) do
+                love.graphics.draw(constructure_box, 128 + 156*((i-1)%3), 72 + 118*math.floor((i-1)/3))
+                love.graphics.setColor(0,179/255,0)
+                love.graphics.print(constructure.name, 128 + 156*((i-1)%3) + 4, 72 + 118*math.floor((i-1)/3) + 4)
+                love.graphics.print(constructure.steel_cost, 240 + 156*((i-1)%3), 141 + 118*math.floor((i-1)/3))
+                love.graphics.print(constructure.oil_cost, 240 + 156*((i-1)%3), 161 + 118*math.floor((i-1)/3))
+                love.graphics.setColor(1,1,1)
+            end
         end
-    CurrentPlace.ConstructMenuWindow:use()
-
+    )
 
     if  ConstructurePicked  then
         local x, y = cam:cameraCoords(IntX, IntY)
@@ -96,7 +99,8 @@ function ConstructMenu:draw()
         love.graphics.draw(ConstructureSelected.image, x + ConstructureSelected.width/(2/cam.scale), y + ConstructureSelected.length/(2/cam.scale), 0, cam.scale, cam.scale, imagewidth/2, imagelength/2)
     end
 --draw green building preview
-    for i, building in ipairs(ConstructionQueue) do
+    for i, build in ipairs(ConstructionQueue) do
+        local building = build.building
         local x, y = cam:cameraCoords(building.x, building.y)
         local imagewidth, imagelength = building.image:getWidth(), building.image:getHeight()
         love.graphics.setColor(0,179/255,0)
@@ -114,6 +118,10 @@ function BuildDetact(button)
         local x, y = IntX, IntY
         local imagewidth = ConstructureSelected.image:getWidth()
         building.x, building.y = x, y
-        table.insert(ConstructionQueue, building)
+        local preBuild = CurrentPlace.world:newRectangleCollider(x-(ConstructureSelected.preBuild.width-ConstructureSelected.width)/2,y-(ConstructureSelected.preBuild.length-ConstructureSelected.length)/2,ConstructureSelected.preBuild.width,ConstructureSelected.preBuild.length)
+        local construt = {}
+        construt.building = building
+        construt.preBuild = preBuild
+        table.insert(ConstructionQueue, construt)
     end
 end

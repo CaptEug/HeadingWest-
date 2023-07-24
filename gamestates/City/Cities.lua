@@ -169,7 +169,6 @@ function City:init()
     self.world:addCollisionClass('ShipHull', {ignores = {'Ocean'}})
     self.world:addCollisionClass('Constructure')
     self.world:addCollisionClass('Oil',{ignores = {'ShipHull','TankHull'}})
-    self.world:addCollisionClass('PreBuild',{ignores = {'ShipHull','TankHull','Oil','Coast','Ocean','Constructure'}})
     self:loadmap()
     CityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'friendly', 0, 1000)
@@ -209,26 +208,16 @@ function City:update(dt)
     --mouse input
     function love.mousepressed(x, y, button)
         SelectionMousePressed(x, y, button)
-        if CurrentPlace.openCityInfoPenal then
-            AEmousepressed(x, y, button)
-        end
         Windows:mousepressed(x, y, button)
     end
 
     function love.mousereleased(x, y, button)
         SelectionMouseReleased(x, y, button)
-        if CurrentPlace.openCityInfoPenal then
-            AEmousereleased(x, y, button)
-        end
         Windows:mousereleased(x, y, button)
-        
         BuildDetact(button)
     end
     
     function love.mousemoved(x, y, dx, dy)
-        if CurrentPlace.openCityInfoPenal then
-            AEmousemoved(x, y, dx, dy)
-        end
         Windows:mousemoved(x, y)
     end
 end
