@@ -118,6 +118,7 @@ function BuildDetact(button)
         local imagewidth = ConstructureSelected.image:getWidth()
         building.x, building.y = x, y
         local preBuild = CurrentPlace.world:newRectangleCollider(x-(ConstructureSelected.preBuild.width-ConstructureSelected.width)/2,y-(ConstructureSelected.preBuild.length-ConstructureSelected.length)/2,ConstructureSelected.preBuild.width,ConstructureSelected.preBuild.length)
+        preBuild:setType('static')
         local construt = {}
         construt.building = building
         construt.preBuild = preBuild
