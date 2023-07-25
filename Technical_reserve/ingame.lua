@@ -46,7 +46,7 @@ function city:update(dt)
         if CurrentPlace.openTankDesigner then
             TDmousepressed(x, y, button)
         end
-        if CurrentPlace.openCityInfoPenal then
+        if CurrentPlace.openCityInfoPanel then
             AEmousepressed(x, y, button)
         end
         if CurrentPlace.openConstructMenu then
@@ -61,7 +61,7 @@ function city:update(dt)
         if CurrentPlace.openTankDesigner then
             TDmousereleased(x, y, button)
         end
-        if CurrentPlace.openCityInfoPenal then
+        if CurrentPlace.openCityInfoPanel then
             AEmousereleased(x, y, button)
         end
         if CurrentPlace.openConstructMenu then
@@ -77,7 +77,7 @@ function city:update(dt)
         if CurrentPlace.openTankDesigner then
             TDmousemoved(x, y, dx, dy)
         end
-        if CurrentPlace.openCityInfoPenal then
+        if CurrentPlace.openCityInfoPanel then
             AEmousemoved(x, y, dx, dy)
         end
         if CurrentPlace.openConstructMenu then

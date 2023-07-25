@@ -1,7 +1,7 @@
 CityUI = {}
 cityButtons = {}
 require 'gamestates/city/Console'
-require 'gamestates.city.CityInfoPenal'
+require 'gamestates.city.CityInfoPanel'
 require 'Data/Constructure/ConstractureInfoPanel'
 require 'Data/Tank/TankDesigner'
 require 'Data/Tank/TankInfoPanel'
@@ -10,7 +10,7 @@ require 'Data/Constructure/ConstructMenu'
 function CityUI:load()
     Console:load()
     TankInfoPanel:load()
-    CityInfoPenal:load()
+    CityInfoPanel:load()
 
     --Buttons in captured
     cityButtons.DefButtons = Buttons.new()
@@ -32,13 +32,13 @@ function CityUI:load()
         ww - 16,
         wh - 16
     )
-    CityInfoPenal_button = Buttons.newToolButton(
-        CityInfoPenal_icon,
+    CityInfoPanel_button = Buttons.newToolButton(
+        CityInfoPanel_icon,
         function ()
-            if CurrentPlace.CityInfoPenalWindow.open then
-                CurrentPlace.CityInfoPenalWindow.open = false
+            if CurrentPlace.CityInfoPanelWindow.open then
+                CurrentPlace.CityInfoPanelWindow.open = false
             else
-                CurrentPlace.CityInfoPenalWindow.open = true
+                CurrentPlace.CityInfoPanelWindow.open = true
             end
         end,
         cityButtons.DefButtons
@@ -84,7 +84,7 @@ end
 function CityUI:update(dt)
     Console:update(dt)
     TankInfoPanel:update(dt)
-    CityInfoPenal:update(dt)
+    CityInfoPanel:update(dt)
     if CurrentPlace.state == 'Peace' then
         ConstructMenu:update(dt)
         if CurrentPlace.tankfactory then
@@ -109,7 +109,7 @@ function CityUI:draw()
     Console:draw()
     TankInfoPanel:draw()
     ConstructureInfoPanel:draw()
-    CityInfoPenal:draw()
+    CityInfoPanel:draw()
     if CurrentPlace.state == 'Peace' then
         cityButtons.ConstructButtons:use()
         ConstructMenu:draw()

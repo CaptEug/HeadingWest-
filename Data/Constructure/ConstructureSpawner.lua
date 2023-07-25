@@ -9,7 +9,7 @@ function ConstructureSpawner:loadBuilding(building, place)
         building.functions.defence = AutoDefenceMode
     end
     if building.type == 'friendly' then
-        building.openinfopenal = false
+        building.openinfoPanel = false
         building.InfoButtons = Buttons.new()
         Buttons.newCamBoxButton(
             building.width,
@@ -18,10 +18,10 @@ function ConstructureSpawner:loadBuilding(building, place)
                 
             end,
             function ()
-                building.openinfopenal = true
+                building.openinfoPanel = true
             end,
             function ()
-                building.openinfopenal = false
+                building.openinfoPanel = false
             end,
             building.InfoButtons
         )

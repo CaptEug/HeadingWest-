@@ -2,7 +2,7 @@ ConstructureInfoPanel = {}
 
 function ConstructureInfoPanel:draw()
     for i, building in ipairs(CurrentPlace.exsist_building) do
-        if building.openinfopenal then
+        if building.openinfoPanel then
             local x, y = love.mouse.getPosition()
             love.graphics.setColor(34/255, 32/255, 52/255)
             love.graphics.rectangle("fill", x, y, 256, 128)
