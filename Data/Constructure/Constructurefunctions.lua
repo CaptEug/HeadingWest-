@@ -34,7 +34,7 @@ function BuildConstructure(place, constructure, type, x, y)
         building.gun_location = {}
         building.gun_location2 = {}
         building.gun_location3 = {}
-        building.turretdo = {battery_location = {x = building.location.x, y = building.location.y}, gun = {}, ammorack = {}, reload_time = constructure.reload_time,  reload_timer = constructure.reload_time, aready = falsess, angle = 0}
+        building.turretdo = {battery_location = {x = building.location.x, y = building.location.y}, gun = {}, ammorack = {}, reload_time = constructure.reload_time,  reload_timer = constructure.reload_time, aready = false, angle = 0}
     elseif building.class == 'resource' then
         building.steel_production = constructure.steel_production
         building.oil_production = constructure.oil_production

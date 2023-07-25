@@ -116,7 +116,7 @@ Constructures = {
         hitpoint = 500,
         armorthickness = 305,
         ammorack = {
-            {name = '305mmHE', type = 'HE', pentype = 'CE', velocity = 800, mass = 1, pen = 305, TNT_eq = 55}
+            {name = '305mmHE', type = 'HE', pentype = 'CE', velocity = 800, mass = 1, pen = 305, TNT_eq = 55,  shells = love.graphics.newImage('Assets/ships/usa/Weapons/406mmHCShells.png')}
         },
         
         reload_time = 3,
