@@ -87,7 +87,8 @@ function ConstructMenu:draw()
 
     if  ConstructurePicked  then
         local x, y = cam:cameraCoords(IntX, IntY)
-        love.graphics.rectangle('fill', x, y, ConstructureSelected.width*cam.scale,ConstructureSelected.length*cam.scale)
+        love.graphics.rectangle('fill', x-(ConstructureSelected.preBuild.width-ConstructureSelected.width)/2*cam.scale, y-(ConstructureSelected.preBuild.length-ConstructureSelected.length)/2*cam.scale, ConstructureSelected.preBuild.width*cam.scale,ConstructureSelected.preBuild.length*cam.scale)
+        love.graphics.print(tostring(self.canBuild),0,200)
     end
 -- draw cusor building
     if ConstructurePicked then
@@ -118,6 +119,7 @@ function BuildDetact(button)
         local imagewidth = ConstructureSelected.image:getWidth()
         building.x, building.y = x, y
         local preBuild = CurrentPlace.world:newRectangleCollider(x-(ConstructureSelected.preBuild.width-ConstructureSelected.width)/2,y-(ConstructureSelected.preBuild.length-ConstructureSelected.length)/2,ConstructureSelected.preBuild.width,ConstructureSelected.preBuild.length)
+        preBuild:setType('static')
         local construt = {}
         construt.building = building
         construt.preBuild = preBuild
