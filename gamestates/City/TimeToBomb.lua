@@ -27,14 +27,12 @@ function Bomb(unit, x, y)
             local explosive = {}
             explosive.collider = particleworld:newCircleCollider(unit.gun[i].x, unit.gun[i].y, 5)
             local angle = math.random(0, 2 * math.pi)
-            local radius = math.random(0, 300)
+            local radius = math.random(0, 100)
             local randomX = x + radius * math.cos(angle)
             local randomY = y + radius * math.sin(angle)
-            local x,y = 0, 0
+            local x2,y2 = 0, 0
             if unit.battery_location ~= nil then
                 x2, y2 = unit.battery_location.x, unit.battery_location.y
-            else
-                x2, y2 = unit.location.x, unit.location.y
             end
             local ix1, iy1 = math.cos(math.atan2(randomY - y2, randomX - x2)),
                    math.sin(math.atan2(randomY - y2, randomX - x2)) 
@@ -50,7 +48,7 @@ function Bomb(unit, x, y)
             explosive.TNT_eq = bomb.TNT_eq
             explosive.x, explosive.y = explosive.collider:getPosition()
             explosive.angle = angle
-            explosive.ic = bomb.shells
+            explosive.ic = bomb.shells or nil
             explosive.trail = {}
             explosive.fusee = true
             explosive.x, explosive.y = x, y
@@ -106,7 +104,7 @@ function Explosives:draw()
             local height1 = explosive.ic:getHeight()
             love.graphics.draw(explosive.ic,x,y,explosive.angle,1,1,width1/2,height1)
             love.graphics.setColor(1, 0, 0, 0.1)
-            love.graphics.circle("fill", explosive.x, explosive.y, 300)
+            love.graphics.circle("fill", explosive.x, explosive.y, 100)
             love.graphics.setColor(1 ,1 ,1)
         end
         if explosive.trail ~= nil then
