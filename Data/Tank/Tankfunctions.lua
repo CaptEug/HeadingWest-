@@ -288,6 +288,19 @@ MouseControlfunction = function(tank, dt)
     end
 end
 
+
+
+function cammove(tank)
+    local xm, ym = cam:mousePosition()
+    local x1, y1 = tank.location.x, tank.location.y
+    local alen = math.sqrt((x1-xm)^2+(y1-ym)^2)
+   
+    local a = math.atan2(ym-y1, xm-x1)
+    local x2 = alen*math.cos(a)*0.3 + x1
+    local y2 = alen*math.sin(a)*0.3 + y1
+    return x2, y2
+end
+
 ManualControlfunction = function(tank, dt)
     local hp = 50*tank.mob.hp*0.745
     local fx = hp*math.cos(tank.location.hull_angle - 0.5*math.pi)
@@ -299,8 +312,8 @@ ManualControlfunction = function(tank, dt)
     local isaim = tank:AimCheck(mx, my, dt)
     local vx, vy = tank.collider:getLinearVelocity()
     tank.destination.x, tank.destination.y = tank.location.x, tank.location.y
-
-    cam:lookAt(tank.location.x, tank.location.y)
+    local x1, y1 = cammove(tank)
+    cam:lookAt(x1, y1)
 
     if not tank.deployed and love.keyboard.isDown('w') and speed <= max_f then
         tank.collider:applyForce(fx, fy)

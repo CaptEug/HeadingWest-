@@ -61,7 +61,7 @@ function ConstructMenu:update(dt)
         end
     end
     if ConstructurePicked == true then
-        self.queryArea = CurrentPlace.world:queryRectangleArea(IntX+0.001,IntY+0.001, ConstructureSelected.width-0.002,ConstructureSelected.length-0.002,{'All'})
+        self.queryArea = CurrentPlace.world:queryRectangleArea(IntX-(ConstructureSelected.preBuild.width-ConstructureSelected.width)/2+0.001,IntY-(ConstructureSelected.preBuild.length-ConstructureSelected.length)/2+0.001, ConstructureSelected.preBuild.width-0.002,ConstructureSelected.preBuild.length-0.002,{'All'})
         if self.queryArea[1] == nil then
             self.canBuild = true
         else
@@ -87,7 +87,13 @@ function ConstructMenu:draw()
 
     if  ConstructurePicked  then
         local x, y = cam:cameraCoords(IntX, IntY)
+        if self.canBuild then
+            love.graphics.setColor(0, 1, 0, 0.6)
+        else
+            love.graphics.setColor(1, 0, 0, 0.6)
+        end
         love.graphics.rectangle('fill', x-(ConstructureSelected.preBuild.width-ConstructureSelected.width)/2*cam.scale, y-(ConstructureSelected.preBuild.length-ConstructureSelected.length)/2*cam.scale, ConstructureSelected.preBuild.width*cam.scale,ConstructureSelected.preBuild.length*cam.scale)
+        love.graphics.setColor(1, 1, 1, 1)
         love.graphics.print(tostring(self.canBuild),0,200)
     end
 -- draw cusor building

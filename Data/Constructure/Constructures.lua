@@ -58,8 +58,8 @@ Constructures = {
         length = 192,
         vision = 200,
         preBuild = {
-            width = 192,
-            length = 200,
+            width = 64,
+            length = 192,
         },
         steel_cost = 20,
         oil_cost = 0,
