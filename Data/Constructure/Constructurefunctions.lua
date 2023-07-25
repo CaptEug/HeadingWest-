@@ -34,6 +34,7 @@ function BuildConstructure(place, constructure, type, x, y)
         building.gun_location = {}
         building.gun_location2 = {}
         building.gun_location3 = {}
+        building.turretdo = {battery_location = {x = building.location.x, y = building.location.y}, gun = {}, ammorack = {}, reload_time = constructure.reload_time,  reload_timer = constructure.reload_time, aready = falsess, angle = 0}
     elseif building.class == 'resource' then
         building.steel_production = constructure.steel_production
         building.oil_production = constructure.oil_production
@@ -51,6 +52,12 @@ function BuildConstructure(place, constructure, type, x, y)
     ConstructureSpawner:loadBuilding(building, place)
 end
 
+function gunoffset(turret_x_start, turret_y_start, hull_angle)
+    local turret_x = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle)
+    local turret_y = turret_y_start * math.cos(hull_angle) + turret_x_start * math.sin(hull_angle)
+    return turret_x, turret_y
+end
+
 function Constructure:Update(dt)
     local x, y = self.location.x, self.location.y
     --button update
@@ -59,12 +66,15 @@ function Constructure:Update(dt)
             button.bx, button.by = x + self.width/2, y + self.length/2
         end
     end
+
     
     if self.class == 'defence' then
         --location update
         self.turret_location.x, self.turret_location.y = x + self.turret_offset.x, y + self.turret_offset.y
+        if self.gun_location.x then
         self.gun_location.x, self.gun_location.y = self.turret_location.x + self.gun_offset.y*math.sin(self.turret_angle) + self.gun_offset.x*math.cos(self.turret_angle),
                                                    self.turret_location.y - self.gun_offset.y*math.cos(self.turret_angle) + self.gun_offset.x*math.sin(self.turret_angle)
+        end
         if self.gun_offset2 then
             self.gun_location2.x, self.gun_location2.y = self.turret_location.x + self.gun_offset2.y*math.sin(self.turret_angle) + self.gun_offset2.x*math.cos(self.turret_angle),
                                                          self.turret_location.y - self.gun_offset2.y*math.cos(self.turret_angle) + self.gun_offset2.x*math.sin(self.turret_angle)
@@ -73,14 +83,22 @@ function Constructure:Update(dt)
             self.gun_location3.x, self.gun_location3.y = self.turret_location.x + self.gun_offset3.y*math.sin(self.turret_angle) + self.gun_offset3.x*math.cos(self.turret_angle),
                                                          self.turret_location.y - self.gun_offset3.y*math.cos(self.turret_angle) + self.gun_offset3.x*math.sin(self.turret_angle)
         end
+
+        local gun = self.gun_offset
+        self.turretdo.battery_location.x, self.turretdo.battery_location.y = x + 0.5*self.width, y + 0.5*self.length
+        for j, gunl in ipairs(gun) do
+            local x2, y2 = gunl.x, gunl.y
+            local x1, y1 = gunoffset(x2, y2, self.turret_angle)
+            self.turretdo.gun[j] =  {x = x1 + x + 0.5*self.width, y = y1 + y + 0.5*self.length}
+        end
+        self.turretdo.ammorack = self.ammorack
         --timer update
-        self.reload_timer = self.reload_timer - dt
-        self.firing_timer = self.firing_timer - dt
+        self.turretdo.reload_timer = self.turretdo.reload_timer - dt
         --functions update
         self.functions.defence(self, dt)
         --anime update
-        if self.firing_timer <= 0 then
-            self.turret_anime:gotoFrame(1)
+        if self.turretdo.reload_timer <= 0 then
+            self.turretdo.aready = true
         end
         self.turret_anime:update(dt)
     end
@@ -127,11 +145,11 @@ AutoDefenceMode = function (building, dt)
     end
     if alert then
         local isaim = building:AimCheck(enemy.location.x, enemy.location.y, dt)
-        if isaim and building.reload_timer <= 0 then
-            if building.mode == 'bomb' then
-                Bomb(building, enemy.location.x, enemy.location.y)
+        if isaim and building.turretdo.reload_timer <= 0 then
+            if building.mode == 'bomb' and building.turretdo.aready == true then
+                Bomb(building.turretdo, enemy.location.x, enemy.location.y)
+                building.turretdo.aready = false
             else
-                Shoot(building)
             end
         end
     end
