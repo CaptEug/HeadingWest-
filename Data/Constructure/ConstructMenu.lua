@@ -87,7 +87,8 @@ function ConstructMenu:draw()
 
     if  ConstructurePicked  then
         local x, y = cam:cameraCoords(IntX, IntY)
-        love.graphics.rectangle('fill', x, y, ConstructureSelected.width*cam.scale,ConstructureSelected.length*cam.scale)
+        love.graphics.rectangle('fill', x-(ConstructureSelected.preBuild.width-ConstructureSelected.width)/2*cam.scale, y-(ConstructureSelected.preBuild.length-ConstructureSelected.length)/2*cam.scale, ConstructureSelected.preBuild.width*cam.scale,ConstructureSelected.preBuild.length*cam.scale)
+        love.graphics.print(tostring(self.canBuild),0,200)
     end
 -- draw cusor building
     if ConstructurePicked then

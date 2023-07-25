@@ -103,8 +103,8 @@ Constructures = {
         width = 288,
         length = 288,
         preBuild = {
-            width = 512,
-            length = 512,
+            width = 544,
+            length = 544,
         },
         vision = 1800,
         turret_offset = {x = 144, y = 144},
