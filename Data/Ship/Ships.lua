@@ -49,7 +49,7 @@ Ships = {
         el_ammorack = {
             {name = '127mmHE', type = 'HE', pentype = 'CE', velocity = 200, mass = 0.1, pen = 127, TNT_eq = 5},
         },
-        el_reload_time = 1,
+        el_reload_time = 3,
         reload_time = 30,
     }
 }
