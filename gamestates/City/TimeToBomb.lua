@@ -30,10 +30,16 @@ function Bomb(unit, x, y)
             local radius = math.random(0, 300)
             local randomX = x + radius * math.cos(angle)
             local randomY = y + radius * math.sin(angle)
-            local ix1, iy1 = math.cos(math.atan2(randomY - unit.battery_location.y, randomX - unit.battery_location.x)),
-                   math.sin(math.atan2(randomY - unit.battery_location.y, randomX - unit.battery_location.x))
+            local x,y = 0, 0
+            if unit.battery_location ~= nil then
+                x2, y2 = unit.battery_location.x, unit.battery_location.y
+            else
+                x2, y2 = unit.location.x, unit.location.y
+            end
+            local ix1, iy1 = math.cos(math.atan2(randomY - y2, randomX - x2)),
+                   math.sin(math.atan2(randomY - y2, randomX - x2)) 
             local distance1 = math.sqrt((randomX - unit.gun[i].x)^2 + (randomY - unit.gun[i].y)^2)
-            local angle = 0.5*math.pi + math.atan2(randomY - unit.battery_location.y, randomX - unit.battery_location.x)
+            local angle = 0.5*math.pi + math.atan2(randomY - y2, randomX - x2)
             explosive.collider:setMass(bomb.mass)
             explosive.collider:setBullet(true)
             explosive.collider:setLinearVelocity(ix1*bomb.velocity, iy1*bomb.velocity)

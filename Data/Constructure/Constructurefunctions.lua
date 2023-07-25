@@ -34,6 +34,7 @@ function BuildConstructure(place, constructure, type, x, y)
         building.gun_location = {}
         building.gun_location2 = {}
         building.gun_location3 = {}
+        building.turretdo = {gun = {}, ammorack = {}}
     elseif building.class == 'resource' then
         building.steel_production = constructure.steel_production
         building.oil_production = constructure.oil_production
@@ -51,6 +52,12 @@ function BuildConstructure(place, constructure, type, x, y)
     ConstructureSpawner:loadBuilding(building, place)
 end
 
+function gunoffset(turret_x_start, turret_y_start, hull_angle)
+    local turret_x = turret_x_start * math.cos(hull_angle) - turret_y_start * math.sin(hull_angle)
+    local turret_y = turret_y_start * math.cos(hull_angle) + turret_x_start * math.sin(hull_angle)
+    return turret_x, turret_y
+end
+
 function Constructure:Update(dt)
     local x, y = self.location.x, self.location.y
     --button update
@@ -59,12 +66,24 @@ function Constructure:Update(dt)
             button.bx, button.by = x + self.width/2, y + self.length/2
         end
     end
+    if self.class == 'defence' then
+        local gun = self.gun_offset
+        for j, gunl in ipairs(gun) do
+            local x, y = gunl.x, gunl.y
+            local x1, y1 = gunoffset(x, y, self.turret_angle)
+            self.turretdo.gun[j] =  {x = x1 + self.location.x, y = y1 + self.location.y}
+        end
+        self.turretdo.ammorack = self.ammorack
+        self.turretdo.location = self.location
+    end
     
     if self.class == 'defence' then
         --location update
         self.turret_location.x, self.turret_location.y = x + self.turret_offset.x, y + self.turret_offset.y
+        if self.gun_location.x then
         self.gun_location.x, self.gun_location.y = self.turret_location.x + self.gun_offset.y*math.sin(self.turret_angle) + self.gun_offset.x*math.cos(self.turret_angle),
                                                    self.turret_location.y - self.gun_offset.y*math.cos(self.turret_angle) + self.gun_offset.x*math.sin(self.turret_angle)
+        end
         if self.gun_offset2 then
             self.gun_location2.x, self.gun_location2.y = self.turret_location.x + self.gun_offset2.y*math.sin(self.turret_angle) + self.gun_offset2.x*math.cos(self.turret_angle),
                                                          self.turret_location.y - self.gun_offset2.y*math.cos(self.turret_angle) + self.gun_offset2.x*math.sin(self.turret_angle)
@@ -129,7 +148,7 @@ AutoDefenceMode = function (building, dt)
         local isaim = building:AimCheck(enemy.location.x, enemy.location.y, dt)
         if isaim and building.reload_timer <= 0 then
             if building.mode == 'bomb' then
-                Bomb(building, enemy.location.x, enemy.location.y)
+                Bomb(building.turretdo, enemy.location.x, enemy.location.y)
             else
                 Shoot(building)
             end
