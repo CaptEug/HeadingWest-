@@ -1,12 +1,12 @@
-PenalOlid = {}
+PanelOlid = {}
 
-function PenalOlid:load()
+function PanelOlid:load()
     AEscreen = love.graphics.newCanvas(432, 560)
-    PenalOlid.window = {x = 32, y = 32, w = 400, h = 560}
-    PenalOlid.dragging = false
-    CurrentPlace.openPenalOlid = false
-    CurrentPlace.PenalOlidmode = false
-    PenalOlid.Buttons = Buttons.new()
+    PanelOlid.window = {x = 32, y = 32, w = 400, h = 560}
+    PanelOlid.dragging = false
+    CurrentPlace.openPanelOlid = false
+    CurrentPlace.PanelOlidmode = false
+    PanelOlid.Buttons = Buttons.new()
     CurrentPlace.Army.AButtons = Buttons.new()
     DivisionNum = 1
     
@@ -14,14 +14,14 @@ function PenalOlid:load()
     EditArmy = Buttons.newWindowToolButton(
         Edit_button,
         function ()
-            if CurrentPlace.PenalOlidmode then
-                CurrentPlace.PenalOlidmode = false
+            if CurrentPlace.PanelOlidmode then
+                CurrentPlace.PanelOlidmode = false
             else
-                CurrentPlace.PenalOlidmode = true
+                CurrentPlace.PanelOlidmode = true
             end
         end,
-        PenalOlid.window,
-        PenalOlid.Buttons,
+        PanelOlid.window,
+        PanelOlid.Buttons,
         0 + 363,
         0 + 53,
         Edit_button,
@@ -35,12 +35,12 @@ function PenalOlid:load()
             NewDivision('division#'..tostring(DivisionNum))
             DivisionNum = DivisionNum + 1
         end,
-        PenalOlid.window,
+        PanelOlid.window,
         CurrentPlace.Army.AButtons
     )
 end
 
-function PenalOlid:update(dt)
+function PanelOlid:update(dt)
     for i, division in ipairs(CurrentPlace.Army) do
         if division.remove then
             table.remove(CurrentPlace.Army, i)
@@ -58,17 +58,17 @@ function PenalOlid:update(dt)
     end
 end
 
-function PenalOlid:draw()
-    if CurrentPlace.openPenalOlid then
+function PanelOlid:draw()
+    if CurrentPlace.openPanelOlid then
     love.graphics.setCanvas(AEscreen)
-        love.graphics.draw(PenalOlid_screen)
+        love.graphics.draw(PanelOlid_screen)
         love.graphics.setColor(0,0,0)
         love.graphics.setFont(Rheadfont)
         love.graphics.print(CurrentPlace.name, 0 + 32, 0 + 24)
         love.graphics.setFont(Rtextfont)
         love.graphics.print(CurrentPlace.oil_stored, 100, 40)
         love.graphics.print(CurrentPlace.steel_stored, 100, 60)
-        PenalOlid.Buttons:use()
+        PanelOlid.Buttons:use()
         
         DivisionHight = 72
         for i, division in ipairs(CurrentPlace.Army) do
@@ -92,7 +92,7 @@ function PenalOlid:draw()
                 for m, company in ipairs(regiment) do
                     love.graphics.setColor(0,0,0)
                     love.graphics.print(company.name, 0 + 154, 0 - 20 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight)
-                    if CurrentPlace.PenalOlidmode then
+                    if CurrentPlace.PanelOlidmode then
                         company.CButtons:use()
                         love.graphics.setColor(0,0,0)
                         love.graphics.rectangle("line", 0 + 236, 0 - 20 + DivisionHight + 20*n + division.rgtHight + 20*m + regiment.compHight, 133, 20*#company + 20)
@@ -111,7 +111,7 @@ function PenalOlid:draw()
                     regiment.compHight = regiment.compHight + 4 + 20 * #company
                 end
 
-                if CurrentPlace.PenalOlidmode then
+                if CurrentPlace.PanelOlidmode then
                     love.graphics.setColor(0.5,0.5,0.5)
                     love.graphics.print('comp.', 0 + 148, 0 + DivisionHight + 20*n + division.rgtHight + 20*#regiment + regiment.compHight)
                     regiment.New_Company.bx = 0 + 189
@@ -125,7 +125,7 @@ function PenalOlid:draw()
             love.graphics.setColor(0,0,0)
             love.graphics.rectangle("fill", 0 + 32, 0 + 40 + DivisionHight + 20*#division + division.rgtHight, 338, 2)
 
-            if CurrentPlace.PenalOlidmode then
+            if CurrentPlace.PanelOlidmode then
                 love.graphics.setColor(0.5,0.5,0.5)
                 love.graphics.print('rgt.', 0 + 48, 0 + 20 + DivisionHight + 20*#division + division.rgtHight)
                 division.New_Regiment.bx = 0 + 80
@@ -137,7 +137,7 @@ function PenalOlid:draw()
             DivisionHight = DivisionHight + 44 + 20 * #division + division.rgtHight
         end
 
-        if CurrentPlace.PenalOlidmode then
+        if CurrentPlace.PanelOlidmode then
             love.graphics.setColor(0.5,0.5,0.5)
             love.graphics.setFont(Rheadfont)
             love.graphics.print('div.', 0 + 32, 0 + DivisionHight)
@@ -148,15 +148,15 @@ function PenalOlid:draw()
         end
         love.graphics.setColor(1,1,1)
     love.graphics.setCanvas()
-        love.graphics.draw(AEscreen, PenalOlid.window.x, PenalOlid.window.y)
-        if CurrentPlace.PenalOlidmode then
+        love.graphics.draw(AEscreen, PanelOlid.window.x, PanelOlid.window.y)
+        if CurrentPlace.PanelOlidmode then
             love.graphics.setColor(1,1,1)
-            love.graphics.draw(PenalOlid_list, PenalOlid.window.x, PenalOlid.window.y)
+            love.graphics.draw(PanelOlid_list, PanelOlid.window.x, PanelOlid.window.y)
             for i, tank in ipairs(CurrentPlace.exsist_tank) do
                 if not tank.incomp then
                     love.graphics.setColor(0,0,0)
-                    love.graphics.draw(Tank_icon,  PenalOlid.window.x + 393, PenalOlid.window.y + 24 + 20*i)
-                    love.graphics.print(tank.name..' No.'..tank.number, PenalOlid.window.x + 415, PenalOlid.window.y + 24 + 20*i)
+                    love.graphics.draw(Tank_icon,  PanelOlid.window.x + 393, PanelOlid.window.y + 24 + 20*i)
+                    love.graphics.print(tank.name..' No.'..tank.number, PanelOlid.window.x + 415, PanelOlid.window.y + 24 + 20*i)
                     love.graphics.setColor(1,1,1)
                 end
             end
@@ -174,7 +174,7 @@ function NewDivision(name)
         function ()
             instance.remove = true
         end,
-        PenalOlid.window,
+        PanelOlid.window,
         instance.DButtons
     )
     instance.New_Regiment = Buttons.newWindowToolButton(
@@ -182,7 +182,7 @@ function NewDivision(name)
         function ()
             NewRegiment(instance)
         end,
-        PenalOlid.window,
+        PanelOlid.window,
         instance.DButtons
     )
     table.insert(CurrentPlace.Army, instance)
@@ -199,7 +199,7 @@ function NewRegiment(division)
         function ()
             instance.remove = true
         end,
-        PenalOlid.window,
+        PanelOlid.window,
         instance.RButtons
     )
     instance.New_Company = Buttons.newWindowToolButton(
@@ -207,7 +207,7 @@ function NewRegiment(division)
         function ()
             NewCompany(instance)
         end,
-        PenalOlid.window,
+        PanelOlid.window,
         instance.RButtons
     )
     table.insert(division, instance)
@@ -223,7 +223,7 @@ function NewCompany(regiment)
         function ()
             instance.remove = true
         end,
-        PenalOlid.window,
+        PanelOlid.window,
         instance.CButtons
     )
     table.insert(regiment, instance)
