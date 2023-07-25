@@ -94,6 +94,32 @@ function ConstructMenu:draw()
         end
         love.graphics.rectangle('fill', x-(ConstructureSelected.preBuild.width-ConstructureSelected.width)/2*cam.scale, y-(ConstructureSelected.preBuild.length-ConstructureSelected.length)/2*cam.scale, ConstructureSelected.preBuild.width*cam.scale,ConstructureSelected.preBuild.length*cam.scale)
         love.graphics.setColor(1, 1, 1, 1)
+        local ver = {
+            {
+                IntX-32,IntY-32,
+                0,0,
+                255,255,255,255
+            },
+            {
+                IntX-32,IntY-64,
+                0,0,
+                255,255,255,255
+            },           
+            {
+                IntX-64,IntY-64,
+                0,0,
+                255,255,255,255
+            },           
+            {
+                IntX-64,IntY-32,
+                0,0,
+                255,255,255,255
+            },
+
+        }
+        local mesh = love.graphics.newMesh(ver,'fan','dynamic')
+        mesh:setTexture(love.graphics.newImage('Assets/constructures/ConstructArea.png'))
+        love.graphics.draw(mesh,IntX,IntY)
         love.graphics.print(tostring(self.canBuild),0,200)
     end
 -- draw cusor building
