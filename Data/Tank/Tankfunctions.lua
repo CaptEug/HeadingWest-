@@ -233,11 +233,9 @@ MouseControlfunction = function(tank, dt)
     --enemy confirmation
     local enemy = {}
 
-    
     if love.mouse.isDown(2) then
         tank.destination.x, tank.destination.y = cam:mousePosition()
     end
-
 
     if not tank.deployed and tank.destination.x ~= tank.location.x  then
         local angle_to_mouse = math.atan2(tank.destination.y - tank.location.y, tank.destination.x - tank.location.x)
@@ -288,9 +286,6 @@ MouseControlfunction = function(tank, dt)
             LaunchMissile(tank, enemy)
         end
     end
-    
-
-   
 end
 
 ManualControlfunction = function(tank, dt)
@@ -475,8 +470,7 @@ function Tank:Update(dt)
     local vx, vy = self.collider:getLinearVelocity()
     self.velocity = {vx = vx, vy = vy, v = math.sqrt(vx^2 + vy^2)}
     self.location = {x = x, y = y, hull_angle = hull_angle}
-    self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)  
-    
+    self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)
 
     self.image_location.x, self.image_location.y = x + self.image_offset*math.sin(hull_angle), y - self.image_offset*math.cos(hull_angle)     --adjust collider's and image's location
     self.turret_location.x, self.turret_location.y = self.image_location.x - self.turret_offset*math.sin(hull_angle), self.image_location.y + self.turret_offset*math.cos(hull_angle)
