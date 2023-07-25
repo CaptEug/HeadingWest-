@@ -48,7 +48,7 @@ function Bomb(unit, x, y)
             explosive.TNT_eq = bomb.TNT_eq
             explosive.x, explosive.y = explosive.collider:getPosition()
             explosive.angle = angle
-            explosive.ic = bomb.shells or nil
+            explosive.pic = bomb.shells or nil
             explosive.trail = {}
             explosive.fusee = true
             explosive.x, explosive.y = x, y
@@ -63,7 +63,7 @@ end
 
 function Explosives:update(dt)
     for i, explosive in ipairs(self) do
-        if explosive.ic then
+        if explosive.pic then
             local sx, sy = explosive.collider:getPosition()
             table.insert(explosive.trail, {x = sx, y = sy})
         elseif explosive.trail ~= nil then
@@ -73,7 +73,7 @@ function Explosives:update(dt)
         if explosive.timer <= 0 and explosive.fusee == true then
             Explode(explosive,explosive.collider)
             explosive.collider:destroy()
-            explosive.ic = false
+            explosive.pic = false
         end
         if explosive.trail ~= nil then
             if #explosive.trail == 0 then
@@ -98,11 +98,11 @@ function Explosives:draw()
         explosion.anime:draw(Explosion_sheet, explosion.x, explosion.y, 0, 1, 1, 50, 50)
     end
     for i, explosive in ipairs(self) do 
-        if explosive.ic then
+        if explosive.pic then
             local x, y = explosive.collider:getPosition()
-            local width1 = explosive.ic:getWidth()
-            local height1 = explosive.ic:getHeight()
-            love.graphics.draw(explosive.ic,x,y,explosive.angle,1,1,width1/2,height1)
+            local width1 = explosive.pic:getWidth()
+            local height1 = explosive.pic:getHeight()
+            love.graphics.draw(explosive.pic,x,y,explosive.angle,1,1,width1/2,height1)
             love.graphics.setColor(1, 0, 0, 0.1)
             love.graphics.circle("fill", explosive.x, explosive.y, 100)
             love.graphics.setColor(1 ,1 ,1)
