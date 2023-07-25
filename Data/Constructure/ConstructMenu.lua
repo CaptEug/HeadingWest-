@@ -61,8 +61,7 @@ function ConstructMenu:update(dt)
         end
     end
     if ConstructurePicked == true then
-        local x, y = cam:mousePosition()
-        self.queryArea = CurrentPlace.world:queryRectangleArea(x,y, ConstructureSelected.width,ConstructureSelected.length,{'All'})
+        self.queryArea = CurrentPlace.world:queryRectangleArea(IntX+0.001,IntY+0.001, ConstructureSelected.width-0.002,ConstructureSelected.length-0.002,{'All'})
         if self.queryArea[1] == nil then
             self.canBuild = true
         else
