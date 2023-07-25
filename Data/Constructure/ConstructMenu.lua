@@ -61,7 +61,7 @@ function ConstructMenu:update(dt)
         end
     end
     if ConstructurePicked == true then
-        self.queryArea = CurrentPlace.world:queryRectangleArea(IntX+0.001,IntY+0.001, ConstructureSelected.width-0.002,ConstructureSelected.length-0.002,{'All'})
+        self.queryArea = CurrentPlace.world:queryRectangleArea(IntX-(ConstructureSelected.preBuild.width-ConstructureSelected.width)/2+0.001,IntY-(ConstructureSelected.preBuild.length-ConstructureSelected.length)/2+0.001, ConstructureSelected.preBuild.width-0.002,ConstructureSelected.preBuild.length-0.002,{'All'})
         if self.queryArea[1] == nil then
             self.canBuild = true
         else
