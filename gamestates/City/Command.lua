@@ -6,7 +6,9 @@ function Command:load()
         buffer = '',
         commands = {}
     }
-
+    Command.commands['give_money'] = function(amount)
+        -- 增加金钱量代码
+    end
 
 end
 
@@ -20,11 +22,11 @@ end
 
 function love.keypressed(key)
     if key == 'return' then
-       local commands, params = console.buffer:match('(%w+)%s*(.*)')
-       console.commands[commands](params)
-       console.buffer = ''
+        local commands, params = console.buffer:match('(%w+)%s*(.*)')
+        Command.commands[commands](params)
+        Command.buffer = ''
     elseif key == 'backspace' then
-       console.buffer = console.buffer:sub(1, -2)
+        Command.buffer = Command.buffer:sub(1, -2)
     end
  end
 
