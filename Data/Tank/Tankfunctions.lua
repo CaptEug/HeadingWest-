@@ -86,7 +86,8 @@ function Buildtank(place, tank, type, x, y, ...)
         picked = false,
         leader = false,
         incomp = false,
-        deployed = false
+        deployed = false,
+        caml = {x = 0, y = 0}
     }
     if type == 'enemy' then
         while #tanky.ammorack < tanky.ammorack_size do
@@ -288,17 +289,24 @@ MouseControlfunction = function(tank, dt)
     end
 end
 
+function lerp(a, b, t)
+    return a + (b - a) * t
+end
 
 
-function cammove(tank)
+function cammove(tank, length, dt)
     local xm, ym = cam:mousePosition()
     local x1, y1 = tank.location.x, tank.location.y
     local alen = math.sqrt((x1-xm)^2+(y1-ym)^2)
    
     local a = math.atan2(ym-y1, xm-x1)
-    local x2 = alen*math.cos(a)*0.3 + x1
-    local y2 = alen*math.sin(a)*0.3 + y1
-    return x2, y2
+    local x2 = alen*math.cos(a)*length 
+    local y2 = alen*math.sin(a)*length 
+    local ease = 0.05
+    tank.caml.x = lerp(tank.caml.x, x2, ease)
+    tank.caml.y = lerp(tank.caml.y, y2, ease)
+    local newX, newY = tank.caml.x + x1, tank.caml.y + y1
+    cam:lookAt(newX, newY)
 end
 
 ManualControlfunction = function(tank, dt)
@@ -312,8 +320,11 @@ ManualControlfunction = function(tank, dt)
     local isaim = tank:AimCheck(mx, my, dt)
     local vx, vy = tank.collider:getLinearVelocity()
     tank.destination.x, tank.destination.y = tank.location.x, tank.location.y
-    local x1, y1 = cammove(tank)
-    cam:lookAt(x1, y1)
+    if love.mouse.isDown(2) then
+        cammove(tank, 0.4, dt)
+    else
+        cammove(tank, 0.1, dt)
+    end
 
     if not tank.deployed and love.keyboard.isDown('w') and speed <= max_f then
         tank.collider:applyForce(fx, fy)
