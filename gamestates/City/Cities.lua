@@ -16,6 +16,7 @@ Moskva.oil_stored = 0
 Moskva.steel_stored = 0
 Moskva.oil_production = 0
 Moskva.steel_production = 0
+Moskva.researchinstitude = {}
 Moskva.map = sti("Assets/maps/Testmap.lua")
 Moskva.world = wf.newWorld(0, 0)
 Moskva.Structure = {}
@@ -173,7 +174,7 @@ function City:init()
     CityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'friendly', 0, 1000)
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
-    Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
+    --Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
     NewSaving:LoadTanks()
 end
 

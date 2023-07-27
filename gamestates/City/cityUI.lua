@@ -75,6 +75,22 @@ function CityUI:load()
                 48
             )
         end
+        if CurrentPlace.researchinstitude then
+            --TankDesigner:load()
+            cityButtons.ResearchInsButtons = Buttons.new()
+            TechTree = Buttons.newToolButton(
+                TechTreePanel_icon,
+                function ()
+                    --[[if CurrentPlace.TankDesignerWindow.open then
+                        CurrentPlace.TankDesignerWindow.open = false
+                    else
+                        CurrentPlace.TankDesignerWindow.open = true
+                    end]]
+                end,
+                cityButtons.ResearchInsButtons,
+                112
+            )
+        end
     end
     if CurrentPlace.state == 'Battlefield' then
 
@@ -116,6 +132,10 @@ function CityUI:draw()
         if CurrentPlace.tankfactory then
             cityButtons.TankFacButtons:use()
             TankDesigner:draw()
+        end
+        if CurrentPlace.researchinstitude then
+            cityButtons.ResearchInsButtons:use()
+            --TankDesigner:draw()
         end
     end
     if CurrentPlace.state == 'Battlefield' then
