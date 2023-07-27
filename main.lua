@@ -20,6 +20,8 @@ require 'gamestates/pause'
 require 'gamestates.Worldmap.Worldmap'
 require 'gamestates/SettingMenu'
 
+require 'Data/Constructure/ConstructManager'
+
 --Assets registered
 --country
 Earth = love.graphics.newImage('Assets/countries/WorldMap.png')
