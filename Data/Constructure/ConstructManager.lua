@@ -47,7 +47,11 @@ end
 function ConstructManager:drawPreBuild()
     for i, obj in ipairs(CurrentPlace.exsist_building) do
         local x, y = cam:cameraCoords(obj.location.x, obj.location.y)
-        love.graphics.setColor(0, 1, 0, 0.6)
+        if ConstructMenu.canBuild then
+            love.graphics.setColor(0, 1, 0, 0.6)
+        else
+            love.graphics.setColor(1, 0, 0, 0.6)
+        end
         love.graphics.rectangle('fill', x - (obj.preBuild.width-obj.width)/2*cam.scale, y - (obj.preBuild.length-obj.length)/2*cam.scale, obj.preBuild.width*cam.scale,obj.preBuild.length*cam.scale)
         love.graphics.setColor(1, 1, 1, 1)
     end
