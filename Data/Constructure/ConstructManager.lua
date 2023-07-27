@@ -10,32 +10,34 @@ function ConstructManager:query(object)
         local objY = obj.location.y - (obj.preBuild.length-obj.length)/2
         if x >= objX and x <= objX + obj.preBuild.width and y >= objY and y <= objY + obj.preBuild.length then
             canBuild = false
+            break
         end
         if  x + width >= objX and x + width <= objX + obj.preBuild.width and y >= objY and y <= objY + obj.preBuild.length then
             canBuild = false
+            break
         end
         if x + width >= objX and x + width <= objX + obj.preBuild.width and y + length >= objY and y + length <= objY + obj.preBuild.length then
             canBuild = false
+            break
         end
         if  x >= objX and x <= objX + obj.preBuild.width and y + length >= objY and y + length <= objY + obj.preBuild.length then
             canBuild = false
+            break
         end
-
         if objX >= x and objX <= x + width and objY >= y and objY <= y + length then
             canBuild = false
+            break
         end
         if  objX + obj.preBuild.width >= x and objX + obj.preBuild.width <= x + width and objY >= y and objY <= y + length then
             canBuild = false
+            break
         end
         if objX + obj.preBuild.width >= x and objX + obj.preBuild.width <= x + obj.width and objY + obj.preBuild.length >= y and objY + obj.preBuild.length <= y + length then
             canBuild = false
+            break
         end
         if  objX >= x and objX <= x + width and objY + obj.preBuild.length >= y and objY + obj.preBuild.length <= y + length then
             canBuild = false
-        end
-
-
-        if canBuild ==false then
             break
         end
     end
