@@ -120,10 +120,10 @@ function ConstructMenu:draw()
 -- draw cusor building
     if ConstructurePicked then
         local x, y = cam:cameraCoords(IntX, IntY)
-        local odd = false
         local imagewidth, imagelength = ConstructureSelected.image:getWidth(), ConstructureSelected.image:getHeight()
         Cursormode = 'Constructing'
         love.graphics.draw(ConstructureSelected.image, x + ConstructureSelected.width/(2/cam.scale), y + ConstructureSelected.length/(2/cam.scale), 0, cam.scale, cam.scale, imagewidth/2, imagelength/2)
+        ConstructManager:drawPreBuild()
     end
 --draw green building preview
     for i, build in ipairs(ConstructionQueue) do

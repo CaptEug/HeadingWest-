@@ -257,7 +257,6 @@ function City:draw()
         TankProjectiles:draw()
         Missiles:draw()
     cam:detach()
-
     CityUI:draw()
 end
 
