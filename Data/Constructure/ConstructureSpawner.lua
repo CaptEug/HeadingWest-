@@ -2,9 +2,11 @@ ConstructureSpawner = {}
 
 function ConstructureSpawner:loadBuilding(building, place)
     local x, y = building.location.x, building.location.y
-    building.collider = CurrentPlace.world:newRectangleCollider(x, y, building.width, building.length)
-    building.collider:setType('static')
-    building.collider:setCollisionClass('Constructure')
+    if building.collision then
+        building.collider = CurrentPlace.world:newRectangleCollider(x, y, building.width, building.length)
+        building.collider:setType('static')
+        building.collider:setCollisionClass('Constructure')
+    end
     if building.class == 'defence' then
         building.functions.defence = AutoDefenceMode
     end

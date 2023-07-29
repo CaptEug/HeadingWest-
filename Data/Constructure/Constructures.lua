@@ -29,7 +29,8 @@ Constructures = {
     SteelForge = {
         name = 'Steel Forge',
         class = 'resource',
-        requirement = '',
+        requirement = 'iron mine',
+        collsion = true,
         width = 128,
         length = 128,
         preBuild = {
@@ -54,6 +55,7 @@ Constructures = {
     OilStorage = {
         name = 'Oil Storage',
         class = 'resource',
+        collsion = true,
         width = 64,
         length = 192,
         vision = 200,
@@ -77,6 +79,7 @@ Constructures = {
     Pipe = {
         name = 'Pipe',
         class = 'logistic',
+        collsion = true,
         width = 32,
         length = 32,
         preBuild = {
@@ -100,6 +103,7 @@ Constructures = {
         class = 'defence',
         mode = 'bomb',
         requirement = 'none',
+        collsion = true,
         width = 288,
         length = 288,
         preBuild = {
@@ -128,6 +132,29 @@ Constructures = {
         base_image = love.graphics.newImage('Assets/constructures/defence/MaximGorky/MaximGorky_Base.png'),
         anime_sheet = love.graphics.newImage('Assets/constructures/defence/MaximGorky/MaximOpenFire.png'),
         anime_grid = anim8.newGrid(512, 512, 512*10, 512*1),
+    },
+
+    TankAssembler = {
+        name = 'Tank Assembler',
+        class = 'logistic',
+        requirement = 'floor',
+        collsion = false,
+        width = 128,
+        length = 192,
+        preBuild = {
+            width = 128,
+            length = 192
+        },
+        vision = 0,
+        steel_cost = 1,
+        oil_cost = 0,
+        hitpoint = 10,
+        armorthickness = 0,
+        icon = Icon_in_progress,
+        image = love.graphics.newImage('Assets/constructures/logistic/TankAssembler/TankAssembler.png'),
+        anime_sheet = love.graphics.newImage('Assets/constructures/logistic/TankAssembler/TankAssembler.png'),
+        buildtime = 1,
+        fixedbuildtime = 1
     }
 }
 
@@ -135,5 +162,6 @@ table.insert(Nizhny_Tagil.constructurelist, Constructures.OilDriller)
 table.insert(Nizhny_Tagil.constructurelist, Constructures.SteelForge)
 table.insert(Nizhny_Tagil.constructurelist, Constructures.OilStorage)
 table.insert(Nizhny_Tagil.constructurelist, Constructures.Pipe)
+table.insert(Nizhny_Tagil.constructurelist, Constructures.TankAssembler)
 table.insert(Nizhny_Tagil.constructurelist, Constructures.Maxim_Gorky)
 
