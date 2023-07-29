@@ -202,6 +202,7 @@ function TankDesigner:load()
         Build_icon,
         function ()
             local tank = copytable(TankPresent)
+            TankDesigner:slot_distribution(CurrentPlace, tank)
             table.insert(CurrentPlace.ProductionQueue, 1, tank)
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber + 1
             CostResource(TankDesigner.tank_steel_cost, TankDesigner.tank_oil_cost)
@@ -272,7 +273,7 @@ function TankDesigner:update(dt)
     else
         TankDesigner.lack_resource = false
     end
-    
+
     --tank production process
     for i, tank in ipairs(CurrentPlace.ProductionQueue) do
         if tank.buildtime <= 0 then
@@ -280,9 +281,9 @@ function TankDesigner:update(dt)
             CurrentPlace.ProductionNumber = CurrentPlace.ProductionNumber - 1
         end
         if tank.buildtime == tank.fixedbuildtime then
-            if CurrentPlace.AssemblerAvailable then
+            --if CurrentPlace.AssemblerAvailable then
                 TankDesigner:slot_distribution(CurrentPlace, tank)
-            end
+            --end
         end
     end
 end
@@ -362,7 +363,7 @@ function TankDesigner:draw()
             love.graphics.draw(TankPresent.accessories[1][TankPresent.armor_num].turret_image_line, 0 + 40, 0 + 64)
             love.graphics.draw(TankPresent.accessories[2][TankPresent.aim_num].line_image, 0 + 40, 0 + 64)
             love.graphics.draw(TankPresent.accessories[3][TankPresent.mob_num].line_image, 0 + 40, 0 + 64)
-
+            --draw production queue
             for i, tank in ipairs(CurrentPlace.ProductionQueue) do
                 love.graphics.draw(production_box,0 + 452, 0 + 62 + 28*i)
                 love.graphics.setColor(0,179/255,0)
@@ -395,7 +396,6 @@ end
 
 function TankDesigner:slot_distribution(place, tank)
     local slot_full = true
-    local selected_slot
     for i, assembler in ipairs(place.exsist_building) do
         if assembler.name == 'Tank Assembler' then
             if assembler.slot then
