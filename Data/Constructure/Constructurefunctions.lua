@@ -133,8 +133,8 @@ function Constructure:Draw()
         love.graphics.draw(self.anime_sheet, x, y, 0, 1, 1, imagewidth/2, imagelength/2)
     end
     if self.class == 'industrial' then
-        if self.vihecle then
-            love.graphics.draw(self.vihecle, self.location.x + (self.width - self.vehicle.width)/2,  self.location.y + (self.length - self.vehicle.length)/2, 0, 1, 1, imagewidth/2, imagelength/2)
+        if self.slot == false then
+            love.graphics.draw(self.vehicle.hull_image, self.location.x + self.width/2,  self.location.y + self.length/2, 0, 1, 1, 144, 144)
         end
     end
     
