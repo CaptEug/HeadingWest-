@@ -8,6 +8,7 @@ function CommandPanel:load()
     local height = image:getHeight()
     CurrentPlace.CommandPanelWindow = Window.new(64, 64, 64+width, 64+height)
     self.buffer = ''
+    self.a = {isv = 0, to = 1}
 end
 
 
@@ -18,23 +19,42 @@ function CommandPanel:update(dt)
     if CurrentPlace.CommandPanelWindow.open == false and self.buffer ~= '' then
         self.buffer = ''
     end
+    miss(self.a, dt)
 end
 
 function CommandPanel:draw()
     CurrentPlace.CommandPanelWindow:use(
         function ()
             love.graphics.draw(Command_icon)
-            love.graphics.setColor(0, 179/255, 0) 
+            love.graphics.setColor(0, 0, 0) 
             if  self.buffer ~= '' then
-                love.graphics.print(self.buffer, 24, 24)
+                if self.a.isv <= 0.5 then
+                    love.graphics.print(self.buffer..' I', 14, 134)
+                elseif self.a.isv > 0.5 then
+                    love.graphics.print(self.buffer, 14, 134)
+                end
             else
-                love.graphics.print('None', 24, 24)
+                love.graphics.setColor(0, 179/255, 0)
+                love.graphics.print('None', 14, 24)
             end  
             love.graphics.setColor(0, 0, 0)    
         end
     )
 end
 
+function miss(a, dt)
+    local b = 2.5
+    if a.isv > 0 and a.isv < 1 then
+        a.isv = a.isv + b*a.to*dt
+    end
+    if a.isv <= 0 then
+        a.isv = a.isv + dt*b
+        a.to = 1
+    elseif a.isv >=1 then
+        a.isv = a.isv - dt*b
+        a.to = -1
+    end
+end
 
 function love.textinput(t)
     if CurrentPlace ~= nil then
@@ -73,7 +93,6 @@ function CommandPanel:keypressed(key)
             Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
         else
             self.buffer = 'No such cheat command'
-            print("No such cheat command", 14, 24)
         end
     elseif key == "backspace" or key == "`" then
         if self.buffer == 'No such cheat command' then
