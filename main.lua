@@ -94,6 +94,7 @@ CityInfoPanel_icon = love.graphics.newImage('Assets/pictures/Icons/CityInfoPanel
 TankDesigner_screen = love.graphics.newImage('Assets/pictures/Tankdesigner/Tankdesigner_screen.png')
 ConstructMenu_screen = love.graphics.newImage('Assets/pictures/ConstructMenu/Constructmenu_screen.png')
 CityInfoPanel_screen = love.graphics.newImage('Assets/pictures/CityInfoPanel/CityInfoPanelScreen.png')
+TechTreePanel_screen = love.graphics.newImage('Assets/pictures/TechTreePanel/TechTreeScreen.png')
 city_page = love.graphics.newImage('Assets/pictures/Citypage.png')
 production_box = love.graphics.newImage('Assets/pictures/TankDesigner/Pbox.png')
 constructure_box = love.graphics.newImage('Assets/pictures/ConstructMenu/Cbox.png')

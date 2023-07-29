@@ -5,6 +5,7 @@ require 'gamestates.city.CityInfoPanel'
 require 'Data/Constructure/ConstractureInfoPanel'
 require 'Data/Tank/TankDesigner'
 require 'Data/Tank/TankInfoPanel'
+require 'gamestates/City/ResearchPanel'
 require 'Data/Constructure/ConstructMenu'
 
 function CityUI:load()
@@ -76,16 +77,16 @@ function CityUI:load()
             )
         end
         if CurrentPlace.researchinstitude then
-            --TankDesigner:load()
+            ResearchPanel:load()
             cityButtons.ResearchInsButtons = Buttons.new()
             TechTree = Buttons.newToolButton(
                 TechTreePanel_icon,
                 function ()
-                    --[[if CurrentPlace.TankDesignerWindow.open then
-                        CurrentPlace.TankDesignerWindow.open = false
+                    if CurrentPlace.ResaerchWindow.open then
+                        CurrentPlace.ResaerchWindow.open = false
                     else
-                        CurrentPlace.TankDesignerWindow.open = true
-                    end]]
+                        CurrentPlace.ResaerchWindow.open = true
+                    end
                 end,
                 cityButtons.ResearchInsButtons,
                 112
@@ -135,7 +136,7 @@ function CityUI:draw()
         end
         if CurrentPlace.researchinstitude then
             cityButtons.ResearchInsButtons:use()
-            --TankDesigner:draw()
+            ResearchPanel:draw()
         end
     end
     if CurrentPlace.state == 'Battlefield' then
