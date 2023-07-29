@@ -164,15 +164,17 @@ function Isalert(unit, alert, x, y)
         if math.sqrt((target.location.x - unit.location.x)^2 + (target.location.y - unit.location.y)^2) < unit.vision then
             if target.type ~= unit.type then
                 local colliders = CurrentPlace.world:queryLine(centerX, centerY, target.location.x, target.location.y, {'All'})
-                if colliders[2] ~= nil then 
-                    table.sort(colliders, Compare) 
-                end
+                if colliders ~= nil then
+                    if colliders[2] ~= nil then 
+                        table.sort(colliders, Compare) 
+                    end
 
-                if colliders[1] == target.collider then
-                    x, y = colliders.test.x, colliders.test.y
-                    enemy = target
-                    alert = true
-                    a = {alert, x, y}
+                    if colliders[1] == target.collider then
+                        x, y = colliders.test.x, colliders.test.y
+                        enemy = target
+                        alert = true
+                        a = {alert, x, y}
+                    end
                 end
             end
         end
