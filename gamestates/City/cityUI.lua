@@ -48,15 +48,6 @@ function CityUI:load()
         cityButtons.DefButtons
     )
 
-
-    -- if love.keyboard.isDown('1') then
-    --     if CurrentPlace.CommandPanelWindow.open == false then
-    --         CurrentPlace.CommandPanelWindow.open = true
-    --     else
-    --         CurrentPlace.CommandPanelWindow.open = false
-    --     end
-    -- end
-
     CurrentPlace.CommandPanelWindow.open = false
     if CurrentPlace.state == 'Peace' then
         ConstructMenu:load()

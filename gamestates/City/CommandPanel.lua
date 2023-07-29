@@ -1,12 +1,6 @@
 CommandPanel = {}
 
 
-CommandPanel.cheats = {
-    buildtank = function() 
-        buildtank.tx = 'q'
-        buildtank.func = Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
-    end
-}
 
 function CommandPanel:load()
     local image = Command_icon
@@ -75,13 +69,9 @@ end
 function CommandPanel:keypressed(key)
     if key == "return" then
         local done1 = 0
-        for i, func in ipairs(self.cheats) do
-            if self.cheats[i].tx == self.buffer then
-                done1 = 1
-                Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
-            end
-        end
-        if done1 == 0 then
+        if self.buffer == 'buildtank' then
+            Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
+        else
             self.buffer = 'No such cheat command'
             print("No such cheat command", 14, 24)
         end
