@@ -48,6 +48,17 @@ function CityUI:load()
         cityButtons.DefButtons
     )
 
+
+    -- if love.keyboard.isDown('1') then
+    --     if CurrentPlace.CommandPanelWindow.open == false then
+    --         CurrentPlace.CommandPanelWindow.open = true
+    --     else
+    --         CurrentPlace.CommandPanelWindow.open = false
+    --     end
+    -- end
+
+    CurrentPlace.CommandPanelWindow.open = true
+    
     if CurrentPlace.state == 'Peace' then
         ConstructMenu:load()
         cityButtons.ConstructButtons = Buttons.new()
@@ -80,14 +91,9 @@ function CityUI:load()
             )
         end
 
-        if love.keyboard.isDown('`') then
-            if CurrentPlace.CommandPanelWindow.open == false then
-                CurrentPlace.CommandPanelWindow.open = true
-            else
-                CurrentPlace.CommandPanelWindow.open = false
-            end
-        end
     end
+
+
     if CurrentPlace.state == 'Battlefield' then
 
     end
