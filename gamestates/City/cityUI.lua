@@ -2,6 +2,7 @@ CityUI = {}
 cityButtons = {}
 require 'gamestates/city/Console'
 require 'gamestates.city.CityInfoPanel'
+require 'gamestates/City/CommandPanel'
 require 'Data/Constructure/ConstractureInfoPanel'
 require 'Data/Tank/TankDesigner'
 require 'Data/Tank/TankInfoPanel'
@@ -12,9 +13,11 @@ function CityUI:load()
     Console:load()
     TankInfoPanel:load()
     CityInfoPanel:load()
+    CommandPanel:load()
 
     --Buttons in captured
     cityButtons.DefButtons = Buttons.new()
+
     Settings = Buttons.newToolButton(
         Gear,
         function()
@@ -76,21 +79,13 @@ function CityUI:load()
                 48
             )
         end
-        if CurrentPlace.researchinstitude then
-            ResearchPanel:load()
-            cityButtons.ResearchInsButtons = Buttons.new()
-            TechTree = Buttons.newToolButton(
-                TechTreePanel_icon,
-                function ()
-                    if CurrentPlace.ResaerchWindow.open then
-                        CurrentPlace.ResaerchWindow.open = false
-                    else
-                        CurrentPlace.ResaerchWindow.open = true
-                    end
-                end,
-                cityButtons.ResearchInsButtons,
-                112
-            )
+
+        if love.keyboard.isDown('`') then
+            if CurrentPlace.CommandPanelWindow.open == false then
+                CurrentPlace.CommandPanelWindow.open = true
+            else
+                CurrentPlace.CommandPanelWindow.open = false
+            end
         end
     end
     if CurrentPlace.state == 'Battlefield' then
@@ -102,6 +97,7 @@ function CityUI:update(dt)
     Console:update(dt)
     TankInfoPanel:update(dt)
     CityInfoPanel:update(dt)
+    CommandPanel:update(dt)
     if CurrentPlace.state == 'Peace' then
         ConstructMenu:update(dt)
         if CurrentPlace.tankfactory then
@@ -127,6 +123,7 @@ function CityUI:draw()
     TankInfoPanel:draw()
     ConstructureInfoPanel:draw()
     CityInfoPanel:draw()
+    CommandPanel:draw()
     if CurrentPlace.state == 'Peace' then
         cityButtons.ConstructButtons:use()
         ConstructMenu:draw()
