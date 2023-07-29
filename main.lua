@@ -114,6 +114,7 @@ HEAT_icon = love.graphics.newImage('Assets/pictures/Icons/HEAT.png')
 APFSDS_icon = love.graphics.newImage('Assets/pictures/Icons/APFSDS.png')
 Picked_icon = love.graphics.newImage('Assets/pictures/Icons/Picked.png')
 Choosen_icon = love.graphics.newImage('Assets/pictures/Icons/Choosen.png')
+Command_icon = love.graphics.newImage('Assets/pictures/CMD/CMDScreen.png')
 --particles
 Smoke = love.graphics.newImage('Assets/pictures/particles/smoke.png')
 ExhaustGas = love.graphics.newImage('Assets/pictures/particles/exhaust_gas.png')
