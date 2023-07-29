@@ -29,7 +29,7 @@ function CommandPanel:draw()
             love.graphics.setColor(0, 0, 0) 
             if  self.buffer ~= '' then
                 if self.a.isv <= 0.5 then
-                    love.graphics.print(self.buffer..'I', 14, 134)
+                    love.graphics.print(self.buffer..' I', 14, 134)
                 elseif self.a.isv > 0.5 then
                     love.graphics.print(self.buffer, 14, 134)
                 end
