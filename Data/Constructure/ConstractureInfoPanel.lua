@@ -26,6 +26,11 @@ function ConstructureInfoPanel:draw()
                     love.graphics.print('Production: '..building.steel_production, x + 14, y + 44)
                 end
             end
+            if building.class == 'industrial' then
+                if building.slot == false then
+                    love.graphics.print('Producing: '..building.vehicle.name, x + 14, y + 44)
+                end
+            end
         end
     end
 end

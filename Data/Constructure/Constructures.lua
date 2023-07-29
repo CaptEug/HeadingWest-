@@ -136,7 +136,7 @@ Constructures = {
 
     TankAssembler = {
         name = 'Tank Assembler',
-        class = 'logistic',
+        class = 'industrial',
         requirement = 'floor',
         collsion = false,
         width = 128,
@@ -150,6 +150,8 @@ Constructures = {
         oil_cost = 0,
         hitpoint = 10,
         armorthickness = 0,
+        slot = true,
+        vehicle = {},
         icon = Icon_in_progress,
         image = love.graphics.newImage('Assets/constructures/logistic/TankAssembler/TankAssembler.png'),
         anime_sheet = love.graphics.newImage('Assets/constructures/logistic/TankAssembler/TankAssembler.png'),
