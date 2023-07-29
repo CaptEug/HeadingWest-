@@ -57,8 +57,7 @@ function CityUI:load()
     --     end
     -- end
 
-    CurrentPlace.CommandPanelWindow.open = true
-    
+    CurrentPlace.CommandPanelWindow.open = false
     if CurrentPlace.state == 'Peace' then
         ConstructMenu:load()
         cityButtons.ConstructButtons = Buttons.new()
