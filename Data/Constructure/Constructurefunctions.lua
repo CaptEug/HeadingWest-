@@ -206,11 +206,13 @@ end
 
 function Constructure:Produce(dt)
     if self.name == 'Tank Assembler' then
-        self.vehicle.buildtime = self.vehicle.buildtime -dt
-        if self.vehicle.buildtime <= 0 then
-            Buildtank(CurrentPlace, self.vehicle, 'friendly', self.location.x, self.location.y)
-            self.slot = true
-            self.vehicle = {}
+        if self.slot == false then
+            self.vehicle.buildtime = self.vehicle.buildtime - dt
+            if self.vehicle.buildtime <= 0 then
+                Buildtank(CurrentPlace, self.vehicle, 'friendly', self.location.x, self.location.y)
+                self.slot = true
+                self.vehicle = {}
+            end
         end
     end
     
