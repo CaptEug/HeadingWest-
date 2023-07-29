@@ -12,15 +12,15 @@ function ConstructMenu:load()
     ConstructureSelected = {}
 
     Close = Buttons.newWindowToolButton(
-            Close_icon,
-            function ()
-                CurrentPlace.ConstructMenuWindow.open = false
-            end,
-            CurrentPlace.ConstructMenuWindow,
-            CurrentPlace.ConstructMenuWindow.buttons,
-            625,
-            18
-        )
+        Close_icon,
+        function ()
+            CurrentPlace.ConstructMenuWindow.open = false
+        end,
+        CurrentPlace.ConstructMenuWindow,
+        CurrentPlace.ConstructMenuWindow.buttons,
+        625,
+        18
+    )
 
     for i, constructure in ipairs(CurrentPlace.constructurelist) do
         Buttons.newWindowToolButton(

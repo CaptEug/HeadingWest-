@@ -6,6 +6,7 @@ require 'gamestates/City/CommandPanel'
 require 'Data/Constructure/ConstractureInfoPanel'
 require 'Data/Tank/TankDesigner'
 require 'Data/Tank/TankInfoPanel'
+require 'gamestates/City/ResearchPanel'
 require 'Data/Constructure/ConstructMenu'
 
 function CityUI:load()
@@ -132,7 +133,7 @@ function CityUI:draw()
         end
         if CurrentPlace.researchinstitude then
             cityButtons.ResearchInsButtons:use()
-            --TankDesigner:draw()
+            ResearchPanel:draw()
         end
     end
     if CurrentPlace.state == 'Battlefield' then
