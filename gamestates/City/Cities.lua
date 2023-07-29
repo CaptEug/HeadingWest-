@@ -16,6 +16,7 @@ Moskva.oil_stored = 0
 Moskva.steel_stored = 0
 Moskva.oil_production = 0
 Moskva.steel_production = 0
+Moskva.researchinstitude = {}
 Moskva.map = sti("Assets/maps/Testmap.lua")
 Moskva.world = wf.newWorld(0, 0)
 Moskva.Structure = {}
@@ -256,7 +257,6 @@ function City:draw()
         TankProjectiles:draw()
         Missiles:draw()
     cam:detach()
-
     CityUI:draw()
 end
 

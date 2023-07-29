@@ -11,6 +11,7 @@ function BuildConstructure(place, constructure, type, x, y)
         width = constructure.width,
         length = constructure.length,
         vision = constructure.vision,
+        preBuild = constructure.preBuild,
         image = constructure.image,
         base_image = constructure.base_image,
         anime_sheet = constructure.anime_sheet,

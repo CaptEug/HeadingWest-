@@ -130,6 +130,10 @@ function CityUI:draw()
             cityButtons.TankFacButtons:use()
             TankDesigner:draw()
         end
+        if CurrentPlace.researchinstitude then
+            cityButtons.ResearchInsButtons:use()
+            --TankDesigner:draw()
+        end
     end
     if CurrentPlace.state == 'Battlefield' then
         

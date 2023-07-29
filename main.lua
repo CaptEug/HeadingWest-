@@ -20,6 +20,8 @@ require 'gamestates/pause'
 require 'gamestates.Worldmap.Worldmap'
 require 'gamestates/SettingMenu'
 
+require 'Data/Constructure/ConstructManager'
+
 --Assets registered
 --country
 Earth = love.graphics.newImage('Assets/countries/WorldMap.png')
@@ -84,6 +86,7 @@ ResourcePage_icon = love.graphics.newImage('Assets/pictures/CityInfoPanel/Resour
 --UI
 Gear = love.graphics.newImage('Assets/pictures/Icons/Gear.png')
 Tank_icon = love.graphics.newImage('Assets/pictures/Icons/Tank_icon.png')
+TechTreePanel_icon = love.graphics.newImage('Assets/pictures/Icons/Techtree_icon.png')
 Tankdesigner_icon = love.graphics.newImage('Assets/pictures/Icons/Tankdesigner.png')
 Constructmenu_icon = love.graphics.newImage('Assets/pictures/Icons/Constructmenu.png')
 RadioStation_icon = love.graphics.newImage('Assets/pictures/Icons/RadioStation.png')
