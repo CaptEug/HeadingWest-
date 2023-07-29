@@ -400,6 +400,8 @@ function TankDesigner:slot_distribution(place, tank)
         if assembler.name == 'Tank Assembler' then
             if assembler.slot then
                 assembler.vehicle = tank
+                assembler.vehicle.collider = CurrentPlace.world:newRectangleCollider(assembler.location.x + (assembler.width - assembler.vehicle.width)/2, assembler.location.y + (assembler.length - assembler.vehicle.length)/2, assembler.vehicle.width, assembler.vehicle.length)
+                assembler.vehicle.collider:setType('static')
                 assembler.slot = false
                 slot_full = false
                 break

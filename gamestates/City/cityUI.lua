@@ -64,22 +64,21 @@ function CityUI:load()
             cityButtons.ConstructButtons,
             80
         )
-        if CurrentPlace.tankfactory then
-            TankDesigner:load()
-            cityButtons.TankFacButtons = Buttons.new()
-            FacDesigner = Buttons.newToolButton(
-                Tankdesigner_icon,
-                function ()
-                    if CurrentPlace.TankDesignerWindow.open then
-                        CurrentPlace.TankDesignerWindow.open = false
-                    else
-                        CurrentPlace.TankDesignerWindow.open = true
-                    end
-                end,
-                cityButtons.TankFacButtons,
-                48
-            )
-        end
+        
+        TankDesigner:load()
+        cityButtons.TankFacButtons = Buttons.new()
+        FacDesigner = Buttons.newToolButton(
+            Tankdesigner_icon,
+            function ()
+                if CurrentPlace.TankDesignerWindow.open then
+                    CurrentPlace.TankDesignerWindow.open = false
+                else
+                    CurrentPlace.TankDesignerWindow.open = true
+                end
+            end,
+            cityButtons.TankFacButtons,
+            48
+        )
 
     end
 
@@ -96,9 +95,8 @@ function CityUI:update(dt)
     CommandPanel:update(dt)
     if CurrentPlace.state == 'Peace' then
         ConstructMenu:update(dt)
-        if CurrentPlace.tankfactory then
-            TankDesigner:update(dt)
-        end
+        TankDesigner:update(dt)
+        
     end
     if CurrentPlace.state == 'Battlefield' then
         
@@ -123,10 +121,13 @@ function CityUI:draw()
     if CurrentPlace.state == 'Peace' then
         cityButtons.ConstructButtons:use()
         ConstructMenu:draw()
-        if CurrentPlace.tankfactory then
-            cityButtons.TankFacButtons:use()
-            TankDesigner:draw()
+        for i, building in ipairs(CurrentPlace.exsist_building) do
+            if building.name == 'Tank Assembler' then
+                cityButtons.TankFacButtons:use()
+                TankDesigner:draw()
+            end
         end
+        
         if CurrentPlace.researchinstitude then
             cityButtons.ResearchInsButtons:use()
             ResearchPanel:draw()

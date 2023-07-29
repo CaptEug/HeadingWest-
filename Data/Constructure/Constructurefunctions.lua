@@ -221,6 +221,7 @@ function Constructure:Produce(dt)
         if self.slot == false then
             self.vehicle.buildtime = self.vehicle.buildtime - dt
             if self.vehicle.buildtime <= 0 then
+                self.vehicle.collider:destroy()
                 Buildtank(CurrentPlace, self.vehicle, 'friendly', self.location.x + (self.width - self.vehicle.width)/2, self.location.y + (self.length - self.vehicle.length)/2)
                 self.slot = true
                 self.vehicle = {}
