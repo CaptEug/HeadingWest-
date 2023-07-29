@@ -18,8 +18,11 @@ function BuildConstructure(place, constructure, type, x, y)
         location = {x = x, y = y},
         functions = {}
     }
-    if constructure.slot ~= nil then
-        building.slot = constructure.slot
+    if building.class == 'industrial' then
+        if constructure.slot ~= nil then
+            building.slot = constructure.slot
+        end
+        
     end
     if building.class == 'defence' then
         building.gun_offset = constructure.gun_offset or nil
