@@ -68,7 +68,6 @@ function Constructure:Update(dt)
         end
     end
 
-    
     if self.class == 'defence' then
         --location update
         self.turret_location.x, self.turret_location.y = x + self.turret_offset.x, y + self.turret_offset.y
@@ -110,6 +109,9 @@ function Constructure:Update(dt)
         if self.oil_production and (self.oil_stored < self.oil_storage)then
             self.oil_stored = self.oil_stored + self.oil_production
         end
+    end
+    if self.class == 'industrial' then
+        self:Produce(dt)
     end
 end
 
@@ -200,5 +202,17 @@ function Constructure:AimCheck(x, y, dt)
         isaim = true
     end
     return isaim
+end
+
+function Constructure:Produce(dt)
+    if self.name == 'Tank Assembler' then
+        self.vehicle.buildtime = self.vehicle.buildtime -dt
+        if self.vehicle.buildtime <= 0 then
+            Buildtank(CurrentPlace, self.vehicle, 'friendly', self.location.x, self.location.y)
+            self.slot = true
+            self.vehicle = {}
+        end
+    end
+    
 end
 
