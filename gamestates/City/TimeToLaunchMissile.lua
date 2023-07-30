@@ -33,6 +33,7 @@ function LaunchMissile(unit, target)
     
     table.insert(Missiles, missile)
     unit.m_reload_timer = unit.m_reload_time
+    MissileLaunch:clone():play()
 end
 
 function Missiles:update(dt)
