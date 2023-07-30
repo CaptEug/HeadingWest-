@@ -421,7 +421,7 @@ function Sparkhere(x, y)
     local n = 0
     while n < 10 do
         local spark = particleworld:newCircleCollider(x, y, 1)
-        spark:setLinearDamping(3)
+        spark:setLinearDamping(5)
         spark:applyLinearImpulse(math.random(-3, 3), math.random(-3, 3))
         spark.life = 0.5
         spark.pic = Spark
