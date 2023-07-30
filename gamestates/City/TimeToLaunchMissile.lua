@@ -40,7 +40,7 @@ function Missiles:update(dt)
         missile.life = missile.life - dt
         missile.smoke:update(dt) 
 
-        Tracking(missile, missile.collider)
+        Tracking(missile)
 
         if missile.collider:enter('Wall') then
             Explode(missile, missile.collider)
