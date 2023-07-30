@@ -53,10 +53,9 @@ function ConstructMenu:update(dt)
     end
     for i, constructure in ipairs(CurrentPlace.exsist_building) do
         constructure.buildtime = constructure.buildtime - dt
-        if constructure.buildtime <= 0 then
-            --constructure.preBuildCollider:destroy()
-            --constructure.preBuildCollider = nil
-            --BuildConstructure(CurrentPlace, constructure.building, 'friendly', constructure.building.x, constructure.building.y)
+        if constructure.buildtime <= 0 and constructure.finished == false then
+            constructure.preBuildCollider:destroy()
+            constructure.preBuildCollider = nil
             constructure.finished = true
         end
     end
@@ -148,9 +147,6 @@ function BuildDetact(button)
         building.x, building.y = x, y
         local preBuild = CurrentPlace.world:newRectangleCollider(x-(ConstructureSelected.preBuild.width-ConstructureSelected.width)/2,y-(ConstructureSelected.preBuild.length-ConstructureSelected.length)/2,ConstructureSelected.preBuild.width,ConstructureSelected.preBuild.length)
         preBuild:setType('static')
-        local construt = {}
-        construt.building = building
-        construt.preBuild = preBuild
         building.preBuildCollider = preBuild
         BuildConstructure(CurrentPlace, building, 'friendly', building.x, building.y)
     end
