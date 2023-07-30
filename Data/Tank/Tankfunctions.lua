@@ -157,7 +157,7 @@ function Compare(a, b)
 end
 
 
-function Isalert(unit, alert, x, y)
+function Isalert(unit, enemy, alert, x, y)
     local centerX = unit.center.x
     local centerY = unit.center.y
     local radius = unit.vision
@@ -205,7 +205,7 @@ AutoControlfunction = function(tank, dt)
 
 
     local data_alert = Isalert(tank, alert, x, y)
-    if data_alert ~= false then
+    if data_alert ~= false then 
         alert, x, y = data_alert[1], data_alert[2], data_alert[3]
     end
 

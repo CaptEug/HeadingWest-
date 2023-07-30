@@ -6,9 +6,22 @@ function CommandPanel:load()
     local image = Command_icon
     local width = image:getWidth()
     local height = image:getHeight()
-    CurrentPlace.CommandPanelWindow = Window.new(64, 64, 64+width, 64+height)
+    CurrentPlace.CommandPanelWindow = Window.new(0, 500, width, height)
+    self.bufferlist = {}
     self.buffer = ''
     self.a = {isv = 0, to = 1}
+    self.index = 0
+end
+
+
+
+function findIndex(a, B)
+    for i, value in ipairs(B) do
+        if value == a then
+            return i
+        end
+    end
+    return nil
 end
 
 
@@ -20,6 +33,9 @@ function CommandPanel:update(dt)
         self.buffer = ''
     end
     miss(self.a, dt)
+    if #self.bufferlist > 10 then
+        table.remove(self.bufferlist, 1)
+    end 
 end
 
 function CommandPanel:draw()
@@ -27,15 +43,14 @@ function CommandPanel:draw()
         function ()
             love.graphics.draw(Command_icon)
             love.graphics.setColor(0, 0, 0) 
-            if  self.buffer ~= '' then
-                if self.a.isv <= 0.5 then
-                    love.graphics.print(self.buffer..' I', 14, 134)
-                elseif self.a.isv > 0.5 then
-                    love.graphics.print(self.buffer, 14, 134)
-                end
-            else
+            if self.a.isv <= 0.5 then
+                love.graphics.print(': '..self.buffer..'_', 10, 135)
+            elseif self.a.isv > 0.5 then
+                love.graphics.print(': '..self.buffer, 10, 135)
+            end
+            for i, buffer in ipairs(self.bufferlist) do
                 love.graphics.setColor(0, 179/255, 0)
-                love.graphics.print('None', 14, 24)
+                love.graphics.print(buffer.buffer, 10, 3+(i-1)*12)
             end  
             love.graphics.setColor(0, 0, 0)    
         end
@@ -80,9 +95,6 @@ function love.keypressed(key, scancode, isrepeat)
 end
 
 function CommandPanel:textinput(t)
-    if self.buffer == 'No such cheat command' then
-        self.buffer = ''
-    end
     self.buffer = self.buffer .. t
 end
 
@@ -91,13 +103,28 @@ function CommandPanel:keypressed(key)
         local done1 = 0
         if self.buffer == 'buildtank' then
             Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
+            self.buffer = ''
+            table.insert(self.bufferlist, {buffer = 'buidtank aready!'})
         else
-            self.buffer = 'No such cheat command'
+            self.buffer = ''
+            table.insert(self.bufferlist, {buffer = 'No such cheat command!'})
         end
     elseif key == "backspace" or key == "`" then
         if self.buffer == 'No such cheat command' then
         self.buffer = ''
         end
         self.buffer = self.buffer:sub(1, -2)
+    elseif key == "up" then
+        if #self.bufferlist ~= 0 then
+            self.index = self.index + 1
+            self.buffer = self.bufferlist[- self.index]
+        end
+    elseif key == "down" then
+        if #self.bufferlist ~= 0 then
+            if self.index >= 1 then
+                self.index = self.index - 1
+                self.buffer = self.bufferlist[- self.index]
+            end
+        end
     end
 end
