@@ -71,7 +71,7 @@ function Explosives:update(dt)
         end
         explosive.timer = explosive.timer - dt
         if explosive.timer <= 0 and explosive.fusee == true then
-            Explode(explosive,explosive.collider)
+            Explode(explosive)
             explosive.collider:destroy()
             explosive.pic = false
         end
@@ -120,9 +120,9 @@ function Explosives:draw()
     end
 end
 
-function Explode(explosive, a)
+function Explode(explosive)
     local n = 0
-    local x, y = a:getPosition()
+    local x, y = explosive.collider:getPosition()
     local explosion = {}
     explosion.anime = anim8.newAnimation(Explosion_Grid('1-9','1-9'), 0.05)
     explosion.x, explosion.y = x, y
@@ -227,10 +227,6 @@ function OverPressureCheck(fragment, Target)
         else
             hitArmorside = 'Back'
         end
-    end
-
-    if hitPart == 'Hull' then
-        
     end
 
     Datapool.hitPart = hitPart

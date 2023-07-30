@@ -15,8 +15,12 @@ function BuildConstructure(place, constructure, type, x, y)
         image = constructure.image,
         base_image = constructure.base_image,
         anime_sheet = constructure.anime_sheet,
+        preBuildCollider = constructure.preBuildCollider,
         location = {x = x, y = y},
-        functions = {}
+        buildtime = constructure.buildtime,
+        fixedbuildtime = constructure.fixedbuildtime,
+        functions = {},
+        finished = false
     }
     if building.class == 'industrial' then
         if constructure.slot ~= nil then
@@ -67,58 +71,61 @@ end
 
 function Constructure:Update(dt)
     local x, y = self.location.x, self.location.y
-    --button update
-    if self.type == 'friendly' then
-        for n, button in ipairs(self.InfoButtons) do
-            button.bx, button.by = x + self.width/2, y + self.length/2
+    if self.finished then
+        --button update
+        if self.type == 'friendly' then
+            for n, button in ipairs(self.InfoButtons) do
+                button.bx, button.by = x + self.width/2, y + self.length/2
+            end
+        end
+
+        if self.class == 'defence' then
+            --location update
+            self.turret_location.x, self.turret_location.y = x + self.turret_offset.x, y + self.turret_offset.y
+            if self.gun_location.x then
+            self.gun_location.x, self.gun_location.y = self.turret_location.x + self.gun_offset.y*math.sin(self.turret_angle) + self.gun_offset.x*math.cos(self.turret_angle),
+                                                    self.turret_location.y - self.gun_offset.y*math.cos(self.turret_angle) + self.gun_offset.x*math.sin(self.turret_angle)
+            end
+            if self.gun_offset2 then
+                self.gun_location2.x, self.gun_location2.y = self.turret_location.x + self.gun_offset2.y*math.sin(self.turret_angle) + self.gun_offset2.x*math.cos(self.turret_angle),
+                                                            self.turret_location.y - self.gun_offset2.y*math.cos(self.turret_angle) + self.gun_offset2.x*math.sin(self.turret_angle)
+            end
+            if self.gun_offset3 then
+                self.gun_location3.x, self.gun_location3.y = self.turret_location.x + self.gun_offset3.y*math.sin(self.turret_angle) + self.gun_offset3.x*math.cos(self.turret_angle),
+                                                            self.turret_location.y - self.gun_offset3.y*math.cos(self.turret_angle) + self.gun_offset3.x*math.sin(self.turret_angle)
+            end
+
+            local gun = self.gun_offset
+            self.turretdo.battery_location.x, self.turretdo.battery_location.y = x + 0.5*self.width, y + 0.5*self.length
+            for j, gunl in ipairs(gun) do
+                local x2, y2 = gunl.x, gunl.y
+                local x1, y1 = gunoffset(x2, y2, self.turret_angle)
+                self.turretdo.gun[j] =  {x = x1 + x + 0.5*self.width, y = y1 + y + 0.5*self.length}
+            end
+            self.turretdo.ammorack = self.ammorack
+            --timer update
+            self.turretdo.reload_timer = self.turretdo.reload_timer - dt
+            --functions update
+            self.functions.defence(self, dt)
+            --anime update
+            if self.turretdo.reload_timer <= 0 then
+                self.turretdo.aready = true
+            end
+            self.turret_anime:update(dt)
+        end
+        if self.class == 'resource' then
+            if self.steel_production and (self.steel_stored < self.steel_storage)then
+                self.steel_stored = self.steel_stored + self.steel_production
+            end
+            if self.oil_production and (self.oil_stored < self.oil_storage)then
+                self.oil_stored = self.oil_stored + self.oil_production
+            end
+        end
+        if self.class == 'industrial' then
+            self:Produce(dt)
         end
     end
 
-    if self.class == 'defence' then
-        --location update
-        self.turret_location.x, self.turret_location.y = x + self.turret_offset.x, y + self.turret_offset.y
-        if self.gun_location.x then
-        self.gun_location.x, self.gun_location.y = self.turret_location.x + self.gun_offset.y*math.sin(self.turret_angle) + self.gun_offset.x*math.cos(self.turret_angle),
-                                                   self.turret_location.y - self.gun_offset.y*math.cos(self.turret_angle) + self.gun_offset.x*math.sin(self.turret_angle)
-        end
-        if self.gun_offset2 then
-            self.gun_location2.x, self.gun_location2.y = self.turret_location.x + self.gun_offset2.y*math.sin(self.turret_angle) + self.gun_offset2.x*math.cos(self.turret_angle),
-                                                         self.turret_location.y - self.gun_offset2.y*math.cos(self.turret_angle) + self.gun_offset2.x*math.sin(self.turret_angle)
-        end
-        if self.gun_offset3 then
-            self.gun_location3.x, self.gun_location3.y = self.turret_location.x + self.gun_offset3.y*math.sin(self.turret_angle) + self.gun_offset3.x*math.cos(self.turret_angle),
-                                                         self.turret_location.y - self.gun_offset3.y*math.cos(self.turret_angle) + self.gun_offset3.x*math.sin(self.turret_angle)
-        end
-
-        local gun = self.gun_offset
-        self.turretdo.battery_location.x, self.turretdo.battery_location.y = x + 0.5*self.width, y + 0.5*self.length
-        for j, gunl in ipairs(gun) do
-            local x2, y2 = gunl.x, gunl.y
-            local x1, y1 = gunoffset(x2, y2, self.turret_angle)
-            self.turretdo.gun[j] =  {x = x1 + x + 0.5*self.width, y = y1 + y + 0.5*self.length}
-        end
-        self.turretdo.ammorack = self.ammorack
-        --timer update
-        self.turretdo.reload_timer = self.turretdo.reload_timer - dt
-        --functions update
-        self.functions.defence(self, dt)
-        --anime update
-        if self.turretdo.reload_timer <= 0 then
-            self.turretdo.aready = true
-        end
-        self.turret_anime:update(dt)
-    end
-    if self.class == 'resource' then
-        if self.steel_production and (self.steel_stored < self.steel_storage)then
-            self.steel_stored = self.steel_stored + self.steel_production
-        end
-        if self.oil_production and (self.oil_stored < self.oil_storage)then
-            self.oil_stored = self.oil_stored + self.oil_production
-        end
-    end
-    if self.class == 'industrial' then
-        self:Produce(dt)
-    end
 end
 
 function Constructure:Draw()
