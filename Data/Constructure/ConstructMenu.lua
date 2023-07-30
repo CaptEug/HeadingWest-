@@ -51,13 +51,13 @@ function ConstructMenu:update(dt)
         ConstructMenu.build = false
         ConstructureSelected = {}
     end
-    for i, constructure in ipairs(ConstructionQueue) do
-        constructure.building.buildtime = constructure.building.buildtime - dt
-        if constructure.building.buildtime <= 0 then
-            constructure.preBuild:destroy()
-            constructure.preBuild = nil
-            BuildConstructure(CurrentPlace, constructure.building, 'friendly', constructure.building.x, constructure.building.y)
-            table.remove(ConstructionQueue,i)
+    for i, constructure in ipairs(CurrentPlace.exsist_building) do
+        constructure.buildtime = constructure.buildtime - dt
+        if constructure.buildtime <= 0 then
+            --constructure.preBuildCollider:destroy()
+            --constructure.preBuildCollider = nil
+            --BuildConstructure(CurrentPlace, constructure.building, 'friendly', constructure.building.x, constructure.building.y)
+            constructure.finished = true
         end
     end
     if ConstructurePicked == true then
@@ -126,15 +126,16 @@ function ConstructMenu:draw()
         ConstructManager:drawPreBuild()
     end
 --draw green building preview
-    for i, build in ipairs(ConstructionQueue) do
-        local building = build.building
-        local x, y = cam:cameraCoords(building.x, building.y)
-        local imagewidth, imagelength = building.image:getWidth(), building.image:getHeight()
-        love.graphics.setColor(0,179/255,0)
-        love.graphics.draw(building.image, x + building.width/(2/cam.scale), y + building.length/(2/cam.scale), 0, cam.scale, cam.scale, imagewidth/2, imagelength/2)
-        love.graphics.rectangle('line', x + building.width/(2/cam.scale) - 68, y + building.length/(2/cam.scale), 136, 8)
-        love.graphics.rectangle('fill', x + building.width/(2/cam.scale) - 66, y + building.length/(2/cam.scale) + 2, 132 - (132*building.buildtime/building.fixedbuildtime), 4)
-        love.graphics.setColor(1,1,1)
+    for i, building in ipairs(CurrentPlace.exsist_building) do
+        if building.finished == false then
+            local x, y = cam:cameraCoords(building.location.x, building.location.y)
+            local imagewidth, imagelength = building.image:getWidth(), building.image:getHeight()
+            love.graphics.setColor(0,179/255,0)
+            love.graphics.draw(building.image, x + building.width/(2/cam.scale), y + building.length/(2/cam.scale), 0, cam.scale, cam.scale, imagewidth/2, imagelength/2)
+            love.graphics.rectangle('line', x + building.width/(2/cam.scale) - 68, y + building.length/(2/cam.scale), 136, 8)
+            love.graphics.rectangle('fill', x + building.width/(2/cam.scale) - 66, y + building.length/(2/cam.scale) + 2, 132 - (132*building.buildtime/building.fixedbuildtime), 4)
+            love.graphics.setColor(1,1,1)
+        end
     end
 end
 
@@ -150,6 +151,7 @@ function BuildDetact(button)
         local construt = {}
         construt.building = building
         construt.preBuild = preBuild
-        table.insert(ConstructionQueue, construt)
+        building.preBuildCollider = preBuild
+        BuildConstructure(CurrentPlace, building, 'friendly', building.x, building.y)
     end
 end
