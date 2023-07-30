@@ -200,7 +200,7 @@ AutoControlfunction = function(tank, dt)
     local centerY = tank.center.y
     local radius = tank.vision
     local startAngle = 0
-    local endAngle = math.pi/2 
+    local endAngle = math.pi/2
     local x, y = tank.center.x, tank.center.y
     tank.destination.x, tank.destination.y = tank.location.x, tank.location.y
 
