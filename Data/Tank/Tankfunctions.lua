@@ -205,7 +205,7 @@ AutoControlfunction = function(tank, dt)
 
 
     local data_alert = Isalert(tank, alert, x, y)
-    if data_alert ~= false then 
+    if data_alert ~= false then
         alert, x, y = data_alert[1], data_alert[2], data_alert[3]
     end
 

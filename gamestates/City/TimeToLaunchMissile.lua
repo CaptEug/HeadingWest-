@@ -94,7 +94,7 @@ function Tracking(missile)
     local missile_angle = missile.collider:getAngle() + missile.face
     local x, y = missile.collider:getPosition()
     local tx, ty
-    if missile.target then
+    if missile.target.location then
         tx, ty = missile.target.location.x, missile.target.location.y
     else
         tx, ty = cam:mousePosition()
