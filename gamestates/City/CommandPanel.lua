@@ -16,6 +16,7 @@ function CommandPanel:load()
     self.menmery = ''
     self.index = 0
     self.histroy = {}
+    self.vistion = 1
 end
 
 
@@ -135,10 +136,12 @@ function CommandPanel:keypressed(key)
             table.insert(self.bufferlist, {buffer = 'That command does not exist!'})
         end
     elseif key == "backspace" or key == "`" then
-        if self.buffer == 'That command does not exist!' then
-        self.buffer = ''
+        if self.buffer ~= '' then
+            if self.buffer == 'That command does not exist!' then
+            self.buffer = ''
+            end
+            self.buffer = self.buffer:sub(1, -2)
         end
-        self.buffer = self.buffer:sub(1, -2)
     elseif key == "up" then
         if #self.histroy ~= 0 and self.index <= #self.histroy - 1 then
             self.index = self.index + 1
