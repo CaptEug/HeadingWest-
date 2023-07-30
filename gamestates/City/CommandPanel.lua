@@ -1,6 +1,9 @@
 CommandPanel = {}
 
-
+local tanklistmap = {
+    ['M1'] = Tanks.M1,
+    ['m1'] = Tanks.M1,
+}
 
 function CommandPanel:load()
     local image = Command_icon
@@ -107,20 +110,32 @@ function CommandPanel:keypressed(key)
         for str in string.gmatch(self.buffer, "[^,]+") do
             table.insert(b, str)
         end
+        string.lower(b[1])
         if b[1] == 'buildtank' then
-            Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
-            table.insert(self.histroy, {buffer = self.buffer})
-            self.menmery = self.buffer
-            self.buffer = ''
-            table.insert(self.bufferlist, {buffer = 'buidtank aready!'})
+            local tkname = tanklistmap[b[2]]
+            if tkname ~= nil then
+                local x = tonumber(b[3]) or 0
+                local y = tonumber(b[4]) or 0
+                local full = true
+                Buildtank(CurrentPlace, tkname, 'friendly', x, y, full)
+                table.insert(self.histroy, {buffer = self.buffer})
+                self.menmery = self.buffer
+                self.buffer = ''
+                table.insert(self.bufferlist, {buffer = 'Buidtank aready! :>'})
+            else
+                table.insert(self.histroy, {buffer = self.buffer})
+                self.menmery = self.buffer
+                self.buffer = ''
+                table.insert(self.bufferlist, {buffer = 'No such tank, please check if the name is entered correctly... :<'})
+            end
         else
             table.insert(self.histroy, {buffer = self.buffer})
             self.menmery = self.buffer
             self.buffer = ''
-            table.insert(self.bufferlist, {buffer = 'No such cheat command!'})
+            table.insert(self.bufferlist, {buffer = 'That command does not exist!'})
         end
     elseif key == "backspace" or key == "`" then
-        if self.buffer == 'No such cheat command' then
+        if self.buffer == 'That command does not exist!' then
         self.buffer = ''
         end
         self.buffer = self.buffer:sub(1, -2)
