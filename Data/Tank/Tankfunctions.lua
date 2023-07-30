@@ -2,7 +2,7 @@ Tank = {}
 Tank.__index = Tank
 
 
-function Buildtank(place, tank, type, x, y, ...)
+function Buildtank(place, tank, type, x, y, full, ...)
     local tanky = {
         type = tank.type or type,
         number = tank.number or tostring(math.random(000,999)),
@@ -90,6 +90,9 @@ function Buildtank(place, tank, type, x, y, ...)
         caml = {x = 0, y = 0}
     }
     if type == 'enemy' then
+        full = true
+    end
+    if full ~= nil then
         if tank.ammorack_size then
             while #tanky.ammorack < tanky.ammorack_size do
                 table.insert(tanky.ammorack, tank.ammunition[1])
