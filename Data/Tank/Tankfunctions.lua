@@ -157,11 +157,12 @@ function Compare(a, b)
 end
 
 
-function Isalert(unit, enemy, alert, x, y)
+function Isalert(unit)
+    local alert, enemy, x, y
     local centerX = unit.center.x
     local centerY = unit.center.y
     local radius = unit.vision
-    local a = false
+    local a = {}
     for i, target in ipairs(CurrentPlace.exsist_tank) do
         if math.sqrt((target.location.x - unit.location.x)^2 + (target.location.y - unit.location.y)^2) < unit.vision then
             if target.type ~= unit.type then
@@ -175,7 +176,7 @@ function Isalert(unit, enemy, alert, x, y)
                         x, y = colliders.test.x, colliders.test.y
                         enemy = target
                         alert = true
-                        a = {alert, x, y}
+                        a = {alert, enemy, x, y}
                     end
                 end
             end
@@ -204,9 +205,9 @@ AutoControlfunction = function(tank, dt)
     tank.destination.x, tank.destination.y = tank.location.x, tank.location.y
 
 
-    local data_alert = Isalert(tank, alert, x, y)
-    if data_alert ~= false then 
-        alert, x, y = data_alert[1], data_alert[2], data_alert[3]
+    local data_alert = Isalert(tank)
+    if data_alert ~= false then
+        alert, enemy, x, y = data_alert[1], data_alert[2], data_alert[3], data_alert[4]
     end
 
     if alert then

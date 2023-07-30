@@ -40,7 +40,7 @@ function Missiles:update(dt)
         missile.life = missile.life - dt
         missile.smoke:update(dt) 
 
-        Tracking(missile, missile.collider)
+        Tracking(missile)
 
         if missile.collider:enter('Wall') then
             Explode(missile, missile.collider)
@@ -94,7 +94,7 @@ function Tracking(missile)
     local missile_angle = missile.collider:getAngle() + missile.face
     local x, y = missile.collider:getPosition()
     local tx, ty
-    if missile.target.location then
+    if missile.target then
         tx, ty = missile.target.location.x, missile.target.location.y
     else
         tx, ty = cam:mousePosition()

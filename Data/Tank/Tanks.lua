@@ -4,6 +4,7 @@ Blank_Gear = {name = 'Blank', steel_cost = 0, oil_cost = 0, line_image = Blank_l
 Tank_Grid = anim8.newGrid(288, 288, 288*7, 288*2)
 BigGunOpenFire = love.audio.newSource('Assets/audio/sound/DeathFlash.flac', 'static')
 AutoGunOpenFire = love.audio.newSource('Assets/audio/sound/2a42_far-003.wav', 'static')
+MissileLaunch = love.audio.newSource('Assets/audio/sound/tank_rocket_shot_2.wav', 'static')
 
 Tanks = {
     --USSR--

@@ -37,7 +37,7 @@ function Shoot(unit,...)
         unit.firing_timer = unit.firing_time
         unit.reload_timer = unit.reload_time
 
-        unit.gun_sound:play()
+        unit.gun_sound:clone():play()
     elseif unit.battery_location then
         for i, gun in ipairs(unit.gun) do
             local x, y = ...
