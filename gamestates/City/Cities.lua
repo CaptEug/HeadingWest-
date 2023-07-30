@@ -43,25 +43,7 @@ Nizhny_Tagil.oil_production = 0
 Nizhny_Tagil.steel_production = 0
 Nizhny_Tagil.tankfactory = {
     name = 'UVZ',
-    tanklist = {},
-    slot_info = {
-        {x=112,y=48,available=true},
-        {x=112,y=48+256*1,available=true},
-        {x=112,y=48+256*2,available=true},
-        {x=112,y=48+256*3,available=true},
-        {x=112,y=48+256*4,available=true},
-        {x=112,y=48+256*5,available=true},
-        {x=112,y=48+256*6,available=true},
-        {x=112,y=48+256*7,available=true},
-        {x=112+544,y=48,available=true},
-        {x=112+544,y=48+256*1,available=true},
-        {x=112+544,y=48+256*2,available=true},
-        {x=112+544,y=48+256*3,available=true},
-        {x=112+544,y=48+256*4,available=true},
-        {x=112+544,y=48+256*5,available=true},
-        {x=112+544,y=48+256*6,available=true},
-        {x=112+544,y=48+256*7,available=true},
-    }
+    tanklist = {}
 }
 Nizhny_Tagil.map = sti("Assets/maps/UVZfac.lua")
 Nizhny_Tagil.world = wf.newWorld(0, 0)
@@ -174,6 +156,7 @@ function City:init()
     CityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'friendly', 0, 1000)
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
+    Buildtank(CurrentPlace, TDs.XM8LOSAT, 'enemy', 1000, 100)
     --Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
     NewSaving:LoadTanks()
 end
