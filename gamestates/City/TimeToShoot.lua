@@ -9,7 +9,7 @@ Datapool = {
     hitmodule = {},
     crewknockout = 0
 }
-GunParticles = {}
+Particles = {}
 
 function Shoot(unit,...)
     --shell collider
@@ -74,7 +74,7 @@ function TankProjectiles:update(dt)
 
         if shell.collider:enter('Wall') then
             if shell.type == 'HE' then
-                Explode(shell, shell.collider)
+                Explode(shell)
             end
             shell.collider:destroy()
             table.remove(self, i)
@@ -84,12 +84,14 @@ function TankProjectiles:update(dt)
             local collision_data = shell.collider:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
+            Sparkhere(sx, sy)
+
             if Target == shell.from then
                 break
             end
 
             if shell.type == 'HE' then
-                Explode(shell,shell.collider)
+                Explode(shell)
                 shell.collider:destroy()
                 table.remove(self, i)
             else
@@ -412,5 +414,35 @@ function Killcrew(tank, rate)
         tank.survivor = tank.survivor - 1
         Datapool.crewknockout = Datapool.crewknockout + 1
         Killcrew(tank, rate)
+    end
+end
+
+function Sparkhere(x, y)
+    local n = 0
+    while n < 10 do
+        local spark = particleworld:newCircleCollider(x, y, 1)
+        spark:setLinearDamping(3)
+        spark:applyLinearImpulse(math.random(-3, 3), math.random(-3, 3))
+        spark.life = 0.5
+        spark.pic = Spark
+        table.insert(Particles, spark)
+        n = n + 1
+    end
+end
+
+function Particles:update(dt)
+    for i, particle in ipairs(self) do
+        particle.x, particle.y = particle:getPosition()
+        particle.life = particle.life - dt
+        if particle.life < 0  then
+            table.remove(Particles, i)
+            particle:destroy()
+        end
+    end
+end
+
+function Particles:draw()
+    for i, particle in ipairs(self) do
+        love.graphics.draw(particle.pic, particle.x, particle.y)
     end
 end

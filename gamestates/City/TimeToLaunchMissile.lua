@@ -44,7 +44,7 @@ function Missiles:update(dt)
         Tracking(missile)
 
         if missile.collider:enter('Wall') then
-            Explode(missile, missile.collider)
+            Explode(missile)
             missile.collider:destroy()
             table.remove(self, i)
         end
@@ -59,7 +59,7 @@ function Missiles:update(dt)
 
             local ricochet, hitPart, hitArmorside, angle = RicochetCheck(missile, Target)
             local ispen = PenCheck(missile, Target, hitPart, hitArmorside, angle)
-            Explode(missile, missile.collider)
+            Explode(missile)
             missile.collider:destroy()
             table.remove(self, i)
 
@@ -72,7 +72,7 @@ function Missiles:update(dt)
         end
 
         if missile.life <= 0 then
-            Explode(missile, missile.collider)
+            Explode(missile)
             missile.collider:destroy()
             table.remove(self, i)
         end
