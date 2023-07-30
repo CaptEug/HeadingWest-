@@ -10,7 +10,9 @@ function CommandPanel:load()
     self.bufferlist = {}
     self.buffer = ''
     self.a = {isv = 0, to = 1}
+    self.menmery = ''
     self.index = 0
+    self.histroy = {}
 end
 
 
@@ -100,12 +102,20 @@ end
 
 function CommandPanel:keypressed(key)
     if key == "return" then
-        local done1 = 0
-        if self.buffer == 'buildtank' then
+        local b = {}
+
+        for str in string.gmatch(self.buffer, "[^,]+") do
+            table.insert(b, str)
+        end
+        if b[1] == 'buildtank' then
             Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
+            table.insert(self.histroy, {buffer = self.buffer})
+            self.menmery = self.buffer
             self.buffer = ''
             table.insert(self.bufferlist, {buffer = 'buidtank aready!'})
         else
+            table.insert(self.histroy, {buffer = self.buffer})
+            self.menmery = self.buffer
             self.buffer = ''
             table.insert(self.bufferlist, {buffer = 'No such cheat command!'})
         end
@@ -115,15 +125,18 @@ function CommandPanel:keypressed(key)
         end
         self.buffer = self.buffer:sub(1, -2)
     elseif key == "up" then
-        if #self.bufferlist ~= 0 then
+        if #self.histroy ~= 0 and self.index <= #self.histroy - 1 then
             self.index = self.index + 1
-            self.buffer = self.bufferlist[- self.index]
+            self.buffer = self.histroy[#self.histroy - (self.index-1)].buffer
         end
     elseif key == "down" then
-        if #self.bufferlist ~= 0 then
-            if self.index >= 1 then
+        if #self.histroy ~= 0 then
+            if self.index >= 2 then
                 self.index = self.index - 1
-                self.buffer = self.bufferlist[- self.index]
+                self.buffer = self.histroy[#self.histroy - (self.index-1)].buffer
+            elseif self.index == 1 then
+                self.index = 0
+                self.buffer = self.menmery
             end
         end
     end
