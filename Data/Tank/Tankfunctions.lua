@@ -90,8 +90,10 @@ function Buildtank(place, tank, type, x, y, ...)
         caml = {x = 0, y = 0}
     }
     if type == 'enemy' then
-        while #tanky.ammorack < tanky.ammorack_size do
-            table.insert(tanky.ammorack, tank.ammunition[1])
+        if tank.ammorack_size then
+            while #tanky.ammorack < tanky.ammorack_size do
+                table.insert(tanky.ammorack, tank.ammunition[1])
+            end
         end
         if tank.missilerack_size then
             while #tanky.missilerack < tanky.missilerack_size do
@@ -165,8 +167,8 @@ function Isalert(unit, alert, x, y)
             if target.type ~= unit.type then
                 local colliders = CurrentPlace.world:queryLine(centerX, centerY, target.location.x, target.location.y, {'All'})
                 if colliders ~= nil then
-                    if colliders[2] ~= nil then 
-                        table.sort(colliders, Compare) 
+                    if colliders[2] ~= nil then
+                        table.sort(colliders, Compare)
                     end
 
                     if colliders[1] == target.collider then
@@ -180,7 +182,7 @@ function Isalert(unit, alert, x, y)
         end
     end
     return a
-end 
+end
 
 
 AutoControlfunction = function(tank, dt)
@@ -200,7 +202,7 @@ AutoControlfunction = function(tank, dt)
     local endAngle = math.pi/2 
     local x, y = tank.center.x, tank.center.y
     tank.destination.x, tank.destination.y = tank.location.x, tank.location.y
-    
+
 
     local data_alert = Isalert(tank, alert, x, y)
     if data_alert ~= false then 

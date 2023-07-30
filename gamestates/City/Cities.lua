@@ -156,6 +156,7 @@ function City:init()
     CityUI:load()
     Buildtank(CurrentPlace, Tanks.M1, 'friendly', 0, 1000)
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
+    Buildtank(CurrentPlace, TDs.XM8LOSAT, 'enemy', 1000, 100)
     --Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
     NewSaving:LoadTanks()
 end

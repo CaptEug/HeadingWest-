@@ -3,7 +3,7 @@ Image_in_progress = love.graphics.newImage('Assets/tanks/ImageInProgress.png')
 Blank_Gear = {name = 'Blank', steel_cost = 0, oil_cost = 0, line_image = Blank_line, turret_image = Blank_line, hull_image = Blank_line}
 Tank_Grid = anim8.newGrid(288, 288, 288*7, 288*2)
 BigGunOpenFire = love.audio.newSource('Assets/audio/sound/DeathFlash.flac', 'static')
-AutoGunOpenFire = love.audio.newSource('Assets/audio/sound/synthetic_explosion_1.flac', 'static')
+AutoGunOpenFire = love.audio.newSource('Assets/audio/sound/2a42_far-003.wav', 'static')
 
 Tanks = {
     --USSR--
