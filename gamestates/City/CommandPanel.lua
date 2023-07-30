@@ -16,6 +16,7 @@ function CommandPanel:load()
     self.menmery = ''
     self.index = 0
     self.histroy = {}
+    self.vistion = 1
 end
 
 
@@ -105,40 +106,46 @@ end
 
 function CommandPanel:keypressed(key)
     if key == "return" then
-        local b = {}
+        if self.buffer ~= nil then
+            local b = {}
 
-        for str in string.gmatch(self.buffer, "[^,]+") do
-            table.insert(b, str)
-        end
-        string.lower(b[1])
-        if b[1] == 'buildtank' then
-            local tkname = tanklistmap[b[2]]
-            if tkname ~= nil then
-                local x = tonumber(b[3]) or 0
-                local y = tonumber(b[4]) or 0
-                local full = true
-                Buildtank(CurrentPlace, tkname, 'friendly', x, y, full)
-                table.insert(self.histroy, {buffer = self.buffer})
-                self.menmery = self.buffer
-                self.buffer = ''
-                table.insert(self.bufferlist, {buffer = 'Buidtank aready! :>'})
-            else
-                table.insert(self.histroy, {buffer = self.buffer})
-                self.menmery = self.buffer
-                self.buffer = ''
-                table.insert(self.bufferlist, {buffer = 'No such tank, please check if the name is entered correctly... :<'})
+            for str in string.gmatch(self.buffer, "[^,]+") do
+                table.insert(b, str)
             end
-        else
-            table.insert(self.histroy, {buffer = self.buffer})
-            self.menmery = self.buffer
-            self.buffer = ''
-            table.insert(self.bufferlist, {buffer = 'That command does not exist!'})
+            if b[1] ~= nil then
+                string.lower(b[1])
+                if b[1] == 'buildtank' then
+                    local tkname = tanklistmap[b[2]]
+                    if tkname ~= nil then
+                        local x = tonumber(b[3]) or 0
+                        local y = tonumber(b[4]) or 0
+                        local full = true
+                        Buildtank(CurrentPlace, tkname, 'friendly', x, y, full)
+                        table.insert(self.histroy, {buffer = self.buffer})
+                        self.menmery = self.buffer
+                        self.buffer = ''
+                        table.insert(self.bufferlist, {buffer = 'Buidtank aready! :>'})
+                    else
+                        table.insert(self.histroy, {buffer = self.buffer})
+                        self.menmery = self.buffer
+                        self.buffer = ''
+                        table.insert(self.bufferlist, {buffer = 'No such tank, please check if the name is entered correctly... :<'})
+                    end
+                else
+                    table.insert(self.histroy, {buffer = self.buffer})
+                    self.menmery = self.buffer
+                    self.buffer = ''
+                    table.insert(self.bufferlist, {buffer = 'That command does not exist!'})
+                end
+            end
         end
     elseif key == "backspace" or key == "`" then
-        if self.buffer == 'That command does not exist!' then
-        self.buffer = ''
+        if self.buffer ~= '' then
+            if self.buffer == 'That command does not exist!' then
+            self.buffer = ''
+            end
+            self.buffer = self.buffer:sub(1, -2)
         end
-        self.buffer = self.buffer:sub(1, -2)
     elseif key == "up" then
         if #self.histroy ~= 0 and self.index <= #self.histroy - 1 then
             self.index = self.index + 1
