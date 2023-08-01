@@ -17,6 +17,7 @@ function CommandPanel:load()
     self.index = 0
     self.histroy = {}
     self.vistion = 1
+    self.now = {}
 end
 
 
@@ -49,10 +50,11 @@ function CommandPanel:draw()
         function ()
             love.graphics.draw(Command_icon)
             love.graphics.setColor(0, 0, 0) 
+            local word = self.now[#self.now] or ''
             if self.a.isv <= 0.5 then
-                love.graphics.print(': '..self.buffer..'_', 10, 135)
+                love.graphics.print(': '..word..'_', 10, 135)
             elseif self.a.isv > 0.5 then
-                love.graphics.print(': '..self.buffer, 10, 135)
+                love.graphics.print(': '..word, 10, 135)
             end
             for i, buffer in ipairs(self.bufferlist) do
                 love.graphics.setColor(0, 179/255, 0)
@@ -100,8 +102,35 @@ function love.keypressed(key, scancode, isrepeat)
     end
 end
 
+
+
+
+function SplitStringByLengths(str, firstLength, afterwardsLength)
+    local now = {}
+    local index = 1
+    local currentLength
+
+    if index <= firstLength then
+        currentLength = firstLength
+    else
+        currentLength = afterwardsLength
+    end
+
+    while index < #str do
+        local substring = str:sub(index, index+currentLength-1)
+        table.insert(now, substring)
+        index = index + currentLength
+        currentLength = afterwardsLength
+    end
+
+    return now
+end
+
+
+
 function CommandPanel:textinput(t)
     self.buffer = self.buffer .. t
+    self.now = SplitStringByLengths(self.buffer, 75, 78)
 end
 
 function CommandPanel:keypressed(key)
