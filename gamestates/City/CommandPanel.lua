@@ -95,8 +95,8 @@ function love.keypressed(key, scancode, isrepeat)
             else
                 CurrentPlace.CommandPanelWindow.open = true
             end   
-        end
-        if CurrentPlace.CommandPanelWindow.open == true then
+        end 
+        if CurrentPlace.CommandPanelWindow.open == true and key ~= "`" then
             CommandPanel:keypressed(key)
         end
     end
@@ -105,32 +105,21 @@ end
 
 
 
-function SplitStringByLengths(str, firstLength, afterwardsLength)
-    local now = {}
-    local index = 1
-    local currentLength
-
-    if index <= firstLength then
-        currentLength = firstLength
-    else
-        currentLength = afterwardsLength
-    end
-
-    while index < #str do
-        local substring = str:sub(index, index+currentLength-1)
-        table.insert(now, substring)
-        index = index + currentLength
-        currentLength = afterwardsLength
-    end
-
-    return now
-end
-
-
-
 function CommandPanel:textinput(t)
     self.buffer = self.buffer .. t
-    self.now = SplitStringByLengths(self.buffer, 75, 78)
+    if t ~= '`' then
+        if self.now[#self.now] ~= nil then
+            local bufferlength = Rtextfont:getWidth(self.now[#self.now])
+            local tlength = Rtextfont:getWidth(t)
+            if bufferlength + tlength >= 600 then
+                table.insert(self.now, t)
+            else
+                self.now[#self.now] =  self.now[#self.now] .. t
+            end
+        else
+            table.insert(self.now, t)
+        end
+    end
 end
 
 function CommandPanel:keypressed(key)
@@ -174,6 +163,11 @@ function CommandPanel:keypressed(key)
             self.buffer = ''
             end
             self.buffer = self.buffer:sub(1, -2)
+            if self.now[#self.now] ~= '' then
+                self.now[#self.now] = self.now[#self.now]:sub(1, -2)
+            else
+                table.remove(self.now, #self.now)
+            end
         end
     elseif key == "up" then
         if #self.histroy ~= 0 and self.index <= #self.histroy - 1 then
