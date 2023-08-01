@@ -140,19 +140,22 @@ function CommandPanel:keypressed(key)
                         local full = true
                         Buildtank(CurrentPlace, tkname, 'friendly', x, y, full)
                         table.insert(self.histroy, {buffer = self.buffer})
-                        self.menmery = self.buffer
+                        self.menmery = self.now[1]
                         self.buffer = ''
+                        self.now = {}
                         table.insert(self.bufferlist, {buffer = 'Buidtank aready! :>'})
                     else
                         table.insert(self.histroy, {buffer = self.buffer})
-                        self.menmery = self.buffer
+                        self.menmery = self.now[1]
                         self.buffer = ''
+                        self.now = {}
                         table.insert(self.bufferlist, {buffer = 'No such tank, please check if the name is entered correctly... :<'})
                     end
                 else
                     table.insert(self.histroy, {buffer = self.buffer})
-                    self.menmery = self.buffer
+                    self.menmery = self.now[1]
                     self.buffer = ''
+                    self.now = {}
                     table.insert(self.bufferlist, {buffer = 'That command does not exist!'})
                 end
             end
