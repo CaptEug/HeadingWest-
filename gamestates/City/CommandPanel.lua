@@ -127,7 +127,7 @@ function CommandPanel:keypressed(key)
         if self.buffer ~= nil then
             local b = {}
 
-            for str in string.gmatch(self.buffer, "[^,]+") do
+            for str in string.gmatch(self.buffer, "[^ ]+") do
                 table.insert(b, str)
             end
             if b[1] ~= nil then
