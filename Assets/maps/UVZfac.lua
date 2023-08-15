@@ -9,8 +9,8 @@ return {
   height = 100,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 14,
-  nextobjectid = 266,
+  nextlayerid = 16,
+  nextobjectid = 269,
   properties = {},
   tilesets = {
     {
@@ -45,6 +45,35 @@ return {
     }
   },
   layers = {
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 15,
+      name = "Boundary",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 266,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = -2560,
+          y = -2048,
+          width = 8704,
+          height = 7168,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
     {
       type = "objectgroup",
       draworder = "topdown",
