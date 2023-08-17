@@ -9,8 +9,8 @@ return {
   height = 100,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 14,
-  nextobjectid = 266,
+  nextlayerid = 16,
+  nextobjectid = 269,
   properties = {},
   tilesets = {
     {
@@ -45,6 +45,35 @@ return {
     }
   },
   layers = {
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 15,
+      name = "Boundary",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 266,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = -2560,
+          y = -2048,
+          width = 8704,
+          height = 7168,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
     {
       type = "objectgroup",
       draworder = "topdown",
@@ -1779,7 +1808,7 @@ return {
       id = 12,
       name = "Resource",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -6797,13 +6826,15 @@ return {
       id = 1,
       name = "Ground",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
       parallaxx = 1,
       parallaxy = 1,
-      properties = {},
+      properties = {
+        ["surface"] = "ground"
+      },
       encoding = "lua",
       chunks = {
         {
@@ -9274,7 +9305,7 @@ return {
       id = 8,
       name = "Coast water",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -10302,7 +10333,7 @@ return {
       id = 9,
       name = "Ocean water",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -12653,7 +12684,7 @@ return {
       id = 4,
       name = "Objects",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -12914,7 +12945,7 @@ return {
       id = 2,
       name = "Buildings",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -13186,7 +13217,7 @@ return {
       id = 3,
       name = "Ceiling",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
@@ -13458,7 +13489,7 @@ return {
       id = 6,
       name = "Roof",
       class = "",
-      visible = false,
+      visible = true,
       opacity = 1,
       offsetx = 0,
       offsety = 0,
