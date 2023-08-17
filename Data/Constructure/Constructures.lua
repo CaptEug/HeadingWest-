@@ -160,10 +160,10 @@ Constructures = {
     }
 }
 
-table.insert(Nizhny_Tagil.constructurelist, Constructures.OilDriller)
-table.insert(Nizhny_Tagil.constructurelist, Constructures.SteelForge)
-table.insert(Nizhny_Tagil.constructurelist, Constructures.OilStorage)
-table.insert(Nizhny_Tagil.constructurelist, Constructures.Pipe)
-table.insert(Nizhny_Tagil.constructurelist, Constructures.TankAssembler)
-table.insert(Nizhny_Tagil.constructurelist, Constructures.Maxim_Gorky)
+table.insert(TestField.constructurelist, Constructures.OilDriller)
+table.insert(TestField.constructurelist, Constructures.SteelForge)
+table.insert(TestField.constructurelist, Constructures.OilStorage)
+table.insert(TestField.constructurelist, Constructures.Pipe)
+table.insert(TestField.constructurelist, Constructures.TankAssembler)
+table.insert(TestField.constructurelist, Constructures.Maxim_Gorky)
 

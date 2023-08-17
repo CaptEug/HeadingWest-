@@ -190,7 +190,6 @@ function TableToString(table,tableName) --convert table to string
 end
 
 function NewSaving:LoadTanks()
-
     local tankdata = {}
     for citynumber, city in ipairs(SaveData.ExistTanks) do
         if city.cityName == CurrentPlace.name then
@@ -198,36 +197,68 @@ function NewSaving:LoadTanks()
             break
         end
     end
-    for tankNumber, data in ipairs(tankdata) do     --select tank
 
+    for tankNumber, data in ipairs(tankdata) do     --select tank
         local name = data.name
         local tank = {}
         local ammorack = {}
-        for i, t in pairs(Tanks) do                 --match default tank 
-            if t.name == name and t.accessories ~= nil then               --match accessories
-                tank = Tanks[i]
-                for i, armor in pairs(tank.accessories[1]) do
-                    if  data.armor==armor.name then
-                        tank.armor = copytable(armor)
-                        break
-                    end
-                end
-                for i, aim in pairs(tank.accessories[2]) do
-                    if  data.aim==aim.name then
-                        tank.aim = copytable(aim)
-                        break
-                    else
 
+        for i, t in pairs(Tanks) do                 --match default tank 
+            if t.name == name then
+                tank = Tanks[i]
+                if t.accessories ~= nil then                    --match accessories
+                    for i, armor in pairs(t.accessories[1]) do
+                        if  data.armor==armor.name then
+                            tank.armor = copytable(armor)
+                            break
+                        end
                     end
-                end
-                for i, mob in pairs(tank.accessories[3]) do
-                    if  data.mob==mob.name then
-                        tank.mob = copytable(mob)
-                        break
+                    for i, aim in pairs(t.accessories[2]) do
+                        if  data.aim==aim.name then
+                            tank.aim = copytable(aim)
+                            break
+                        else
+    
+                        end
+                    end
+                    for i, mob in pairs(t.accessories[3]) do
+                        if  data.mob==mob.name then
+                            tank.mob = copytable(mob)
+                            break
+                        end
                     end
                 end
             end
         end
+
+        for i, t in pairs(TDs) do                 --match default tank 
+            if t.name == name then
+                tank = TDs[i]
+                if t.accessories ~= nil then                    --match accessories
+                    for i, armor in pairs(t.accessories[1]) do
+                        if  data.armor==armor.name then
+                            tank.armor = copytable(armor)
+                            break
+                        end
+                    end
+                    for i, aim in pairs(t.accessories[2]) do
+                        if  data.aim==aim.name then
+                            tank.aim = copytable(aim)
+                            break
+                        else
+    
+                        end
+                    end
+                    for i, mob in pairs(t.accessories[3]) do
+                        if  data.mob==mob.name then
+                            tank.mob = copytable(mob)
+                            break
+                        end
+                    end
+                end
+            end
+        end
+
         for i, ammo in pairs(data.ammorack) do
             for j = 1, ammo.number, 1 do
                 local a = copytable(ammo)

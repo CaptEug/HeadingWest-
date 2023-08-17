@@ -1,15 +1,15 @@
-CityUI = {}
+ChapterUI = {}
 cityButtons = {}
-require 'gamestates/city/Console'
-require 'gamestates.city.CityInfoPanel'
-require 'gamestates/City/CommandPanel'
+require 'gamestates/Chapter/Console'
+require 'gamestates.Chapter.CityInfoPanel'
+require 'gamestates/Chapter/CommandPanel'
 require 'Data/Constructure/ConstractureInfoPanel'
 require 'Data/Tank/TankDesigner'
 require 'Data/Tank/TankInfoPanel'
-require 'gamestates/City/ResearchPanel'
+require 'gamestates/Chapter/ResearchPanel'
 require 'Data/Constructure/ConstructMenu'
 
-function CityUI:load()
+function ChapterUI:load()
     Console:load()
     TankInfoPanel:load()
     CityInfoPanel:load()
@@ -88,7 +88,7 @@ function CityUI:load()
     end
 end
 
-function CityUI:update(dt)
+function ChapterUI:update(dt)
     Console:update(dt)
     TankInfoPanel:update(dt)
     CityInfoPanel:update(dt)
@@ -103,7 +103,7 @@ function CityUI:update(dt)
     end
 end
 
-function CityUI:draw()
+function ChapterUI:draw()
     love.graphics.setFont(Rtextfont)
     love.graphics.draw(Steel_icon, ww-128)
     love.graphics.print(tostring(math.floor(CurrentPlace.steel_stored)), ww-96)

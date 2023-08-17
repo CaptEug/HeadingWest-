@@ -70,11 +70,6 @@ function Pause:draw()
     love.graphics.setFont(Rtextfont)
 end
 
-function love.keypressed(key)
-    if key == 'escape' and (Gamestate.current() == CurrentPlace or Gamestate.current()== Worldmap) then
-        return Gamestate.push(Pause)
-    end
-end
 
 function Pause:keypressed(key)
     if key == 'escape' then

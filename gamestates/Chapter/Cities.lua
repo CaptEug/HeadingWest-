@@ -4,7 +4,7 @@ City.__index = City
 
 --Cities
 --USSR
-Moskva = {}
+--[[Moskva = {}
 Moskva = Gamestate.new()
 Moskva.x = 1160
 Moskva.y = 580
@@ -27,7 +27,6 @@ Moskva.exsist_ship = {}
 Moskva.exsist_building = {}
 Moskva.Army = {}
 Moskva.broken_tank={}
-
 
 Nizhny_Tagil = {}
 Nizhny_Tagil = Gamestate.new()
@@ -59,47 +58,39 @@ Nizhny_Tagil.exsist_tank = {}
 Nizhny_Tagil.exsist_ship = {}
 Nizhny_Tagil.broken_tank = {}
 Nizhny_Tagil.exsist_building = {}
-Nizhny_Tagil.songlist = {}
+Nizhny_Tagil.songlist = {}]]
 
---[[Baku = {
-    x = 1220,
-    y = 700,
-    country = {USSR_flag},
-    name = 'Baku',
-    type = 'Normal',
-    factory = false,
-    labtory = true,
-    state ='Peace',
-    map = 2,
-    constructurelist = {},
-    exsist_tank={},
-    Army = {},
-    broken_tank={}
+TestField = {}
+TestField = Gamestate.new()
+TestField.x = 1467
+TestField.y = 884
+TestField.country = {}
+TestField.name = 'Test Field'
+TestField.type = 'Normal'
+TestField.state = 'Peace'
+TestField.oil_stored = 0
+TestField.steel_stored = 0
+TestField.oil_production = 0
+TestField.steel_production = 0
+TestField.tankfactory = {
+    name = 'Test Factory',
+    tanklist = {}
 }
-table.insert(Cities, Baku)]]
-
---German
-Berlin = {}
-Berlin = Gamestate.new()
-Berlin.x = 1035
-Berlin.y = 605
-Berlin.country = {}
-Berlin.name = 'Berlin'
-Berlin.type = 'Capital'
-Berlin.state = 'Battlefield'
-Berlin.oil_stored = 0
-Berlin.steel_stored = 0
-Berlin.oil_production = 0
-Berlin.steel_production = 0
-Berlin.map = sti("Assets/maps/checkpointC.lua")
-Berlin.world = wf.newWorld(0, 0)
-Berlin.Structure = {}
-Berlin.Obstacles = {}
-Berlin.exsist_tank = {}
-Berlin.exsist_ship = {}
-Berlin.Army = {}
-Berlin.broken_tank = {}
-Berlin.exsist_building = {}
+TestField.map = sti("Assets/maps/TestField.lua")
+TestField.world = wf.newWorld(0, 0)
+--map collider
+TestField.Structure = {}
+TestField.Obstacles = {}
+TestField.Coast = {}
+TestField.Ocean = {}
+TestField.Oil = {}
+TestField.constructurelist = {}
+TestField.Army = {}
+TestField.exsist_tank = {}
+TestField.exsist_ship = {}
+TestField.broken_tank = {}
+TestField.exsist_building = {}
+TestField.songlist = {}
 
 
 --RadioList
@@ -110,18 +101,14 @@ TestSonglist = {
 }
 
 function Cities:load()
-    Moskva.country = {USSR_flag}
-    setmetatable(Moskva, City)
-    table.insert(Cities, Moskva)
-    
-    Nizhny_Tagil.country = {USSR_flag}
+    TestField.country = {}
+    setmetatable(TestField, City)
+    table.insert(Cities, TestField)
+
+    --[[Nizhny_Tagil.country = {USSR_flag}
     Nizhny_Tagil.songlist = TestSonglist
     setmetatable(Nizhny_Tagil, City)
-    table.insert(Cities, Nizhny_Tagil)
-    
-    table.insert(Cities, Berlin)
-    setmetatable(Berlin, City)
-    Berlin.country = {USSR_flag, US_flag, UK_flag, FR_flag}
+    table.insert(Cities, Nizhny_Tagil)]]
 end
 
 function Cities:playRadio(songlist)
@@ -153,10 +140,10 @@ function City:init()
     self.world:addCollisionClass('Constructure')
     self.world:addCollisionClass('Oil',{ignores = {'ShipHull','TankHull'}})
     self:loadmap()
-    CityUI:load()
-    Buildtank(CurrentPlace, Tanks.M1, 'friendly', 0, 1000)
-    Buildtank(CurrentPlace, Tanks.M1, 'enemy', 1000, 1000)
-    Buildtank(CurrentPlace, TDs.XM8LOSAT, 'enemy', 1000, 100)
+    ChapterUI:load()
+    Buildtank(CurrentPlace, Tanks.M1, 'friendly', 1000, 1000)
+    Buildtank(CurrentPlace, Tanks.M1, 'enemy', 2000, 1000)
+    Buildtank(CurrentPlace, TDs.XM8LOSAT, 'enemy', 2200, 1000)
     --Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
     NewSaving:LoadTanks()
 end
@@ -178,7 +165,7 @@ function City:update(dt)
     Explosives:update(dt)
     Fragments:update(dt)
     Particles:update(dt)
-    CityUI:update(dt)
+    ChapterUI:update(dt)
     ResourceUpdate(self)
     --cam contral
     if cam.scale > 2 then
@@ -230,7 +217,7 @@ end
 
 function City:draw()
     self:drawWithoutUI()
-    CityUI:draw()
+    ChapterUI:draw()
 end
 
 function City:drawWithoutUI()
@@ -247,6 +234,12 @@ function City:drawWithoutUI()
         Particles:draw()
         Missiles:draw()
     cam:detach()
+end
+
+function City:keypressed(key)
+    if key == 'escape' then
+        return Gamestate.push(Pause)
+    end
 end
 
 function City:loadmap()

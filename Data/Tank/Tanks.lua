@@ -16,6 +16,7 @@ Tanks = {
         turret_offset = 0,
         image_offset = 0,
         gun_offset = 109,
+        gun_caliber = 125,
         engine_offset = -43,
         exhaust_offset = {x = -34, y = -34},
         exhaust_angle = math.pi,
@@ -53,7 +54,6 @@ Tanks = {
         turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_line.png'),
         turret_image_broken = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_Broken.png'),
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
-        gun_sound = BigGunOpenFire,
         accessories = {
         --armor
             {
@@ -117,6 +117,7 @@ Tanks = {
         turret_offset = 0,
         image_offset = 0,
         gun_offset = 109,
+        gun_caliber = 125,
         engine_offset = -43,
         exhaust_offset = {x = -34, y = -34},
         exhaust_angle = math.pi,
@@ -154,7 +155,6 @@ Tanks = {
         turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_Turret_line.png'),
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72b/T72B_firingsprite.png'),
-        gun_sound = BigGunOpenFire,
         accessories = {
             --armor
             {
@@ -242,6 +242,7 @@ Tanks = {
         turret_offset = 0,
         image_offset = 0,
         gun_offset = 109,
+        gun_caliber = 125,
         engine_offset = -43,
         exhaust_offset = {x = -34, y = -34},
         exhaust_angle = math.pi,
@@ -279,7 +280,6 @@ Tanks = {
         turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-90/T90_turret_line.png'),
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-90/T90_firingsprite.png'),
-        gun_sound = BigGunOpenFire,
         accessories = {
             --armor
             {
@@ -359,6 +359,7 @@ Tanks = {
         turret_offset = 0,
         image_offset = 9,
         gun_offset = 94,
+        gun_caliber = 120,
         engine_offset = -49,
         exhaust_offset = {x = 0, y = -78},
         exhaust_angle = math.pi/2,
@@ -391,7 +392,6 @@ Tanks = {
         hull_image_line = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_hull_line.png'),
         turret_image = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_turret.png'),
         turret_image_line = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_turret_line.png'),
-        gun_sound = BigGunOpenFire,
         accessories = {
         --armor
         {
@@ -450,6 +450,7 @@ Tanks = {
         turret_offset = 0,
         image_offset = 7,
         gun_offset = 94,
+        gun_caliber = 120,
         engine_offset = -49,
         exhaust_offset = {x = 0, y = -78},
         exhaust_angle = math.pi/2,
@@ -485,7 +486,6 @@ Tanks = {
         turret_image_line = love.graphics.newImage('Assets/tanks/usa/M1/M1_Turret_line.png'),
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/usa/M1/M1_firingsprite.png'),
-        gun_sound = BigGunOpenFire,
         accessories = {
             --armor
             {
@@ -536,6 +536,7 @@ IFVs = {
         turret_offset = 0,
         image_offset = -16,
         gun_offset = 57,
+        gun_caliber = 30,
         luncher_offset = {x = 7, y = -2},
         engine_offset = 40,
         exhaust_offset = {x = 27, y = 28},
@@ -557,8 +558,7 @@ IFVs = {
         missilerack_size = 4,
         ammunition = {
             {name = '3ubr8', type = 'APDS', pentype = 'KE', velocity = 1000, mass = 0.01, pen = 82},
-            {name = '9m113', type = 'ATGM', pentype = 'CE', velocity = 400, turningtorque = 120, mass = 0.5, pen = 500, TNT_eq = 4, pic = love.graphics.newImage('Assets/tanks/soviet/Weapons/9M113Konkurs.png')},
-            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6}
+            {name = '9m113', type = 'ATGM', pentype = 'CE', velocity = 400, turningtorque = 120, mass = 0.5, pen = 500, TNT_eq = 4, pic = love.graphics.newImage('Assets/tanks/soviet/Weapons/9M113Konkurs.png')}
         },
         armorthickness = {
             hull = {front = {50, 50}, side = {15, 15}, back = {16, 16}},
@@ -576,7 +576,6 @@ IFVs = {
         turret_image_line = love.graphics.newImage('Assets/tanks/soviet/BMP2/BMP2_Turret_line.png'),
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/soviet/BMP2/BMP2_firingsprite.png'),
-        gun_sound = AutoGunOpenFire,
         accessories = {
         --armor
             {
@@ -663,7 +662,6 @@ TDs = {
         turret_image_line = Image_in_progress,
         turret_image_broken = Blank_line,
         anime_sheet = love.graphics.newImage('Assets/tanks/usa/XM8/XM8_mgmTurret_anime.png'),
-        gun_sound = AutoGunOpenFire,
         accessories = {
         --armor
             {
@@ -900,10 +898,10 @@ Ships = {
     },
 }
 
-table.insert(Nizhny_Tagil.tankfactory.tanklist, Tanks.T72A)
-table.insert(Nizhny_Tagil.tankfactory.tanklist, Tanks.T72B)
-table.insert(Nizhny_Tagil.tankfactory.tanklist, Tanks.T90)
-table.insert(Nizhny_Tagil.tankfactory.tanklist, IFVs.BMP2)
-table.insert(Nizhny_Tagil.tankfactory.tanklist, SPGs.Pion2S7)
-table.insert(Nizhny_Tagil.tankfactory.tanklist, TDs.XM8LOSAT)
-table.insert(Nizhny_Tagil.tankfactory.tanklist, Tanks.M1)
+table.insert(TestField.tankfactory.tanklist, Tanks.T72A)
+table.insert(TestField.tankfactory.tanklist, Tanks.T72B)
+table.insert(TestField.tankfactory.tanklist, Tanks.T90)
+table.insert(TestField.tankfactory.tanklist, IFVs.BMP2)
+table.insert(TestField.tankfactory.tanklist, SPGs.Pion2S7)
+table.insert(TestField.tankfactory.tanklist, TDs.XM8LOSAT)
+table.insert(TestField.tankfactory.tanklist, Tanks.M1)

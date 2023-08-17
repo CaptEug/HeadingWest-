@@ -76,7 +76,7 @@ function WorldmapUI:draw()
     if cam.scale >= 1.5 then
         for i, city in ipairs(Cities) do
             if city.isopen then
-                local x, y = cam:cameraCoords(city.x - 25, city.y - 25)
+                local x, y = cam:cameraCoords(city.x , city.y)
                 city.Go.bx = x + 208
                 city.Go.by = y + 328
                 local headx = x + 16

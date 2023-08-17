@@ -37,7 +37,7 @@ function Shoot(unit,...)
         unit.firing_timer = unit.firing_time
         unit.reload_timer = unit.reload_time
 
-        unit.gun_sound:clone():play()
+        SoundSelect(unit)
     elseif unit.battery_location then
         for i, gun in ipairs(unit.gun) do
             local x, y = ...
@@ -62,7 +62,17 @@ function Shoot(unit,...)
             unit.firing_timer = unit.firing_time
             unit.reload_timer = unit.reload_time
 
+            SoundSelect(unit)
         end
+    end
+end
+
+function SoundSelect(unit)
+    if unit.gun_caliber >= 120 then
+        BigGunOpenFire:clone():play()
+    end
+    if unit.gun_caliber <= 40 then
+        AutoGunOpenFire:clone():play()
     end
 end
 
@@ -84,11 +94,11 @@ function TankProjectiles:update(dt)
             local collision_data = shell.collider:getEnterCollisionData('TankHull')
             local Target = collision_data.collider:getObject()
 
-            Sparkhere(sx, sy)
-
             if Target == shell.from then
                 break
             end
+
+            Sparkhere(sx, sy)
 
             if shell.type == 'HE' then
                 Explode(shell)

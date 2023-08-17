@@ -220,7 +220,7 @@ function Buttons:use()
         end
 
         if button.type == 4 then
-            local x, y = button.bx - button.w, button.by - button.h
+            local x, y = button.bx, button.by
             local scale = 1
             button.Hot = cmx>=x-button.w/(2*cam.scale) and cmx<=x+button.w/(2*cam.scale) and cmy>=y-button.h/(2*cam.scale) and cmy<=y+button.h/(2*cam.scale)
             button.last = button.now

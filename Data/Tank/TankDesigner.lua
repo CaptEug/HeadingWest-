@@ -232,7 +232,6 @@ end
 function TankDesigner:update(dt)
     --pageshown detection
     if TankDesigner.PageShown == 'Armor' then
-        CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].ammunition.isopen = false
         for i, accessory in ipairs(CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].accessories) do
             if i == 1 then
                 accessory.isopen = true
@@ -242,7 +241,6 @@ function TankDesigner:update(dt)
         end
     end
     if TankDesigner.PageShown == 'Aim' then
-        CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].ammunition.isopen = false
         for i, accessory in ipairs(CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].accessories) do
             if i == 2 then
                 accessory.isopen = true
@@ -252,7 +250,6 @@ function TankDesigner:update(dt)
         end
     end
     if TankDesigner.PageShown == 'Mob' then
-        CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].ammunition.isopen = false
         for i, accessory in ipairs(CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].accessories) do
             if i == 3 then
                 accessory.isopen = true
@@ -265,7 +262,6 @@ function TankDesigner:update(dt)
         for i, accessory in ipairs(CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].accessories) do
             accessory.isopen = false
         end
-        CurrentPlace.tankfactory.tanklist[TankDesigner.tankindex].ammunition.isopen = true
     end
     --resource check
     if CurrentPlace.steel_stored < TankDesigner.tank_steel_cost or CurrentPlace.oil_stored < TankDesigner.tank_oil_cost then
@@ -327,7 +323,7 @@ function TankDesigner:draw()
                 end
             end
 
-            if TankPresent.ammunition.isopen then
+            if TankDesigner.PageShown == 'Ammo' then
                 TankPresent.ammunition.AButtons:use()
                 love.graphics.setColor(0,179/255,0)
                 --[[if TankChoosen.ammorack_size then
