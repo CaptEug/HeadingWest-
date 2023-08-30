@@ -2,7 +2,8 @@ Worldmap = {}
 Worldmap = Gamestate.new()
 
 require 'gamestates/Worldmap/WorldmapUI'
-require 'gamestates.Chapter.Cities'
+require 'Data.City.Cities'
+require 'Data.City.Cityfunction'
 require 'Data.Tank.Tanks'
 require 'Data.Ship.Ships'
 require 'Data.Tank.Tankfunctions'
