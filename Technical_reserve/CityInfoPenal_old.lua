@@ -38,7 +38,9 @@ function PanelOlid:load()
         PanelOlid.window,
         CurrentPlace.Army.AButtons
     )
+    
 end
+
 
 function PanelOlid:update(dt)
     for i, division in ipairs(CurrentPlace.Army) do
