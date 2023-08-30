@@ -19,7 +19,7 @@ require 'gamestates/mainmenu'
 require 'gamestates/pause'
 require 'gamestates.Worldmap.Worldmap'
 require 'gamestates/SettingMenu'
-
+require 'Data/Constructure/MapInfo'
 require 'Data/Constructure/ConstructManager'
 
 --Assets registered
