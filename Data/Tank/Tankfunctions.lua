@@ -13,6 +13,8 @@ function Buildtank(place, tank, type, x, y, full, ...)
         weight = tank.weight,
         crew = tank.crew,
         survivor = tank.crew,
+        hp = tank.hp,
+        hp_max = tank.hp,
         reload_time = tank.reload_time,
         reload_timer = tank.reload_time,
         m_reload_time = tank.m_reload_time or nil,

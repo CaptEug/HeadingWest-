@@ -86,6 +86,9 @@ function TankInfoPanel:draw()
                 love.graphics.setFont(Rtextfont)
                 love.graphics.setColor(0,179/255,0)
                 love.graphics.print(TankChoosen.name..' No.'..TankChoosen.number, 0 + 4, 0 + 4)
+                love.graphics.print('HP', 4, 24)
+                love.graphics.rectangle("line", 30, 28, 128, 8)
+                love.graphics.rectangle("fill", 32, 30, 124*(TankChoosen.hp/TankChoosen.hp_max), 4)
                 love.graphics.print('Speed: '..string.format("%.1f", TankChoosen.velocity.v/5)..' km/h', 0 + 4, 0 + 332)
                 if TankChoosen.reload_timer then
                     if TankChoosen.reload_timer >= 0 then

@@ -22,6 +22,7 @@ Tanks = {
         exhaust_angle = math.pi,
         weight = 41.5,
         crew = 3,
+        hp = 1500,
         max_f_speed = 60,
         max_r_speed = -4,
         turret_t_speed = 25,
@@ -34,9 +35,9 @@ Tanks = {
         fuel_cosumption = 3.5,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 415},
-            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
-            {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
+            {name = '3bm22', type = 'APFSDS', pentype = 'KE', dmg = 35, velocity = 1700, mass = 0.1, pen = 415},
+            {name = '3of26', type = 'HE', pentype = 'CE', dmg = 200, velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
+            {name = '3bk18', type = 'HEAT', pentype = 'CE', dmg = 120, velocity = 950, mass = 0.1, pen = 550}
         },
         armorthickness = {
             hull = {front = {330, 450}, side = {80, 80}, back = {50, 50}},
@@ -123,6 +124,7 @@ Tanks = {
         exhaust_angle = math.pi,
         weight = 44.5,
         crew = 3,
+        hp = 1500,
         max_f_speed = 60,
         max_r_speed = -4,
         turret_t_speed = 25,
@@ -135,9 +137,9 @@ Tanks = {
         fuel_cosumption = 3.8,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm42', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 457},
-            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
-            {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
+            {name = '3bm42', type = 'APFSDS', pentype = 'KE', dmg = 40, velocity = 1700, mass = 0.1, pen = 457},
+            {name = '3of26', type = 'HE', pentype = 'CE', dmg = 200, velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
+            {name = '3bk18', type = 'HEAT', pentype = 'CE', dmg = 120, velocity = 950, mass = 0.1, pen = 550}
         },
         armorthickness = {
             hull = {front = {500, 600}, side = {80, 80}, back = {50, 50}},
@@ -248,6 +250,7 @@ Tanks = {
         exhaust_angle = math.pi,
         weight = 46,
         crew = 3,
+        hp = 1700,
         max_f_speed = 60,
         max_r_speed = -4,
         turret_t_speed = 25,
@@ -260,9 +263,9 @@ Tanks = {
         fuel_cosumption = 3.8,
         ammorack_size = 40,
         ammunition = {
-            {name = '3bm42', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 457},
-            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
-            {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
+            {name = '3bm42', type = 'APFSDS', pentype = 'KE', dmg = 40, velocity = 1700, mass = 0.1, pen = 457},
+            {name = '3of26', type = 'HE', pentype = 'CE', dmg = 200, velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
+            {name = '3bk18', type = 'HEAT', pentype = 'CE', dmg = 120, velocity = 950, mass = 0.1, pen = 550}
         },
         armorthickness = {
             hull = {front = {500, 600}, side = {80, 80}, back = {50, 50}},
@@ -365,6 +368,7 @@ Tanks = {
         exhaust_angle = math.pi/2,
         weight = 60,
         crew = 4,
+        hp = 1800,
         max_f_speed = 72,
         max_r_speed = 38,
         turret_t_speed = 35,
@@ -377,7 +381,7 @@ Tanks = {
         fuel_cosumption = 4.5,
         ammorack_size = 40,
         ammunition = {
-            {name = 'DM53', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 652},
+            {name = 'DM53', type = 'APFSDS', pentype = 'KE', dmg = 30, velocity = 1700, mass = 0.1, pen = 652},
         },
         armorthickness = {
             hull = {front = {400, 750}, side = {60, 60}, back = {30, 30}},
@@ -456,6 +460,7 @@ Tanks = {
         exhaust_angle = math.pi/2,
         weight = 55,
         crew = 4,
+        hp = 1800,
         max_f_speed = 72,
         max_r_speed = 38,
         turret_t_speed = 35,
@@ -468,7 +473,7 @@ Tanks = {
         fuel_cosumption = 4.5,
         ammorack_size = 40,
         ammunition = {
-            {name = 'M900', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 530},
+            {name = 'M900', dmg = 30, type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 530},
         },
         armorthickness = {
             hull = {front = {400, 750}, side = {60, 60}, back = {30, 30}},
@@ -543,6 +548,7 @@ IFVs = {
         exhaust_angle = 0,
         weight = 14,
         crew = 3,
+        hp = 100,
         max_f_speed = 65,
         max_r_speed = -10,
         turret_t_speed = 50,
@@ -557,8 +563,8 @@ IFVs = {
         ammorack_size = 500,
         missilerack_size = 4,
         ammunition = {
-            {name = '3ubr8', type = 'APDS', pentype = 'KE', velocity = 1000, mass = 0.01, pen = 82},
-            {name = '9m113', type = 'ATGM', pentype = 'CE', velocity = 400, turningtorque = 120, mass = 0.5, pen = 500, TNT_eq = 4, pic = love.graphics.newImage('Assets/tanks/soviet/Weapons/9M113Konkurs.png')}
+            {name = '3ubr8', type = 'APDS', pentype = 'KE', dmg = 10, velocity = 1000, mass = 0.01, pen = 82},
+            {name = '9m113', type = 'ATGM', pentype = 'CE', dmg = 200, velocity = 400, turningtorque = 120, mass = 0.5, pen = 500, TNT_eq = 4, pic = love.graphics.newImage('Assets/tanks/soviet/Weapons/9M113Konkurs.png')}
         },
         armorthickness = {
             hull = {front = {50, 50}, side = {15, 15}, back = {16, 16}},
@@ -631,6 +637,7 @@ TDs = {
         exhaust_angle = math.pi/2,
         weight = 18,
         crew = 3,
+        hp = 150,
         max_f_speed = 65,
         max_r_speed = -10,
         turret_t_speed = 30,
@@ -644,7 +651,7 @@ TDs = {
         fuel_cosumption = 0.8,
         missilerack_size = 12,
         ammunition = {
-            {name = 'mgm_166', type = 'ATGM', pentype = 'KE', velocity = 1000, turningtorque = 50, mass = 0.5, pen = 700, TNT_eq = 0, pic = love.graphics.newImage('Assets/tanks/usa/weapons/MGM_166.png')},
+            {name = 'mgm_166', type = 'ATGM', pentype = 'KE', dmg = 150, velocity = 1000, turningtorque = 50, mass = 0.5, pen = 700, TNT_eq = 0, pic = love.graphics.newImage('Assets/tanks/usa/weapons/MGM_166.png')},
         },
         armorthickness = {
             hull = {front = {50, 50}, side = {15, 15}, back = {16, 16}},
@@ -719,6 +726,7 @@ SPGs = {
         exhaust_angle2 = 0,
         weight = 46.5,
         crew = 6,
+        hp = 200,
         max_f_speed = 50,
         max_r_speed = -50,
         turret_t_speed = 7,
@@ -733,7 +741,7 @@ SPGs = {
         fuel_cosumption = 3.8,
         ammorack_size = 40,
         ammunition = {
-        {name = '203mmHE', type = 'HE', pentype = 'CE', velocity = 960, mass = 0.2, pen = 203, TNT_eq = 27}
+        {name = '203mmHE', type = 'HE', pentype = 'CE', dmg = 1200, velocity = 960, mass = 0.2, pen = 203, TNT_eq = 27}
         },
         armorthickness = {
         hull = {front = {10, 10}, side = {10, 10}, back = {10, 10}},
@@ -792,111 +800,6 @@ SPGs = {
 }
 
 
-
-Ships = {
-    --USA
-    Montana = {
-        name = 'Montana',
-        class = 'ship',
-        width = 64, 
-        length = 127,
-        image_offset = 0,
-        gun_offset = 150,
-        main_turret_number = 2,
-        main_turret_offset = {{0, 34},{0, -34}},
-        engine_offset = -43,
-        exhaust_offset = {x = -34, y = -34},
-        exhaust_angle = math.pi,
-        weight = 41.5,
-        crew = 3,
-        max_f_speed = 60,
-        max_r_speed = -4,
-        turret_t_speed = 25,
-        vision = 600,
-        steel_cost = 7,
-        oil_cost = 3,
-        reload_time = 7,
-        firing_time = 0.7,
-        fuel_capacity = 12,
-        fuel_cosumption = 3.5,
-        ammorack_size = 40,
-        ammunition = {
-            {name = '3bm22', type = 'APFSDS', pentype = 'KE', velocity = 1700, mass = 0.1, pen = 415},
-            {name = '3of26', type = 'HE', pentype = 'CE', velocity = 850, mass = 0.1, pen = 65, TNT_eq = 6},
-            {name = '3bk18', type = 'HEAT', pentype = 'CE', velocity = 950, mass = 0.1, pen = 550}
-        },
-        armorthickness = {
-            hull = {front = {330, 450}, side = {80, 80}, back = {50, 50}},
-            turret = {front = {500, 550}, side = {300, 300}, back = {70, 70}}
-        },
-        innerstructure = {
-            htl = 0.7,
-            hull = {crew = 0.5, ammo = 0.4, engine = 0.3, fuel = 0.5},
-            turret = {crew = 0.7, ammo = 0, engine = 0, fuel = 0}
-        },
-        hull_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull.png'),
-        hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull_line.png'),
-        hull_image_broken = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Hull_Broken.png'),
-        turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret.png'),
-        turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_line.png'),
-        turret_image_broken = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_Turret_Broken.png'),
-        anime_sheet = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_firingsprite.png'),
-        gun_sound = BigGunOpenFire,
-        accessories = {
-        --armor
-            {
-                {
-                    name = 'BASE_ARMOR',
-                    steel_cost = 0,
-                    oil_cost = 0,
-                    armorthickness = {
-                        hull = {front = {0, 0}, side = {0, 0}, back = {0, 0}},
-                        turret = {front = {0, 0}, side = {0, 0}, back = {0, 0}}
-                    },
-                    hull_image = Blank_line,
-                    hull_image_line = Blank_line,
-                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret.png'),
-                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_smokegernade_turret_line.png'),
-                    tag = 'Armor',
-                    type = 'Coposit'
-                },
-                {
-                    name = 'Kontakt_1',
-                    steel_cost = 1,
-                    oil_cost = 0,
-                    armorthickness = {
-                        hull = {front = {5, 400}, side = {5, 400}, back = {0, 0}},
-                        turret = {front = {5, 400}, side = {5, 400}, back = {0, 0}}
-                    },
-                    hull_image =love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_hull.png'),
-                    hull_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_hull_line.png'),
-                    turret_image = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_turret.png'),
-                    turret_image_line = love.graphics.newImage('Assets/tanks/soviet/T-72a/T72A_kontakt1_turret_line.png'),
-                    tag = 'Armor',
-                    type = 'ERA',
-                    life = 3
-                },
-            },
-            --aim
-            {
-                Blank_Gear
-            },
-            --mob
-            {
-                {
-                    name = 'V_46',
-                    steel_cost = 0,
-                    oil_cost = 0,
-                    line_image = Blank_line,
-                    hp = 780,
-                    tag = 'Mob'
-                }
-            }
-        },
-        buildtime = 2,
-        fixedbuildtime = 2
-    },
-}
 
 table.insert(TestField.tankfactory.tanklist, Tanks.T72A)
 table.insert(TestField.tankfactory.tanklist, Tanks.T72B)

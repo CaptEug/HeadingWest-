@@ -12,6 +12,9 @@ function BuildConstructure(place, constructure, type, x, y)
         collision = constructure.collision,
         length = constructure.length,
         vision = constructure.vision,
+        hp = constructure.hp,
+        hp_max = constructure.hp,
+        armorthickness = constructure.armorthickness,
         preBuild = constructure.preBuild,
         image = constructure.image,
         base_image = constructure.base_image,
@@ -26,7 +29,6 @@ function BuildConstructure(place, constructure, type, x, y)
         if constructure.slot ~= nil then
             building.slot = constructure.slot
         end
-
     end
     if building.class == 'defence' then
         building.gun_offset = constructure.gun_offset or nil
@@ -53,8 +55,6 @@ function BuildConstructure(place, constructure, type, x, y)
         building.oil_storage = constructure.oil_storage
         building.steel_stored = constructure.steel_stored
         building.oil_stored = constructure.oil_stored
-        building.hitpoint = constructure.hitpoint
-        building.armorthickness = constructure.armorthickness
     end
     Steel = Steel - constructure.steel_cost
     Oil = Oil - constructure.oil_cost
