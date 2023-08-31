@@ -15,7 +15,8 @@ function MapInfo:Init()
             local row = {}
             local chunkData = 
             {
-                type = 'ground'
+                type = 'ground';
+                occupied = false
             }
             for j = 1, num_y, 1 do
                 table.insert(row, chunkData)
@@ -25,5 +26,3 @@ function MapInfo:Init()
     end
     return dots
 end
-
-
