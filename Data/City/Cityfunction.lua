@@ -43,12 +43,12 @@ function City:init()
     self.world:addCollisionClass('Oil',{ignores = {'ShipHull','TankHull'}})
     self:loadmap()
     ChapterUI:load()
-    MAP = MapInfo:Init()
     Buildtank(CurrentPlace, Tanks.M1, 'friendly', 1000, 1000)
     Buildtank(CurrentPlace, Tanks.M1, 'enemy', 2000, 1000)
     Buildtank(CurrentPlace, TDs.XM8LOSAT, 'enemy', 2200, 1000)
     --Buildship(CurrentPlace, Ships.Montana,'friendly', 3000, 0)
     NewSaving:LoadTanks()
+    MAP = MapInfo:Init()
 end
 
 function City:LocationDiscretize()
