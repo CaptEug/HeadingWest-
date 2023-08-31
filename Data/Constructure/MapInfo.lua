@@ -1,21 +1,29 @@
 MapInfo = {};
-MapInfo.type = {}
-MapInfo.size = {}
-MapInfo.chunks = {}
 
 function MapInfo:Init()
+    local dots = {}
+    dots.type = {}
+    dots.size = {}
+    dots.chunks = {}
     if CurrentPlace.map.layers['Boundary'] then
-        self.size.x, self.size.y = CurrentPlace.map.layers['Boundary'].objects[1].width, CurrentPlace.map.layers['Boundary'].objects[1].height
-        local num_x = self.size.x / 32
-        local num_y = self.size.y / 32
+        local place = CurrentPlace.map.layers['Boundary']
+        dots.size.x, dots.size.y = place.objects[1].width, place.objects[1].height
+        local num_x = dots.size.x / 32
+        local num_y = dots.size.y / 32
+        dots.name = place.name
         for i = 1, num_x, 1 do
             local row = {}
-            local a = 1
+            local chunkData = 
+            {
+                type = 'ground'
+            }
             for j = 1, num_y, 1 do
-                table.insert(row, a)
+                table.insert(row, chunkData)
             end
-            table.insert(self.chunks, row)
+            table.insert(dots.chunks, row)
         end
     end
-    return self.chunks
+    return dots
 end
+
+
