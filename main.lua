@@ -4,7 +4,7 @@ love.graphics.setDefaultFilter('nearest', 'nearest')
 Camera = require 'libraries.utilities.camera'
 cam = Camera()
 Gamestate = require "libraries.utilities.gamestate"
-sti = z 'libraries/sti'
+sti = require 'libraries/sti'
 wf = require 'libraries/windfield'
 anim8 = require 'libraries/utilities/anim8'
 require 'libraries/utilities/CGplayer'
