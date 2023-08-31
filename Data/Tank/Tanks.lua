@@ -389,7 +389,7 @@ Tanks = {
         },
         innerstructure = {
             htl = 0.6,
-            hull = {crew = 0.5, ammo = 0, engine = 0.4, fuel = 0.4},
+            hull = {crew = 0.4, ammo = 0, engine = 0.4, fuel = 0.4},
             turret = {crew = 0.6, ammo = 0.3, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/german/Leopard2/Leopard2A4_hull.png'),
@@ -481,7 +481,7 @@ Tanks = {
         },
         innerstructure = {
             htl = 0.6,
-            hull = {crew = 0.5, ammo = 0, engine = 0.4, fuel = 0.4},
+            hull = {crew = 0.4, ammo = 0, engine = 0.4, fuel = 0.4},
             turret = {crew = 0.6, ammo = 0.3, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/usa/M1/M1_Hull.png'),
@@ -572,8 +572,8 @@ IFVs = {
         },
         innerstructure = {
             htl = 0.8,
-            hull = {crew = 0.5, ammo = 0.4, engine = 0.3, fuel = 0.5},
-            turret = {crew = 0.7, ammo = 0.1, engine = 0, fuel = 0}
+            hull = {crew = 0.4, ammo = 0.4, engine = 0.3, fuel = 0.5},
+            turret = {crew = 0.6, ammo = 0.1, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/BMP2/BMP2_Hull.png'),
         hull_image_line = love.graphics.newImage('Assets/tanks/soviet/BMP2/BMP2_Hull_line.png'),
@@ -659,8 +659,8 @@ TDs = {
         },
         innerstructure = {
             htl = 0.8,
-            hull = {crew = 0.5, ammo = 0.4, engine = 0.3, fuel = 0.5},
-            turret = {crew = 0.7, ammo = 0.1, engine = 0, fuel = 0}
+            hull = {crew = 0.4, ammo = 0.4, engine = 0.3, fuel = 0.5},
+            turret = {crew = 0.6, ammo = 0.1, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/usa/XM8/XM8_Hull.png'),
         hull_image_line = Image_in_progress,
@@ -749,7 +749,7 @@ SPGs = {
         },
         innerstructure = {
         htl = 0.8,
-        hull = {crew = 0.7, ammo = 0.2, engine = 0.5, fuel = 0.5},
+        hull = {crew = 0.6, ammo = 0.2, engine = 0.5, fuel = 0.5},
         turret = {crew = 0, ammo = 0, engine = 0, fuel = 0}
         },
         hull_image = love.graphics.newImage('Assets/tanks/soviet/2S7/2S7_Hull.png'),

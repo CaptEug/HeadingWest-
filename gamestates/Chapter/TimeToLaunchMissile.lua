@@ -17,6 +17,7 @@ function LaunchMissile(unit, target)
     missile.velocity = instance.velocity
     missile.turningtorque = instance.turningtorque
     missile.type = instance.type
+    missile.dmg = instance.dmg
     missile.pen = instance.pen
     missile.pentype = instance.pentype
     missile.TNT_eq = instance.TNT_eq
@@ -56,6 +57,8 @@ function Missiles:update(dt)
             if Target == missile.from then
                 break
             end
+
+            Target.hp = Target.hp - missile.dmg
 
             local ricochet, hitPart, hitArmorside, angle = RicochetCheck(missile, Target)
             local ispen = PenCheck(missile, Target, hitPart, hitArmorside, angle)
