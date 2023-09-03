@@ -17,7 +17,8 @@ function MapInfo:Init()
             local chunkData = 
             {
                 type = 'ground';
-                occupied = false
+                occupied = false;
+                name = 'grass';
             }
             for j = 1, num_y, 1 do
                 table.insert(row, chunkData)
@@ -30,6 +31,27 @@ function MapInfo:Init()
     return dots
 end
 
-function MapInfo:ModifyMap()
-    
+function MapInfo:FindChunk(x, y)
+    local numX = x / 32
+    local numY = y / 32
+    return MAP[numX][numY]
+end
+
+function MapInfo:getInfo(x, y)
+    local chunk = self:FindChunk(x, y)
+    return chunk
+end
+
+function MapInfo:Occupy(x, y, object)
+    local numX = x / 32
+    local numY = y / 32
+    local width = object.w / 32
+    local height = object.h / 32
+    if object.type == 'Rectangle' then
+        for i = 0, width - 1, 1 do
+            for j = 0, height - 1, 1 do
+                MAP[numX + i][numY + j].occupied = true
+            end
+        end 
+    end
 end
