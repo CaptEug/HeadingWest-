@@ -483,7 +483,7 @@ function Tank:CheckStatus(i, dt)
         self.particles.enginesmoke:stop()
     end
 
-    if self.survivor <= 0 then
+    if self.survivor <= 0 or self.hp <= 0 then
         table.insert(CurrentPlace.broken_tank, table.remove(CurrentPlace.exsist_tank, i))
     end
 

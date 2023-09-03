@@ -27,6 +27,7 @@ function Shoot(unit,...)
         shell.collider:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
         shell.from = unit
         shell.life = 10
+        shell.dmg = round.dmg
         shell.type = round.type
         shell.pen = round.pen
         shell.pentype = round.pentype
@@ -53,6 +54,7 @@ function Shoot(unit,...)
             shell.collider:applyLinearImpulse(ix*round.velocity/2, iy*round.velocity/2)
             shell.from = tank
             shell.life = 10
+            shell.dmg = round.dmg
             shell.type = round.type
             shell.pen = round.pen
             shell.pentype = round.pentype
@@ -100,6 +102,7 @@ function TankProjectiles:update(dt)
 
             Sparkhere(sx, sy)
 
+            Target.hp = Target.hp - shell.dmg
             if shell.type == 'HE' then
                 Explode(shell)
                 shell.collider:destroy()
