@@ -6,6 +6,7 @@ function MapInfo:Init()
     dots.size = {}
     dots.chunks = {}
     if CurrentPlace.map.layers['Boundary'] then
+        NoBoundary = false
         local place = CurrentPlace.map.layers['Boundary']
         dots.size.x, dots.size.y = place.objects[1].width, place.objects[1].height
         local num_x = dots.size.x / 32
@@ -22,7 +23,13 @@ function MapInfo:Init()
                 table.insert(row, chunkData)
             end
             table.insert(dots.chunks, row)
-        end
+        end    
+    else
+        NoBoundary = true
     end
     return dots
+end
+
+function MapInfo:ModifyMap()
+    
 end
