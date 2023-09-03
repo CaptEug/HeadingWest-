@@ -42,7 +42,7 @@ function MapInfo:getInfo(x, y)
     return chunk
 end
 
-function MapInfo:Occupy(x, y, object)
+function MapInfo:Occupy(x, y, object, status)
     local numX = x / 32
     local numY = y / 32
     local width = object.w / 32
@@ -50,8 +50,10 @@ function MapInfo:Occupy(x, y, object)
     if object.type == 'Rectangle' then
         for i = 0, width - 1, 1 do
             for j = 0, height - 1, 1 do
-                MAP[numX + i][numY + j].occupied = true
+                MAP[numX + i][numY + j].occupied = status
             end
-        end 
+        end
+    else
+
     end
 end
