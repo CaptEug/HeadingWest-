@@ -10,6 +10,7 @@ Constructures = {
         preBuild = {
             width = 128,
             length = 128,
+            shape = 'Rectangle'
         },
         vision = 200,
         steel_cost = 20,
@@ -36,6 +37,7 @@ Constructures = {
         preBuild = {
             width = 128,
             length = 128,
+            shape = 'Rectangle'
         },
         vision = 200,
         steel_cost = 20,
@@ -62,6 +64,7 @@ Constructures = {
         preBuild = {
             width = 64,
             length = 192,
+            shape = 'Rectangle'
         },
         steel_cost = 20,
         oil_cost = 0,
@@ -85,6 +88,7 @@ Constructures = {
         preBuild = {
             width = 32,
             length = 32,
+            shape = 'Rectangle'
         },
         vision = 0,
         steel_cost = 1,
@@ -109,6 +113,7 @@ Constructures = {
         preBuild = {
             width = 544,
             length = 544,
+            shape = 'Rectangle'
         },
         vision = 1800,
         turret_offset = {x = 144, y = 144},
@@ -143,7 +148,8 @@ Constructures = {
         length = 192,
         preBuild = {
             width = 128,
-            length = 192
+            length = 192,
+            shape = 'Rectangle'
         },
         vision = 0,
         steel_cost = 1,

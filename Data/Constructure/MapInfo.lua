@@ -47,7 +47,7 @@ function MapInfo:Occupy(x, y, object, status)
     local numY = y / 32
     local width = object.w / 32
     local height = object.h / 32
-    if object.type == 'Rectangle' then
+    if object.preBuild.type == 'Rectangle' then
         for i = 0, width - 1, 1 do
             for j = 0, height - 1, 1 do
                 MAP[numX + i][numY + j].occupied = status
