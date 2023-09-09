@@ -45,12 +45,12 @@ end
 function MapInfo:Occupy(x, y, object, status)
     local numX = x / 32
     local numY = y / 32
-    local width = object.w / 32
-    local height = object.h / 32
-    if object.preBuild.type == 'Rectangle' then
+    local width = object.preBuild.width / 32
+    local height = object.preBuild.length / 32
+    if object.preBuild.shape == 'Rectangle' then
         for i = 0, width - 1, 1 do
             for j = 0, height - 1, 1 do
-                MAP[numX + i][numY + j].occupied = status
+                MAP.chunks[numX + i][numY + j].occupied = status
             end
         end
     else

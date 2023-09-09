@@ -118,5 +118,6 @@ function BuildDetact(button)
         local imagewidth = ConstructureSelected.image:getWidth()
         building.x, building.y = x, y
         BuildConstructure(CurrentPlace, building, 'friendly', building.x, building.y)
+        MapInfo:Occupy(x, y, building, true)
     end
 end

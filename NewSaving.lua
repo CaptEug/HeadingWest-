@@ -80,7 +80,7 @@ function NewSaving:Save(Number)
     }
 
     filedata.ExistTanks = self:SaveTanks()
-    --love.filesystem.write("MAP.lua", TableToString(MAP, "Map"))           ---view contains in dotMap
+    love.filesystem.write("MAP.lua", TableToString(MAP, "Map"))           ---view contains in dotMap
     love.filesystem.write(filename,TableToString(filedata,"SaveData"))
 end
 
