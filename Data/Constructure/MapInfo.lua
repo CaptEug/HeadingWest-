@@ -48,8 +48,8 @@ function MapInfo:Occupy(x, y, object, status)
     local width = object.preBuild.width / 32
     local height = object.preBuild.length / 32
     if object.preBuild.shape == 'Rectangle' then
-        for i = 0, width - 1, 1 do
-            for j = 0, height - 1, 1 do
+        for i = 1, width, 1 do
+            for j = 1, height, 1 do
                 MAP.chunks[numX + i][numY + j].occupied = status
             end
         end
