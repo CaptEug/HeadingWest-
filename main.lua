@@ -186,6 +186,8 @@ function CamMovement()
     end
 end
 
+
+
 function DrawEarth()
     love.graphics.draw(Earth, 0, 0)
     love.graphics.draw(Earth, Worldw, 0)
